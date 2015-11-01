@@ -1,11 +1,11 @@
 module MetricTypes
 
-alias UnitName = str;
+alias UnitLocation = loc;
 alias CodeFragment = str;
 alias LOC = int;
 alias CC = int;
 
-data Unit = unit(UnitName unitName, CodeFragment codeFragment);
+data Unit = unit(UnitLocation location, CodeFragment codeFragment, LOC linesOfCode);
 
 data ComplexityRiskEvaluation = simple() | moreComplex() | complex() | untestable();
 data Rank = plusPlus() | plus() | neutral() | minus() | minusMinus();

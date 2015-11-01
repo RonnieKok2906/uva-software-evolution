@@ -5,10 +5,10 @@ import MetricTypes;
 //Complexity Conversion functions
 
 //Conversion from Cyclomatic Complexity to an enumerated Risk Evaluation
-private ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = untestable() when c > 50;
-private ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = complex() when c > 20 && c <= 50;
-private ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = moreComplex() when c > 10 && c <= 20;
-private default ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = simple();
+public ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = untestable() when c > 50;
+public ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = complex() when c > 20 && c <= 50;
+public ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = moreComplex() when c > 10 && c <= 20;
+public default ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = simple();
 
 test bool convertCCToSimple1() = all(x <- [-1..11], convertCCToComplexityRiskEvalutation(x) == simple());
 test bool convertCCToMoreComplex() = all(x <- [11..21], convertCCToComplexityRiskEvalutation(x) == moreComplex());
@@ -17,19 +17,19 @@ test bool convertCCToUntestable() = all(x <- [51..100], convertCCToComplexityRis
 
 
 //Conversion from a complexity risk pie to an enumerated Rank
-private Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = minusMinus() 
+public Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = minusMinus() 
 	when pie[moreComplex()] > 0.5 || pie[complex()] > 0.15 || pie[untestable()] > 0.05;
 	
-private Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = minus() 
+public Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = minus() 
 	when pie[moreComplex()] > 0.4 || pie[complex()] > 0.10 || pie[untestable()] > 0.0;
 	
-private Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = neutral() 
+public Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = neutral() 
 	when pie[moreComplex()] > 0.3 || pie[complex()] > 0.05 || pie[untestable()] > 0.0;
 	
-private Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = plus() 
+public Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = plus() 
 	when pie[moreComplex()] > 0.25 || pie[complex()] > 0.0 || pie[untestable()] > 0.0;
 	
-private default Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = plusPlus();
+public default Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = plusPlus();
 
 
 test bool convertPieToPlusPlus() = all(

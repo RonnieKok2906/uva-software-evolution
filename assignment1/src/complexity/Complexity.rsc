@@ -1,18 +1,18 @@
 module complexity::Complexity
 
-import List;
+import Set;
 import util::Math;
 
 import MetricTypes;
 import Conversion;
-import volume::Volume;
+import unitSize::UnitSize;
 import complexity::ComplexityConversion;
 
 //Public Functions
 
 public Rank projectComplexity(loc project)
 {
-	list[Unit] units = projectUnits(project);
+	set[Unit] units = projectUnits(project);
 
 	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
 	
@@ -21,7 +21,7 @@ public Rank projectComplexity(loc project)
 
 //Private Functions
 
-private ComplexityRiskEvaluation complexityRiskFornit(Unit unit)
+private ComplexityRiskEvaluation complexityRiskForUnit(Unit unit)
 {
 	CC cc = cyclomaticComplexityForUnit(unit);
 	
@@ -34,16 +34,9 @@ private CC cyclomaticComplexityForUnit(Unit unit)
 	return 0;
 }
 
-//TODO: Create tests;
-private LOC numberOfLines(CodeFragment codeFragment) = size(split("\n", codeFragment));
-
-
-//TODO: Create test;
-private LOC numberOfLines(Unit unit) = numberOfLines(unit.codeFrogment);
-
 
 //TODO: refactor it to be simple and testable
-public map[ComplexityRiskEvaluation, real] complexityPie(list[Unit] units)
+public map[ComplexityRiskEvaluation, real] complexityPie(set[Unit] units)
 {
 	list[tuple [Unit, ComplexityRiskEvaluation]] complexityPerUnit = [];
 	
@@ -83,6 +76,3 @@ public map[ComplexityRiskEvaluation, real] complexityPie(list[Unit] units)
 	
 	return result;
 }
-
-private LOC linesOfCodeOfUnitList([]) = 0;
-private LOC linesOfCodeOfUnitList(list[Unit] units) = sum([numberOfLines(u) | u <- units]);

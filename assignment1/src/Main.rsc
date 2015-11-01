@@ -10,7 +10,7 @@ import unitSize::UnitSize;
 
 public list[loc] projects()
 {
-	return [|project://smallsql0.21_src|, |project://hsqldb|];
+	return [|project://smallsql0.21_src|, |project://hsqldb-2.3.1|];
 }
 
 public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)

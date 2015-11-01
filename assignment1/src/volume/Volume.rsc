@@ -15,9 +15,3 @@ private LOC projectLinesOfCode(loc project)
 {
 	return 0;
 }
-
-//TODO: implement
-public list[Unit] projectUnits(loc project)
-{
-	return [];
-}

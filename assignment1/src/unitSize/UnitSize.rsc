@@ -6,22 +6,18 @@ import IO;
 
 import util::Math;
 
-import lang::java::m3::Core;
-import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
 import MetricTypes;
 
 //TODO: implement
-public Rank projectUnitSize(loc project)
+public Rank projectUnitSize(set[Declaration] declarations)
 {
 	 return neutral();
 }
 
-public list[Unit] projectUnits(loc project)
-{
-	set[Declaration] declarations = createAstsFromEclipseProject(project, true);
-	
+public list[Unit] projectUnits(set[Declaration] declarations)
+{	
 	list[Unit] units = [];
 
 	for (d <- declarations)

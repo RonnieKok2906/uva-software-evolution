@@ -1,15 +1,17 @@
 module duplication::Duplication
 
+import lang::java::jdt::m3::AST;
+
 import MetricTypes;
 
 //TODO: implement
-public Rank projectDuplication(loc project)
+public Rank projectDuplication(set[Declaration] declarations)
 {
 	return neutral();
 }
 
 //TODO: implement
-public set[CodeFragment] duplicationsInProject(loc project)
+public set[CodeFragment] duplicationsInProject(set[Declaration] declarations)
 {
 	return {};
 }

@@ -1,11 +1,13 @@
 module MetricTypes
 
+import lang::java::jdt::m3::AST;
+
 alias UnitLocation = loc;
 alias CodeFragment = str;
 alias LOC = int;
 alias CC = int;
 
-data Unit = unit(UnitLocation location, CodeFragment codeFragment, LOC linesOfCode);
+data Unit = unit(UnitLocation location, Statement statement, LOC linesOfCode);
 
 data ComplexityRiskEvaluation = simple() | moreComplex() | complex() | untestable();
 data Rank = plusPlus() | plus() | neutral() | minus() | minusMinus();

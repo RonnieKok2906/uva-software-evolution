@@ -1,6 +1,5 @@
 module unitSize::UnitSize
 
-import Set;
 import List;
 import String;
 import IO;
@@ -19,26 +18,41 @@ public Rank projectUnitSize(loc project)
 	 return neutral();
 }
 
-public set[Unit] projectUnits(loc project)
+public list[Unit] projectUnits(loc project)
 {
-	M3 projectModel = createM3FromEclipseProject(project);
+	set[Declaration] declarations = createAstsFromEclipseProject(project, true);
 	
-	set[loc] methods = methods(projectModel);
-	
-	set[Unit] result = {};
-	
-	for (m <- methods)
-	{
-		CodeFragment code = readFile(m);
-		result = result + unit(m, code, numberOfLines(code));
-	}
+	list[Unit] units = [];
 
-	return result;
+	for (d <- declarations)
+	{
+		visit(d)
+		{
+			case /constructor(_, _, _, Statement impl): units += unit(impl@src, impl, numberOfLines(readFile(impl@src)));
+			case /method(_, _, _, _, Statement impl): units += unit(impl@src, impl, numberOfLines(readFile(impl@src)));
+		}
+	}
+	
+	return units;
+}
+
+public list[Statement] statementsFromDeclaration(Declaration declaration)
+{
+	list[Statement] statements = [];
+
+	visit(declaration)
+	{
+		case /initializer(Statement impl): statements += impl;
+		case /constructor(_, _, _, Statement impl): statements += impl;
+		case /method(_, _, _, _, Statement impl): statements += impl;
+	}
+		
+	return statements;
 }
 
 public list[Unit] projectUnitsSortedOnSize(loc project)
 {
-	set[Unit] units = projectUnits(project);
+	list[Unit] units = projectUnits(project);
 	
 	list[Unit] sortedUnits = sort(units, bool (Unit a, Unit b) { return (a.linesOfCode > b.linesOfCode); });
 	
@@ -62,7 +76,3 @@ public LOC linesOfCodeOfUnitList(set[Unit] units) = sum([u.linesOfCode | u <- un
 
 //TODO: Create tests; Do comments count? Do empty lines count?
 private LOC numberOfLines(CodeFragment codeFragment) = size(split("\n", codeFragment));
-
-
-//TODO: Create test;
-private LOC numberOfLines(Unit unit) = numberOfLines(unit.codeFrogment);

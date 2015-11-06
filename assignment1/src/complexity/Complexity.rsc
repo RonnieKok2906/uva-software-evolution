@@ -90,7 +90,7 @@ private map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk(list[Unit]
 			);
 }
 
-private list[Statement] statementsFromDeclaration(Declaration declaration)
+public list[Statement] statementsFromDeclaration(Declaration declaration)
 {
 	list[Statement] statements = [];
 
@@ -104,7 +104,7 @@ private list[Statement] statementsFromDeclaration(Declaration declaration)
 	return statements;
 }
 
-private CC cyclomaticComplexityForStatement(Statement statement) 
+public CC cyclomaticComplexityForStatement(Statement statement) 
 {
  	CC cc = 1;
 
@@ -128,11 +128,12 @@ private CC cyclomaticComplexityForStatement(Statement statement)
  	return cc;
 }
 
-test bool testCC1()
+test bool testSimpleMethod()
 {
-	str testString = "class A { public int test(){return 1;} }";
+	str methodString = "public int test(){return 1;}";
+	str classString = "class A{" + methodString + "}";
 	
-	Declaration declaration = createAstFromString(|file:///|, testString, true);
+	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
 	Statement statement = head(statementsFromDeclaration(declaration));
 	
@@ -141,13 +142,29 @@ test bool testCC1()
 	return cc == 1;
 }
 
-test bool testCC2()
+test bool testMethodWithIfElseStatement()
+{
+	str ifStatement = "if(x == 1){ return = 0; }else{ return = 1;}";
+	str methodString =  "public int test(){ int x = 1;" + ifStatement + "return 1; }";
+	str classString = "class A{ " + methodString + " }";
+	
+	Declaration declaration = createAstFromString(|file:///|, classString, true);
+	
+	Statement statement = head(statementsFromDeclaration(declaration));
+	
+	CC cc = cyclomaticComplexityForStatement(statement);
+	
+	return cc == 2;
+}
+
+test bool testMethodWithNestedIfStatement()
 {
 	str ifStatement = "if(x == 1){ return = 0; }else{ return = 1;}";
 	str nestedIfStatement = "if (x == 0){" + ifStatement + "}else{ return = 1;}";
-	str testString = "class A { public int test(){ int x = 1;" + nestedIfStatement + "return 1; }}";
+	str methodString =  "public int test(){ int x = 1;" + nestedIfStatement + "return 1; }";
+	str classString = "class A{ " + methodString + " }";
 	
-	Declaration declaration = createAstFromString(|file:///|, testString, true);
+	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
 	Statement statement = head(statementsFromDeclaration(declaration));
 	
@@ -156,3 +173,55 @@ test bool testCC2()
 	return cc == 3;
 }
 
+test bool testIfStatementWithTwoInfixOperators()
+{
+	str ifStatement = "if(x == 1 && y == 2){ return = 0; }else{ return = 1;}";
+	str methodString =  "public int test(){ bool m = (x == 1 || y == 3);" + ifStatement + "return 1; }";
+	str classString = "class A{ " + methodString + " }";
+	
+	Declaration declaration = createAstFromString(|file:///|, classString, true);
+	
+	Statement statement = head(statementsFromDeclaration(declaration));
+	
+	CC cc = cyclomaticComplexityForStatement(statement);
+	
+	return cc == 4;
+}
+
+test bool testMethodWithConditional()
+{
+	str methodString = "public boolean test(){ return x = (x==1) ? true : false;}";
+	str classString = "class A{" + methodString + "}";
+	
+	Declaration declaration = createAstFromString(|file:///|, classString, true);
+	
+	Statement statement = head(statementsFromDeclaration(declaration));
+	
+	CC cc = cyclomaticComplexityForStatement(statement);
+	
+	return cc == 2;
+}
+
+//I'm insecure if this is the right return value for cc
+test bool testSwithStatement()
+{
+	str switchString = "switch(value){ case 1:{ return;}\ncase 2:{ return;}\ncase 3:{ return;}\ncase 4:{ return;}\ndefault:{ return;} }";
+	str methodString = "public void test(){" + switchString + "}";
+	str classString = "class A{" + methodString + "}";
+	
+	Declaration declaration = createAstFromString(|file:///|, classString, true);
+	
+	Statement statement = head(statementsFromDeclaration(declaration));
+	
+	CC cc = cyclomaticComplexityForStatement(statement);
+	
+	return cc == 6;
+}
+
+public list[bool] allTests() = [	testSimpleMethod(),
+									testMethodWithIfElseStatement(),
+									testMethodWithNestedIfStatement(),
+									testIfStatementWithTwoInfixOperators(),
+									testMethodWithConditional(),
+									testSwithStatement()
+								];

@@ -3,7 +3,9 @@ module Main
 import MetricTypes;
 import Conversion;
 import volume::Volume;
+import volume::VolumeConversion;
 import complexity::Complexity;
+import complexity::ComplexityConversion;
 import duplication::Duplication;
 import unitTesting::UnitTesting;
 import unitSize::UnitSize;
@@ -11,6 +13,9 @@ import unitSize::UnitSize;
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
+
+import IO;
+import List;
 
 public list[loc] projects()
 {
@@ -44,3 +49,28 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 			);
 }
 
+//Test functions
+public void runAllTests()
+{
+	list[tuple[str,list[bool]]] tests = [
+								<"volumeConversionTests", volume::VolumeConversion::allTests()>,
+								<"complexityTests", complexity::Complexity::allTests()>,
+								<"complexityConversionTests", complexity::ComplexityConversion::allTests()>
+								];
+
+	str passed = "passed";
+	str failed = "failed";
+
+	for (<name, subTests> <- tests)
+	{
+		tuple[int passed, int failed] result = runTests(subTests);
+		println("<name> : <result.passed> passed, <result.failed> failed");
+	}
+}
+
+private tuple[int passed, int failed] runTests(list[bool] tests)
+{
+	int numberOfTests = size(tests);
+	int passedTests = size([t | t <- tests, t == true]);
+	return <passedTests, numberOfTests - passedTests>;
+}

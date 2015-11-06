@@ -95,3 +95,19 @@ test bool convertPieToMinusMinus4() = all(
 									a <- [0.51, 0.52..1.0], b <- [0.16, 0.17..0.30], c <- [0.05, 0.06..0.2], 
 									convertPieToRank((moreComplex() : a, complex() : b, untestable() : c)) == minusMinus()
 									);
+
+public list[bool] allTests() = [	
+									convertPieToPlusPlus(),
+									convertPieToPlus1(),
+									convertPieToPlus2(),
+									convertPieToPlus3(),
+									convertPieToNeutral1(),
+									convertPieToNeutral2(),
+									convertPieToNeutral3(),
+									convertPieToMinus1(),
+									convertPieToMinus2(),
+									convertPieToMinus3(),
+									convertPieToMinusMinus1(),
+									convertPieToMinusMinus2(),
+									convertPieToMinusMinus3()
+								];

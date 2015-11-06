@@ -24,15 +24,15 @@ public list[Unit] projectUnits(set[Declaration] declarations)
 	{
 		visit(d)
 		{
-			case /constructor(_, _, _, Statement impl): units += unit(impl@src, impl, numberOfLines(readFile(impl@src)));
-			case /method(_, _, _, _, Statement impl): units += unit(impl@src, impl, numberOfLines(readFile(impl@src)));
+			case /constructor(_, _, _, Statement impl): units += unit(d@src, impl@src, impl, numberOfLines(readFile(impl@src)));
+			case /method(_, _, _, _, Statement impl): units += unit(d@src, impl@src, impl, numberOfLines(readFile(impl@src)));
 		}
 	}
 	
 	return units;
 }
 
-public list[Statement] statementsFromDeclaration(Declaration declaration)
+private list[Statement] statementsFromDeclaration(Declaration declaration)
 {
 	list[Statement] statements = [];
 
@@ -46,7 +46,7 @@ public list[Statement] statementsFromDeclaration(Declaration declaration)
 	return statements;
 }
 
-public list[Unit] projectUnitsSortedOnSize(loc project)
+private list[Unit] projectUnitsSortedOnSize(loc project)
 {
 	list[Unit] units = projectUnits(project);
 	
@@ -55,7 +55,7 @@ public list[Unit] projectUnitsSortedOnSize(loc project)
 	return sortedUnits;
 }
 
-public real averageUnitSize(loc project)
+private real averageUnitSize(loc project)
 {
 	set[Unit] units = projectUnits(project);
 	

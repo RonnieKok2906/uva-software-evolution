@@ -16,7 +16,7 @@ public Rank projectVolume(set[Declaration] declarations)
 
 public list[loc files] filesFromModel(M3 model) = [name | <name, _> <- model@declarations];
 
-public map[loc file, list[Comment] comments] commentsPerFile(set[Declaration] declarations, M3 model)
+public map[loc file, list[Comment] comments] commentsPerFile(M3 model)
 {
 	map[loc file, list[Comment] comments] mapToReturn = ();
 	

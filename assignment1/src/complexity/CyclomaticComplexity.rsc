@@ -2,10 +2,10 @@ module complexity::CyclomaticComplexity
 
 import List;
 
+import lang::java::jdt::m3::AST; 
+
 import Util;
 import MetricTypes;
-
-import lang::java::jdt::m3::AST; 
 
 //Public functions
 public CC cyclomaticComplexityForStatement(Statement statement) 

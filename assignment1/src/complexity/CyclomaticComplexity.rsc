@@ -8,25 +8,28 @@ import Util;
 import MetricTypes;
 
 //Public functions
-public CC cyclomaticComplexityForStatement(Statement statement) 
+public CC cyclomaticComplexityForStatement(list[Statement] statements) 
 {
  	CC cc = 1;
-
- 	visit(statement) 
- 	{
- 		case \do(Statement impl, _): cc += 1;
- 	  	case \foreach(_, _, Statement impl): cc += 1;
- 	  	case \for(_, _, _, Statement impl): cc += 1;
-  		case \for(_, _, Statement impl): cc += 1;	
- 	  	case \if(_, Statement elseImpl): cc += 1;
-  		case \if(_, Statement thenImpl, Statement elseImpl): cc += 1;
-  		case \case(_): cc += 1;
-  		case \defaultCase(): cc += 1;
-  		case \catch(_, Statement impl): cc += 1;
-  		case \while(_, Statement impl): cc += 1;
-  		case \infix(_,"||",_): cc += 1;
-  		case \infix(_,"&&",_): cc += 1;
-  		case \conditional(_,_,_): cc += 1;
+	
+	for (s <- statements)
+	{
+ 		visit(s) 
+ 		{
+ 			case \do(Statement impl, _): cc += 1;
+ 			case \foreach(_, _, Statement impl): cc += 1;
+ 			case \for(_, _, _, Statement impl): cc += 1;
+ 			case \for(_, _, Statement impl): cc += 1;
+ 			case \if(_, Statement elseImpl): cc += 1;
+ 			case \if(_, Statement thenImpl, Statement elseImpl): cc += 1;
+ 			case \case(_): cc += 1;
+ 			case \defaultCase(): cc += 1;
+ 			case \catch(_, Statement impl): cc += 1;
+ 			case \while(_, Statement impl): cc += 1;
+ 			case \infix(_,"||",_): cc += 1;
+ 			case \infix(_,"&&",_): cc += 1;
+ 			case \conditional(_,_,_): cc += 1;
+ 		}
  	}
 
  	return cc;
@@ -57,25 +60,20 @@ test bool testSimpleMethod()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 1;
 }
 
 test bool testDo()
 {
-	str array = "int[] test = new int[] {1,4,5,7}";
-	str doString = "do {System.out.println(\"hello\");} while (x \> 0);";
+	str doString = "do {} while (true)";
 	str methodString = "public void test(){" + doString + "}";
 	str classString = "class A{" + methodString + "}";
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -89,9 +87,7 @@ test bool testForEach()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -104,9 +100,7 @@ test bool testForLoop()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -119,9 +113,7 @@ test bool testForLoop2()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -134,9 +126,7 @@ test bool testIfElseStatement()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -149,9 +139,7 @@ test bool testIfElseIfStatement()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 3;
 }
@@ -165,9 +153,7 @@ test bool testNestedIfStatement()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 3;
 }
@@ -180,9 +166,7 @@ test bool testSwitchStatement()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 6;
 }
@@ -195,9 +179,7 @@ test bool testSwitchStatementWithoutDefault()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 5;
 }
@@ -210,9 +192,7 @@ test bool testTryCatch()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 3;
 }
@@ -226,9 +206,7 @@ test bool testWhile()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -241,9 +219,7 @@ test bool testIfStatementWithTwoInfixOperators()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 4;
 }
@@ -255,9 +231,7 @@ test bool testConditional()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	Statement statement = head(statementsFromDeclaration(declaration));
-	
-	CC cc = cyclomaticComplexityForStatement(statement);
+	CC cc = cyclomaticComplexityForStatement(statementsFromDeclaration(declaration));
 	
 	return cc == 2;
 }

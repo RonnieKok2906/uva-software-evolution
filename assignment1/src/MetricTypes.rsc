@@ -6,7 +6,7 @@ alias CodeFragment = str;
 alias LOC = int;
 alias CC = int;
 
-data Unit = unit(loc fileName, loc location, Statement statement, LOC linesOfCode);
+data Unit = unit(loc fileName, loc location, list[Statement] statements, LOC linesOfCode);
 data Comment = comment(loc location);
 data ComplexityRiskEvaluation = simple() | moreComplex() | complex() | untestable();
 data Rank = plusPlus() | plus() | neutral() | minus() | minusMinus();

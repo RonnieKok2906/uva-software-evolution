@@ -84,13 +84,30 @@ test bool testComplexityPieWithoutCommentsAndEmptyLines()
 	list[Unit] units = projectUnits({declaration});
 
 	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
-	
-	//implement a result with the correct lines of code
+
 	map[ComplexityRiskEvaluation, real] reference = (
-													simple() : 0.0,
-													moreComplex() : 0.0,
-													complex() : 0.0,
-													untestable() : 0.0
+													simple() : 6.0 / 69.0, 
+													moreComplex() : 15.0 / 69.0, 
+													complex() : 48.0 / 69.0, 
+													untestable() : 0.0 / 69.0
+													);
+	
+	return reference == complexityPie;
+}
+
+test bool testComplexityPieWithCommentsAndEmptyLines()
+{
+	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|, true);
+	
+	list[Unit] units = projectUnits({declaration});
+
+	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
+
+	map[ComplexityRiskEvaluation, real] reference = (
+													simple() : 6.0 / 69.0, 
+													moreComplex() : 15.0 / 69.0, 
+													complex() : 48.0 / 69.0, 
+													untestable() : 0.0 / 69.0
 													);
 	
 	return reference == complexityPie;
@@ -115,7 +132,7 @@ private ComplexityRiskEvaluation complexityRiskForUnit(Unit unit)
 
 private CC cyclomaticComplexityForUnit(Unit unit)
 {
-	return cyclomaticComplexityForStatement(unit.statement);
+	return cyclomaticComplexityForStatement(unit.statements);
 }
 
 private map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk(list[Unit] units)

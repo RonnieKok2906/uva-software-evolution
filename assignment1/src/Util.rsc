@@ -8,9 +8,9 @@ public list[Statement] statementsFromDeclaration(Declaration declaration)
 
 	visit(declaration)
 	{
-		case /initializer(Statement impl): statements += impl;
-		case /constructor(_, _, _, Statement impl): statements += impl;
-		case /method(_, _, _, _, Statement impl): statements += impl;
+		case initializer(Statement impl): statements += impl;
+		case constructor(_, _, _, Statement impl): statements += impl;
+		case method(_, _, _, _, Statement impl): statements += impl;
 	}
 		
 	return statements;

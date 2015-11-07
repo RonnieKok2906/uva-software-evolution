@@ -56,7 +56,7 @@ public void runAllTests()
 	list[tuple[str,list[bool]]] tests = [
 								<"Conversion.rsc Tests", Conversion::allTests()>,
 								<"volume::Conversion.rsc Tests", volume::VolumeConversion::allTests()>,
-								<"complexity::Rank.rsc Tests", complexity::Ranking::allTests()>,
+								<"complexity::Ranking.rsc Tests", complexity::Ranking::allTests()>,
 								<"complexity::Conversion.rsc Tests", complexity::Conversion::allTests()>,
 								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>
 								];

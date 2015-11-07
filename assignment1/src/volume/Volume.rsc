@@ -14,6 +14,23 @@ public Rank projectVolume(set[Declaration] declarations)
 	return convertLOCToRankForJava(pLoc);
 }
 
+//
+// Gets all the file locations.
+//
+public set[loc] getFiles(set[Declaration] declarations)
+{	
+	set[loc] files = [];
+
+	for (d <- declarations)
+	{
+		visit(d)
+		{
+			case compilationUnit(Declaration package, _, _): files += package@src;
+		}
+	}
+	return files;
+}
+
 public list[loc files] filesFromModel(M3 model) = [name | <name, _> <- model@declarations];
 
 public map[loc file, list[Comment] comments] commentsPerFile(M3 model)

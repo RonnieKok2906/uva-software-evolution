@@ -24,8 +24,8 @@ public list[Unit] projectUnits(set[Declaration] declarations)
 	{
 		visit(d)
 		{
-			case /constructor(_, _, _, Statement impl): units += unit(d@src, impl@src, impl, numberOfLines(readFile(impl@src)));
-			case /method(_, _, _, _, Statement impl): units += unit(d@src, impl@src, impl, numberOfLines(readFile(impl@src)));
+			case constructor(_, _, _, Statement impl): units += unit(d@src, impl@src, impl, numberOfLines(readFile(impl@src)));
+			case method(_, _, _, _, Statement impl): units += unit(d@src, impl@src, impl, numberOfLines(readFile(impl@src)));
 		}
 	}
 	

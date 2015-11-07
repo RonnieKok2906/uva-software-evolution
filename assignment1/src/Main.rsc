@@ -4,7 +4,7 @@ import MetricTypes;
 import Conversion;
 import volume::Volume;
 import volume::VolumeConversion;
-import complexity::Rank;
+import complexity::Ranking;
 import complexity::Conversion;
 import complexity::CyclomaticComplexity;
 import duplication::Duplication;
@@ -56,7 +56,7 @@ public void runAllTests()
 	list[tuple[str,list[bool]]] tests = [
 								<"Conversion.rsc Tests", Conversion::allTests()>,
 								<"volume::Conversion.rsc Tests", volume::VolumeConversion::allTests()>,
-								<"complexity::Rank.rsc Tests", complexity::Rank::allTests()>,
+								<"complexity::Rank.rsc Tests", complexity::Ranking::allTests()>,
 								<"complexity::Conversion.rsc Tests", complexity::Conversion::allTests()>,
 								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>
 								];

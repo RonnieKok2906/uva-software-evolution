@@ -1,7 +1,8 @@
-module complexity::Rank
+module complexity::Ranking
 
 import Set;
 import List;
+import Map;
 import util::Math;
 
 import MetricTypes;
@@ -25,7 +26,6 @@ public Rank projectComplexity(set[Declaration] declarations)
 }
 
 
-//TODO: refactor it to be simple and testable
 public map[ComplexityRiskEvaluation, real] complexityPie(list[Unit] units)
 {	
 	map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk = groupedUnitsPerRisk(units);
@@ -47,7 +47,63 @@ public map[ComplexityRiskEvaluation, real] complexityPie(list[Unit] units)
 	return result;
 }
 
-public list[bool] allTests() = [];
+public list[bool] allTests() = [
+								testNumberOfUnitsWithoutCommentsAndEmptyLines(),
+								testComplexityPieWithoutCommentsAndEmptyLines(),
+								testSumComplexityPieIsOne(),
+								testRankWithoutCommentsAndEmptyLines()
+								];
+
+
+test bool testNumberOfUnitsWithoutCommentsAndEmptyLines()
+{
+	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|, true);
+	
+	list[Unit] units = projectUnits({declaration});
+
+	return size(units) == 4;
+}
+
+test bool testSumComplexityPieIsOne()
+{
+	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|, true);
+	
+	list[Unit] units = projectUnits({declaration});
+
+	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
+	
+	real result = sum(range(complexityPie));
+	
+	return result > 0.9999 && result < 1.00001;
+}
+
+test bool testComplexityPieWithoutCommentsAndEmptyLines()
+{
+	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|, true);
+	
+	list[Unit] units = projectUnits({declaration});
+
+	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
+	
+	//implement a result with the correct lines of code
+	map[ComplexityRiskEvaluation, real] reference = (
+													simple() : 0.0,
+													moreComplex() : 0.0,
+													complex() : 0.0,
+													untestable() : 0.0
+													);
+	
+	return reference == complexityPie;
+}
+
+test bool testRankWithoutCommentsAndEmptyLines()
+{
+	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|, true);
+	
+	Rank rank = projectComplexity({declaration});
+	
+	return rank == minusMinus();
+}
 
 //Private Functions
 private ComplexityRiskEvaluation complexityRiskForUnit(Unit unit)

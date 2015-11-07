@@ -38,6 +38,7 @@ public list[bool] allTests() = [	testSimpleMethod(),
 									testForLoop(),
 									testForLoop2(),
 									testIfElseStatement(),
+									testIfElseIfStatement(),
 									testNestedIfStatement(),
 									testSwitchStatement(),
 									testSwitchStatementWithoutDefault(),
@@ -140,6 +141,21 @@ test bool testIfElseStatement()
 	return cc == 2;
 }
 
+test bool testIfElseIfStatement()
+{
+	str ifElseIfStatement = "if(x == 1){ return = 0; }else if (y \> 5){ return = 1;} else{return;}]";
+	str methodString =  "public int test(){ int x = 1;" + ifElseIfStatement + "return 1; }";
+	str classString = "class A{ " + methodString + " }";
+	
+	Declaration declaration = createAstFromString(|file:///|, classString, true);
+	
+	Statement statement = head(statementsFromDeclaration(declaration));
+	
+	CC cc = cyclomaticComplexityForStatement(statement);
+	
+	return cc == 3;
+}
+
 test bool testNestedIfStatement()
 {
 	str ifStatement = "if(x == 1){ return = 0; }else{ return = 1;}";
@@ -232,7 +248,7 @@ test bool testIfStatementWithTwoInfixOperators()
 	return cc == 4;
 }
 
-test bool testWithConditional()
+test bool testConditional()
 {
 	str methodString = "public boolean test(){ return x = (x==1) ? true : false;}";
 	str classString = "class A{" + methodString + "}";

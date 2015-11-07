@@ -1,4 +1,4 @@
-module unitTesting::UnitTesting
+module unitTesting::Ranking
 
 import lang::java::jdt::m3::AST;
 

@@ -20,27 +20,40 @@ import List;
 
 public list[loc] projects()
 {
-	return [|project://smallsql0.21_src|, |project://hsqldb-2.3.1|];
+	return [|project://smallsql0.21_src|, |project://hsqldb-2.3.1|, |project://testSource|];
 }
 
 public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 {
 	set[Declaration] declarations = createAstsFromEclipseProject(project, true);
 
+	//Volume
 	Rank volumeRank = projectVolume(declarations);
 	SourceCodeProperty volumeProperty = volume(volumeRank);
+	println(volumeProperty);
 	
+	//Complexity
 	Rank complexityPerUnitRank = projectComplexity(declarations);
 	SourceCodeProperty complexityPerUnitProperty = complexityPerUnit(complexityPerUnitRank);
+	println(complexityPerUnitProperty);
+	println(complexityPie(declarations));
 	
+	//Duplication
 	Rank duplicationRank = projectDuplication(declarations);
 	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
+	println(duplicationProperty);
 	
+	//UnitSize
 	Rank unitSizeRank = projectUnitSize(declarations); 
 	SourceCodeProperty unitSizeProperty = unitSize(unitSizeRank);
+	println(unitSizeProperty);
 	
+	//UnitTesting
 	Rank unitTestingRank = projectUnitTesting(declarations);
 	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRank);
+	println(unitTestingProperty);
+	
+	println("\n");
 	
 	return (
 			analysability() : averageRankOfPropertyRankings([volumeProperty, duplicationProperty, unitSizeProperty, unitTestingProperty]),

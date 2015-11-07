@@ -5,7 +5,9 @@ import List;
 import Map;
 import util::Math;
 
+
 import MetricTypes;
+import Util;
 import Conversion;
 import unitSize::UnitSize;
 
@@ -25,33 +27,24 @@ public Rank projectComplexity(set[Declaration] declarations)
 	return size(units) > 0 ? convertPieToRank(complexityPie) : neutral();
 }
 
-
-public map[ComplexityRiskEvaluation, real] complexityPie(list[Unit] units)
-{	
-	map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk = groupedUnitsPerRisk(units);
+public map[ComplexityRiskEvaluation, real] complexityPie(set[Declaration] declarations)
+{
+	list[Unit] units = projectUnits(declarations);
 	
-	LOC totalLinesOfCode = size(units) > 0 ? linesOfCodeOfUnitList(units) : 1;
-	
-	LOC simpleLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[simple()]) : 1;
-	LOC moreComplexLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[moreComplex()]) : 0;
-	LOC complexLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[complex()]) : 0;
-	LOC untestableLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[untestable()]) : 0;
-	
-	map[ComplexityRiskEvaluation, real] result = (
-													simple() : toReal(simpleLines) / toReal(totalLinesOfCode),
-													moreComplex() : toReal(moreComplexLines) / toReal(totalLinesOfCode),
-													complex() : toReal(complexLines) / toReal(totalLinesOfCode),
-													untestable() : toReal(untestableLines) / toReal(totalLinesOfCode)
-													);
-	
-	return result;
+	return complexityPie(units);
 }
 
+
+//Tests
 public list[bool] allTests() = [
 								testNumberOfUnitsWithoutCommentsAndEmptyLines(),
+								testNumberOfUnitsWithCommentsAndEmptyLines(),
 								testComplexityPieWithoutCommentsAndEmptyLines(),
-								testSumComplexityPieIsOne(),
-								testRankWithoutCommentsAndEmptyLines()
+								testComplexityPieWithCommentsAndEmptyLines(),
+								testSumComplexityPieWithoutCommentsAndEmptyLinesIsOne(),
+								testSumComplexityPieWithCommentsAndEmptyLinesIsOne(),
+								testRankWithoutCommentsAndEmptyLines(),
+								testRankWithCommentsAndEmptyLines()
 								];
 
 
@@ -64,9 +57,31 @@ test bool testNumberOfUnitsWithoutCommentsAndEmptyLines()
 	return size(units) == 4;
 }
 
-test bool testSumComplexityPieIsOne()
+test bool testNumberOfUnitsWithCommentsAndEmptyLines()
+{
+	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|, true);
+	
+	list[Unit] units = projectUnits({declaration});
+
+	return size(units) == 4;
+}
+
+test bool testSumComplexityPieWithoutCommentsAndEmptyLinesIsOne()
 {
 	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|, true);
+	
+	list[Unit] units = projectUnits({declaration});
+
+	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
+	
+	real result = sum(range(complexityPie));
+	
+	return result > 0.9999 && result < 1.00001;
+}
+
+test bool testSumComplexityPieWithCommentsAndEmptyLinesIsOne()
+{
+	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|, true);
 	
 	list[Unit] units = projectUnits({declaration});
 
@@ -122,7 +137,37 @@ test bool testRankWithoutCommentsAndEmptyLines()
 	return rank == minusMinus();
 }
 
+test bool testRankWithCommentsAndEmptyLines()
+{
+	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|, true);
+	
+	Rank rank = projectComplexity({declaration});
+	
+	return rank == minusMinus();
+}
+
 //Private Functions
+private map[ComplexityRiskEvaluation, real] complexityPie(list[Unit] units)
+{	
+	map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk = groupedUnitsPerRisk(units);
+	
+	LOC totalLinesOfCode = size(units) > 0 ? linesOfCodeOfUnitList(units) : 1;
+	
+	LOC simpleLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[simple()]) : 1;
+	LOC moreComplexLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[moreComplex()]) : 0;
+	LOC complexLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[complex()]) : 0;
+	LOC untestableLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[untestable()]) : 0;
+	
+	map[ComplexityRiskEvaluation, real] result = (
+													simple() : toReal(simpleLines) / toReal(totalLinesOfCode),
+													moreComplex() : toReal(moreComplexLines) / toReal(totalLinesOfCode),
+													complex() : toReal(complexLines) / toReal(totalLinesOfCode),
+													untestable() : toReal(untestableLines) / toReal(totalLinesOfCode)
+													);
+	
+	return result;
+}
+
 private ComplexityRiskEvaluation complexityRiskForUnit(Unit unit)
 {
 	CC cc = cyclomaticComplexityForUnit(unit);

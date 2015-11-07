@@ -4,6 +4,7 @@ import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
+import IO;
 import MetricTypes;
 import volume::VolumeConversion;
 
@@ -22,15 +23,15 @@ public Rank projectVolume(set[Declaration] declarations)
 //
 // Returns the locations of all source files from a given AST list.
 //
-public set[loc files] getFilesFromASTs(set[Declaration] declarations)
+public list[loc files] getFilesFromASTs(set[Declaration] declarations)
 {	
-	set[loc] files = [];
+	list[loc] files = [];
 
 	for (d <- declarations)
 	{
 		visit(d)
 		{
-			case compilationUnit(Declaration package, _, _): files += package@src;
+			case compilationUnit(Declaration package, _, _): files += package@src.top;
 		}
 	}
 	return files;
@@ -57,10 +58,19 @@ public LOC linesOfCodeInProject(list[loc] sourcefiles)
 
 public LOC linesOfCodeInFile(loc sourcefile)
 {
-	return 0;
-} 
+	return linesOfCode(readFileLines(sourcefile));
+}
 
-
+public LOC linesOfCode(list[str] lines) 
+{
+	LOC count = 0;
+	
+	for(line <- lines) 
+	{
+		count += 1;
+	}
+	return count;
+}
 
 public map[loc file, list[Comment] comments] commentsPerFile(M3 model)
 {

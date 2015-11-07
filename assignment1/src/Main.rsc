@@ -4,8 +4,9 @@ import MetricTypes;
 import Conversion;
 import volume::Volume;
 import volume::VolumeConversion;
-import complexity::Complexity;
-import complexity::ComplexityConversion;
+import complexity::Rank;
+import complexity::Conversion;
+import complexity::CyclomaticComplexity;
 import duplication::Duplication;
 import unitTesting::UnitTesting;
 import unitSize::UnitSize;
@@ -53,13 +54,12 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 public void runAllTests()
 {
 	list[tuple[str,list[bool]]] tests = [
-								<"volumeConversionTests", volume::VolumeConversion::allTests()>,
-								<"complexityTests", complexity::Complexity::allTests()>,
-								<"complexityConversionTests", complexity::ComplexityConversion::allTests()>
+								<"Conversion.rsc Tests", Conversion::allTests()>,
+								<"volume::Conversion.rsc Tests", volume::VolumeConversion::allTests()>,
+								<"complexity::Rank.rsc Tests", complexity::Rank::allTests()>,
+								<"complexity::Conversion.rsc Tests", complexity::Conversion::allTests()>,
+								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>
 								];
-
-	str passed = "passed";
-	str failed = "failed";
 
 	for (<name, subTests> <- tests)
 	{

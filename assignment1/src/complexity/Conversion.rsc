@@ -1,4 +1,4 @@
-module complexity::ComplexityConversion
+module complexity::Conversion
 
 import MetricTypes;
 
@@ -32,6 +32,23 @@ public Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = plus()
 public default Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = plusPlus();
 
 
+public list[bool] allTests() = [	
+									convertPieToPlusPlus(),
+									convertPieToPlus1(),
+									convertPieToPlus2(),
+									convertPieToPlus3(),
+									convertPieToNeutral1(),
+									convertPieToNeutral2(),
+									convertPieToNeutral3(),
+									convertPieToMinus1(),
+									convertPieToMinus2(),
+									convertPieToMinus3(),
+									convertPieToMinusMinus1(),
+									convertPieToMinusMinus2(),
+									convertPieToMinusMinus3()
+								];
+
+//Tests
 test bool convertPieToPlusPlus() = all(
 										a <- [-1.0, -0.95..0.25], b <- [-1.0, -0.99..0.0], c <- [-1.0, -0.99..0.0], 
 										convertPieToRank((moreComplex() : a, complex() : b, untestable() : c)) == plusPlus()
@@ -96,18 +113,3 @@ test bool convertPieToMinusMinus4() = all(
 									convertPieToRank((moreComplex() : a, complex() : b, untestable() : c)) == minusMinus()
 									);
 
-public list[bool] allTests() = [	
-									convertPieToPlusPlus(),
-									convertPieToPlus1(),
-									convertPieToPlus2(),
-									convertPieToPlus3(),
-									convertPieToNeutral1(),
-									convertPieToNeutral2(),
-									convertPieToNeutral3(),
-									convertPieToMinus1(),
-									convertPieToMinus2(),
-									convertPieToMinus3(),
-									convertPieToMinusMinus1(),
-									convertPieToMinusMinus2(),
-									convertPieToMinusMinus3()
-								];

@@ -5,6 +5,7 @@ import List;
 
 import MetricTypes;
 
+//Public functions
 
 //Calculate the average Rank of a list of SourceProperty rankings
 public Rank averageRankOfPropertyRankings(list[SourceCodeProperty] properties)
@@ -16,6 +17,46 @@ public Rank averageRankOfPropertyRankings(list[SourceCodeProperty] properties)
 	return convertRealToRank(summedRanks / numberOfItems);
 }
 
+
+//Conversion from an enumerated Rank to an integer
+public int convertRankToInt(Rank r)
+{
+	switch (r)
+	{
+		case plusPlus(): return 2;
+		case plus() : return 1;
+		case neutral() : return 0;
+		case minus() : return -1;
+		case minusMinus() : return -2;
+	}
+}
+
+//Conversion from a real to an enumerated Rank
+public Rank convertRealToRank(real r) = plusPlus() when r > 1.5;
+public Rank convertRealToRank(real r) = plus() when r > 0.5;
+public Rank convertRealToRank(real r) = neutral() when r >= -0.5;
+public Rank convertRealToRank(real r) = minus() when r >= -1.5;
+public default Rank convertRealToRank(real r) = minusMinus();
+
+
+public list[bool] allTests() = [
+								average1(),
+								average2(),
+								average3(),
+								average4(),
+								convertToTwo(),
+								convertToOne(),
+								convertToZero(),
+								convertToMinusOne(),
+								convertToMinusTwo(),
+								convertRealToPlusPlus(),
+								convertRealToPlus(),
+								convertRealToNeutral() ,
+								convertRealToMinus(),
+								convertRealToMinusMinus()
+								];
+
+//Tests
 //Test cases are extracte from figure 5 in "A Practical Model for Measuring Maintainability", http://dx.doi.org/10.1109/QUATIC.2007.8
 test bool average1() = averageRankOfPropertyRankings([
 														volume(plusPlus()), 
@@ -36,18 +77,7 @@ test bool average4() = averageRankOfPropertyRankings([
 														unitTesting(neutral())
 													]) == minus();
 
-//Conversion from an enumerated Rank to an integer
-public int convertRankToInt(Rank r)
-{
-	switch (r)
-	{
-		case plusPlus(): return 2;
-		case plus() : return 1;
-		case neutral() : return 0;
-		case minus() : return -1;
-		case minusMinus() : return -2;
-	}
-}
+
 
 test bool convertToTwo() = convertRankToInt(plusPlus()) == 2;
 test bool convertToOne() = convertRankToInt(plus()) == 1;
@@ -55,13 +85,6 @@ test bool convertToZero() = convertRankToInt(neutral()) == 0;
 test bool convertToMinusOne() = convertRankToInt(minus()) == -1;
 test bool convertToMinusTwo() = convertRankToInt(minusMinus()) == -2;
 
-
-//Conversion from a real to an enumerated Rank
-public Rank convertRealToRank(real r) = plusPlus() when r > 1.5;
-public Rank convertRealToRank(real r) = plus() when r > 0.5;
-public Rank convertRealToRank(real r) = neutral() when r >= -0.5;
-public Rank convertRealToRank(real r) = minus() when r >= -1.5;
-public default Rank convertRealToRank(real r) = minusMinus();
 
 test bool convertRealToPlusPlus() = all(x <- [1.55, 1.6..3], convertRealToRank(x) == plusPlus());
 test bool convertRealToPlus() = all(x <- [0.55, 0.6..1.55], convertRealToRank(x) == plus());

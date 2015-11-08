@@ -25,10 +25,11 @@ public list[loc] projects()
 
 public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 {
+	M3 model = createM3FromEclipseProject(project);
 	set[Declaration] declarations = createAstsFromEclipseProject(project, true);
 
 	//Volume
-	Rank volumeRank = projectVolume(declarations);
+	Rank volumeRank = projectVolume(model);
 	SourceCodeProperty volumeProperty = volume(volumeRank);
 	println(volumeProperty);
 	

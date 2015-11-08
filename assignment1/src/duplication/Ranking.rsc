@@ -84,7 +84,7 @@ public list[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] comm
 	
 	list[CodeLine] linesWithoutComments = removeCommentsFromCode(fileName, stringLines, comments);
 	
-	return [codeLine(fileName, i, stringLines[i]) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
+	return [linesWithoutComments[i] | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
 }
 
 public list[CodeLine] removeCommentsFromCode(loc fileName, list[CodeFragment] lines, list[Comment] comments)

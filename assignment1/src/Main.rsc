@@ -7,8 +7,8 @@ import volume::VolumeConversion;
 import complexity::Ranking;
 import complexity::Conversion;
 import complexity::CyclomaticComplexity;
-import duplication::Duplication;
-import unitTesting::UnitTesting;
+//import duplication::Duplication;
+//import unitTesting::UnitTesting;
 import unitSize::UnitSize;
 
 import lang::java::m3::Core;
@@ -25,13 +25,15 @@ public list[loc] projects()
 
 public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 {
+	println("Building M3 model for project...");
 	M3 model = createM3FromEclipseProject(project);
+	println("Building AST for project...");
 	set[Declaration] declarations = createAstsFromEclipseProject(project, true);
 
 	//Volume
-	Rank volumeRank = projectVolume(model);
-	SourceCodeProperty volumeProperty = volume(volumeRank);
-	println(volumeProperty);
+	tuple[LOC,Rank] volumeResults = projectVolume(model);
+	SourceCodeProperty volumeProperty = volume(volumeResults[1]);
+	println("Volume : Lines of Code : <volumeResults[0]> (<volumeProperty>)");
 	
 	//Complexity
 	Rank complexityPerUnitRank = projectComplexity(declarations);

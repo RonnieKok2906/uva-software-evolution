@@ -5,17 +5,19 @@ import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
 import IO;
+import List;
+import String;
 import MetricTypes;
 import volume::VolumeConversion;
 
 //
 // Returns the Volume metric ranking for a given project.
 //
-public Rank projectVolume(M3 model)
+public tuple[LOC,Rank] projectVolume(M3 model)
 {
 	LOC pLoc = linesOfCodeInProject(model);
 
-	return convertLOCToRankForJava(pLoc);
+	return <pLoc, convertLOCToRankForJava(pLoc)>;
 }
 
 public LOC linesOfCodeInProject(M3 model)
@@ -25,9 +27,9 @@ public LOC linesOfCodeInProject(M3 model)
 	
 	for(file <- sourcefiles) 
 	{
-		print("<file> : ");
+		//print("<file> : ");
 		linesOfCode += linesOfCodeInFile(model, file);
-		println("<linesOfCode>");
+		//println("<linesOfCode>");
 	}
 	return linesOfCode;
 }
@@ -37,7 +39,7 @@ public LOC linesOfCodeInFile(M3 model, loc sourcefile)
 	str sourcecode = readFile(sourcefile);
 	list[tuple[int,int]] commentOffset = getCommentOffsetsOfFile(model, sourcefile);
 	
-	sourcecode = removeComments(commentOffset, sourcecode);
+	sourcecode = removeComments(sourcecode, commentOffset);
 	
 	return size([ line | line <- split("\n", sourcecode), !isEmpty(trim(line)) ]);
 }

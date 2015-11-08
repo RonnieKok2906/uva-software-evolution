@@ -11,5 +11,8 @@ data Comment = comment(loc location);
 data ComplexityRiskEvaluation = simple() | moreComplex() | complex() | untestable();
 data Rank = plusPlus() | plus() | neutral() | minus() | minusMinus();
 
+data CodeLine = codeLine(loc fileName, int lineNumber, CodeFragment codeFragment);
+alias CodeBlock = list[CodeLine];
+
 data MaintainabilityMetric = analysability() | changeability() | stability() | testability();
 data SourceCodeProperty = volume(Rank rank) | complexityPerUnit(Rank rank) | duplication(Rank rank) | unitSize(Rank rank) | unitTesting(Rank rank);

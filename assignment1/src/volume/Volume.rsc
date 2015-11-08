@@ -76,7 +76,7 @@ public map[loc file, list[Comment] comments] commentsPerFile(M3 model)
 {
 	map[loc file, list[Comment] comments] mapToReturn = ();
 	
-	for (file <- filesFromModel(model))
+	for (file <- getFilesFromModel(model))
 	{
 		mapToReturn[file] = [comment(c) |  <_,c> <- model@documentation, locationInFile(c, file)];
 	}
@@ -84,3 +84,4 @@ public map[loc file, list[Comment] comments] commentsPerFile(M3 model)
 	return mapToReturn;
 }
 
+public bool locationInFile(loc location, loc file) = location.path == file.path;

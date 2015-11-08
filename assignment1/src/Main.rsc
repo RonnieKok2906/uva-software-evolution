@@ -7,8 +7,8 @@ import volume::VolumeConversion;
 import complexity::Ranking;
 import complexity::Conversion;
 import complexity::CyclomaticComplexity;
-import duplication::Duplication;
-import unitTesting::UnitTesting;
+import duplication::Ranking;
+import unitTesting::Ranking;
 import unitSize::UnitSize;
 
 import lang::java::m3::Core;

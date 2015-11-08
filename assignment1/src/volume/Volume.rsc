@@ -35,12 +35,11 @@ public LOC linesOfCodeInProject(M3 model)
 public LOC linesOfCodeInFile(M3 model, loc sourcefile)
 {
 	str sourcecode = readFile(sourcefile);
-
 	list[tuple[int,int]] commentOffset = getCommentOffsetsOfFile(model, sourcefile);
-
+	
 	sourcecode = removeComments(commentOffset, sourcecode);
 	
-	return linesOfCode(split("\n", sourcecode));
+	return size([ line | line <- split("\n", sourcecode), !isEmpty(trim(line)) ]);
 }
 
 //
@@ -87,21 +86,6 @@ public str remove(str subject, int startPos, int length)
 	}
 	return removed;
 }
-
-public LOC linesOfCode(list[str] lines) 
-{
-	LOC count = 0;
-	
-	for(line <- lines) 
-	{
-		// Ignore empty lines.
-		if(trim(line) != "") {
-			count += 1;
-		}
-	}
-	return count;
-}
-
 
 
 //

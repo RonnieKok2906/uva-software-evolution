@@ -10,8 +10,6 @@ import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
-import Main;
-
 import MetricTypes;
 
 import volume::Volume;
@@ -24,41 +22,64 @@ public Rank projectDuplication(set[Declaration] declarations)
 }
 
 //TODO: implement
-public map[list[CodeFragment], set[loc]] duplicationsInProject(set[Declaration] declarations)
+public map[list[CodeFragment], set[CodeBlock]] duplicationsInProject(set[Declaration] declarations)
 {
 	set[loc] files = toSet(getFilesFromASTs(declarations));
 	
 	mapping = indexAllCodeFragments(declarations);
 	
-	return (cf : mapping[cf] | list[CodeFragment] cf <- mapping,  size(mapping[cf]) > 1);
-}
-
-
-public list[CodeLine] relevantCodeLinesFromFile(loc fileName)
-{
-	M3 model = createM3FromEclipseProject(projects()[0]);
-
-	map[loc, list[Comment]] commentsInProject = commentsPerFile(model);
+	duplications = (cf : mapping[cf] | list[CodeFragment] cf <- mapping,  size(mapping[cf]) > 2);
 	
-	list[Comment] commentsInFile = commentsInProject[fileName];
-
-	list[CodeFragment] stringLines = readFileLines(fileName);
-	
-	list[CodeLine] relevantLines = [];
-	
-	for (i <- [0..size(stringLines)])
+	for (d <- duplications)
 	{
-		CodeFragment lineCodeFragment = stringLines[i];
+		println("The codeFragment is duplicated in <size(duplications[d])> files:");
 		
-		CodeLine lineWithoutComment = codeLineWithoutComment(commentsInFile, codeLine(fileName, i, lineCodeFragment));
-		
-		if (!isEmptyLine(lineWithoutComment.codeFragment))
+		for (cf <- d)
 		{
-			relevantLines += lineWithoutComment;
+			println(cf);
 		}
+		
+		println("+++++");
 	}
 	
-	return relevantLines;
+	return duplications;
+}
+
+public list[CodeLine] removeCommentsFromCode(loc fileName, list[CodeFragment] lines, list[Comment] comments)
+{ 
+	list[CodeLine] linesToReturn = [];
+	
+	for (i <- [0..size(lines)])
+	{
+		linesToReturn += codeLine(fileName, i, lines[i]);
+	}
+	
+	
+	for (c <- comments)
+	{
+		list[CodeFragment] commentLines = readFileLines(c.location);
+		
+		for (i <- [0..size(commentLines)])
+		{
+			int lineNumber = c.location.begin.line + i - 1;		
+			CodeFragment fragmentWithComment = lines[lineNumber];
+
+			str resultLine = ("" | it + s | s <- split(commentLines[i], fragmentWithComment));
+
+			linesToReturn[lineNumber] = codeLine(fileName, i, resultLine);
+		}
+	}
+
+	return linesToReturn;
+}
+
+public list[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] comments)
+{
+	list[CodeFragment] stringLines = readFileLines(fileName);
+	
+	list[CodeLine] linesWithoutComments = removeCommentsFromCode(fileName, stringLines, comments);
+	
+	return [codeLine(fileName, i, stringLines[i]) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
 }
 
 
@@ -84,15 +105,17 @@ public CodeLine codeLineWithoutComment(list[Comment] comments, CodeLine line)
 }
 
  
-public lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(loc fileName, int nrOfLinesInBlock)
+public lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(loc fileName, int nrOfLinesInBlock, list[Comment] comments)
 {
-	list[CodeLine] codeLines = relevantCodeLinesFromFile(fileName);
+	list[CodeLine] codeLines = relevantCodeLinesFromFile(fileName, comments);
+	
+	if (size(codeLines) < nrOfLinesInBlock) return [];
 	
 	lrel[list[CodeFragment], list[CodeLine]] blocks = [];
 	
-	for (i <- [0..size(codeLines)])
+	for (i <- [0..size(codeLines)-nrOfLinesInBlock])
 	{
-		list[CodeLine] linesInBlock = [l | l <- codeLines[i..i+6]];
+		list[CodeLine] linesInBlock = [l | l <- codeLines[i..i+nrOfLinesInBlock]];
 		
 		list[CodeFragment] cfs = [l.codeFragment | l <- linesInBlock];
 		
@@ -104,12 +127,22 @@ public lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFil
 
 public map[list[CodeFragment], set[CodeBlock]] indexAllCodeFragments(set[Declaration] declarations)
 {
+	//This is temporarily hard coded;
+	M3 model = createM3FromEclipseProject(|project://smallsql0.21_src|);
+
+	map[loc, list[Comment]] commentsInProject = commentsPerFile(model);
+	
 	list[loc] files = getFilesFromASTs(declarations);
 	
-	lrel[list[CodeFragment], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(b, 6) | b <- files);
+	lrel[list[CodeFragment], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(f, 6, commentsInProject[f]) | f <- files);
+
+	
 
 	return ListRelation::index(blocks);
 }
+
+
+public bool isEmptyLine(CodeLine line) = isEmptyLine(line.codeFragment);
 
 public bool isEmptyLine(str line)
 { 

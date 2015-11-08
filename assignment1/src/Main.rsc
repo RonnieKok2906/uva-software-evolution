@@ -1,22 +1,28 @@
 module Main
 
-import MetricTypes;
-import Conversion;
-import volume::Volume;
-import volume::VolumeConversion;
-import complexity::Ranking;
-import complexity::Conversion;
-import complexity::CyclomaticComplexity;
-import duplication::Ranking;
-import unitTesting::Ranking;
-import unitSize::UnitSize;
-
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
 import IO;
 import List;
+
+import MetricTypes;
+import Conversion;
+
+import volume::Volume;
+import volume::VolumeConversion;
+
+import complexity::Ranking;
+import complexity::Conversion;
+import complexity::CyclomaticComplexity;
+
+import unitSize::UnitSize;
+
+import duplication::Ranking;
+
+import unitTesting::Ranking;
+
 
 public list[loc] projects()
 {

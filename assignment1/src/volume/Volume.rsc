@@ -5,17 +5,19 @@ import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
 import IO;
+import List;
+import String;
 import MetricTypes;
 import volume::VolumeConversion;
 
 //
 // Returns the Volume metric ranking for a given project.
 //
-public Rank projectVolume(M3 model)
+public tuple[LOC,Rank] projectVolume(M3 model)
 {
 	LOC pLoc = linesOfCodeInProject(model);
 
-	return convertLOCToRankForJava(pLoc);
+	return <pLoc, convertLOCToRankForJava(pLoc)>;
 }
 
 public LOC linesOfCodeInProject(M3 model)
@@ -25,9 +27,9 @@ public LOC linesOfCodeInProject(M3 model)
 	
 	for(file <- sourcefiles) 
 	{
-		print("<file> : ");
+		//print("<file> : ");
 		linesOfCode += linesOfCodeInFile(model, file);
-		println("<linesOfCode>");
+		//println("<linesOfCode>");
 	}
 	return linesOfCode;
 }
@@ -35,12 +37,11 @@ public LOC linesOfCodeInProject(M3 model)
 public LOC linesOfCodeInFile(M3 model, loc sourcefile)
 {
 	str sourcecode = readFile(sourcefile);
-
 	list[tuple[int,int]] commentOffset = getCommentOffsetsOfFile(model, sourcefile);
-
-	sourcecode = removeComments(commentOffset, sourcecode);
 	
-	return linesOfCode(split("\n", sourcecode));
+	sourcecode = removeComments(sourcecode, commentOffset);
+	
+	return size([ line | line <- split("\n", sourcecode), !isEmpty(trim(line)) ]);
 }
 
 //
@@ -87,21 +88,6 @@ public str remove(str subject, int startPos, int length)
 	}
 	return removed;
 }
-
-public LOC linesOfCode(list[str] lines) 
-{
-	LOC count = 0;
-	
-	for(line <- lines) 
-	{
-		// Ignore empty lines.
-		if(trim(line) != "") {
-			count += 1;
-		}
-	}
-	return count;
-}
-
 
 
 //

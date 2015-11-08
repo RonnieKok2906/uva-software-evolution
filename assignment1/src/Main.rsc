@@ -31,12 +31,15 @@ public list[loc] projects()
 
 public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 {
+	println("Building M3 model for project...");
+	M3 model = createM3FromEclipseProject(project);
+	println("Building AST for project...");
 	set[Declaration] declarations = createAstsFromEclipseProject(project, true);
 
 	//Volume
-	Rank volumeRank = projectVolume(declarations);
-	SourceCodeProperty volumeProperty = volume(volumeRank);
-	println(volumeProperty);
+	tuple[LOC,Rank] volumeResults = projectVolume(model);
+	SourceCodeProperty volumeProperty = volume(volumeResults[1]);
+	println("Volume : Lines of Code : <volumeResults[0]> (<volumeProperty>)");
 	
 	//Complexity
 	Rank complexityPerUnitRank = projectComplexity(declarations);

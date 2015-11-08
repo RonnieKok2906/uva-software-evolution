@@ -1,22 +1,28 @@
 module Main
 
-import MetricTypes;
-import Conversion;
-import volume::Volume;
-import volume::VolumeConversion;
-import complexity::Ranking;
-import complexity::Conversion;
-import complexity::CyclomaticComplexity;
-//import duplication::Duplication;
-//import unitTesting::UnitTesting;
-import unitSize::UnitSize;
-
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
 import IO;
 import List;
+
+import MetricTypes;
+import Conversion;
+
+import volume::Volume;
+import volume::VolumeConversion;
+
+import complexity::Ranking;
+import complexity::Conversion;
+import complexity::CyclomaticComplexity;
+
+import unitSize::UnitSize;
+
+import duplication::Ranking;
+
+import unitTesting::Ranking;
+
 
 public list[loc] projects()
 {
@@ -42,7 +48,7 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 	println(complexityPie(declarations));
 	
 	//Duplication
-	Rank duplicationRank = projectDuplication(declarations);
+	Rank duplicationRank = projectDuplication(declarations, model);
 	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
 	println(duplicationProperty);
 	

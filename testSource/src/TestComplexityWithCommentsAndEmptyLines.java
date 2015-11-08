@@ -1,35 +1,45 @@
-
-
 public class TestComplexityWithCommentsAndEmptyLines {
+
 	
-	//total lines of method: 69
-	//simple() : 6 lines
-	//moreComplex() : 15 lines
-	//complex() : 48
-	//pie (simple() : 6.0 / 69.0, moreComplex() : 15.0 / 69.0, complex() : 48.0 / 69.0, untestable() : 0.0 / 69.0) 
 	
-	//1 line, complexity simple()
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// total lines of method: 69
+	// simple() : 6 lines
+	// moreComplex() : 15 lines
+	// complex() : 48
+	// pie (simple() : 6.0 / 69.0, moreComplex() : 15.0 / 69.0, complex() : 48.0
+	// / 69.0, untestable() : 0.0 / 69.0)
+
+	// 1 line, complexity simple()
 	public TestComplexityWithCommentsAndEmptyLines() {
 		super();
 	}
 
-	//5 lines complexity simple()
+	// 5 lines complexity simple()
 	public int testSimpleComplexity() {
-		
+
 		int x = 1;
-		//Lorem Ipsum
+		// Lorem Ipsum
 		if (x > 1) {
-			//Lorem Ipsum
+			// Lorem Ipsum
 			System.out.println("x:" + x);
 		}
-		
-		//Lorem Ipsum
+
+		// Lorem Ipsum
 		return 3;
 	}
 
-	//Lorem Ipsum
-	
-	//15 lines, moreComplex()
+	// Lorem Ipsum
+
+	// 15 lines, moreComplex()
 	public void testMoreComplexComplexity() {
 		boolean x = false;
 		boolean y = false;
@@ -40,14 +50,8 @@ public class TestComplexityWithCommentsAndEmptyLines {
 		} else if (!y && z) {
 			for (int i = 0; i < 10; i++) {
 				/*
-				 * Lorem Ipsum
-				 * Lorem Ipsum
-				 * Lorem Ipsum
-				 * Lorem Ipsum
-				 * Lorem Ipsum
-				 * Lorem Ipsum
-				 * Lorem Ipsum
-				 * Lorem Ipsum
+				 * Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+				 * Lorem Ipsum Lorem Ipsum Lorem Ipsum
 				 */
 			}
 		} else if (!y || !x) {
@@ -55,11 +59,11 @@ public class TestComplexityWithCommentsAndEmptyLines {
 			}
 		}
 		do {
-			//Lorem Ipsum
+			// Lorem Ipsum
 		} while (x);
 	}
 
-	//49 lines, complex()
+	// 49 lines, complex()
 	public void testComplexComplexity(int i) {
 		boolean x = true;
 		switch (i) {
@@ -74,16 +78,16 @@ public class TestComplexityWithCommentsAndEmptyLines {
 		case 5: {
 			if (x || !x) {
 				break;
-				//Lorem Ipsum
+				// Lorem Ipsum
 			}
 		}
-		case 6://Lorem Ipsum
+		case 6:// Lorem Ipsum
 			return;
-		case 7://Lorem Ipsum
+		case 7:// Lorem Ipsum
 			return;
-		case 8://Lorem Ipsum
+		case 8:// Lorem Ipsum
 			return;
-		case 9://Lorem Ipsum
+		case 9:// Lorem Ipsum
 			return;
 		case 10:
 			return;

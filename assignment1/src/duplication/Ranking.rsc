@@ -5,6 +5,7 @@ import Set;
 import String;
 import ListRelation;
 import IO;
+import util::Math;
 
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
@@ -16,33 +17,75 @@ import volume::Volume;
 
 
 //TODO: implement
-public Rank projectDuplication(set[Declaration] declarations)
+public Rank projectDuplication(set[Declaration] declarations, M3 model)
 {
-	return neutral();
+	real numberOfDuplicatedLines = toReal(size(duplicationsInProject(declarations, model)));
+	real numberOfTotalLines = toReal(linesOfCodeInProject(model));
+	real percentage = 100 * numberOfDuplicatedLines / numberOfTotalLines;
+	println("dLOC:<numberOfDuplicatedLines>, LOC:<numberOfTotalLines>, percentage:<percentage>");
+	
+	if (percentage > 20) return minusMinus();
+	if (percentage > 10) return minus();
+	if (percentage > 5) return neutral();
+	if (percentage > 3) return plus();
+	
+	return plusPlus();
 }
 
-//TODO: implement
-public map[list[CodeFragment], set[CodeBlock]] duplicationsInProject(set[Declaration] declarations)
-{
-	set[loc] files = toSet(getFilesFromASTs(declarations));
+public set[CodeLine] duplicationsInProject(set[Declaration] declarations, M3 model)
+{	
+	map[list[CodeFragment], set[CodeBlock]] mapping = indexAllCodeFragments(declarations, model);
 	
-	mapping = indexAllCodeFragments(declarations);
+	map[list[CodeFragment], set[CodeBlock]] duplicationsMap = (cf : mapping[cf] | list[CodeFragment] cf <- mapping,  size(mapping[cf]) > 1);
 	
-	duplications = (cf : mapping[cf] | list[CodeFragment] cf <- mapping,  size(mapping[cf]) > 2);
+	//for (d <- duplicationsMap)
+	//{
+	//	//println("The codeFragment is duplicated in <size(duplicationsMap[d])> files:");
+	//	
+	//	for (cf <- d)
+	//	{
+	//	//	println(cf);
+	//	}
+	//	
+	//	//println("+++++");
+	//}
 	
-	for (d <- duplications)
+	set[CodeLine] duplicatedLines = {};
+	
+	for (dm <- duplicationsMap)
 	{
-		println("The codeFragment is duplicated in <size(duplications[d])> files:");
+		set[CodeBlock] setOfCodeBlocks = duplicationsMap[dm];
 		
-		for (cf <- d)
+		for (codeBlock <- setOfCodeBlocks)
 		{
-			println(cf);
+			for (codeLine <- codeBlock)
+			{
+				duplicatedLines += codeLine;
+			}
 		}
-		
-		println("+++++");
 	}
 	
-	return duplications;
+	return duplicatedLines;
+}
+
+public map[list[CodeFragment], set[CodeBlock]] indexAllCodeFragments(set[Declaration] declarations, M3 model)
+{
+	map[loc, list[Comment]] commentsInProject = commentsPerFile(model);
+	
+	list[loc] files = getFilesFromModel(model);
+	
+	lrel[list[CodeFragment], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(f, 6, commentsInProject[f]) | f <- files);
+
+	return ListRelation::index(blocks);
+}
+
+public list[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] comments)
+{
+	list[CodeFragment] stringLines = readFileLines(fileName);
+	
+	list[CodeLine] linesWithoutComments = removeCommentsFromCode(fileName, stringLines, comments);
+	
+	return [codeLine(fileName, i, stringLines[i]) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
 }
 
 public list[CodeLine] removeCommentsFromCode(loc fileName, list[CodeFragment] lines, list[Comment] comments)
@@ -65,46 +108,14 @@ public list[CodeLine] removeCommentsFromCode(loc fileName, list[CodeFragment] li
 			CodeFragment fragmentWithComment = lines[lineNumber];
 
 			str resultLine = ("" | it + s | s <- split(commentLines[i], fragmentWithComment));
-
+	
 			linesToReturn[lineNumber] = codeLine(fileName, i, resultLine);
 		}
 	}
 
 	return linesToReturn;
-}
+} 
 
-public list[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] comments)
-{
-	list[CodeFragment] stringLines = readFileLines(fileName);
-	
-	list[CodeLine] linesWithoutComments = removeCommentsFromCode(fileName, stringLines, comments);
-	
-	return [codeLine(fileName, i, stringLines[i]) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
-}
-
-
-public CodeLine codeLineWithoutComment(list[Comment] comments, CodeLine line)
-{
-	for (c <- comments)
-	{
-		int currentLineNumber = line.lineNumber;
-	
-		if (currentLineNumber >= c.location.begin.line && currentLineNumber <= c.location.end.line)
-		{		
-			list[CodeFragment] commentStringLines = readFileLines(c.location);
-			
-			CodeFragment commentOnCurrentLine = commentStringLines[currentLineNumber - c.location.begin.line];
-			
-			CodeFragment currentLineWithoutComment = ("" | it + s | s <- split(commentOnCurrentLine, line.codeFragment));
-		
-			return codeLine(line.fileName, currentLineNumber, currentLineWithoutComment);
-		}
-	}
-
-	return line;
-}
-
- 
 public lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(loc fileName, int nrOfLinesInBlock, list[Comment] comments)
 {
 	list[CodeLine] codeLines = relevantCodeLinesFromFile(fileName, comments);
@@ -113,7 +124,7 @@ public lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFil
 	
 	lrel[list[CodeFragment], list[CodeLine]] blocks = [];
 	
-	for (i <- [0..size(codeLines)-nrOfLinesInBlock])
+	for (i <- [0..size(codeLines)-nrOfLinesInBlock + 1])
 	{
 		list[CodeLine] linesInBlock = [l | l <- codeLines[i..i+nrOfLinesInBlock]];
 		
@@ -122,25 +133,23 @@ public lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFil
 		blocks += [<cfs, linesInBlock>];
 	}
 	
+	int nf = (0 | it + 1 | b <- blocks, size(b[1]) != 6);
+	println("numberOfWrongBlocks:<nf>");
+	
 	return blocks;
 }
 
-public map[list[CodeFragment], set[CodeBlock]] indexAllCodeFragments(set[Declaration] declarations)
-{
-	//This is temporarily hard coded;
-	M3 model = createM3FromEclipseProject(|project://smallsql0.21_src|);
-
-	map[loc, list[Comment]] commentsInProject = commentsPerFile(model);
-	
-	list[loc] files = getFilesFromASTs(declarations);
-	
-	lrel[list[CodeFragment], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(f, 6, commentsInProject[f]) | f <- files);
-
-	
-
-	return ListRelation::index(blocks);
-}
-
+public map[loc file, list[Comment] comments] commentsPerFile(M3 model)
+ {
+ 	map[loc file, list[Comment] comments] mapToReturn = ();
+ 	
+ 	for (file <- getFilesFromModel(model))
+ 	{
+ 		mapToReturn[file] = [comment(c) |  <_,c> <- model@documentation, locationInFile(c, file)];
+ 	}
+ 
+ 	return mapToReturn;
+ }
 
 public bool isEmptyLine(CodeLine line) = isEmptyLine(line.codeFragment);
 

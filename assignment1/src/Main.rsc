@@ -48,7 +48,7 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 	println(complexityPie(declarations));
 	
 	//Duplication
-	Rank duplicationRank = projectDuplication(declarations);
+	Rank duplicationRank = projectDuplication(declarations, model);
 	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
 	println(duplicationProperty);
 	

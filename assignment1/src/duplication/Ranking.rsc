@@ -16,7 +16,6 @@ import MetricTypes;
 import volume::Volume;
 
 
-//TODO: implement
 public Rank projectDuplication(set[Declaration] declarations, M3 model)
 {
 	real numberOfDuplicatedLines = toReal(size(duplicationsInProject(declarations, model)));
@@ -133,23 +132,22 @@ public lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFil
 		blocks += [<cfs, linesInBlock>];
 	}
 	
-	int nf = (0 | it + 1 | b <- blocks, size(b[1]) != 6);
-	println("numberOfWrongBlocks:<nf>");
-	
 	return blocks;
 }
 
 public map[loc file, list[Comment] comments] commentsPerFile(M3 model)
- {
- 	map[loc file, list[Comment] comments] mapToReturn = ();
- 	
- 	for (file <- getFilesFromModel(model))
- 	{
- 		mapToReturn[file] = [comment(c) |  <_,c> <- model@documentation, locationInFile(c, file)];
- 	}
+{
+	map[loc file, list[Comment] comments] mapToReturn = ();
+	
+	for (file <- getFilesFromModel(model))
+	{
+		mapToReturn[file] = [comment(c) |  <_,c> <- model@documentation, locationInFile(c, file)];
+	}
+	
+	return mapToReturn;
+}
  
- 	return mapToReturn;
- }
+public bool locationInFile(loc location, loc file) = location.path == file.path;
 
 public bool isEmptyLine(CodeLine line) = isEmptyLine(line.codeFragment);
 

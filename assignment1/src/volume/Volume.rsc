@@ -106,5 +106,3 @@ public list[loc files] getFilesFromASTs(set[Declaration] declarations)
 	}
 	return files;
 }
-
-public bool locationInFile(loc location, loc file) = location.path == file.path;

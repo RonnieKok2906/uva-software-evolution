@@ -11,14 +11,98 @@ import volume::VolumeConversion;
 //
 // Returns the Volume metric ranking for a given project.
 //
-public Rank projectVolume(set[Declaration] declarations)
+public Rank projectVolume(M3 model)
 {
-	list[loc] sourcefiles = getFilesFromASTs(declarations);
-
-	LOC pLoc = linesOfCodeInProject(sourcefiles);
+	LOC pLoc = linesOfCodeInProject(model);
 
 	return convertLOCToRankForJava(pLoc);
 }
+
+public LOC linesOfCodeInProject(M3 model)
+{
+	list[loc] sourcefiles = getFilesFromModel(model);
+	LOC linesOfCode = 0;
+	
+	for(file <- sourcefiles) 
+	{
+		print("<file> : ");
+		linesOfCode += linesOfCodeInFile(model, file);
+		println("<linesOfCode>");
+	}
+	return linesOfCode;
+}
+
+public LOC linesOfCodeInFile(M3 model, loc sourcefile)
+{
+	str sourcecode = readFile(sourcefile);
+
+	list[tuple[int,int]] commentOffset = getCommentOffsetsOfFile(model, sourcefile);
+
+	sourcecode = removeComments(commentOffset, sourcecode);
+	
+	return linesOfCode(split("\n", sourcecode));
+}
+
+//
+// Returns the locations of all source files from a given M3 model.
+// (Theoretically this should give the same result as getFilesFromASTs()). 
+//
+public list[loc files] getFilesFromModel(M3 model) = 
+	[file.top | <name, file> <- model@declarations, name.scheme == "java+compilationUnit"];
+
+//
+// Returns the offset locations of all the comments in a given source file.
+//	
+public list[tuple[int,int]] getCommentOffsetsOfFile(M3 model, loc sourcefile) =
+	[ <location.offset, location.length> | <_,location> <- model@documentation, location.top == sourcefile ];
+
+//
+// Removes all the comments from a given source code string.
+//	
+public str removeComments(str sourcecode, list[tuple[int,int]] comments) 
+{
+	// Make sure the offsets are sorted in descending order.
+	comments = reverse(sort(comments));
+
+	for(offset <- comments) 
+	{
+		sourcecode = remove(sourcecode, offset[0], offset[1]);
+	}
+	return sourcecode;
+}
+
+//
+// Removes a part of a string.
+//
+public str remove(str subject, int startPos, int length)
+{
+	str removed = "";
+	if(startPos > 0) 
+	{
+		removed = substring(subject, 0, startPos);
+	}
+	if(startPos < size(subject)) 
+	{
+		removed += substring(subject, startPos + length);
+	}
+	return removed;
+}
+
+public LOC linesOfCode(list[str] lines) 
+{
+	LOC count = 0;
+	
+	for(line <- lines) 
+	{
+		// Ignore empty lines.
+		if(trim(line) != "") {
+			count += 1;
+		}
+	}
+	return count;
+}
+
+
 
 //
 // Returns the locations of all source files from a given AST list.
@@ -36,51 +120,3 @@ public list[loc files] getFilesFromASTs(set[Declaration] declarations)
 	}
 	return files;
 }
-
-//
-// Returns the locations of all source files from a given M3 model.
-// (Theoretically this should give the same result as getFilesFromASTs()). 
-//
-public list[loc files] getFilesFromModel(M3 model) = 
-	[file.top | <name, file> <- model@declarations, name.scheme == "java+compilationUnit"];
-
-
-
-public LOC linesOfCodeInProject(list[loc] sourcefiles)
-{
-	LOC linesOfCode = 0;
-	for(file <- sourcefiles) 
-	{
-		linesOfCode += linesOfCodeInFile(file);
-	}
-	return linesOfCode;
-}
-
-public LOC linesOfCodeInFile(loc sourcefile)
-{
-	return linesOfCode(readFileLines(sourcefile));
-}
-
-public LOC linesOfCode(list[str] lines) 
-{
-	LOC count = 0;
-	
-	for(line <- lines) 
-	{
-		count += 1;
-	}
-	return count;
-}
-
-public map[loc file, list[Comment] comments] commentsPerFile(M3 model)
-{
-	map[loc file, list[Comment] comments] mapToReturn = ();
-	
-	for (file <- filesFromModel(model))
-	{
-		mapToReturn[file] = [comment(c) |  <_,c> <- model@documentation, locationInFile(c, file)];
-	}
-
-	return mapToReturn;
-}
-

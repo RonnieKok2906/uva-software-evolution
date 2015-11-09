@@ -5,7 +5,10 @@ import List;
 import Map;
 import util::Math;
 
+import lang::java::jdt::m3::Core;
+
 import MetricTypes;
+import CodeModel;
 import Util;
 import Conversion;
 import unitSize::UnitSize;
@@ -13,22 +16,22 @@ import unitSize::UnitSize;
 import complexity::CyclomaticComplexity;
 import complexity::Conversion;
 
-import lang::java::jdt::m3::AST; 
+
 
 //Public Functions
 
-public Rank projectComplexity(set[Declaration] declarations)
+public Rank projectComplexity(CodeModel model)
 {
-	list[Unit] units = projectUnits(declarations);
+	list[Unit] units = projectUnits(model);
 
 	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
 	
 	return size(units) > 0 ? convertPieToRank(complexityPie) : neutral();
 }
 
-public map[ComplexityRiskEvaluation, real] complexityPie(set[Declaration] declarations)
+public map[ComplexityRiskEvaluation, real] complexityPie(CodeModel model)
 {
-	list[Unit] units = projectUnits(declarations);
+	list[Unit] units = projectUnits(model);
 	
 	return complexityPie(units);
 }
@@ -49,27 +52,33 @@ public list[bool] allTests() = [
 
 test bool testNumberOfUnitsWithoutCommentsAndEmptyLines()
 {
-	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|, true);
+	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|);
 	
-	list[Unit] units = projectUnits({declaration});
+	CodeModel codeModel = createCodeModel(m3Model);
+	
+	list[Unit] units = projectUnits(codeModel);
 
 	return size(units) == 4;
 }
 
 test bool testNumberOfUnitsWithCommentsAndEmptyLines()
-{
-	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|, true);
+{	
+	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|);
 	
-	list[Unit] units = projectUnits({declaration});
+	CodeModel codeModel = createCodeModel(m3Model);
+	
+	list[Unit] units = projectUnits(codeModel);
 
 	return size(units) == 4;
 }
 
 test bool testSumComplexityPieWithoutCommentsAndEmptyLinesIsOne()
 {
-	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|, true);
+	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|);
 	
-	list[Unit] units = projectUnits({declaration});
+	CodeModel codeModel = createCodeModel(m3Model);
+	
+	list[Unit] units = projectUnits(codeModel);
 
 	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
 	
@@ -80,9 +89,11 @@ test bool testSumComplexityPieWithoutCommentsAndEmptyLinesIsOne()
 
 test bool testSumComplexityPieWithCommentsAndEmptyLinesIsOne()
 {
-	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|, true);
+	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|);
 	
-	list[Unit] units = projectUnits({declaration});
+	CodeModel codeModel = createCodeModel(m3Model);
+	
+	list[Unit] units = projectUnits(codeModel);
 
 	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
 	
@@ -93,9 +104,11 @@ test bool testSumComplexityPieWithCommentsAndEmptyLinesIsOne()
 
 test bool testComplexityPieWithoutCommentsAndEmptyLines()
 {
-	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|, true);
+	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|);
 	
-	list[Unit] units = projectUnits({declaration});
+	CodeModel codeModel = createCodeModel(m3Model);
+	
+	list[Unit] units = projectUnits(codeModel);
 
 	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
 
@@ -111,9 +124,11 @@ test bool testComplexityPieWithoutCommentsAndEmptyLines()
 
 test bool testComplexityPieWithCommentsAndEmptyLines()
 {
-	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|, true);
+	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|);
 	
-	list[Unit] units = projectUnits({declaration});
+	CodeModel codeModel = createCodeModel(m3Model);
+	
+	list[Unit] units = projectUnits(codeModel);
 
 	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
 
@@ -128,19 +143,23 @@ test bool testComplexityPieWithCommentsAndEmptyLines()
 }
 
 test bool testRankWithoutCommentsAndEmptyLines()
-{
-	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|, true);
+{	
+	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|);
 	
-	Rank rank = projectComplexity({declaration});
+	CodeModel codeModel = createCodeModel(m3Model);
+	
+	Rank rank = projectComplexity(codeModel);
 	
 	return rank == minusMinus();
 }
 
 test bool testRankWithCommentsAndEmptyLines()
-{
-	Declaration declaration = createAstFromFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|, true);
+{	
+	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|);
 	
-	Rank rank = projectComplexity({declaration});
+	CodeModel codeModel = createCodeModel(m3Model);
+	
+	Rank rank = projectComplexity(codeModel);
 	
 	return rank == minusMinus();
 }

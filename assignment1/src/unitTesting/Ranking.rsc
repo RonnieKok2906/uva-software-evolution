@@ -1,11 +1,10 @@
 module unitTesting::Ranking
 
-import lang::java::jdt::m3::AST;
-
 import MetricTypes;
+import CodeModel;
 
 //TODO: implement
-public Rank projectUnitTesting(set[Declaration] declarations)
+public Rank projectUnitTesting(CodeModel model)
 {
 	return neutral();
 }

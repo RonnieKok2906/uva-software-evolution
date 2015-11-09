@@ -13,7 +13,7 @@ public CodeModel createCodeModel(M3 model)
 {
 	map[loc, list[Comment]] comments = commentsPerFile(model);
 
-	return (f : relevantCodeLinesFromFile(f, comments[f]) | f <- getFilesFromModel(model));
+	return (f : relevantCodeFromFile(f, comments[f]) | f <- getFilesFromModel(model));
 }
 
 public list[loc files] getFilesFromModel(M3 model) = 
@@ -25,15 +25,13 @@ private map[loc, list[Comment]] commentsPerFile(M3 model)
 	
 	for (file <- getFilesFromModel(model))
 	{
-		mapToReturn[file] = [comment(c) |  <_,c> <- model@documentation, locationInFile(c, file)];
+		mapToReturn[file] = [comment(c) |  <_,c> <- model@documentation, c.path == file.path];
 	}
 	
 	return mapToReturn;
 }
 
-private bool locationInFile(loc location, loc file) = location.path == file.path;
-
-private list[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] comments)
+private list[CodeLine] relevantCodeFromFile(loc fileName, list[Comment] comments)
 {
 	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	

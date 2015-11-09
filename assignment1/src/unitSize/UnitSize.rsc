@@ -13,15 +13,23 @@ import lang::java::jdt::m3::AST;
 import MetricTypes;
 import Util;
 
+import CodeModel;
+
 //TODO: implement
-public Rank projectUnitSize(set[Declaration] declarations)
+public Rank projectUnitSize(CodeModel model)
 {
 	 return neutral();
 }
 
-public list[Unit] projectUnits(M3 model)
+public list[Unit]projectUnits(M3 model)
 {
-//MEMO:To be implemented;
+//MEMO:To be implemented? or the next one?
+	return [];
+}
+
+public list[Unit] projectUnits(CodeModel model)
+{
+//MEMO:To be implemented? or the previous one? Ton:I think this one.
 	return [];
 }
 

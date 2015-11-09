@@ -2,7 +2,6 @@ module Main
 
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
-import lang::java::jdt::m3::AST;
 
 import IO;
 import List;
@@ -33,35 +32,33 @@ public list[loc] projects()
 public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 {
 	println("Building M3 model for project...");
-	M3 model = createM3FromEclipseProject(project);
-	println("Building AST for project...");
-	set[Declaration] declarations = createAstsFromEclipseProject(project, true);
+	M3 m3Model = createM3FromEclipseProject(project);
 
-	CodeModel codeModel = createCodeModel(model);
+	CodeModel codeModel = createCodeModel(m3Model);
 
 	//Volume
-	tuple[LOC,Rank] volumeResults = projectVolume(model);
+	tuple[LOC,Rank] volumeResults = projectVolume(m3Model);
 	SourceCodeProperty volumeProperty = volume(volumeResults[1]);
 	println("Volume : Lines of Code : <volumeResults[0]> (<volumeProperty>)");
 	
 	//Complexity
-	Rank complexityPerUnitRank = projectComplexity(declarations);
+	Rank complexityPerUnitRank = projectComplexity(codeModel);
 	SourceCodeProperty complexityPerUnitProperty = complexityPerUnit(complexityPerUnitRank);
 	println(complexityPerUnitProperty);
-	println(complexityPie(declarations));
+	println(complexityPie(codeModel));
 	
 	//Duplication
-	Rank duplicationRank = projectDuplication(codeModel, model);
+	Rank duplicationRank = projectDuplication(codeModel, m3Model);
 	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
 	println(duplicationProperty);
 	
 	//UnitSize
-	Rank unitSizeRank = projectUnitSize(declarations); 
+	Rank unitSizeRank = projectUnitSize(codeModel); 
 	SourceCodeProperty unitSizeProperty = unitSize(unitSizeRank);
 	println(unitSizeProperty);
 	
 	//UnitTesting
-	Rank unitTestingRank = projectUnitTesting(declarations);
+	Rank unitTestingRank = projectUnitTesting(codeModel);
 	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRank);
 	println(unitTestingProperty);
 	

@@ -36,6 +36,73 @@ public map[ComplexityRiskEvaluation, real] complexityPie(CodeModel model)
 	return complexityPie(units);
 }
 
+//Private Functions
+private map[ComplexityRiskEvaluation, real] complexityPie(list[Unit] units)
+{	
+	map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk = groupedUnitsPerRisk(units);
+	
+	LOC totalLinesOfCode = size(units) > 0 ? linesOfCodeOfUnitList(units) : 1;
+	
+	LOC simpleLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[simple()]) : 1;
+	LOC moreComplexLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[moreComplex()]) : 0;
+	LOC complexLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[complex()]) : 0;
+	LOC untestableLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[untestable()]) : 0;
+	
+	map[ComplexityRiskEvaluation, real] result = (
+													simple() : toReal(simpleLines) / toReal(totalLinesOfCode),
+													moreComplex() : toReal(moreComplexLines) / toReal(totalLinesOfCode),
+													complex() : toReal(complexLines) / toReal(totalLinesOfCode),
+													untestable() : toReal(untestableLines) / toReal(totalLinesOfCode)
+													);
+	
+	return result;
+}
+
+private ComplexityRiskEvaluation complexityRiskForUnit(Unit unit)
+{
+	CC cc = cyclomaticComplexityForUnit(unit);
+	
+	return convertCCToComplexityRiskEvalutation(cc);
+}
+
+private CC cyclomaticComplexityForUnit(Unit unit)
+{
+	return cyclomaticComplexityForStatement(unit.statements);
+}
+
+private map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk(list[Unit] units)
+{
+	list[tuple [Unit, ComplexityRiskEvaluation]] complexityPerUnit = [];
+	
+	for (unit <- units)
+	{
+		complexityPerUnit += <unit, complexityRiskForUnit(unit)>;
+	}
+
+	list[Unit] simpleUnits = [];
+	list[Unit] moreComplexUnits = [];
+	list[Unit] complexUnits = [];
+	list[Unit] untestableUnits = [];
+	
+	for (<u, c> <- complexityPerUnit)
+	{
+		switch (c)
+		{
+			case simple() : simpleUnits += u;
+			case moreComplex() : moreComplexUnits += u;
+			case complex() : complexUnits += u;
+			case untestable() : untestableUnits += u;
+			default : fail; 
+		}
+	}
+	
+	return (simple() : simpleUnits, 
+			moreComplex() : moreComplexUnits, 
+			complex() : complexUnits, 
+			untestable() : untestableUnits
+			);
+}
+
 
 //Tests
 public list[bool] allTests() = [
@@ -162,71 +229,4 @@ test bool testRankWithCommentsAndEmptyLines()
 	Rank rank = projectComplexity(codeModel);
 	
 	return rank == minusMinus();
-}
-
-//Private Functions
-private map[ComplexityRiskEvaluation, real] complexityPie(list[Unit] units)
-{	
-	map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk = groupedUnitsPerRisk(units);
-	
-	LOC totalLinesOfCode = size(units) > 0 ? linesOfCodeOfUnitList(units) : 1;
-	
-	LOC simpleLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[simple()]) : 1;
-	LOC moreComplexLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[moreComplex()]) : 0;
-	LOC complexLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[complex()]) : 0;
-	LOC untestableLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[untestable()]) : 0;
-	
-	map[ComplexityRiskEvaluation, real] result = (
-													simple() : toReal(simpleLines) / toReal(totalLinesOfCode),
-													moreComplex() : toReal(moreComplexLines) / toReal(totalLinesOfCode),
-													complex() : toReal(complexLines) / toReal(totalLinesOfCode),
-													untestable() : toReal(untestableLines) / toReal(totalLinesOfCode)
-													);
-	
-	return result;
-}
-
-private ComplexityRiskEvaluation complexityRiskForUnit(Unit unit)
-{
-	CC cc = cyclomaticComplexityForUnit(unit);
-	
-	return convertCCToComplexityRiskEvalutation(cc);
-}
-
-private CC cyclomaticComplexityForUnit(Unit unit)
-{
-	return cyclomaticComplexityForStatement(unit.statements);
-}
-
-private map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk(list[Unit] units)
-{
-	list[tuple [Unit, ComplexityRiskEvaluation]] complexityPerUnit = [];
-	
-	for (unit <- units)
-	{
-		complexityPerUnit += <unit, complexityRiskForUnit(unit)>;
-	}
-
-	list[Unit] simpleUnits = [];
-	list[Unit] moreComplexUnits = [];
-	list[Unit] complexUnits = [];
-	list[Unit] untestableUnits = [];
-	
-	for (<u, c> <- complexityPerUnit)
-	{
-		switch (c)
-		{
-			case simple() : simpleUnits += u;
-			case moreComplex() : moreComplexUnits += u;
-			case complex() : complexUnits += u;
-			case untestable() : untestableUnits += u;
-			default : fail; 
-		}
-	}
-	
-	return (simple() : simpleUnits, 
-			moreComplex() : moreComplexUnits, 
-			complex() : complexUnits, 
-			untestable() : untestableUnits
-			);
 }

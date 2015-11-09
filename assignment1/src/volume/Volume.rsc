@@ -23,15 +23,16 @@ public tuple[LOC,Rank] projectVolume(M3 model)
 public LOC linesOfCodeInProject(M3 model)
 {
 	list[loc] sourcefiles = getFilesFromModel(model);
-	LOC linesOfCode = 0;
+	LOC totalLinesOfCode = 0;
 	
 	for(file <- sourcefiles) 
 	{
 		//print("<file> : ");
-		linesOfCode += linesOfCodeInFile(model, file);
+		int linesOfCode = linesOfCodeInFile(model, file);
 		//println("<linesOfCode>");
+		totalLinesOfCode += linesOfCode;
 	}
-	return linesOfCode;
+	return totalLinesOfCode;
 }
 
 public LOC linesOfCodeInFile(M3 model, loc sourcefile)

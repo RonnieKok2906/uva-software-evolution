@@ -31,7 +31,7 @@ public Rank projectDuplication(set[Declaration] declarations, M3 model)
 	return plusPlus();
 }
 
-public set[CodeLine] duplicationsInProject(set[Declaration] declarations, M3 model)
+private set[CodeLine] duplicationsInProject(set[Declaration] declarations, M3 model)
 {	
 	map[list[CodeFragment], set[CodeBlock]] mapping = indexAllCodeFragments(declarations, model);
 	
@@ -67,7 +67,7 @@ public set[CodeLine] duplicationsInProject(set[Declaration] declarations, M3 mod
 	return duplicatedLines;
 }
 
-public map[list[CodeFragment], set[CodeBlock]] indexAllCodeFragments(set[Declaration] declarations, M3 model)
+private map[list[CodeFragment], set[CodeBlock]] indexAllCodeFragments(set[Declaration] declarations, M3 model)
 {
 	map[loc, list[Comment]] commentsInProject = commentsPerFile(model);
 	
@@ -78,24 +78,23 @@ public map[list[CodeFragment], set[CodeBlock]] indexAllCodeFragments(set[Declara
 	return ListRelation::index(blocks);
 }
 
-public list[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] comments)
+private list[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] comments)
 {
-	list[CodeFragment] stringLines = readFileLines(fileName);
-	
-	list[CodeLine] linesWithoutComments = removeCommentsFromCode(fileName, stringLines, comments);
+	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	
 	return [linesWithoutComments[i] | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
 }
 
-public list[CodeLine] removeCommentsFromCode(loc fileName, list[CodeFragment] lines, list[Comment] comments)
+private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] comments)
 { 
+	list[CodeFragment] lines = readFileLines(fileName);
+
 	list[CodeLine] linesToReturn = [];
 	
 	for (i <- [0..size(lines)])
 	{
 		linesToReturn += codeLine(fileName, i, lines[i]);
 	}
-	
 	
 	for (c <- comments)
 	{
@@ -115,7 +114,7 @@ public list[CodeLine] removeCommentsFromCode(loc fileName, list[CodeFragment] li
 	return linesToReturn;
 } 
 
-public lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(loc fileName, int nrOfLinesInBlock, list[Comment] comments)
+private lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(loc fileName, int nrOfLinesInBlock, list[Comment] comments)
 {
 	list[CodeLine] codeLines = relevantCodeLinesFromFile(fileName, comments);
 	
@@ -135,7 +134,7 @@ public lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFil
 	return blocks;
 }
 
-public map[loc file, list[Comment] comments] commentsPerFile(M3 model)
+private map[loc, list[Comment]] commentsPerFile(M3 model)
 {
 	map[loc file, list[Comment] comments] mapToReturn = ();
 	
@@ -147,11 +146,12 @@ public map[loc file, list[Comment] comments] commentsPerFile(M3 model)
 	return mapToReturn;
 }
  
-public bool locationInFile(loc location, loc file) = location.path == file.path;
+private bool locationInFile(loc location, loc file) = location.path == file.path;
 
-public bool isEmptyLine(CodeLine line) = isEmptyLine(line.codeFragment);
+//MEMO:put these two functions in Util, or factor them away by using functions of the Volume module
+private bool isEmptyLine(CodeLine line) = isEmptyLine(line.codeFragment);
 
-public bool isEmptyLine(str line)
+private bool isEmptyLine(str line)
 { 
 	return /^\s*$/ := line;
 }

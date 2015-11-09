@@ -16,9 +16,9 @@ import MetricTypes;
 import volume::Volume;
 
 
-public Rank projectDuplication(set[Declaration] declarations, M3 model)
+public Rank projectDuplication(M3 model)
 {
-	real numberOfDuplicatedLines = toReal(size(duplicationsInProject(declarations, model)));
+	real numberOfDuplicatedLines = toReal(size(duplicationsInProject(model)));
 	real numberOfTotalLines = toReal(linesOfCodeInProject(model));
 	real percentage = 100 * numberOfDuplicatedLines / numberOfTotalLines;
 	println("dLOC:<numberOfDuplicatedLines>, LOC:<numberOfTotalLines>, percentage:<percentage>");
@@ -31,9 +31,9 @@ public Rank projectDuplication(set[Declaration] declarations, M3 model)
 	return plusPlus();
 }
 
-private set[CodeLine] duplicationsInProject(set[Declaration] declarations, M3 model)
+private set[CodeLine] duplicationsInProject(M3 model)
 {	
-	map[list[CodeFragment], set[CodeBlock]] mapping = indexAllCodeFragments(declarations, model);
+	map[list[CodeFragment], set[CodeBlock]] mapping = indexAllCodeFragments(model);
 	
 	map[list[CodeFragment], set[CodeBlock]] duplicationsMap = (cf : mapping[cf] | list[CodeFragment] cf <- mapping,  size(mapping[cf]) > 1);
 	
@@ -67,7 +67,7 @@ private set[CodeLine] duplicationsInProject(set[Declaration] declarations, M3 mo
 	return duplicatedLines;
 }
 
-private map[list[CodeFragment], set[CodeBlock]] indexAllCodeFragments(set[Declaration] declarations, M3 model)
+private map[list[CodeFragment], set[CodeBlock]] indexAllCodeFragments(M3 model)
 {
 	map[loc, list[Comment]] commentsInProject = commentsPerFile(model);
 	
@@ -82,7 +82,7 @@ private list[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] com
 {
 	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	
-	return [linesWithoutComments[i] | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
+	return [codeLine(fileName, i, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
 }
 
 private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] comments)
@@ -177,9 +177,8 @@ test bool testSourceIsDuplicated()
 {
 	loc testProject = |project://testSource|;
 	M3 model = createM3FromEclipseProject(testProject);
-	set[Declaration] declarations = createAstsFromEclipseProject(testProject, true);
 
-	set[CodeLine] duplicateLines = duplicationsInProject(declarations, model);
+	set[CodeLine] duplicateLines = duplicationsInProject(model);
 	
 	return size(duplicateLines) == 154 && linesOfCodeInProject(model) == 158;
 }

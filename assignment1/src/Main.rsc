@@ -26,7 +26,7 @@ import unitTesting::Ranking;
 
 public list[loc] projects()
 {
-	return [|project://smallsql0.21_src|, |project://hsqldb-2.3.1|, |project://testSource|];
+	return [|project://smallsql0.21_src|, |project://hsqldb-2.3.1|, |project://testSource|, |project://hsqldb|];
 }
 
 public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
@@ -48,7 +48,7 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 	println(complexityPie(declarations));
 	
 	//Duplication
-	Rank duplicationRank = projectDuplication(declarations, model);
+	Rank duplicationRank = projectDuplication(model);
 	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
 	println(duplicationProperty);
 	

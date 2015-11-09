@@ -1,26 +1,26 @@
 public class TestComplexityWithoutCommentsAndEmptyLines {
-	public TestComplexityWithoutCommentsAndEmptyLines() {
-		super();
-	}
-	public int testSimpleComplexity() {
-		int x = 1;
-		if (x > 1) {
-			System.out.println("x:" + x);
-		}
-		return 3;
-	}
-	public void testMoreComplexComplexity() {
-		boolean x = false;
-		boolean y = false;
-		boolean z = true;
-		if (x || z) {
-			for (int i = 0; i < 10; i++) {
-			}
-		} else if (!y && z) {
-			for (int i = 0; i < 10; i++) {
-			}
-		} else if (!y || !x) {
-			for (int i = 0; i < 10; i++) {
+public TestComplexityWithoutCommentsAndEmptyLines() {
+super();
+}
+public int testSimpleComplexity() {
+int x = 1;
+if (x > 1) {
+System.out.println("x:" + x);
+}
+return 3;
+}
+public void testMoreComplexComplexity() {
+boolean x = false;
+boolean y = false;
+boolean z = true;
+if (x || z) {
+for (int i = 0; i < 10; i++) {
+}
+} else if (!y && z) {
+for (int i = 0; i < 10; i++) {
+}
+} else if (!y || !x) {
+for (int i = 0; i < 10; i++) {
 			}
 		}
 		do {

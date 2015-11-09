@@ -17,4 +17,3 @@ alias CodeBlock = list[CodeLine];
 data MaintainabilityMetric = analysability() | changeability() | stability() | testability();
 data SourceCodeProperty = volume(Rank rank) | complexityPerUnit(Rank rank) | duplication(Rank rank) | unitSize(Rank rank) | unitTesting(Rank rank);
 
-alias CodeLineModel = map[loc fileName, set[CodeLine] lines];

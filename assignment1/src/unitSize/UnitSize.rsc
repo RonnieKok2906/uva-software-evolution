@@ -17,6 +17,12 @@ public Rank projectUnitSize(set[Declaration] declarations)
 	 return neutral();
 }
 
+public list[Unit] projectUnits(M3 model)
+{
+//MEMO:To be implemented;
+	return [];
+}
+
 public list[Unit] projectUnits(set[Declaration] declarations)
 {	
 	list[Unit] units = [];

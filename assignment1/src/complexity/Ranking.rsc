@@ -5,7 +5,6 @@ import List;
 import Map;
 import util::Math;
 
-
 import MetricTypes;
 import Util;
 import Conversion;

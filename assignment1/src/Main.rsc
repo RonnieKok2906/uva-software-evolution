@@ -80,7 +80,8 @@ public void runAllTests()
 								<"volume::Conversion.rsc Tests", volume::VolumeConversion::allTests()>,
 								<"complexity::Ranking.rsc Tests", complexity::Ranking::allTests()>,
 								<"complexity::Conversion.rsc Tests", complexity::Conversion::allTests()>,
-								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>
+								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>,
+								<"duplication::Ranking.rsc Tests", duplication::Ranking::allTests()>
 								];
 
 	for (<name, subTests> <- tests)

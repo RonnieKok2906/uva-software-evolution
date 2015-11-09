@@ -156,6 +156,16 @@ public bool isEmptyLine(str line)
 	return /^\s*$/ := line;
 }
 
+public list[bool] allTests() = [
+								tabsAreEmpty(),
+								whiteSpacesAreEmpty(),
+								newLinesAreEmpty(),
+								characterIsNotEmpty(),
+								strangeCharacterIsNotEmpty(),
+								noCharacterIsEmpty(),
+								testSourceIsDuplicated()
+								]; 
+
 test bool tabsAreEmpty() = isEmptyLine("\t\t\t");
 test bool whiteSpacesAreEmpty() = isEmptyLine("  ");
 test bool newLinesAreEmpty() = isEmptyLine("\n\r");

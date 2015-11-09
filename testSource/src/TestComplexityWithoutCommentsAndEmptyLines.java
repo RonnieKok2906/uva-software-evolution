@@ -1,21 +1,7 @@
-
-
-
-
 public class TestComplexityWithoutCommentsAndEmptyLines {
-	
-	//total lines of method: 69
-	//simple() : 6 lines
-	//moreComplex() : 15 lines
-	//complex() : 48
-	//pie (simple() : 6.0 / 69.0, moreComplex() : 15.0 / 69.0, complex() : 48.0 / 69.0, untestable() : 0.0 / 69.0) 
-	
-	//1 line, complexity simple()
 	public TestComplexityWithoutCommentsAndEmptyLines() {
 		super();
 	}
-
-	//5 lines complexity simple()
 	public int testSimpleComplexity() {
 		int x = 1;
 		if (x > 1) {
@@ -23,8 +9,6 @@ public class TestComplexityWithoutCommentsAndEmptyLines {
 		}
 		return 3;
 	}
-
-	//15 lines, moreComplex()
 	public void testMoreComplexComplexity() {
 		boolean x = false;
 		boolean y = false;
@@ -42,8 +26,6 @@ public class TestComplexityWithoutCommentsAndEmptyLines {
 		do {
 		} while (x);
 	}
-
-	//49 lines, complex()
 	public void testComplexComplexity(int i) {
 		boolean x = true;
 		switch (i) {
@@ -95,4 +77,3 @@ public class TestComplexityWithoutCommentsAndEmptyLines {
 		}
 	}
 }
-

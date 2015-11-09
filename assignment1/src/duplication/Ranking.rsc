@@ -162,3 +162,14 @@ test bool newLinesAreEmpty() = isEmptyLine("\n\r");
 test bool characterIsNotEmpty() = !isEmptyLine("a");
 test bool strangeCharacterIsNotEmpty() = !isEmptyLine("@");
 test bool noCharacterIsEmpty() = isEmptyLine("");
+
+test bool testSourceIsDuplicated()
+{
+	loc testProject = |project://testSource|;
+	M3 model = createM3FromEclipseProject(testProject);
+	set[Declaration] declarations = createAstsFromEclipseProject(testProject, true);
+
+	set[CodeLine] duplicateLines = duplicationsInProject(declarations, model);
+	
+	return size(duplicateLines) == 154 && linesOfCodeInProject(model) == 158;
+}

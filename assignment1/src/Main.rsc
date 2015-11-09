@@ -23,6 +23,7 @@ import duplication::Ranking;
 
 import unitTesting::Ranking;
 
+import CodeModel;
 
 public list[loc] projects()
 {
@@ -36,6 +37,8 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 	println("Building AST for project...");
 	set[Declaration] declarations = createAstsFromEclipseProject(project, true);
 
+	CodeModel codeModel = createCodeModel(model);
+
 	//Volume
 	tuple[LOC,Rank] volumeResults = projectVolume(model);
 	SourceCodeProperty volumeProperty = volume(volumeResults[1]);
@@ -48,7 +51,7 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 	println(complexityPie(declarations));
 	
 	//Duplication
-	Rank duplicationRank = projectDuplication(model);
+	Rank duplicationRank = projectDuplication(codeModel, model);
 	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
 	println(duplicationProperty);
 	
@@ -76,6 +79,7 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 public void runAllTests()
 {
 	list[tuple[str,list[bool]]] tests = [
+								<"CodeModel.rsc Tests", CodeModel::allTests()>,
 								<"Conversion.rsc Tests", Conversion::allTests()>,
 								<"volume::Conversion.rsc Tests", volume::VolumeConversion::allTests()>,
 								<"complexity::Ranking.rsc Tests", complexity::Ranking::allTests()>,

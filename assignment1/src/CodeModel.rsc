@@ -7,7 +7,7 @@ import lang::java::jdt::m3::Core;
 
 import MetricTypes;
 
-alias CodeModel = map[loc fileName, set[CodeLine] lines];
+alias CodeModel = map[loc fileName, list[CodeLine] lines];
 
 public CodeModel createCodeModel(M3 model)
 {
@@ -33,11 +33,11 @@ private map[loc, list[Comment]] commentsPerFile(M3 model)
 
 private bool locationInFile(loc location, loc file) = location.path == file.path;
 
-private set[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] comments)
+private list[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] comments)
 {
 	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	
-	return toSet([codeLine(fileName, i, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])]);
+	return [codeLine(fileName, i, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
 }
 
 private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] comments)
@@ -75,3 +75,19 @@ private bool isEmptyLine(str line)
 { 
 	return /^\s*$/ := line;
 }
+
+public list[bool] allTests() = [
+								tabsAreEmpty(),
+								whiteSpacesAreEmpty(),
+								newLinesAreEmpty(),
+								characterIsNotEmpty(),
+								strangeCharacterIsNotEmpty(),
+								noCharacterIsEmpty()
+								]; 
+
+test bool tabsAreEmpty() = isEmptyLine("\t\t\t");
+test bool whiteSpacesAreEmpty() = isEmptyLine("  ");
+test bool newLinesAreEmpty() = isEmptyLine("\n\r");
+test bool characterIsNotEmpty() = !isEmptyLine("a");
+test bool strangeCharacterIsNotEmpty() = !isEmptyLine("@");
+test bool noCharacterIsEmpty() = isEmptyLine("");

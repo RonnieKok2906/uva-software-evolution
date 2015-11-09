@@ -15,11 +15,15 @@ import MetricTypes;
 
 import volume::Volume;
 
+import CodeModel;
 
-public Rank projectDuplication(M3 model)
+//Public Functions
+
+//MEMO:When the volume module is adjusted to the usage of CodeModel, then M3 can be removed from this module.
+public Rank projectDuplication(CodeModel model, M3 m3Model)
 {
 	real numberOfDuplicatedLines = toReal(size(duplicationsInProject(model)));
-	real numberOfTotalLines = toReal(linesOfCodeInProject(model));
+	real numberOfTotalLines = toReal(linesOfCodeInProject(m3Model));
 	real percentage = 100 * numberOfDuplicatedLines / numberOfTotalLines;
 	println("dLOC:<numberOfDuplicatedLines>, LOC:<numberOfTotalLines>, percentage:<percentage>");
 	
@@ -31,23 +35,18 @@ public Rank projectDuplication(M3 model)
 	return plusPlus();
 }
 
-private set[CodeLine] duplicationsInProject(M3 model)
+public LOC numberOfDuplicatedLines(CodeModel model)
+{
+	return size(duplicationsInProject(model));
+}
+
+//Private Functions
+
+private set[CodeLine] duplicationsInProject(CodeModel model)
 {	
-	map[list[CodeFragment], set[CodeBlock]] mapping = indexAllCodeFragments(model);
+	map[list[CodeFragment], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, 6);
 	
 	map[list[CodeFragment], set[CodeBlock]] duplicationsMap = (cf : mapping[cf] | list[CodeFragment] cf <- mapping,  size(mapping[cf]) > 1);
-	
-	//for (d <- duplicationsMap)
-	//{
-	//	//println("The codeFragment is duplicated in <size(duplicationsMap[d])> files:");
-	//	
-	//	for (cf <- d)
-	//	{
-	//	//	println(cf);
-	//	}
-	//	
-	//	//println("+++++");
-	//}
 	
 	set[CodeLine] duplicatedLines = {};
 	
@@ -67,118 +66,45 @@ private set[CodeLine] duplicationsInProject(M3 model)
 	return duplicatedLines;
 }
 
-private map[list[CodeFragment], set[CodeBlock]] indexAllCodeFragments(M3 model)
-{
-	map[loc, list[Comment]] commentsInProject = commentsPerFile(model);
-	
-	list[loc] files = getFilesFromModel(model);
-	
-	lrel[list[CodeFragment], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(f, 6, commentsInProject[f]) | f <- files);
+private map[list[CodeFragment], set[CodeBlock]] indexAllPossibleCodeFragmentsOfNLines(CodeModel model, int nrOfLines)
+{	
+	lrel[list[CodeFragment], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(model[f], nrOfLines) | f <- model);
 
 	return ListRelation::index(blocks);
 }
 
-private list[CodeLine] relevantCodeLinesFromFile(loc fileName, list[Comment] comments)
-{
-	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
-	
-	return [codeLine(fileName, i, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
-}
 
-private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] comments)
-{ 
-	list[CodeFragment] lines = readFileLines(fileName);
-
-	list[CodeLine] linesToReturn = [];
-	
-	for (i <- [0..size(lines)])
-	{
-		linesToReturn += codeLine(fileName, i, lines[i]);
-	}
-	
-	for (c <- comments)
-	{
-		list[CodeFragment] commentLines = readFileLines(c.location);
-		
-		for (i <- [0..size(commentLines)])
-		{
-			int lineNumber = c.location.begin.line + i - 1;		
-			CodeFragment fragmentWithComment = lines[lineNumber];
-
-			str resultLine = ("" | it + s | s <- split(commentLines[i], fragmentWithComment));
-	
-			linesToReturn[lineNumber] = codeLine(fileName, i, resultLine);
-		}
-	}
-
-	return linesToReturn;
-} 
-
-private lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(loc fileName, int nrOfLinesInBlock, list[Comment] comments)
-{
-	list[CodeLine] codeLines = relevantCodeLinesFromFile(fileName, comments);
-	
-	if (size(codeLines) < nrOfLinesInBlock) return [];
+private lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(list[CodeLine] lines, int nrOfLinesInBlock)
+{	
+	if (size(lines) < nrOfLinesInBlock) return [];
 	
 	lrel[list[CodeFragment], list[CodeLine]] blocks = [];
 	
-	for (i <- [0..size(codeLines)-nrOfLinesInBlock + 1])
+	for (i <- [0..size(lines)-nrOfLinesInBlock + 1])
 	{
-		list[CodeLine] linesInBlock = [l | l <- codeLines[i..i+nrOfLinesInBlock]];
+		list[CodeLine] linesInBlock = [l | l <- lines[i..i+nrOfLinesInBlock]];
 		
-		list[CodeFragment] cfs = [l.codeFragment | l <- linesInBlock];
+		list[CodeFragment] codeFragments = [l.codeFragment | l <- linesInBlock];
 		
-		blocks += [<cfs, linesInBlock>];
+		blocks += [<codeFragments, linesInBlock>];
 	}
 	
 	return blocks;
 }
 
-private map[loc, list[Comment]] commentsPerFile(M3 model)
-{
-	map[loc file, list[Comment] comments] mapToReturn = ();
-	
-	for (file <- getFilesFromModel(model))
-	{
-		mapToReturn[file] = [comment(c) |  <_,c> <- model@documentation, locationInFile(c, file)];
-	}
-	
-	return mapToReturn;
-}
- 
-private bool locationInFile(loc location, loc file) = location.path == file.path;
-
-//MEMO:put these two functions in Util, or factor them away by using functions of the Volume module
-private bool isEmptyLine(CodeLine line) = isEmptyLine(line.codeFragment);
-
-private bool isEmptyLine(str line)
-{ 
-	return /^\s*$/ := line;
-}
-
+//Tests
 public list[bool] allTests() = [
-								tabsAreEmpty(),
-								whiteSpacesAreEmpty(),
-								newLinesAreEmpty(),
-								characterIsNotEmpty(),
-								strangeCharacterIsNotEmpty(),
-								noCharacterIsEmpty(),
 								testSourceIsDuplicated()
 								]; 
-
-test bool tabsAreEmpty() = isEmptyLine("\t\t\t");
-test bool whiteSpacesAreEmpty() = isEmptyLine("  ");
-test bool newLinesAreEmpty() = isEmptyLine("\n\r");
-test bool characterIsNotEmpty() = !isEmptyLine("a");
-test bool strangeCharacterIsNotEmpty() = !isEmptyLine("@");
-test bool noCharacterIsEmpty() = isEmptyLine("");
 
 test bool testSourceIsDuplicated()
 {
 	loc testProject = |project://testSource|;
-	M3 model = createM3FromEclipseProject(testProject);
-
+	M3 m3Model = createM3FromEclipseProject(testProject);
+		
+	CodeModel model = createCodeModel(m3Model);
+	
 	set[CodeLine] duplicateLines = duplicationsInProject(model);
 	
-	return size(duplicateLines) == 154 && linesOfCodeInProject(model) == 158;
+	return size(duplicateLines) == 154 && linesOfCodeInProject(m3Model) == 158;
 }

@@ -35,7 +35,7 @@ private list[CodeLine] relevantCodeFromFile(loc fileName, list[Comment] comments
 {
 	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	
-	return [codeLine(fileName, i, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
+	return [codeLine(fileName, i+1, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
 }
 
 private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] comments)
@@ -46,7 +46,7 @@ private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] commen
 	
 	for (i <- [0..size(lines)])
 	{
-		linesToReturn += codeLine(fileName, i, lines[i]);
+		linesToReturn += codeLine(fileName, i+1, lines[i]);
 	}
 	
 	for (c <- comments)
@@ -55,12 +55,12 @@ private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] commen
 		
 		for (i <- [0..size(commentLines)])
 		{
-			int lineNumber = c.location.begin.line + i - 1;		
-			CodeFragment fragmentWithComment = lines[lineNumber];
+			int lineNumber = c.location.begin.line + i;		
+			CodeFragment fragmentWithComment = lines[lineNumber - 1];
 
 			str resultLine = ("" | it + s | s <- split(commentLines[i], fragmentWithComment));
 	
-			linesToReturn[lineNumber] = codeLine(fileName, i, resultLine);
+			linesToReturn[lineNumber - 1] = codeLine(fileName, lineNumber, resultLine);
 		}
 	}
 

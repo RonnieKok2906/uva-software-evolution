@@ -5,7 +5,11 @@ import Prelude;
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 
-import MetricTypes;
+import MetricTypes; 
+
+alias CodeFragment = str;
+data CodeLine = codeLine(loc fileName, int lineNumber, CodeFragment codeFragment);
+alias CodeBlock = list[CodeLine];
 
 alias CodeModel = map[loc fileName, list[CodeLine] lines];
 

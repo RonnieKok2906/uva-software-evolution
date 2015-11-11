@@ -15,11 +15,57 @@ import Util;
 
 import CodeModel;
 
-//TODO: implement
-public Rank projectUnitSize(CodeModel model)
+data UnitSize = unitSize(loc method, loc file, LOC linesOfCode, UnitSizeEvaluation evaluation); 
+
+
+public Rank projectUnitSize(CodeModel codeModel, M3 m3Model)
 {
-	 return neutral();
+	list[tuple[loc method, loc file]] methods = 
+		[ <m,f> | <m,f> <- m3Model@declarations, m.scheme == "java+constructor" || m.scheme == "java+method" ];
+		
+	list[UnitSize] unitSizes = [];
+		
+	for(<method,file> <- methods) 
+	{
+		LOC numberOfLines = size(linesInMethod(file, codeModel));
+
+		unitSizes += unitSize(method, file, numberOfLines, convertLOCEvaluation(numberOfLines));
+	}
+
+	int nrOfMethods = size(methods);
+	int nrOfVeryHigh = size([m | m <-  unitSizes, m.evaluation == veryHigh() ]);
+	int nrOfHigh = size([m | m <-  unitSizes, m.evaluation == high() ]);
+	int nrOfMedium = size([m | m <-  unitSizes, m.evaluation == medium() ]);
+	int nrOfLow = size([m | m <-  unitSizes, m.evaluation == low() ]);
+
+	println("Total number of methods: <nrOfMethods>");
+
+	println("Very High: <nrOfVeryHigh> (<nrOfVeryHigh / nrOfMethods * 100>%)");
+	println("High: <nrOfHigh> (<nrOfHigh / nrOfMethods * 100>%)");
+	println("Medium: <nrOfMedium> (<nrOfMedium / nrOfMethods * 100>%)");
+	println("Low: <nrOfLow> (<nrOfLow / nrOfMethods * 100>%)");
+
+
+	return neutral();
 }
+
+public list[CodeLine] linesInMethod(loc method, CodeModel codeModel)
+{
+	list[CodeLine] linesInFile = codeModel[method.top];
+	
+	return [ line | CodeLine line <- linesInFile, line.lineNumber >= method.begin.line && line.lineNumber <= method.end.line ];
+}
+
+
+
+public UnitSizeEvaluation convertLOCEvaluation(LOC l) = veryHigh() when l > 100;
+public UnitSizeEvaluation convertLOCEvaluation(LOC l) = high() when l > 50;
+public UnitSizeEvaluation convertLOCEvaluation(LOC l) = medium() when l > 10;
+public default UnitSizeEvaluation convertLOCEvaluation(LOC l) = low();
+
+
+
+
 
 public list[Unit]projectUnits(M3 model)
 {

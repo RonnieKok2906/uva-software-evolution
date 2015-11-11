@@ -9,7 +9,20 @@ import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
 import MetricTypes;
+import CodeModel;
 import volume::VolumeConversion;
+
+//
+// Returns the Volume metric ranking for a given project.
+//
+public tuple[LOC,Rank] projectVolume(CodeModel model)
+{
+	LOC pLoc = (0 | it + size(model[file]) | file <- model);
+
+	return <pLoc, convertLOCToRankForJava(pLoc)>;
+}
+
+// All below is now deprecated! :)
 
 //
 // Returns the Volume metric ranking for a given project.

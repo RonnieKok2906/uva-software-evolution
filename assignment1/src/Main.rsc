@@ -5,9 +5,13 @@ import lang::java::jdt::m3::Core;
 
 import IO;
 import List;
+import Map;
 
-import MetricTypes;
 import Conversion;
+
+import model::MetricTypes;
+import model::CodeLineModel;
+import model::CodeUnitModel;
 
 import volume::Volume;
 import volume::VolumeConversion;
@@ -22,7 +26,6 @@ import duplication::Ranking;
 
 import unitTesting::Ranking;
 
-import CodeModel;
 
 public list[loc] projects()
 {
@@ -34,31 +37,32 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 	println("Building M3 model for project...");
 	M3 m3Model = createM3FromEclipseProject(project);
 
-	CodeModel codeModel = createCodeModel(m3Model);
-
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel);
+	
 	//Volume
 	tuple[LOC,Rank] volumeResults = projectVolume(m3Model);
 	SourceCodeProperty volumeProperty = volume(volumeResults[1]);
 	println("Volume : Lines of Code : <volumeResults[0]> (<volumeProperty>)");
 	
 	//Complexity
-	Rank complexityPerUnitRank = projectComplexity(codeModel);
+	Rank complexityPerUnitRank = projectComplexity(codeUnitModel);
 	SourceCodeProperty complexityPerUnitProperty = complexityPerUnit(complexityPerUnitRank);
 	println(complexityPerUnitProperty);
-	println(complexityPie(codeModel));
+	println(complexityPie(range(codeUnitModel)));
 	
 	//Duplication
-	Rank duplicationRank = projectDuplication(codeModel, m3Model);
+	Rank duplicationRank = projectDuplication(codeLineModel, m3Model);
 	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
 	println(duplicationProperty);
 	
 	//UnitSize
-	Rank unitSizeRank = projectUnitSize(codeModel); 
+	Rank unitSizeRank = projectUnitSize(codeUnitModel); 
 	SourceCodeProperty unitSizeProperty = unitSize(unitSizeRank);
 	println(unitSizeProperty);
 	
 	//UnitTesting
-	Rank unitTestingRank = projectUnitTesting(codeModel);
+	Rank unitTestingRank = projectUnitTesting(codeLineModel);
 	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRank);
 	println(unitTestingProperty);
 	
@@ -76,7 +80,7 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 public void runAllTests()
 {
 	list[tuple[str,list[bool]]] tests = [
-								<"CodeModel.rsc Tests", CodeModel::allTests()>,
+								<"CodeLineModel.rsc Tests", model::CodeLineModel::allTests()>,
 								<"Conversion.rsc Tests", Conversion::allTests()>,
 								<"volume::Conversion.rsc Tests", volume::VolumeConversion::allTests()>,
 								<"complexity::Ranking.rsc Tests", complexity::Ranking::allTests()>,

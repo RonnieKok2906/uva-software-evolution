@@ -1,6 +1,6 @@
 module complexity::Conversion
 
-import MetricTypes;
+import model::MetricTypes;
 
 //Complexity Conversion functions
 

@@ -8,14 +8,14 @@ import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
-import MetricTypes;
-import CodeModel;
+import model::MetricTypes;
+import model::CodeLineModel;
 import volume::VolumeConversion;
 
 //
 // Returns the Volume metric ranking for a given project.
 //
-public tuple[LOC,Rank] projectVolume(CodeModel model)
+public tuple[LOC,Rank] projectVolume(CodeLineModel model)
 {
 	LOC pLoc = (0 | it + size(model[file]) | file <- model);
 

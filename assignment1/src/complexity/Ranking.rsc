@@ -6,38 +6,31 @@ import Map;
 import util::Math;
 
 import lang::java::jdt::m3::Core;
+import lang::java::jdt::m3::AST;
 
-import MetricTypes;
-import CodeModel;
+import model::MetricTypes;
+import model::CodeLineModel;
+import model::CodeUnitModel;
+
 import Util;
 import Conversion;
-import unitSize::UnitSize;
 
 import complexity::CyclomaticComplexity;
 import complexity::Conversion;
 
 
-
 //Public Functions
 
-public Rank projectComplexity(CodeModel model)
+public Rank projectComplexity(CodeUnitModel model)
 {
-	list[Unit] units = projectUnits(model);
+	set[Unit] units = range(model);
 
 	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
 	
 	return size(units) > 0 ? convertPieToRank(complexityPie) : neutral();
 }
 
-public map[ComplexityRiskEvaluation, real] complexityPie(CodeModel model)
-{
-	list[Unit] units = projectUnits(model);
-	
-	return complexityPie(units);
-}
-
-//Private Functions
-private map[ComplexityRiskEvaluation, real] complexityPie(list[Unit] units)
+public map[ComplexityRiskEvaluation, real] complexityPie(set[Unit] units)
 {	
 	map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk = groupedUnitsPerRisk(units);
 	
@@ -58,6 +51,8 @@ private map[ComplexityRiskEvaluation, real] complexityPie(list[Unit] units)
 	return result;
 }
 
+//Private Functions
+
 private ComplexityRiskEvaluation complexityRiskForUnit(Unit unit)
 {
 	CC cc = cyclomaticComplexityForUnit(unit);
@@ -70,7 +65,9 @@ private CC cyclomaticComplexityForUnit(Unit unit)
 	return cyclomaticComplexityForStatement(unit.statements);
 }
 
-private map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk(list[Unit] units)
+private map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk(list[Unit] units) = groupedUnitsPerRisk(toSet(units));
+
+private map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk(set[Unit] units)
 {
 	list[tuple [Unit, ComplexityRiskEvaluation]] complexityPerUnit = [];
 	
@@ -121,33 +118,30 @@ test bool testNumberOfUnitsWithoutCommentsAndEmptyLines()
 {
 	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|);
 	
-	CodeModel codeModel = createCodeModel(m3Model);
-	
-	list[Unit] units = projectUnits(codeModel);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel);
 
-	return size(units) == 4;
+	return size(codeUnitModel) == 4;
 }
 
 test bool testNumberOfUnitsWithCommentsAndEmptyLines()
 {	
 	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|);
 	
-	CodeModel codeModel = createCodeModel(m3Model);
-	
-	list[Unit] units = projectUnits(codeModel);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel);
 
-	return size(units) == 4;
+	return size(codeUnitModel) == 4;
 }
 
 test bool testSumComplexityPieWithoutCommentsAndEmptyLinesIsOne()
 {
 	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|);
 	
-	CodeModel codeModel = createCodeModel(m3Model);
-	
-	list[Unit] units = projectUnits(codeModel);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel);
 
-	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
+	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(range(codeUnitModel));
 	
 	real result = sum(range(complexityPie));
 	
@@ -158,11 +152,10 @@ test bool testSumComplexityPieWithCommentsAndEmptyLinesIsOne()
 {
 	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|);
 	
-	CodeModel codeModel = createCodeModel(m3Model);
-	
-	list[Unit] units = projectUnits(codeModel);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel);
 
-	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
+	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(range(codeUnitModel));
 	
 	real result = sum(range(complexityPie));
 	
@@ -173,17 +166,16 @@ test bool testComplexityPieWithoutCommentsAndEmptyLines()
 {
 	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|);
 	
-	CodeModel codeModel = createCodeModel(m3Model);
-	
-	list[Unit] units = projectUnits(codeModel);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel);
 
-	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
+	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(range(codeUnitModel));
 
 	map[ComplexityRiskEvaluation, real] reference = (
-													simple() : 6.0 / 69.0, 
-													moreComplex() : 15.0 / 69.0, 
-													complex() : 48.0 / 69.0, 
-													untestable() : 0.0 / 69.0
+													simple() : 10.0 / 77.0, 
+													moreComplex() : 17.0 / 77.0, 
+													complex() : 50.0 / 77.0, 
+													untestable() : 0.0 / 77.0
 													);
 	
 	return reference == complexityPie;
@@ -193,17 +185,16 @@ test bool testComplexityPieWithCommentsAndEmptyLines()
 {
 	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|);
 	
-	CodeModel codeModel = createCodeModel(m3Model);
-	
-	list[Unit] units = projectUnits(codeModel);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel);
 
-	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
+	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(range(codeUnitModel));
 
 	map[ComplexityRiskEvaluation, real] reference = (
-													simple() : 6.0 / 69.0, 
-													moreComplex() : 15.0 / 69.0, 
-													complex() : 48.0 / 69.0, 
-													untestable() : 0.0 / 69.0
+													simple() : 10.0 / 77.0, 
+													moreComplex() : 17.0 / 77.0, 
+													complex() : 50.0 / 77.0, 
+													untestable() : 0.0 / 77.0
 													);
 	
 	return reference == complexityPie;
@@ -213,9 +204,10 @@ test bool testRankWithoutCommentsAndEmptyLines()
 {	
 	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|);
 	
-	CodeModel codeModel = createCodeModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel);
 	
-	Rank rank = projectComplexity(codeModel);
+	Rank rank = projectComplexity(codeUnitModel);
 	
 	return rank == minusMinus();
 }
@@ -224,9 +216,10 @@ test bool testRankWithCommentsAndEmptyLines()
 {	
 	M3 m3Model = createM3FromEclipseFile(|project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|);
 	
-	CodeModel codeModel = createCodeModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel);
 	
-	Rank rank = projectComplexity(codeModel);
+	Rank rank = projectComplexity(codeUnitModel);
 	
 	return rank == minusMinus();
 }

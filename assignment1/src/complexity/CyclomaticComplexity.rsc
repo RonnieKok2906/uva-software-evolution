@@ -5,7 +5,7 @@ import List;
 import lang::java::jdt::m3::AST; 
 
 import Util;
-import MetricTypes;
+import model::MetricTypes;
 
 //Public functions
 public CC cyclomaticComplexityForStatement(list[Statement] statements) 

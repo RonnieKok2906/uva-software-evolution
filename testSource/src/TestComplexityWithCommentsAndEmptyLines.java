@@ -11,19 +11,19 @@ public class TestComplexityWithCommentsAndEmptyLines {
 	
 	
 	
-	// total lines of method: 69
-	// simple() : 6 lines
-	// moreComplex() : 15 lines
-	// complex() : 48
-	// pie (simple() : 6.0 / 69.0, moreComplex() : 15.0 / 69.0, complex() : 48.0
-	// / 69.0, untestable() : 0.0 / 69.0)
+	// total lines of method: 77
+	// simple() : 10 lines
+	// moreComplex() : 17 lines
+	// complex() : 50
+	// pie (simple() : 10.0 / 70.0, moreComplex() : 50.0 / 70.0, complex() : 48.0
+	// / 70.0, untestable() : 0.0 / 70.0)
 
-	// 1 line, complexity simple()
+	// 3 lines, complexity simple()
 	public TestComplexityWithCommentsAndEmptyLines() {
 		super();
 	}
 
-	// 5 lines complexity simple()
+	// 7 lines complexity simple()
 	public int testSimpleComplexity() {
 
 		int x = 1;
@@ -39,7 +39,7 @@ public class TestComplexityWithCommentsAndEmptyLines {
 
 	// Lorem Ipsum
 
-	// 15 lines, moreComplex()
+	// 17 lines, moreComplex()
 	public void testMoreComplexComplexity() {
 		boolean x = false;
 		boolean y = false;
@@ -63,7 +63,7 @@ public class TestComplexityWithCommentsAndEmptyLines {
 		} while (x);
 	}
 
-	// 49 lines, complex()
+	// 50 lines, complex()
 	public void testComplexComplexity(int i) {
 		boolean x = true;
 		switch (i) {
@@ -116,4 +116,3 @@ public class TestComplexityWithCommentsAndEmptyLines {
 		}
 	}
 }
-

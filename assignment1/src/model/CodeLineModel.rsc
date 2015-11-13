@@ -1,26 +1,25 @@
-module CodeModel
+module model::CodeLineModel
 
 import IO;
 import Prelude;
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 
-import MetricTypes; 
+import model::MetricTypes;
 
-alias CodeFragment = str;
-data CodeLine = codeLine(loc fileName, int lineNumber, CodeFragment codeFragment);
-alias CodeBlock = list[CodeLine];
+alias CodeLineModel = map[loc compilationUnit, list[CodeLine] lines];
 
-alias CodeModel = map[loc fileName, list[CodeLine] lines];
-
-public CodeModel createCodeModel(M3 model)
+public CodeLineModel createCodeLineModel(M3 model)
 {
 	map[loc, list[Comment]] comments = commentsPerFile(model);
 
 	return (f : relevantCodeFromFile(f, comments[f]) | f <- getFilesFromModel(model));
 }
 
-public list[loc files] getFilesFromModel(M3 model) = 
+
+//Private functions
+
+private list[loc files] getFilesFromModel(M3 model) = 
 	[file.top | <name, file> <- model@declarations, name.scheme == "java+compilationUnit"];
 
 private map[loc, list[Comment]] commentsPerFile(M3 model)
@@ -78,6 +77,7 @@ private bool isEmptyLine(str line)
 	return /^\s*$/ := line;
 }
 
+//Tests
 public list[bool] allTests() = [
 								tabsAreEmpty(),
 								whiteSpacesAreEmpty(),

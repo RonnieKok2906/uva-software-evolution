@@ -1,12 +1,13 @@
-module MetricTypes
-
-import lang::java::jdt::m3::AST;
+module model::MetricTypes
 
 alias LOC = int;
 alias CC = int;
 
-data Unit = unit(loc fileName, loc location, list[Statement] statements, LOC linesOfCode);
 data Comment = comment(loc location);
+alias CodeFragment = str;
+data CodeLine = codeLine(loc fileName, int lineNumber, CodeFragment codeFragment);
+alias CodeBlock = list[CodeLine];
+
 data ComplexityRiskEvaluation = simple() | moreComplex() | complex() | untestable();
 data UnitSizeEvaluation = veryHigh() | high() | medium() | low();
 data Rank = plusPlus() | plus() | neutral() | minus() | minusMinus();

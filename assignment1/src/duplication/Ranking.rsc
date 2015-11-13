@@ -10,16 +10,16 @@ import util::Math;
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 
-import MetricTypes;
+import model::MetricTypes;
 
 import volume::Volume;
 
-import CodeModel;
+import model::CodeLineModel;
 
 //Public Functions
 
-//MEMO:When the volume module is adjusted to the usage of CodeModel, then M3 can be removed from this module.
-public Rank projectDuplication(CodeModel model, M3 m3Model)
+//MEMO:When the volume module is adjusted to the usage of CodeLineModel, then M3 can be removed from this module.
+public Rank projectDuplication(CodeLineModel model, M3 m3Model)
 {
 	real numberOfDuplicatedLines = toReal(size(duplicationsInProject(model)));
 	real numberOfTotalLines = toReal(linesOfCodeInProject(m3Model));
@@ -34,14 +34,14 @@ public Rank projectDuplication(CodeModel model, M3 m3Model)
 	return plusPlus();
 }
 
-public LOC numberOfDuplicatedLines(CodeModel model)
+public LOC numberOfDuplicatedLines(CodeLineModel model)
 {
 	return size(duplicationsInProject(model));
 }
 
 //Private Functions
 
-private set[CodeLine] duplicationsInProject(CodeModel model)
+private set[CodeLine] duplicationsInProject(CodeLineModel model)
 {	
 	map[list[CodeFragment], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, 6);
 	
@@ -65,7 +65,7 @@ private set[CodeLine] duplicationsInProject(CodeModel model)
 	return duplicatedLines;
 }
 
-private map[list[CodeFragment], set[CodeBlock]] indexAllPossibleCodeFragmentsOfNLines(CodeModel model, int nrOfLines)
+private map[list[CodeFragment], set[CodeBlock]] indexAllPossibleCodeFragmentsOfNLines(CodeLineModel model, int nrOfLines)
 {	
 	lrel[list[CodeFragment], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(model[f], nrOfLines) | f <- model);
 
@@ -101,7 +101,7 @@ test bool testSourceIsDuplicated()
 	loc testProject = |project://testSource|;
 	M3 m3Model = createM3FromEclipseProject(testProject);
 		
-	CodeModel model = createCodeModel(m3Model);
+	CodeLineModel model = createCodeLineModel(m3Model);
 	
 	set[CodeLine] duplicateLines = duplicationsInProject(model);
 	

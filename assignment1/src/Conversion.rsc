@@ -3,7 +3,7 @@ module Conversion
 import util::Math;
 import List;
 
-import MetricTypes;
+import model::MetricTypes;
 
 //Public functions
 

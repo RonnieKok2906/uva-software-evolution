@@ -1,10 +1,10 @@
 module unitTesting::Ranking
 
-import MetricTypes;
-import CodeModel;
+import model::MetricTypes;
+import model::CodeLineModel;
 
 //TODO: implement
-public Rank projectUnitTesting(CodeModel model)
+public Rank projectUnitTesting(CodeLineModel model)
 {
 	return neutral();
 }

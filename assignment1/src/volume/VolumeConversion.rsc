@@ -1,6 +1,6 @@
 module volume::VolumeConversion
 
-import MetricTypes;
+import model::MetricTypes;
 
 //Conversion from Lines of Code to an enumerated Rank
 public Rank convertLOCToRankForJava(LOC l) = plusPlus() when l <= 66000;

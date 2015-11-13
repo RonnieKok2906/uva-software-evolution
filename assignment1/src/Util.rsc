@@ -5,16 +5,16 @@ import Set;
 
 import lang::java::jdt::m3::AST;
 
-import MetricTypes;
-
+import model::MetricTypes;
+import model::CodeUnitModel;
 
 //Accumulated Lines of Code of a list of MetricTypes::Unit.  
 public LOC linesOfCodeOfUnitList([]) = 0;
-public LOC linesOfCodeOfUnitList(list[Unit] units) = sum([u.linesOfCode | u <- units]);
+public LOC linesOfCodeOfUnitList(list[Unit] units) = sum([size(u.codeBlock) | u <- units]);
 
 //Accumulated Lines of Code of a set of MetricTypes::Unit.
 public LOC linesOfCodeOfUnitList({}) = 0;
-public LOC linesOfCodeOfUnitList(set[Unit] units) = sum([u.linesOfCode | u <- units]);
+public LOC linesOfCodeOfUnitList(set[Unit] units) = sum([size(u.codeBlock) | u <- units]);
 
 //Function the retrieve the statements inside a method or constructor
 public list[Statement] statementsFromUnitDeclaration(Declaration declaration)

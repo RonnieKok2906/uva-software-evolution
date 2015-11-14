@@ -87,6 +87,8 @@ test bool testUnitSizeWithoutCommentsAndEmptyLines()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, {declaration});
 	
+	UnitSizeMetric result = projectUnitSize(codeUnitModel);
+	
 	UnitSizeMetric reference =  (
 								low() : toInt(round((10.0 / 77.0) * 100.0)), 
 								medium() : toInt(round((67.0 / 77.0) * 100.0)), 

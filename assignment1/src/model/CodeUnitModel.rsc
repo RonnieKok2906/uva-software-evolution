@@ -1,6 +1,7 @@
 module model::CodeUnitModel
 
 import Prelude;
+
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
@@ -10,11 +11,13 @@ import model::CodeLineModel;
 
 alias CodeUnitModel = map[loc method, Unit unit];
 
-data Unit = unit(loc compilationUnit, CodeBlock codeBlock, list[Statement] statements);
+data Unit = unit(loc compilationUnit, CodeBlock codeBlock, Statement statement);
 
-public CodeUnitModel createCodeUnitModel(M3 m3Model, CodeLineModel codeLineModel)
+public CodeUnitModel createCodeUnitModel(M3 m3Model, CodeLineModel codeLineModel, set[Declaration] declarations)
 {
-	return ( m : unit(f, linesInMethod(f, codeLineModel), statementsInMethod(m3Model, m))  | <m,f> <- m3Model@declarations, m.scheme == "java+constructor" || m.scheme == "java+method" );
+	CodeUnitModel codeUnitModel = ( f : unit(m, linesInMethod(f, codeLineModel), \return())  | <m,f> <- m3Model@declarations, m.scheme == "java+constructor" || m.scheme == "java+method" );
+		
+	return addStatementsToCodeUnitModel(declarations, codeUnitModel);
 }
 
 private CodeBlock linesInMethod(loc method, CodeLineModel codeLineModel)
@@ -24,22 +27,16 @@ private CodeBlock linesInMethod(loc method, CodeLineModel codeLineModel)
 	return [ line | CodeLine line <- linesInFile, line.lineNumber >= method.begin.line && line.lineNumber <= method.end.line ];
 }
 
-private list[Statement] statementsInMethod(M3 m3Model, loc method)
-{
-	Declaration declaration = getMethodASTEclipse(method, model = m3Model);
-	list[Statement] statements = statementsFromMethodDeclaration(declaration);
-	
-	return statements;
-}
-
-private list[Statement] statementsFromMethodDeclaration(Declaration declaration)
-{
-	list[Statement] statementsList = [];
-
-	top-down-break visit (declaration)
+public CodeUnitModel addStatementsToCodeUnitModel(set[Declaration] declarations, CodeUnitModel codeUnitModel)
+{	
+	for (d <- declarations)
 	{
-		case block(list[Statement] statements) : return statements;
+		visit(d)
+		{
+			case c:constructor(_, _, _, Statement impl) : codeUnitModel[c@src].statement = impl;
+			case m:method(_, _, _, _, Statement impl) : codeUnitModel[m@src].statement = impl;
+		}
 	}
 	
-	return [];
+	return codeUnitModel;
 }

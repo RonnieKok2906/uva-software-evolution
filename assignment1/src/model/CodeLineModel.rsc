@@ -1,13 +1,15 @@
 module model::CodeLineModel
 
-import IO;
 import Prelude;
+
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 
 import model::MetricTypes;
 
 alias CodeLineModel = map[loc compilationUnit, list[CodeLine] lines];
+
+//Public functions
 
 public CodeLineModel createCodeLineModel(M3 model)
 {

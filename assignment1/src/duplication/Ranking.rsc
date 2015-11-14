@@ -1,20 +1,17 @@
 module duplication::Ranking
 
-import List;
-import Set;
-import String;
+import Prelude;
+
 import ListRelation;
-import IO;
 import util::Math;
 
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 
 import model::MetricTypes;
+import model::CodeLineModel;
 
 import volume::Volume;
-
-import model::CodeLineModel;
 
 //Public Functions
 
@@ -91,7 +88,9 @@ private lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFi
 	return blocks;
 }
 
+
 //Tests
+
 public list[bool] allTests() = [
 								testSourceIsDuplicated()
 								]; 

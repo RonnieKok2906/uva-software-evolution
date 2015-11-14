@@ -1,9 +1,6 @@
 module unitSize::UnitSize
 
-import List;
-import String;
-import IO;
-import Map;
+import Prelude;
 
 import util::Math;
 

@@ -1,11 +1,12 @@
 module Main
 
+import Prelude;
+
+import util::Benchmark;
+
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
-
-import IO;
-import List;
-import Map;
+import lang::java::jdt::m3::AST;
 
 import Conversion;
 
@@ -34,39 +35,53 @@ public list[loc] projects()
 
 public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 {
+	before = systemTime();
+	
 	println("Building M3 model for project...");
 	M3 m3Model = createM3FromEclipseProject(project);
 
+	println("Building Ast model for project...");
+	set[Declaration] declarations = createAstsFromEclipseProject(project, false);
+	
+	println("Building CodeLineModel...");
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel);
+	println("Building CodeUnitModel...");
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, declarations);
 	
 	//Volume
+	println("Ranking Volume for project...");
 	tuple[LOC,Rank] volumeResults = projectVolume(m3Model);
 	SourceCodeProperty volumeProperty = volume(volumeResults[1]);
 	println("Volume : Lines of Code : <volumeResults[0]> (<volumeProperty>)");
 	
 	//Complexity
+	println("Ranking Complexity for project...");
 	Rank complexityPerUnitRank = projectComplexity(codeUnitModel);
 	SourceCodeProperty complexityPerUnitProperty = complexityPerUnit(complexityPerUnitRank);
 	println(complexityPerUnitProperty);
 	println(complexityPie(range(codeUnitModel)));
 	
 	//Duplication
+	println("Ranking Duplication for project...");
 	Rank duplicationRank = projectDuplication(codeLineModel, m3Model);
 	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
 	println(duplicationProperty);
 	
 	//UnitSize
+	println("Ranking UnitSize for project...");
 	Rank unitSizeRank = projectUnitSize(codeUnitModel); 
 	SourceCodeProperty unitSizeProperty = unitSize(unitSizeRank);
 	println(unitSizeProperty);
 	
 	//UnitTesting
+	println("Ranking UnitTesting for project...");
 	Rank unitTestingRank = projectUnitTesting(codeLineModel);
 	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRank);
 	println(unitTestingProperty);
 	
 	println("\n");
+	
+	println("time consumed:<(systemTime() - before) * 0.0000001> seconds\n");
 	
 	return (
 			analysability() : averageRankOfPropertyRankings([volumeProperty, duplicationProperty, unitSizeProperty, unitTestingProperty]),

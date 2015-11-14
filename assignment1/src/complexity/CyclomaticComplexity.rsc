@@ -1,6 +1,6 @@
 module complexity::CyclomaticComplexity
 
-import List;
+import Prelude;
 
 import lang::java::jdt::m3::AST; 
 
@@ -8,33 +8,44 @@ import Util;
 import model::MetricTypes;
 
 //Public functions
-public CC cyclomaticComplexityForStatement(list[Statement] statements) 
+public CC cyclomaticComplexityForStatement(Statement statement) 
 {
  	CC cc = 1;
-	
-	for (s <- statements)
-	{
- 		visit(s) 
- 		{
- 			case \do(Statement impl, _): cc += 1;
- 			case \foreach(_, _, Statement impl): cc += 1;
- 			case \for(_, _, _, Statement impl): cc += 1;
- 			case \for(_, _, Statement impl): cc += 1;
- 			case \if(_, Statement elseImpl): cc += 1;
- 			case \if(_, Statement thenImpl, Statement elseImpl): cc += 1;
- 			case \case(_): cc += 1;
- 			case \defaultCase(): cc += 1;
- 			case \catch(_, Statement impl): cc += 1;
- 			case \while(_, Statement impl): cc += 1;
- 			case \infix(_,"||",_): cc += 1;
- 			case \infix(_,"&&",_): cc += 1;
- 			case \conditional(_,_,_): cc += 1;
- 		}
+
+ 	visit(statement) 
+ 	{
+ 		case \do(Statement impl, _): cc += 1;
+ 		case \foreach(_, _, Statement impl): cc += 1;
+ 		case \for(_, _, _, Statement impl): cc += 1;
+ 		case \for(_, _, Statement impl): cc += 1;
+ 		case \if(_, Statement elseImpl): cc += 1;
+ 		case \if(_, Statement thenImpl, Statement elseImpl): cc += 1;
+ 		case \case(_): cc += 1;
+ 		case \defaultCase(): cc += 1;
+ 		case \catch(_, Statement impl): cc += 1;
+ 		case \while(_, Statement impl): cc += 1;
+ 		case \infix(_,"||",_): cc += 1;
+ 		case \infix(_,"&&",_): cc += 1;
+ 		case \conditional(_,_,_): cc += 1;
  	}
 
  	return cc;
 }
 
+
+//Function the retrieve the statement inside a method or constructor, only used for the tests
+private Statement statementFromUnitDeclaration(Declaration declaration)
+{
+	visit(declaration)
+	{
+		case constructor(_, _, _, Statement impl): return impl;
+		case method(_, _, _, _, Statement impl): return impl;
+	}
+		
+	return [];
+}
+
+//Test Functions
 public list[bool] allTests() = [	testSimpleMethod(),
 									testDo(),
 									testForEach(),
@@ -60,7 +71,7 @@ test bool testSimpleMethod()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 1;
 }
@@ -73,7 +84,7 @@ test bool testDo()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -87,7 +98,7 @@ test bool testForEach()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -100,7 +111,7 @@ test bool testForLoop()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -113,7 +124,7 @@ test bool testForLoop2()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -126,7 +137,7 @@ test bool testIfElseStatement()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -139,7 +150,7 @@ test bool testIfElseIfStatement()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 3;
 }
@@ -153,7 +164,7 @@ test bool testNestedIfStatement()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 3;
 }
@@ -166,7 +177,7 @@ test bool testSwitchStatement()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 6;
 }
@@ -179,7 +190,7 @@ test bool testSwitchStatementWithoutDefault()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 5;
 }
@@ -192,7 +203,7 @@ test bool testTryCatch()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 3;
 }
@@ -206,7 +217,7 @@ test bool testWhile()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 2;
 }
@@ -219,7 +230,7 @@ test bool testIfStatementWithTwoInfixOperators()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 4;
 }
@@ -231,7 +242,7 @@ test bool testConditional()
 	
 	Declaration declaration = createAstFromString(|file:///|, classString, true);
 	
-	CC cc = cyclomaticComplexityForStatement(statementsFromUnitDeclaration(declaration));
+	CC cc = cyclomaticComplexityForStatement(statementFromUnitDeclaration(declaration));
 	
 	return cc == 2;
 }

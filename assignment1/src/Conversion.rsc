@@ -20,7 +20,6 @@ public Rank averageRankOfPropertyRankings(list[SourceCodeProperty] properties)
 
 public void printMaintainability(MaintainabilityResult result)
 {
-
 	str volumeResult = convertRankToString(result.volume.rank);
 	str complexityResult = convertRankToString(result.complexity.rank);
 	str duplicationResult = convertRankToString(result.duplication.rank);
@@ -31,6 +30,9 @@ public void printMaintainability(MaintainabilityResult result)
 	Rank changeabilityRank = averageRankOfPropertyRankings([result.complexity, result.duplication]);
 	Rank stabilityRank = undefined();
 	Rank testabilityRank = averageRankOfPropertyRankings([result.complexity, result.unitSize]);
+
+	println("MAINTAINABILITY");
+	println();
 
 	println("\t\t| Volume\t| Complexity\t| Duplication\t| UnitSize\t| UnitTesting\t|| Result");
 	println("------------------------------------------------------------------------------------------------------------");

@@ -34,9 +34,7 @@ public list[loc] projects()
 }
 
 public void rankMaintainability(loc project)
-{
-	before = systemTime();
-	
+{	
 	println("Building M3 model for project...");
 	M3 m3Model = createM3FromEclipseProject(project);
 
@@ -49,7 +47,6 @@ public void rankMaintainability(loc project)
 	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, declarations);
 	
 	//Volume
-	println("Ranking Volume for project...");
 	LOC volumeResults = projectVolume(codeLineModel);
 	Rank volumeRanking = convertLOCToRankForJava(volumeResults);
 	printVolume(volumeResults, volumeRanking);
@@ -77,8 +74,6 @@ public void rankMaintainability(loc project)
 	Rank unitTestingRanking = projectUnitTesting(codeLineModel);
 	printUnitTesting(unitTestingRanking);
 	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRanking);
-	
-	println("time consumed:<(systemTime() - before) * 0.0000001> seconds\n");
 	
 	printMaintainability(<volumeProperty, unitSizeProperty, complexityPerUnitProperty, duplicationProperty, unitTestingProperty>);
 	

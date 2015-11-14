@@ -56,25 +56,26 @@ public void rankMaintainability(loc project)
 	SourceCodeProperty volumeProperty = volume(volumeRanking);
 	
 	//Complexity
-	Rank complexityRank = projectComplexity(codeUnitModel);
-	SourceCodeProperty complexityPerUnitProperty = complexityPerUnit(complexityRank);
+	ComplexityMetric complexityPie = projectComplexity(codeUnitModel);
+	Rank complexityRanking = convertPieToRank(complexityPie);
+	printComplexity(complexityPie);
+	SourceCodeProperty complexityPerUnitProperty = complexityPerUnit(complexityRanking);
 	
 	//Duplication
-	Rank duplicationRank = projectDuplication(codeLineModel);
-	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
+	DuplicationMetric duplicationResult = projectDuplication(codeLineModel);
+	Rank duplicationRanking = convertPercentageToRank(duplicationResult);
+	printDuplication(duplicationResult);
+	SourceCodeProperty duplicationProperty = duplication(duplicationRanking);
 	
 	//UnitSize
-	println("Ranking UnitSize for project...");
 	UnitSizeMetric unitSizeResults = projectUnitSize(codeUnitModel); 
 	Rank unitSizeRanking = convertUnitSizeMetricToRank(unitSizeResults);
 	printUnitSize(unitSizeResults, unitSizeRanking);
 	SourceCodeProperty unitSizeProperty = unitSize(unitSizeRanking);
-	println(unitSizeProperty);
 	
 	//UnitTesting
 	Rank unitTestingRank = projectUnitTesting(codeLineModel);
 	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRank);
-	unitTesting::Ranking::printResults(codeLineModel);
 	
 	println("time consumed:<(systemTime() - before) * 0.0000001> seconds\n");
 	

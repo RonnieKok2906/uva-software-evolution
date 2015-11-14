@@ -5,16 +5,22 @@ import Prelude;
 import model::MetricTypes;
 import model::CodeLineModel;
 
+//Public Functions
+
 //TODO: implement
 public Rank projectUnitTesting(CodeLineModel model)
-{
-	return neutral();
+{	
+	printResults(model);
+	
+	return undefined();
 }
 
-public void printResults(CodeLineModel model)
+//Private Functions
+
+private void printResults(CodeLineModel model)
 {
 	println("UNIT TESTING\n");
 	println("Unit testing not implemented");
-	print("\n");
-	print("\n");
+	println();
+	println();
 }

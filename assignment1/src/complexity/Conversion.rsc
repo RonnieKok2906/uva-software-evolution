@@ -4,9 +4,6 @@ import Prelude;
 
 import model::MetricTypes;
 
-//data ComplexityRelativeLOC = moderate() | high() | veryHigh();
-//list[ComplexityRelativeLOC] rl = [moderate(), high(), veryHigh()];
-
 data ComplexityRiskEvaluation = simple() | moreComplex() | complex() | untestable();
 list [ComplexityRiskEvaluation] cre = [simple(), moreComplex(), complex(), untestable()];
 
@@ -44,7 +41,7 @@ public void printRankTable(map[ComplexityRiskEvaluation, real] pie)
 			}
 		}
 	
-		print("\n");
+		println();
 	
 	}
 	println("-------------------------------------------------------------------");
@@ -58,10 +55,10 @@ public void printRankTable(map[ComplexityRiskEvaluation, real] pie)
 		print("\t| <pie[l]>");
 	}
 	
-	print("\n");
+	println();
 	println("-------------------------------------------------------------------");
-	print("\n");
-	print("\n");
+	println();
+	println();
 }
 
 public void printCCTable()
@@ -85,7 +82,7 @@ public void printCCTable()
 	}
 	println("-----------------------------------------------------");
 	
-	print("\n");
+	println();
 }
 
 //Conversion from Cyclomatic Complexity to an enumerated Risk Evaluation

@@ -18,21 +18,20 @@ import Conversion;
 import complexity::CyclomaticComplexity;
 import complexity::Conversion;
 
+alias ComplexityMetric = map[ComplexityRiskEvaluation complexityRiskEvaluation, real percentage];
 
 //Public Functions
 
-public Rank projectComplexity(CodeUnitModel model)
+public ComplexityMetric projectComplexity(CodeUnitModel model)
 {
 	set[Unit] units = range(model);
 
-	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
+	ComplexityMetric complexityPie = complexityPie(units);
 	
-	printResults(complexityPie);
-	
-	return size(units) > 0 ? convertPieToRank(complexityPie) : neutral();
+	return complexityPie;
 }
 
-public map[ComplexityRiskEvaluation, real] complexityPie(set[Unit] units)
+public ComplexityMetric complexityPie(set[Unit] units)
 {	
 	map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk = groupedUnitsPerRisk(units);
 	
@@ -43,16 +42,24 @@ public map[ComplexityRiskEvaluation, real] complexityPie(set[Unit] units)
 	LOC complexLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[complex()]) : 0;
 	LOC untestableLines = size(units) > 0 ? linesOfCodeOfUnitList(groupedUnitsPerRisk[untestable()]) : 0;	
 	
-	map[ComplexityRiskEvaluation, real] result = (
-													simple() : toReal(simpleLines) / toReal(totalLinesOfCode),
-													moreComplex() : toReal(moreComplexLines) / toReal(totalLinesOfCode),
-													complex() : toReal(complexLines) / toReal(totalLinesOfCode),
-													untestable() : toReal(untestableLines) / toReal(totalLinesOfCode)
-													);
+	ComplexityMetric result = (
+								simple() : toReal(simpleLines) / toReal(totalLinesOfCode),
+								moreComplex() : toReal(moreComplexLines) / toReal(totalLinesOfCode),
+								complex() : toReal(complexLines) / toReal(totalLinesOfCode),
+								untestable() : toReal(untestableLines) / toReal(totalLinesOfCode)
+								);
 	
 	return result;
 }
 
+public void printComplexity(ComplexityMetric complexityPie)
+{
+	println("COMPLEXITY");
+	
+	printCCTable();
+	
+	printRankTable(complexityPie);
+}
 //Private Functions
 
 private ComplexityRiskEvaluation complexityRiskForUnit(Unit unit)
@@ -100,15 +107,6 @@ private map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk(set[Unit] 
 			complex() : complexUnits, 
 			untestable() : untestableUnits
 			);
-}
-
-private void printResults(map[ComplexityRiskEvaluation, real] complexityPie)
-{
-	println("COMPLEXITY");
-	
-	printCCTable();
-	
-	printRankTable(complexityPie);
 }
 
 //Tests
@@ -231,7 +229,8 @@ test bool testRankWithoutCommentsAndEmptyLines()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, {declaration});
 	
-	Rank rank = projectComplexity(codeUnitModel);
+	ComplexityMetric pie = projectComplexity(codeUnitModel);
+	Rank rank = convertPieToRank(pie);
 	
 	return rank == minusMinus();
 }
@@ -245,7 +244,8 @@ test bool testRankWithCommentsAndEmptyLines()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, {declaration});
 	
-	Rank rank = projectComplexity(codeUnitModel);
+	ComplexityMetric pie = projectComplexity(codeUnitModel);
+	Rank rank = convertPieToRank(pie);
 	
 	return rank == minusMinus();
 }

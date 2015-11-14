@@ -35,6 +35,7 @@ private int convertRankToInt(Rank r)
 		case neutral() : return 0;
 		case minus() : return -1;
 		case minusMinus() : return -2;
+		case undefined() : return -100000;
 	}
 }
 

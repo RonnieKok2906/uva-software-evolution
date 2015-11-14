@@ -4,56 +4,71 @@ import Prelude;
 
 import util::Math;
 
-import lang::java::m3::Core;
-import lang::java::jdt::m3::Core;
-import lang::java::jdt::m3::AST;
-
-import Util;
-
 import model::MetricTypes;
 import model::CodeUnitModel;
 import model::CodeLineModel;
+import IO;
 
-data UnitSize = unitSize(loc method, loc file, LOC linesOfCode, UnitSizeEvaluation evaluation); 
+//
+// Holds the calculated metrics for Unit Size.
+//
+alias UnitSizeMetric = map[UnitSizeEvaluation eval,int percentage];
 
-public Rank projectUnitSize(CodeUnitModel codeUnitModel)
+//
+// Returns the Unit Size metric for a given project.
+//
+public UnitSizeMetric projectUnitSize(CodeUnitModel codeUnitModel)
 {		
-	list[UnitSize] unitSizes = [];
+	map[UnitSizeEvaluation eval,int count] methodCount = (veryHigh(): 0, high(): 0, medium(): 0, low(): 0);
 		
 	for(method <- codeUnitModel) 
 	{
 		LOC numberOfLines = size(codeUnitModel[method].lines);
 
-		unitSizes += unitSize(method, codeUnitModel[method].compilationUnit, numberOfLines, convertLOCEvaluation(numberOfLines));
+		methodCount[convertLOCEvaluation(numberOfLines)] += 1;
 	}
 
-	int nrOfMethods = size(codeUnitModel);
-	int nrOfVeryHigh = size([m | m <-  unitSizes, m.evaluation == veryHigh() ]);
-	int nrOfHigh = size([m | m <-  unitSizes, m.evaluation == high() ]);
-	int nrOfMedium = size([m | m <-  unitSizes, m.evaluation == medium() ]);
-	int nrOfLow = size([m | m <-  unitSizes, m.evaluation == low() ]);
+	int nrOfMethods = (0 | it + methodCount[k] | k <- methodCount );
 
-	println("Total number of methods: <nrOfMethods>");
-
-	println("Very High: <nrOfVeryHigh> (<nrOfVeryHigh / nrOfMethods * 100>%)");
-	println("High: <nrOfHigh> (<nrOfHigh / nrOfMethods * 100>%)");
-	println("Medium: <nrOfMedium> (<nrOfMedium / nrOfMethods * 100>%)");
-	println("Low: <nrOfLow> (<nrOfLow / nrOfMethods * 100>%)");
-
-	return neutral();
+	return (
+		veryHigh() : round((toReal(methodCount[veryHigh()]) / nrOfMethods * 100)),
+		high()     : round((toReal(methodCount[high()]) / nrOfMethods * 100)),
+		medium()   : round((toReal(methodCount[medium()]) / nrOfMethods * 100)),
+		low()      : round((toReal(methodCount[low()]) / nrOfMethods * 100))
+	);
 }
 
-public UnitSizeEvaluation convertLOCEvaluation(LOC l) = veryHigh() when l > 100;
-public UnitSizeEvaluation convertLOCEvaluation(LOC l) = high() when l > 50;
-public UnitSizeEvaluation convertLOCEvaluation(LOC l) = medium() when l > 10;
-public default UnitSizeEvaluation convertLOCEvaluation(LOC l) = low();
 
-
-private list[Unit] projectUnitsSortedOnSize(loc project)
+public void printUnitSize(UnitSizeMetric results, Rank ranking)
 {
-	list[Unit] units = projectUnits(project);
-	
-	list[Unit] sortedUnits = sort(units, bool (Unit a, Unit b) { return (a.linesOfCode > b.linesOfCode); });
-	
-	return sortedUnits;
+	println("Unit Size");
+	println("---------");
+	println("Very High (\> 100): <results[veryHigh()]>%");
+	println("High      (\> 50) : <results[high()]>%");
+	println("Medium    (\> 10) : <results[medium()]>%");
+	println("Low       (\> 0)  : <results[low()]>%");
+	println();
+	println("Ranking Unit Size: <ranking>");
 }
+
+public Rank convertUnitSizeMetricToRank(UnitSizeMetric metric) = plusPlus() 
+	when metric[veryHigh()] == 0 && metric[high()] == 0 && metric[medium()] < 25;
+
+public Rank convertUnitSizeMetricToRank(UnitSizeMetric metric) = plus() 
+	when metric[veryHigh()] == 0 && metric[high()] < 5 && metric[medium()] < 30;
+
+public Rank convertUnitSizeMetricToRank(UnitSizeMetric metric) = neutral() 
+	when metric[veryHigh()] == 0 && metric[high()] < 10 && metric[medium()] < 40;
+
+public Rank convertUnitSizeMetricToRank(UnitSizeMetric metric) = minus() 
+	when metric[veryHigh()] < 5 && metric[high()] < 15 && metric[medium()] < 50;
+
+public default Rank convertUnitSizeMetricToRank(UnitSizeMetric _) = minusMinus(); 
+
+
+private UnitSizeEvaluation convertLOCEvaluation(LOC l) = veryHigh() when l > 100;
+private UnitSizeEvaluation convertLOCEvaluation(LOC l) = high() when l > 50;
+private UnitSizeEvaluation convertLOCEvaluation(LOC l) = medium() when l > 10;
+private default UnitSizeEvaluation convertLOCEvaluation(LOC l) = low();
+
+

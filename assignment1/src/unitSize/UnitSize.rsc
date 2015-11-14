@@ -89,8 +89,6 @@ test bool testUnitSizeWithoutCommentsAndEmptyLines()
 
 	UnitSizeMetric result = projectUnitSize(codeUnitModel);
 	
-	println(result);
-	
 	UnitSizeMetric reference =  (low() : (10.0 / 77.0) * 100.0, medium() : (67.0 / 77.0) * 100.0, high() : (0.0 / 77.0) * 100.0, veryHigh() : (0.0/ 77.0) * 100.0);	
 	
 	return result == reference;
@@ -115,8 +113,6 @@ test bool testUnitSizeWithCommentsAndEmptyLines()
 								high() : round((0.0 / 77.0) * 100.0), 
 								veryHigh() : round((0.0/ 77.0) * 100.0)
 								);	
-	
-	println(reference);
-	
+
 	return result == reference;
 }

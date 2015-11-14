@@ -9,15 +9,13 @@ import model::CodeLineModel;
 
 //TODO: implement
 public Rank projectUnitTesting(CodeLineModel model)
-{	
-	printResults(model);
-	
+{		
 	return undefined();
 }
 
 //Private Functions
 
-private void printResults(CodeLineModel model)
+public void printUnitTesting(Rank rank)
 {
 	println("UNIT TESTING\n");
 	println("Unit testing not implemented");

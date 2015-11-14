@@ -134,7 +134,7 @@ private map[Rank, tuple[real from, real to]] thresholdDuplicationPercentage = (
 
 private bool percentageConformsToRank(DuplicationMetric result, Rank rank)
 {	
-	return (toReal(result.duplicatedLines) / toReal(result.totalLines)) <= (thresholdDuplicationPercentage[rank].to * 100.0);
+	return 100.0 * (toReal(result.duplicatedLines) / toReal(result.totalLines)) <= (thresholdDuplicationPercentage[rank].to * 100.0);
 }
 
 public LOC numberOfDuplicatedLines(CodeLineModel model)
@@ -146,7 +146,8 @@ public LOC numberOfDuplicatedLines(CodeLineModel model)
 //Tests
 
 public list[bool] allTests() = [
-								testSourceIsDuplicated()
+								testSourceIsDuplicated(),
+								testSourceIsMinusMinus()
 								]; 
 
 test bool testSourceIsDuplicated()
@@ -159,4 +160,16 @@ test bool testSourceIsDuplicated()
 	set[CodeLine] duplicateLines = duplicationsInProject(model);
 	
 	return size(duplicateLines) == 154 && projectVolume(model) == 158;
+}
+
+test bool testSourceIsMinusMinus()
+{
+	loc testProject = |project://testSource|;
+	M3 m3Model = createM3FromEclipseProject(testProject);
+		
+	CodeLineModel model = createCodeLineModel(m3Model);
+	
+	DuplicationMetric result = projectDuplication(model);
+	
+	return convertPercentageToRank(result) == minusMinus();
 }

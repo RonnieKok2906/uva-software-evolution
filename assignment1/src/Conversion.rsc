@@ -18,9 +18,39 @@ public Rank averageRankOfPropertyRankings(list[SourceCodeProperty] properties)
 	return convertRealToRank(summedRanks / numberOfItems);
 }
 
-public void printResults(map[MaintainabilityMetric, Rank] maintainabiltiy)
+public void printMaintainability(MaintainabilityResult result)
 {
-	println(maintainabiltiy);
+
+	str volumeResult = convertRankToString(result.volume.rank);
+	str complexityResult = convertRankToString(result.complexity.rank);
+	str duplicationResult = convertRankToString(result.duplication.rank);
+	str unitSizeResult = convertRankToString(result.unitSize.rank);
+	str unitTestingResult = convertRankToString(result.unitTesting.rank);
+
+	Rank analysabilityRank = averageRankOfPropertyRankings([result.volume, result.duplication, result.unitSize]);
+	Rank changeabilityRank = averageRankOfPropertyRankings([result.complexity, result.duplication]);
+	Rank stabilityRank = undefined();
+	Rank testabilityRank = averageRankOfPropertyRankings([result.complexity, result.unitSize]);
+
+	println("\t\t| Volume\t| Complexity\t| Duplication\t| UnitSize\t| UnitTesting\t|| Result");
+	println("------------------------------------------------------------------------------------------------------------");
+	for (m <- maintainabilityMetrics)
+	{
+		str metric = convertMaintainabilityToString(m);
+		
+		switch (m)
+		{
+			case analysability() : println("<metric>\t| <volumeResult>\t\t| \t\t| <duplicationResult>\t\t| <unitSizeResult>\t\t| <unitTestingResult>\t|| <convertRankToString(analysabilityRank)>");
+			case changeability() : println("<metric>\t| \t\t| <complexityResult>\t\t| <duplicationResult>\t\t| \t\t| \t\t|| <convertRankToString(changeabilityRank)>");
+			case stability() : println("<metric>\t| \t\t| \t\t| \t\t| \t\t| <unitTestingResult>\t|| <convertRankToString(stabilityRank)>");
+			case testability() : println("<metric>\t| \t\t| <complexityResult>\t\t| \t\t| <unitSizeResult>\t\t| <unitTestingResult>\t|| <convertRankToString(testabilityRank)>");
+		}
+	}
+	println("------------------------------------------------------------------------------------------------------------");
+	println();
+	
+
+	//println(maintainabiltiy);
 }
 
 //Private Functions

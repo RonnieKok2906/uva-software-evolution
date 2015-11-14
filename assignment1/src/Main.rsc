@@ -74,17 +74,13 @@ public void rankMaintainability(loc project)
 	SourceCodeProperty unitSizeProperty = unitSize(unitSizeRanking);
 	
 	//UnitTesting
-	Rank unitTestingRank = projectUnitTesting(codeLineModel);
-	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRank);
+	Rank unitTestingRanking = projectUnitTesting(codeLineModel);
+	printUnitTesting(unitTestingRanking);
+	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRanking);
 	
 	println("time consumed:<(systemTime() - before) * 0.0000001> seconds\n");
 	
-	Conversion::printResults((
-								analysability() : averageRankOfPropertyRankings([volumeProperty, duplicationProperty, unitSizeProperty, unitTestingProperty]),
-								changeability() : averageRankOfPropertyRankings([complexityPerUnitProperty, duplicationProperty]),
-								stability() : averageRankOfPropertyRankings([unitTestingProperty]),
-								testability() : averageRankOfPropertyRankings([complexityPerUnitProperty, unitSizeProperty, unitTestingProperty])
-							));
+	printMaintainability(<volumeProperty, unitSizeProperty, complexityPerUnitProperty, duplicationProperty, unitTestingProperty>);
 	
 }
 

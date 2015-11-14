@@ -17,4 +17,18 @@ public str convertRankToString(minusMinus()) = "--";
 public str convertRankToString(undefined()) = "undefined";
 
 data MaintainabilityMetric = analysability() | changeability() | stability() | testability();
+public list[MaintainabilityMetric] maintainabilityMetrics = [analysability(), changeability(), stability(), testability()];
+
+public str convertMaintainabilityToString(analysability()) = "Analysability";
+public str convertMaintainabilityToString(changeability()) = "Changeability";
+public str convertMaintainabilityToString(stability()) = "Stability";
+public str convertMaintainabilityToString(testability()) = "Testability";
+
 data SourceCodeProperty = volume(Rank rank) | complexityPerUnit(Rank rank) | duplication(Rank rank) | unitSize(Rank rank) | unitTesting(Rank rank);
+
+alias MaintainabilityResult = tuple[SourceCodeProperty volume, 
+										SourceCodeProperty unitSize, 
+										SourceCodeProperty complexity,  
+										SourceCodeProperty duplication, 
+										SourceCodeProperty unitTesting
+										];

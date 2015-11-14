@@ -1,24 +1,7 @@
 module volume::VolumeConversion
 
 import model::MetricTypes;
-
-//Public functions
-
-map[Rank, tuple[LOC, LOC]] thresholds = (
-			plusPlus() : <0,66>, 
-			plus() : <66,246>,
-			neutral() : <246,665>,
-			minus() : <665,1310>,
-			minusMinus() : <1310,-1>
-			);
-
-//Conversion from Lines of Code to an enumerated Rank
-public Rank convertLOCToRankForJava(LOC l) = plusPlus() when l <= 66000;
-public Rank convertLOCToRankForJava(LOC l) = plus() when l <= 246000;
-public Rank convertLOCToRankForJava(LOC l) = neutral() when l <= 665000;
-public Rank convertLOCToRankForJava(LOC l) = minus() when l <= 1310000;
-public default Rank convertLOCToRankForJava(LOC l) = minusMinus();
-
+import volume::Volume;
 
 //Test functions
 test bool convertLOCToPlusPlus() = all(x <- [-1..66001], convertLOCToRankForJava(x) == plusPlus());

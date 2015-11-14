@@ -42,10 +42,14 @@ private list[Class] projectClasses(M3 m3Model)
 	return [class(d[0], d[1]) | d <- m3Model@declarations, d[0].scheme == "java+class"];
 }
 
-private CodeModel initializeClassModel(list[Class] classes)
+private ClassModel initializeClassModel(list[Class] classes)
 {
+	ClassModel classModel = ();
+
 	for (c <-classes)
 	{
 		classModel[c] = [];
 	}
+	
+	return classModel;
 }

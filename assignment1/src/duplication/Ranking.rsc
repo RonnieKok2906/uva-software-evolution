@@ -54,13 +54,13 @@ public void printDuplication(DuplicationMetric result)
 	println("---------------------------------------------");
 	for (r <- ranks)
 	{
-		println("<convertRankToString(r)> \t| <thresholdDuplicationPercentage[r].from * 100.0> - <thresholdDuplicationPercentage[r].to * 100.0> %");
+		println("<convertRankToString(r)> \t| <toInt(thresholdDuplicationPercentage[r].from * 100.0)> - <toInt(thresholdDuplicationPercentage[r].to * 100.0)>%");
 	}
 	
 	println("---------------------------------------------");
 	println("Number of duplicated lines: <duplicatedLOC>");
 	println("Number of total number of lines: <totalLOC>");
-	println("Percentage of duplicated lines: <percentage>%");
+	println("Percentage of duplicated lines: <toInt(round(percentage))>%");
 	println("Duplication ranking: <convertRankToString(convertPercentageToRank(result))>");
 	println("---------------------------------------------");
 	println();

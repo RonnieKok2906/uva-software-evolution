@@ -1,6 +1,7 @@
 module complexity::Conversion
 
 import Prelude;
+import util::Math;
 
 import model::MetricTypes;
 
@@ -33,7 +34,7 @@ public void printRankTable(map[ComplexityRiskEvaluation, real] pie)
 			
 			if (threshold >= 0.0)
 			{
-				print("| <threshold>%\t\t");
+				print("| <toInt(round(threshold * 100.0))>%\t\t");
 			}
 			else
 			{
@@ -52,7 +53,7 @@ public void printRankTable(map[ComplexityRiskEvaluation, real] pie)
 	print("<convertRankToString(convertPieToRank(pie))>");
 	for (l <- cre)
 	{
-		print("\t| <pie[l]>");
+		print("\t| <toInt(round(pie[l] * 100.0))>%\t");
 	}
 	
 	println();

@@ -23,6 +23,7 @@ import complexity::Conversion;
 import complexity::CyclomaticComplexity;
 
 import unitSize::UnitSize;
+import unitSize::UnitSizeTests;
 
 import duplication::Ranking;
 

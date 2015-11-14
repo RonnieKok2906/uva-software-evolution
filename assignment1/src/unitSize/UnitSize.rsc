@@ -1,23 +1,15 @@
 module unitSize::UnitSize
 
 import Prelude;
-
-import lang::java::m3::Core;
-import lang::java::jdt::m3::Core;
-import lang::java::jdt::m3::AST;
-
 import util::Math;
 import model::MetricTypes;
 import model::CodeUnitModel;
 import model::CodeLineModel;
 
 data UnitSizeEvaluation = veryHigh() | high() | medium() | low();
-
 map[UnitSizeEvaluation,int] thresholds = (veryHigh(): 100, high(): 50, medium(): 10, low(): 0); 
 
-//
 // Holds the calculated metric values for Unit Size.
-//
 alias UnitSizeMetric = map[UnitSizeEvaluation eval,int percentage];
 
 //
@@ -25,37 +17,35 @@ alias UnitSizeMetric = map[UnitSizeEvaluation eval,int percentage];
 //
 public UnitSizeMetric projectUnitSize(CodeUnitModel codeUnitModel)
 {		
-	map[UnitSizeEvaluation eval,int count] methodCount = (veryHigh(): 0, high(): 0, medium(): 0, low(): 0);
+	map[UnitSizeEvaluation eval,int count] methodLineCount = (veryHigh(): 0, high(): 0, medium(): 0, low(): 0);
 		
 	for(method <- codeUnitModel) 
 	{
-		LOC numberOfLines = size(codeUnitModel[method].lines);
+		LOC nrOfLinesInMethod = size(codeUnitModel[method].lines);
 
-		methodCount[convertLOCEvaluation(numberOfLines)] += 1;
+		methodLineCount[convertLOCEvaluation(nrOfLinesInMethod)] += nrOfLinesInMethod;
 	}
 
-	int nrOfMethods = (0 | it + methodCount[k] | k <- methodCount );
+	int totalNrOfLines = (0 | it + methodLineCount[k] | k <- methodLineCount );
 
 	return (
-		veryHigh() : round((toReal(methodCount[veryHigh()]) / nrOfMethods * 100)),
-		high()     : round((toReal(methodCount[high()]) / nrOfMethods * 100)),
-		medium()   : round((toReal(methodCount[medium()]) / nrOfMethods * 100)),
-		low()      : round((toReal(methodCount[low()]) / nrOfMethods * 100))
+		veryHigh() : round((toReal(methodLineCount[veryHigh()]) / totalNrOfLines * 100)),
+		high()     : round((toReal(methodLineCount[high()]) / totalNrOfLines * 100)),
+		medium()   : round((toReal(methodLineCount[medium()]) / totalNrOfLines * 100)),
+		low()      : round((toReal(methodLineCount[low()]) / totalNrOfLines * 100))
 	);
 }
 
 public void printUnitSize(UnitSizeMetric results, Rank ranking)
 {
-	println("UNIT SIZE");
-	println("--------------------------------------------");
+	println("Unit Size");
+	println("---------");
 	println("Very High (LoC \> <thresholds[veryHigh()]>): <results[veryHigh()]>%");
 	println("High      (LoC \> <thresholds[high()]>) : <results[high()]>%");
 	println("Medium    (LoC \> <thresholds[medium()]>) : <results[medium()]>%");
 	println("Low       (LoC \> <thresholds[low()]>)  : <results[low()]>%");
 	println();
 	println("Unit Size ranking: <ranking>");
-	println("--------------------------------------------");
-	println();
 	println();
 }
 
@@ -78,51 +68,3 @@ private UnitSizeEvaluation convertLOCEvaluation(LOC l) = veryHigh() when l > thr
 private UnitSizeEvaluation convertLOCEvaluation(LOC l) = high() when l > thresholds[high()];
 private UnitSizeEvaluation convertLOCEvaluation(LOC l) = medium() when l > thresholds[medium()];
 private default UnitSizeEvaluation convertLOCEvaluation(LOC l) = low();
-
-
-test bool testUnitSizeWithoutCommentsAndEmptyLines()
-{
-	loc file = |project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|;
-	M3 m3Model = createM3FromEclipseFile(file);
-	Declaration declaration = createAstFromFile(file, false);
-	
-	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, {declaration});
-	
-	UnitSizeMetric result = projectUnitSize(codeUnitModel);
-	
-	UnitSizeMetric reference =  (
-								low() : toInt(round((10.0 / 77.0) * 100.0)), 
-								medium() : toInt(round((67.0 / 77.0) * 100.0)), 
-								high() : toInt(round((0.0 / 77.0) * 100.0)), 
-								veryHigh() : toInt(round((0.0/ 77.0) * 100.0))
-								);	
-	
-	return result == reference;
-}
-
-test bool testUnitSizeWithCommentsAndEmptyLines()
-{
-	loc file = |project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|;
-	M3 m3Model = createM3FromEclipseFile(file);
-	Declaration declaration = createAstFromFile(file, false);
-	
-	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, {declaration});
-
-	UnitSizeMetric result = projectUnitSize(codeUnitModel);
-	
-	UnitSizeMetric reference =  (
-								low() : toInt(round((10.0 / 77.0) * 100.0)), 
-								medium() : toInt(round((67.0 / 77.0) * 100.0)), 
-								high() : toInt(round((0.0 / 77.0) * 100.0)), 
-								veryHigh() : toInt(round((0.0/ 77.0) * 100.0))
-								);	
-
-	return result == reference;
-}
-
-public list[bool] allTests() = [
-								testUnitSizeWithoutCommentsAndEmptyLines(),
-								testUnitSizeWithCommentsAndEmptyLines()
-								];

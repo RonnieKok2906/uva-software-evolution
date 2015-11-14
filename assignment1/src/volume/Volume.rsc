@@ -23,7 +23,7 @@ public void printVolume(LOC linesOfCode, Rank ranking)
 	println("--------------------------------------------");
 	println("Total lines of code: <linesOfCode>");
 	println();
-	println("Volume ranking: <ranking>");
+	println("Volume ranking: <convertRankToString(ranking)>");
 	println("--------------------------------------------");
 	println();
 	println();

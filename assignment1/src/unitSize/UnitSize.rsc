@@ -9,6 +9,8 @@ import model::CodeUnitModel;
 import model::CodeLineModel;
 import IO;
 
+data UnitSizeEvaluation = veryHigh() | high() | medium() | low();
+
 map[UnitSizeEvaluation,int] thresholds = (veryHigh(): 100, high(): 50, medium(): 10, low(): 0); 
 
 //

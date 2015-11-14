@@ -10,6 +10,11 @@ import model::MetricTypes;
 data ComplexityRiskEvaluation = simple() | moreComplex() | complex() | untestable();
 list [ComplexityRiskEvaluation] cre = [simple(), moreComplex(), complex(), untestable()];
 
+public str convertCREToString(simple()) = "simple";
+public str convertCREToString(moreComplex()) = "more complex";
+public str convertCREToString(complex()) = "complex";
+public str convertCREToString(untestable()) = "untestable";
+
 
 //Complexity Conversion functions
 
@@ -122,17 +127,6 @@ private map[Rank, map[ComplexityRiskEvaluation, real]] thresholdsPie = (
 																		minus() :  (simple() : -1.0, moreComplex() : 0.5, complex() : 0.15, untestable() : 0.5),
 																		minusMinus() :  (simple() : -1.0, moreComplex() : -1.0, complex() : -1.0, untestable() : -1.0)
 																	);
-
-private str convertRankToString(plusPlus()) = "++";
-private str convertRankToString(plus()) = "+";
-private str convertRankToString(neutral()) = "o";
-private str convertRankToString(minus()) = "-";
-private str convertRankToString(minusMinus()) = "--";
-
-private str convertCREToString(simple()) = "simple";
-private str convertCREToString(moreComplex()) = "more complex";
-private str convertCREToString(complex()) = "complex";
-private str convertCREToString(untestable()) = "untestable";
 
 
 //Tests Functions

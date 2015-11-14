@@ -59,10 +59,7 @@ public void rankMaintainability(loc project)
 	complexity::Ranking::printResults(codeUnitModel);
 	
 	//Duplication
-	println("Ranking Duplication for project...");
-	Rank duplicationRank = projectDuplication(codeLineModel);
-	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
-	println(duplicationProperty);
+	duplication::Ranking::printResults(codeLineModel);
 	
 	//UnitSize
 	println("Ranking UnitSize for project...");

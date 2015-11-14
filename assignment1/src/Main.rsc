@@ -9,6 +9,7 @@ import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
 import Conversion;
+import Util;
 
 import model::MetricTypes;
 import model::CodeLineModel;
@@ -75,11 +76,12 @@ public void rankMaintainability(loc project)
 	printUnitTesting(unitTestingRanking);
 	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRanking);
 	
+	//Maintainability
 	printMaintainability(<volumeProperty, unitSizeProperty, complexityPerUnitProperty, duplicationProperty, unitTestingProperty>);
 	
 }
 
-//Test functions
+//Test Functions
 public void runAllTests()
 {
 	list[tuple[str,list[bool]]] tests = [
@@ -98,11 +100,4 @@ public void runAllTests()
 		tuple[int passed, int failed] result = runTests(subTests);
 		println("<name> : <result.passed> passed, <result.failed> failed");
 	}
-}
-
-private tuple[int passed, int failed] runTests(list[bool] tests)
-{
-	int numberOfTests = size(tests);
-	int passedTests = size([t | t <- tests, t == true]);
-	return <passedTests, numberOfTests - passedTests>;
 }

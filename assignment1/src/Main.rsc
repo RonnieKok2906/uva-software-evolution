@@ -106,9 +106,20 @@ public void runAllTests()
 								<"wmc::WMCTests.rsc Tests", wmc::WMCTests::allTests()>
 								];
 
+	int numberOfFailedTests = 0;
+	int numberOfPassedTests = 0;
+	
+	println("-----------------------------------------------------------");
+	
 	for (<name, subTests> <- tests)
 	{
 		tuple[int passed, int failed] result = runTests(subTests);
+		numberOfPassedTests += result.passed;
+		numberOfFailedTests += result.failed;
 		println("<name> : <result.passed> passed, <result.failed> failed");
 	}
+	
+	println("-----------------------------------------------------------");
+	println("TEST REPORT:<numberOfPassedTests> passed, <numberOfFailedTests> failed");
+	println("-----------------------------------------------------------");
 }

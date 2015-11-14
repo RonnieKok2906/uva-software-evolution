@@ -1,4 +1,4 @@
-module volume::VolumeConversion
+module volume::VolumeTests
 
 import model::MetricTypes;
 import volume::Volume;

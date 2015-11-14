@@ -15,9 +15,11 @@ import model::CodeLineModel;
 import model::CodeUnitModel;
 
 import volume::Volume;
-import volume::VolumeConversion;
+import volume::VolumeTests;
 
 import complexity::Ranking;
+import complexity::Conversion;
+import complexity::CyclomaticComplexity;
 
 import unitSize::UnitSize;
 
@@ -31,7 +33,7 @@ public list[loc] projects()
 	return [|project://smallsql0.21_src|, |project://hsqldb-2.3.1|, |project://testSource|, |project://hsqldb|];
 }
 
-public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
+public void rankMaintainability(loc project)
 {
 	before = systemTime();
 	
@@ -58,7 +60,7 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 	
 	//Duplication
 	println("Ranking Duplication for project...");
-	Rank duplicationRank = projectDuplication(codeLineModel, m3Model);
+	Rank duplicationRank = projectDuplication(codeLineModel);
 	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
 	println(duplicationProperty);
 	
@@ -80,12 +82,12 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 	
 	println("time consumed:<(systemTime() - before) * 0.0000001> seconds\n");
 	
-	return (
-			analysability() : averageRankOfPropertyRankings([volumeProperty, duplicationProperty, unitSizeProperty, unitTestingProperty]),
-			changeability() : averageRankOfPropertyRankings([complexityPerUnitProperty, duplicationProperty]),
-			stability() : averageRankOfPropertyRankings([unitTestingProperty]),
-			testability() : averageRankOfPropertyRankings([complexityPerUnitProperty, unitSizeProperty, unitTestingProperty])
-			);
+	//return (
+	//		analysability() : averageRankOfPropertyRankings([volumeProperty, duplicationProperty, unitSizeProperty, unitTestingProperty]),
+	//		changeability() : averageRankOfPropertyRankings([complexityPerUnitProperty, duplicationProperty]),
+	//		stability() : averageRankOfPropertyRankings([unitTestingProperty]),
+	//		testability() : averageRankOfPropertyRankings([complexityPerUnitProperty, unitSizeProperty, unitTestingProperty])
+	//		);
 }
 
 //Test functions
@@ -94,7 +96,7 @@ public void runAllTests()
 	list[tuple[str,list[bool]]] tests = [
 								<"CodeLineModel.rsc Tests", model::CodeLineModel::allTests()>,
 								<"Conversion.rsc Tests", Conversion::allTests()>,
-								<"volume::Conversion.rsc Tests", volume::VolumeConversion::allTests()>,
+								<"volume::VolumeTests.rsc Tests", volume::VolumeTests::allTests()>,
 								<"complexity::Ranking.rsc Tests", complexity::Ranking::allTests()>,
 								<"complexity::Conversion.rsc Tests", complexity::Conversion::allTests()>,
 								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>,

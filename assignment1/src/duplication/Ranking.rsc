@@ -19,10 +19,10 @@ alias CodeBlock = list[CodeLine];
 //Public Functions
 
 //MEMO:When the volume module is adjusted to the usage of CodeLineModel, then M3 can be removed from this module.
-public Rank projectDuplication(CodeLineModel model, M3 m3Model)
+public Rank projectDuplication(CodeLineModel model)
 {
 	real numberOfDuplicatedLines = toReal(size(duplicationsInProject(model)));
-	real numberOfTotalLines = toReal(linesOfCodeInProject(m3Model));
+	real numberOfTotalLines = toReal(projectVolume(model));
 	real percentage = 100 * numberOfDuplicatedLines / numberOfTotalLines;
 	println("dLOC:<numberOfDuplicatedLines>, LOC:<numberOfTotalLines>, percentage:<percentage>");
 	
@@ -107,5 +107,5 @@ test bool testSourceIsDuplicated()
 	
 	set[CodeLine] duplicateLines = duplicationsInProject(model);
 	
-	return size(duplicateLines) == 154 && linesOfCodeInProject(m3Model) == 158;
+	return size(duplicateLines) == 154 && projectVolume(model) == 158;
 }

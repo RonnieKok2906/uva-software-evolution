@@ -4,13 +4,16 @@ import model::MetricTypes;
 
 //Public functions
 
-map[Rank, tuple[LOC, LOC]] thresholds = (
+map[Rank, tuple[LOC, LOC]] thresholds()
+{
+	return (
 			plusPlus() : <0,66>, 
 			plus() : <66,246>,
 			neutral() : <246,665>,
 			minus() : <665,1310>,
-			minusMinus() : <1310,-1>
+			minusMinus() : <1310,0>
 			);
+}
 
 //Conversion from Lines of Code to an enumerated Rank
 public Rank convertLOCToRankForJava(LOC l) = plusPlus() when l <= 66000;

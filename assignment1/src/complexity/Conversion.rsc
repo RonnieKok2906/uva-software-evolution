@@ -1,38 +1,144 @@
 module complexity::Conversion
 
+import Prelude;
+
 import model::MetricTypes;
+
+//data ComplexityRelativeLOC = moderate() | high() | veryHigh();
+//list[ComplexityRelativeLOC] rl = [moderate(), high(), veryHigh()];
+
+data ComplexityRiskEvaluation = simple() | moreComplex() | complex() | untestable();
+list [ComplexityRiskEvaluation] cre = [simple(), moreComplex(), complex(), untestable()];
+
 
 //Complexity Conversion functions
 
-//Conversion from Cyclomatic Complexity to an enumerated Risk Evaluation
-public ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = untestable() when c > 50;
-public ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = complex() when c > 20 && c <= 50;
-public ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = moreComplex() when c > 10 && c <= 20;
-public default ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = simple();
+public void printRankTable(map[ComplexityRiskEvaluation, real] pie)
+{	
+	println("\t-----------------------------------------------------------");
+	println("\t| Maximum relative LOC");
+	println("-------------------------------------------------------------------");
+	println("Rank\t| simple\t| complex\t| more complex\t| untestable");
+	println("-------------------------------------------------------------------");
+	
+	for (r <- ranks)
+	{
+		print("<convertRankToString(r)>\t");
 
-test bool convertCCToSimple1() = all(x <- [-1..11], convertCCToComplexityRiskEvalutation(x) == simple());
-test bool convertCCToMoreComplex() = all(x <- [11..21], convertCCToComplexityRiskEvalutation(x) == moreComplex());
-test bool convertCCToComplex() = all(x <- [21..51], convertCCToComplexityRiskEvalutation(x) == complex());
-test bool convertCCToUntestable() = all(x <- [51..100], convertCCToComplexityRiskEvalutation(x) == untestable());
+		for (l <- cre)
+		{
+			real threshold = thresholdsPie[r][l];
+			
+			if (threshold >= 0.0)
+			{
+				print("| <threshold>%\t\t");
+			}
+			else
+			{
+				print("|  -\t\t");
+			}
+		}
+	
+		print("\n");
+	
+	}
+	println("-------------------------------------------------------------------");
+	
+	
+	println("Result\t|");
+	println("\t-----------------------------------------------------------");
+	print("<convertRankToString(convertPieToRank(pie))>");
+	for (l <- cre)
+	{
+		print("\t| <pie[l]>");
+	}
+	
+	print("\n");
+	println("-------------------------------------------------------------------");
+	print("\n");
+	print("\n");
+}
+
+public void printCCTable()
+{
+	println("-----------------------------------------------------");
+	println("CC\t| Risk Evaluation");
+	println("-----------------------------------------------------");
+
+	for (c <- cre)
+	{	
+		LOC to = thresholdsComplexityRisk[c].to;
+		
+		if (to >= 0)
+		{
+			println("<thresholdsComplexityRisk[c].from> - <to>\t| <convertCREToString(c)>");
+		}
+		else
+		{
+			println("  \><thresholdsComplexityRisk[c].from> \t| <convertCREToString(c)>");
+		}
+	}
+	println("-----------------------------------------------------");
+}
+
+//Conversion from Cyclomatic Complexity to an enumerated Risk Evaluation
+public ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = simple() when c <= thresholdsComplexityRisk[simple()].to;
+public ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = moreComplex() when c <= thresholdsComplexityRisk[moreComplex()].to;
+public ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = complex() when c <= thresholdsComplexityRisk[complex()].to;
+public default ComplexityRiskEvaluation convertCCToComplexityRiskEvalutation(CC c) = untestable();
 
 
 //Conversion from a complexity risk pie to an enumerated Rank
-public Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = minusMinus() 
-	when pie[moreComplex()] > 0.5 || pie[complex()] > 0.15 || pie[untestable()] > 0.05;
-	
-public Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = minus() 
-	when pie[moreComplex()] > 0.4 || pie[complex()] > 0.10 || pie[untestable()] > 0.0;
-	
-public Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = neutral() 
-	when pie[moreComplex()] > 0.3 || pie[complex()] > 0.05 || pie[untestable()] > 0.0;
-	
-public Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = plus() 
-	when pie[moreComplex()] > 0.25 || pie[complex()] > 0.0 || pie[untestable()] > 0.0;
-	
-public default Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = plusPlus();
+public default Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = plusPlus()
+	when pieDoesConformToRank(plusPlus(), pie);
+public default Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = plus()
+	when pieDoesConformToRank(plus(), pie);
+public default Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = neutral()
+	when pieDoesConformToRank(neutral(), pie);		
+public default Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = minus()
+	when pieDoesConformToRank(minus(), pie);
+public default Rank convertPieToRank(map[ComplexityRiskEvaluation, real] pie) = minusMinus();
+
+private bool pieDoesConformToRank(Rank rank, map[ComplexityRiskEvaluation, real] pie)
+{
+	return (pie[moreComplex()] <= thresholdsPie[rank][moreComplex()] &&
+			pie[complex()] <= thresholdsPie[rank][complex()] && 
+			pie[untestable()] <= thresholdsPie[rank][untestable()]);
+}
+
+private map[ComplexityRiskEvaluation, tuple[LOC from, LOC to]] thresholdsComplexityRisk = (
+																						simple() : <0, 10>,
+																						moreComplex() : <10, 20>,
+																						complex() : <20, 50>,
+																						untestable() : <50, -1>
+																						);
+
+private map[Rank, map[ComplexityRiskEvaluation, real]] thresholdsPie = (
+																		plusPlus() : (simple() : -1.0, moreComplex() : 0.25, complex() : 0.0, untestable() : 0.0),
+																		plus() :  (simple() : -1.0, moreComplex() : 0.3, complex() : 0.05, untestable() : 0.0),
+																		neutral() : (simple() : -1.0, moreComplex() : 0.4, complex() : 0.1, untestable() : 0.0),
+																		minus() :  (simple() : -1.0, moreComplex() : 0.5, complex() : 0.15, untestable() : 0.5),
+																		minusMinus() :  (simple() : -1.0, moreComplex() : -1.0, complex() : -1.0, untestable() : -1.0)
+																	);
+
+private str convertRankToString(plusPlus()) = "++";
+private str convertRankToString(plus()) = "+";
+private str convertRankToString(neutral()) = "o";
+private str convertRankToString(minus()) = "-";
+private str convertRankToString(minusMinus()) = "--";
+
+private str convertCREToString(simple()) = "simple";
+private str convertCREToString(moreComplex()) = "more complex";
+private str convertCREToString(complex()) = "complex";
+private str convertCREToString(untestable()) = "untestable";
 
 
+//Tests Functions
 public list[bool] allTests() = [	
+									convertCCToSimple(),
+									convertCCToMoreComplex(),
+									convertCCToComplex(),
+									convertCCToUntestable(),
 									convertPieToPlusPlus(),
 									convertPieToPlus1(),
 									convertPieToPlus2(),
@@ -49,6 +155,12 @@ public list[bool] allTests() = [
 								];
 
 //Tests
+test bool convertCCToSimple() = all(x <- [-1..11], convertCCToComplexityRiskEvalutation(x) == simple());
+test bool convertCCToMoreComplex() = all(x <- [11..21], convertCCToComplexityRiskEvalutation(x) == moreComplex());
+test bool convertCCToComplex() = all(x <- [21..51], convertCCToComplexityRiskEvalutation(x) == complex());
+test bool convertCCToUntestable() = all(x <- [51..100], convertCCToComplexityRiskEvalutation(x) == untestable());
+
+
 test bool convertPieToPlusPlus() = all(
 										a <- [-1.0, -0.95..0.25], b <- [-1.0, -0.99..0.0], c <- [-1.0, -0.99..0.0], 
 										convertPieToRank((moreComplex() : a, complex() : b, untestable() : c)) == plusPlus()

@@ -21,6 +21,19 @@ import complexity::Conversion;
 
 //Public Functions
 
+public void printResults(CodeUnitModel model)
+{
+	println("COMPLEXITY");
+	
+	printCCTable();
+	
+	set[Unit] units = range(model);
+	map[ComplexityRiskEvaluation, real] complexityPie = complexityPie(units);
+	
+	printRankTable(complexityPie);
+	
+}
+
 public Rank projectComplexity(CodeUnitModel model)
 {
 	set[Unit] units = range(model);

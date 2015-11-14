@@ -1,13 +1,11 @@
 module unitSize::UnitSize
 
 import Prelude;
-
+import IO;
 import util::Math;
-
 import model::MetricTypes;
 import model::CodeUnitModel;
 import model::CodeLineModel;
-import IO;
 
 data UnitSizeEvaluation = veryHigh() | high() | medium() | low();
 

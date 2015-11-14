@@ -45,13 +45,9 @@ public void printUnitSize(UnitSizeMetric results, Rank ranking)
 	println("Medium    (LoC \> <thresholds[medium()]>) : <results[medium()]>%");
 	println("Low       (LoC \> <thresholds[low()]>)  : <results[low()]>%");
 	println();
-<<<<<<< HEAD
-	println("Unit Size ranking: <ranking>");
-=======
 	println("Unit Size ranking: <convertRankToString(ranking)>");
 	println("--------------------------------------------");
 	println();
->>>>>>> origin/master
 	println();
 }
 

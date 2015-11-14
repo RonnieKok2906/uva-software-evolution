@@ -1,14 +1,8 @@
 module volume::Volume
 
 import Prelude;
-
-import lang::java::m3::Core;
-import lang::java::jdt::m3::Core;
-import lang::java::jdt::m3::AST;
-
 import model::MetricTypes;
 import model::CodeLineModel;
-
 
 //
 // Returns the Volume metric ranking for a given project.
@@ -19,7 +13,7 @@ public LOC projectVolume(CodeLineModel model)
 }
 
 //
-// 
+// Pretty prints the Volume metrics.  
 //
 public void printVolume(LOC linesOfCode, Rank ranking) 
 {

@@ -13,6 +13,9 @@ import model::CodeLineModel;
 
 import volume::Volume;
 
+alias CodeFragment = str;
+alias CodeBlock = list[CodeLine];
+
 //Public Functions
 
 //MEMO:When the volume module is adjusted to the usage of CodeLineModel, then M3 can be removed from this module.

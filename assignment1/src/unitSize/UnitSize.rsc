@@ -22,7 +22,7 @@ public Rank projectUnitSize(CodeUnitModel codeUnitModel)
 		
 	for(method <- codeUnitModel) 
 	{
-		LOC numberOfLines = size(codeUnitModel[method].codeBlock);
+		LOC numberOfLines = size(codeUnitModel[method].lines);
 
 		unitSizes += unitSize(method, codeUnitModel[method].compilationUnit, numberOfLines, convertLOCEvaluation(numberOfLines));
 	}

@@ -11,7 +11,7 @@ import model::CodeLineModel;
 
 alias CodeUnitModel = map[loc method, Unit unit];
 
-data Unit = unit(loc compilationUnit, CodeBlock codeBlock, Statement statement);
+data Unit = unit(loc compilationUnit, list[CodeLine] lines, Statement statement);
 
 public CodeUnitModel createCodeUnitModel(M3 m3Model, CodeLineModel codeLineModel, set[Declaration] declarations)
 {
@@ -20,7 +20,7 @@ public CodeUnitModel createCodeUnitModel(M3 m3Model, CodeLineModel codeLineModel
 	return addStatementsToCodeUnitModel(declarations, codeUnitModel);
 }
 
-private CodeBlock linesInMethod(loc method, CodeLineModel codeLineModel)
+private list[CodeLine] linesInMethod(loc method, CodeLineModel codeLineModel)
 {
 	list[CodeLine] linesInFile = codeLineModel[method.top];
 	

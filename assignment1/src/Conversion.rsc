@@ -18,9 +18,10 @@ public Rank averageRankOfPropertyRankings(list[SourceCodeProperty] properties)
 	return convertRealToRank(summedRanks / numberOfItems);
 }
 
+//Private Functions
 
 //Conversion from an enumerated Rank to an integer
-public int convertRankToInt(Rank r)
+private int convertRankToInt(Rank r)
 {
 	switch (r)
 	{
@@ -33,11 +34,11 @@ public int convertRankToInt(Rank r)
 }
 
 //Conversion from a real to an enumerated Rank
-public Rank convertRealToRank(real r) = plusPlus() when r > 1.5;
-public Rank convertRealToRank(real r) = plus() when r > 0.5;
-public Rank convertRealToRank(real r) = neutral() when r >= -0.5;
-public Rank convertRealToRank(real r) = minus() when r >= -1.5;
-public default Rank convertRealToRank(real r) = minusMinus();
+private Rank convertRealToRank(real r) = plusPlus() when r > 1.5;
+private Rank convertRealToRank(real r) = plus() when r > 0.5;
+private Rank convertRealToRank(real r) = neutral() when r >= -0.5;
+private Rank convertRealToRank(real r) = minus() when r >= -1.5;
+private default Rank convertRealToRank(real r) = minusMinus();
 
 
 public list[bool] allTests() = [

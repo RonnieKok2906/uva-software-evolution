@@ -32,10 +32,9 @@ public void printMaintainability(MaintainabilityResult result)
 	Rank testabilityRank = averageRankOfPropertyRankings([result.complexity, result.unitSize]);
 
 	println("MAINTAINABILITY");
-	println();
-
+	println("--------------------------------------------------------------------------------------------------------------");
 	println("\t\t| Volume\t| Complexity\t| Duplication\t| UnitSize\t| UnitTesting\t|| Result");
-	println("------------------------------------------------------------------------------------------------------------");
+	println("--------------------------------------------------------------------------------------------------------------");
 	for (m <- maintainabilityMetrics)
 	{
 		str metric = convertMaintainabilityToString(m);
@@ -48,7 +47,7 @@ public void printMaintainability(MaintainabilityResult result)
 			case testability() : println("<metric>\t| \t\t| <complexityResult>\t\t| \t\t| <unitSizeResult>\t\t| <unitTestingResult>\t|| <convertRankToString(testabilityRank)>");
 		}
 	}
-	println("------------------------------------------------------------------------------------------------------------");
+	println("--------------------------------------------------------------------------------------------------------------");
 	println();
 	
 

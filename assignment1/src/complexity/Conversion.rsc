@@ -18,11 +18,11 @@ public str convertCREToString(untestable()) = "untestable";
 
 public void printRankTable(map[ComplexityRiskEvaluation, real] pie)
 {	
-	println("\t-----------------------------------------------------------");
+	println("\t--------------------------------------------------------------");
 	println("\t| Maximum relative LOC");
-	println("-------------------------------------------------------------------");
+	println("----------------------------------------------------------------------");
 	println("Rank\t| simple\t| complex\t| more complex\t| untestable");
-	println("-------------------------------------------------------------------");
+	println("----------------------------------------------------------------------");
 	
 	for (r <- ranks)
 	{
@@ -45,11 +45,11 @@ public void printRankTable(map[ComplexityRiskEvaluation, real] pie)
 		println();
 	
 	}
-	println("-------------------------------------------------------------------");
+	println("----------------------------------------------------------------------");
 	
 	
 	println("Result\t|");
-	println("\t-----------------------------------------------------------");
+	println("\t--------------------------------------------------------------");
 	print("<convertRankToString(convertPieToRank(pie))>");
 	for (l <- cre)
 	{
@@ -57,7 +57,7 @@ public void printRankTable(map[ComplexityRiskEvaluation, real] pie)
 	}
 	
 	println();
-	println("-------------------------------------------------------------------");
+	println("----------------------------------------------------------------------");
 	println();
 	println();
 }

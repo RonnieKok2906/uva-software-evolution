@@ -19,7 +19,7 @@ public void printUnitTesting(Rank rank)
 {
 	println("UNIT TESTING");
 	println("--------------------------------------------");
-	println("Unit testing not implemented");
+	println("Unit Testing not implemented");
 	println("--------------------------------------------");
 	println();
 	println();

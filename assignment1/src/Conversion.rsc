@@ -18,6 +18,11 @@ public Rank averageRankOfPropertyRankings(list[SourceCodeProperty] properties)
 	return convertRealToRank(summedRanks / numberOfItems);
 }
 
+public void printResults(map[MaintainabilityMetric, Rank] maintainabiltiy)
+{
+	println(maintainabiltiy);
+}
+
 //Private Functions
 
 //Conversion from an enumerated Rank to an integer

@@ -21,41 +21,15 @@ alias CodeBlock = list[CodeLine];
 //MEMO:When the volume module is adjusted to the usage of CodeLineModel, then M3 can be removed from this module.
 public Rank projectDuplication(CodeLineModel model)
 {
-	real numberOfDuplicatedLines = toReal(size(duplicationsInProject(model)));
-	real numberOfTotalLines = toReal(projectVolume(model));
-	real percentage = 100 * numberOfDuplicatedLines / numberOfTotalLines;
+	int numberOfDuplicatedLines = size(duplicationsInProject(model));
+	int numberOfTotalLines = projectVolume(model);
+	real percentage = 100 * toReal(numberOfDuplicatedLines) / toReal(numberOfTotalLines);
+	
+	printResults(numberOfDuplicatedLines, numberOfTotalLines);
 	
 	return convertPercentageToRank(percentage);
 }
 
-public void printResults(CodeLineModel model)
-{
-	
-	int numberOfDuplicatedLines = size(duplicationsInProject(model));
-	int numberOfTotalLines = projectVolume(model);
-	real percentage = 100.0 * toReal(numberOfDuplicatedLines) / toReal(numberOfTotalLines);
-	
-	println("DUPLICATION");
-	
-	print("\n");
-	println("---------------------------------------------");
-	println("Rank\tDuplication");
-	println("---------------------------------------------");
-	for (r <- ranks)
-	{
-		println("<convertRankToString(r)> \t| <thresholdDuplicationPercentage[r].from * 100.0> - <thresholdDuplicationPercentage[r].to * 100.0> %");
-	}
-	
-	
-	println("---------------------------------------------");
-	println("Number of duplicated lines: <numberOfDuplicatedLines>");
-	println("Number of total number of lines: <numberOfTotalLines>");
-	println("Percentage of duplicated lines: <percentage>%");
-	println("Result: <convertRankToString(convertPercentageToRank(percentage))>");
-	println("---------------------------------------------");
-	print("\n");
-	print("\n");
-}
 
 //Private Functions
 
@@ -136,6 +110,32 @@ private bool percentageConformsToRank(real percentage, Rank rank)
 public LOC numberOfDuplicatedLines(CodeLineModel model)
 {
 	return size(duplicationsInProject(model));
+}
+
+private void printResults(int duplicatedLOC, int totalLOC)
+{
+	real percentage = 100.0 * toReal(duplicatedLOC) / toReal(totalLOC);
+	
+	println("DUPLICATION");
+	
+	print("\n");
+	println("---------------------------------------------");
+	println("Rank\tDuplication");
+	println("---------------------------------------------");
+	for (r <- ranks)
+	{
+		println("<convertRankToString(r)> \t| <thresholdDuplicationPercentage[r].from * 100.0> - <thresholdDuplicationPercentage[r].to * 100.0> %");
+	}
+	
+	
+	println("---------------------------------------------");
+	println("Number of duplicated lines: <duplicatedLOC>");
+	println("Number of total number of lines: <totalLOC>");
+	println("Percentage of duplicated lines: <percentage>%");
+	println("Result: <convertRankToString(convertPercentageToRank(percentage))>");
+	println("---------------------------------------------");
+	print("\n");
+	print("\n");
 }
 
 

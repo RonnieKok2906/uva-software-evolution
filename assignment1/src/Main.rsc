@@ -56,10 +56,12 @@ public void rankMaintainability(loc project)
 	SourceCodeProperty volumeProperty = volume(volumeRanking);
 	
 	//Complexity
-	complexity::Ranking::printResults(codeUnitModel);
+	Rank complexityRank = projectComplexity(codeUnitModel);
+	SourceCodeProperty complexityPerUnitProperty = complexityPerUnit(complexityRank);
 	
 	//Duplication
-	duplication::Ranking::printResults(codeLineModel);
+	Rank duplicationRank = projectDuplication(codeLineModel);
+	SourceCodeProperty duplicationProperty = duplication(duplicationRank);
 	
 	//UnitSize
 	println("Ranking UnitSize for project...");
@@ -70,21 +72,19 @@ public void rankMaintainability(loc project)
 	println(unitSizeProperty);
 	
 	//UnitTesting
-	println("Ranking UnitTesting for project...");
 	Rank unitTestingRank = projectUnitTesting(codeLineModel);
 	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRank);
-	println(unitTestingProperty);
-	
-	println("\n");
+	unitTesting::Ranking::printResults(codeLineModel);
 	
 	println("time consumed:<(systemTime() - before) * 0.0000001> seconds\n");
 	
-	//return (
-	//		analysability() : averageRankOfPropertyRankings([volumeProperty, duplicationProperty, unitSizeProperty, unitTestingProperty]),
-	//		changeability() : averageRankOfPropertyRankings([complexityPerUnitProperty, duplicationProperty]),
-	//		stability() : averageRankOfPropertyRankings([unitTestingProperty]),
-	//		testability() : averageRankOfPropertyRankings([complexityPerUnitProperty, unitSizeProperty, unitTestingProperty])
-	//		);
+	Conversion::printResults((
+								analysability() : averageRankOfPropertyRankings([volumeProperty, duplicationProperty, unitSizeProperty, unitTestingProperty]),
+								changeability() : averageRankOfPropertyRankings([complexityPerUnitProperty, duplicationProperty]),
+								stability() : averageRankOfPropertyRankings([unitTestingProperty]),
+								testability() : averageRankOfPropertyRankings([complexityPerUnitProperty, unitSizeProperty, unitTestingProperty])
+							));
+	
 }
 
 //Test functions

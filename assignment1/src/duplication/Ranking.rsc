@@ -49,8 +49,6 @@ public void printDuplication(DuplicationMetric result)
 	real percentage = 100.0 * toReal(duplicatedLOC) / toReal(totalLOC);
 	
 	println("DUPLICATION");
-	
-	println();
 	println("---------------------------------------------");
 	println("Rank\tDuplication");
 	println("---------------------------------------------");

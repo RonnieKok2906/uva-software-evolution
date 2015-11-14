@@ -17,6 +17,8 @@ public LOC projectVolume(CodeLineModel model)
 //
 public void printVolume(LOC linesOfCode, Rank ranking) 
 {
+	println();
+	println();
 	println("VOLUME");
 	println("--------------------------------------------");
 	println("Total lines of code: <linesOfCode>");

@@ -17,8 +17,10 @@ public Rank projectUnitTesting(CodeLineModel model)
 
 public void printUnitTesting(Rank rank)
 {
-	println("UNIT TESTING\n");
+	println("UNIT TESTING");
+	println("--------------------------------------------");
 	println("Unit testing not implemented");
+	println("--------------------------------------------");
 	println();
 	println();
 }

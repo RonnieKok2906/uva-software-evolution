@@ -46,14 +46,16 @@ public UnitSizeMetric projectUnitSize(CodeUnitModel codeUnitModel)
 
 public void printUnitSize(UnitSizeMetric results, Rank ranking)
 {
-	println("Unit Size");
-	println("---------");
+	println("UNIT SIZE");
+	println("--------------------------------------------");
 	println("Very High (LoC \> <thresholds[veryHigh()]>): <results[veryHigh()]>%");
 	println("High      (LoC \> <thresholds[high()]>) : <results[high()]>%");
 	println("Medium    (LoC \> <thresholds[medium()]>) : <results[medium()]>%");
 	println("Low       (LoC \> <thresholds[low()]>)  : <results[low()]>%");
 	println();
 	println("Unit Size ranking: <ranking>");
+	println("--------------------------------------------");
+	println();
 	println();
 }
 

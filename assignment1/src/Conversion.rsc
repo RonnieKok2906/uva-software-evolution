@@ -95,7 +95,7 @@ public list[bool] allTests() = [
 								];
 
 //Tests
-//Test cases are extracte from figure 5 in "A Practical Model for Measuring Maintainability", http://dx.doi.org/10.1109/QUATIC.2007.8
+//Test cases are extracted from figure 5 in "A Practical Model for Measuring Maintainability", http://dx.doi.org/10.1109/QUATIC.2007.8
 test bool average1() = averageRankOfPropertyRankings([
 														volume(plusPlus()), 
 														duplication(minus()), 

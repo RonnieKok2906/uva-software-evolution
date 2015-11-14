@@ -86,10 +86,13 @@ test bool testUnitSizeWithoutCommentsAndEmptyLines()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, {declaration});
-
-	UnitSizeMetric result = projectUnitSize(codeUnitModel);
 	
-	UnitSizeMetric reference =  (low() : (10.0 / 77.0) * 100.0, medium() : (67.0 / 77.0) * 100.0, high() : (0.0 / 77.0) * 100.0, veryHigh() : (0.0/ 77.0) * 100.0);	
+	UnitSizeMetric reference =  (
+								low() : toInt(round((10.0 / 77.0) * 100.0)), 
+								medium() : toInt(round((67.0 / 77.0) * 100.0)), 
+								high() : toInt(round((0.0 / 77.0) * 100.0)), 
+								veryHigh() : toInt(round((0.0/ 77.0) * 100.0))
+								);	
 	
 	return result == reference;
 }
@@ -105,19 +108,17 @@ test bool testUnitSizeWithCommentsAndEmptyLines()
 
 	UnitSizeMetric result = projectUnitSize(codeUnitModel);
 	
-	println(result);
-	
 	UnitSizeMetric reference =  (
-								low() : round((10.0 / 77.0) * 100.0), 
-								medium() : round((67.0 / 77.0) * 100.0), 
-								high() : round((0.0 / 77.0) * 100.0), 
-								veryHigh() : round((0.0/ 77.0) * 100.0)
+								low() : toInt(round((10.0 / 77.0) * 100.0)), 
+								medium() : toInt(round((67.0 / 77.0) * 100.0)), 
+								high() : toInt(round((0.0 / 77.0) * 100.0)), 
+								veryHigh() : toInt(round((0.0/ 77.0) * 100.0))
 								);	
 
 	return result == reference;
 }
 
-public list[bool] allTests = [
+public list[bool] allTests() = [
 								testUnitSizeWithoutCommentsAndEmptyLines(),
 								testUnitSizeWithCommentsAndEmptyLines()
 								];

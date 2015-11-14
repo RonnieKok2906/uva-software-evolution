@@ -12,18 +12,14 @@ import model::CodeUnitModel;
 data Class = class(loc name, loc location);
 alias ClassModel = map[Class, list[Unit]];
 
+
 //Public Functions
 
 public ClassModel createClassModel(M3 m3Model, CodeUnitModel codeUnitModel)
 {
 	list[Class] classes = projectClasses(m3Model);
 	
-	ClassModel classModel = ();	
-	
-	for (c <-classes)
-	{
-		classModel[c] = [];
-	}
+	ClassModel classModel = initializeClassModel(classes);
 	
 	for (c <- classes)
 	{
@@ -44,4 +40,12 @@ public ClassModel createClassModel(M3 m3Model, CodeUnitModel codeUnitModel)
 private list[Class] projectClasses(M3 m3Model)
 {
 	return [class(d[0], d[1]) | d <- m3Model@declarations, d[0].scheme == "java+class"];
+}
+
+private CodeModel initializeClassModel(list[Class] classes)
+{
+	for (c <-classes)
+	{
+		classModel[c] = [];
+	}
 }

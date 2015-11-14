@@ -9,8 +9,10 @@ import model::CodeUnitModel;
 import model::CodeLineModel;
 import IO;
 
+map[UnitSizeEvaluation,int] thresholds = (veryHigh(): 100, high(): 50, medium(): 10, low(): 0); 
+
 //
-// Holds the calculated metrics for Unit Size.
+// Holds the calculated metric values for Unit Size.
 //
 alias UnitSizeMetric = map[UnitSizeEvaluation eval,int percentage];
 
@@ -38,17 +40,17 @@ public UnitSizeMetric projectUnitSize(CodeUnitModel codeUnitModel)
 	);
 }
 
-
 public void printUnitSize(UnitSizeMetric results, Rank ranking)
 {
 	println("Unit Size");
 	println("---------");
-	println("Very High (\> 100): <results[veryHigh()]>%");
-	println("High      (\> 50) : <results[high()]>%");
-	println("Medium    (\> 10) : <results[medium()]>%");
-	println("Low       (\> 0)  : <results[low()]>%");
+	println("Very High (LoC \> <thresholds[veryHigh()]>): <results[veryHigh()]>%");
+	println("High      (LoC \> <thresholds[high()]>) : <results[high()]>%");
+	println("Medium    (LoC \> <thresholds[medium()]>) : <results[medium()]>%");
+	println("Low       (LoC \> <thresholds[low()]>)  : <results[low()]>%");
 	println();
-	println("Ranking Unit Size: <ranking>");
+	println("Unit Size ranking: <ranking>");
+	println();
 }
 
 public Rank convertUnitSizeMetricToRank(UnitSizeMetric metric) = plusPlus() 
@@ -66,9 +68,8 @@ public Rank convertUnitSizeMetricToRank(UnitSizeMetric metric) = minus()
 public default Rank convertUnitSizeMetricToRank(UnitSizeMetric _) = minusMinus(); 
 
 
-private UnitSizeEvaluation convertLOCEvaluation(LOC l) = veryHigh() when l > 100;
-private UnitSizeEvaluation convertLOCEvaluation(LOC l) = high() when l > 50;
-private UnitSizeEvaluation convertLOCEvaluation(LOC l) = medium() when l > 10;
+private UnitSizeEvaluation convertLOCEvaluation(LOC l) = veryHigh() when l > thresholds[veryHigh()];
+private UnitSizeEvaluation convertLOCEvaluation(LOC l) = high() when l > thresholds[high()];
+private UnitSizeEvaluation convertLOCEvaluation(LOC l) = medium() when l > thresholds[medium()];
 private default UnitSizeEvaluation convertLOCEvaluation(LOC l) = low();
-
 

@@ -18,8 +18,6 @@ import volume::Volume;
 import volume::VolumeConversion;
 
 import complexity::Ranking;
-import complexity::Conversion;
-import complexity::CyclomaticComplexity;
 
 import unitSize::UnitSize;
 
@@ -50,16 +48,13 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 	
 	//Volume
 	println("Ranking Volume for project...");
-	tuple[LOC,Rank] volumeResults = projectVolume(m3Model);
-	SourceCodeProperty volumeProperty = volume(volumeResults[1]);
-	println("Volume : Lines of Code : <volumeResults[0]> (<volumeProperty>)");
+	LOC volumeResults = projectVolume(codeLineModel);
+	Rank volumeRanking = convertLOCToRankForJava(volumeResults);
+	printVolume(volumeResults, volumeRanking);
+	SourceCodeProperty volumeProperty = volume(volumeRanking);
 	
 	//Complexity
-	println("Ranking Complexity for project...");
-	Rank complexityPerUnitRank = projectComplexity(codeUnitModel);
-	SourceCodeProperty complexityPerUnitProperty = complexityPerUnit(complexityPerUnitRank);
-	println(complexityPerUnitProperty);
-	println(complexityPie(range(codeUnitModel)));
+	complexity::Ranking::printResults(codeUnitModel);
 	
 	//Duplication
 	println("Ranking Duplication for project...");
@@ -69,8 +64,10 @@ public map[MaintainabilityMetric, Rank] rankMaintainability(loc project)
 	
 	//UnitSize
 	println("Ranking UnitSize for project...");
-	Rank unitSizeRank = projectUnitSize(codeUnitModel); 
-	SourceCodeProperty unitSizeProperty = unitSize(unitSizeRank);
+	UnitSizeMetric unitSizeResults = projectUnitSize(codeUnitModel); 
+	Rank unitSizeRanking = convertUnitSizeMetricToRank(unitSizeResults);
+	printUnitSize(unitSizeResults, unitSizeRanking);
+	SourceCodeProperty unitSizeProperty = unitSize(unitSizeRanking);
 	println(unitSizeProperty);
 	
 	//UnitTesting

@@ -79,6 +79,8 @@ public void printCCTable()
 		}
 	}
 	println("-----------------------------------------------------");
+	
+	print("\n");
 }
 
 //Conversion from Cyclomatic Complexity to an enumerated Risk Evaluation

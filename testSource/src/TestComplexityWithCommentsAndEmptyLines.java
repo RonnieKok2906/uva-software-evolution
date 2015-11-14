@@ -12,11 +12,11 @@ public class TestComplexityWithCommentsAndEmptyLines {
 	
 	
 	// total lines of method: 77
-	// simple() : 10 lines
-	// moreComplex() : 17 lines
-	// complex() : 50
-	// pie (simple() : 10.0 / 70.0, moreComplex() : 50.0 / 70.0, complex() : 48.0
-	// / 70.0, untestable() : 0.0 / 70.0)
+	// complexity: simple() : 10 lines
+	// complexity: moreComplex() : 17 lines
+	// complexity: complex() : 50
+	// compleixty pie (simple() : 10.0 / 77.0, moreComplex() : 17.0 / 77.0, complex() : 50.0
+	// / 77.0, untestable() : 0.0 / 77.0)
 
 	// 3 lines, complexity simple()
 	public TestComplexityWithCommentsAndEmptyLines() {

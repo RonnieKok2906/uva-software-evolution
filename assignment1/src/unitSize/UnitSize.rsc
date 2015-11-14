@@ -1,7 +1,11 @@
 module unitSize::UnitSize
 
 import Prelude;
-import IO;
+
+import lang::java::m3::Core;
+import lang::java::jdt::m3::Core;
+import lang::java::jdt::m3::AST;
+
 import util::Math;
 import model::MetricTypes;
 import model::CodeUnitModel;
@@ -73,3 +77,46 @@ private UnitSizeEvaluation convertLOCEvaluation(LOC l) = high() when l > thresho
 private UnitSizeEvaluation convertLOCEvaluation(LOC l) = medium() when l > thresholds[medium()];
 private default UnitSizeEvaluation convertLOCEvaluation(LOC l) = low();
 
+
+test bool testUnitSizeWithoutCommentsAndEmptyLines()
+{
+	loc file = |project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|;
+	M3 m3Model = createM3FromEclipseFile(file);
+	Declaration declaration = createAstFromFile(file, false);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, {declaration});
+
+	UnitSizeMetric result = projectUnitSize(codeUnitModel);
+	
+	println(result);
+	
+	UnitSizeMetric reference =  (low() : (10.0 / 77.0) * 100.0, medium() : (67.0 / 77.0) * 100.0, high() : (0.0 / 77.0) * 100.0, veryHigh() : (0.0/ 77.0) * 100.0);	
+	
+	return result == reference;
+}
+
+test bool testUnitSizeWithCommentsAndEmptyLines()
+{
+	loc file = |project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|;
+	M3 m3Model = createM3FromEclipseFile(file);
+	Declaration declaration = createAstFromFile(file, false);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, {declaration});
+
+	UnitSizeMetric result = projectUnitSize(codeUnitModel);
+	
+	println(result);
+	
+	UnitSizeMetric reference =  (
+								low() : round((10.0 / 77.0) * 100.0), 
+								medium() : round((67.0 / 77.0) * 100.0), 
+								high() : round((0.0 / 77.0) * 100.0), 
+								veryHigh() : round((0.0/ 77.0) * 100.0)
+								);	
+	
+	println(reference);
+	
+	return result == reference;
+}

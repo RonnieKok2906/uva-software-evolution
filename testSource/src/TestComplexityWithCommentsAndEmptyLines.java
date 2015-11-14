@@ -18,6 +18,12 @@ public class TestComplexityWithCommentsAndEmptyLines {
 	// compleixty pie (simple() : 10.0 / 77.0, moreComplex() : 17.0 / 77.0, complex() : 50.0
 	// / 77.0, untestable() : 0.0 / 77.0)
 
+	//unitSize: low() : 10 lines
+	//unitSize: medium() : 67 lines
+	//unitSize: high() : 0 lines
+	//unitSize: veryHigh() : 0 lines
+	// result (low() : 10.0 / 77.0, medium() : 67.0 / 77.0, high() : 0.0 / 77.0, veryHigh() : 0.0 / 77.0)
+	
 	// 3 lines, complexity simple()
 	public TestComplexityWithCommentsAndEmptyLines() {
 		super();

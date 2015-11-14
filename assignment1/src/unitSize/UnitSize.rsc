@@ -116,3 +116,8 @@ test bool testUnitSizeWithCommentsAndEmptyLines()
 
 	return result == reference;
 }
+
+public list[bool] allTests = [
+								testUnitSizeWithoutCommentsAndEmptyLines(),
+								testUnitSizeWithCommentsAndEmptyLines()
+								];

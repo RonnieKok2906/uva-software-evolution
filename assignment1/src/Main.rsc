@@ -29,6 +29,9 @@ import duplication::Ranking;
 
 import unitTesting::Ranking;
 
+import wmc::WMC;
+import wmc::WMCTests;
+
 
 public list[loc] projects()
 {
@@ -80,6 +83,11 @@ public void rankMaintainability(loc project)
 	//Maintainability
 	printMaintainability(<volumeProperty, unitSizeProperty, complexityPerUnitProperty, duplicationProperty, unitTestingProperty>);
 	
+	
+	//WMC
+	ClassModel classModel = createClassModel(m3Model, codeUnitModel);
+	WMC wmc = projectWMC(classModel);
+	printTopWMC(wmc);	
 }
 
 //Test Functions
@@ -93,7 +101,8 @@ public void runAllTests()
 								<"complexity::Conversion.rsc Tests", complexity::Conversion::allTests()>,
 								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>,
 								<"duplication::Ranking.rsc Tests", duplication::Ranking::allTests()>,
-								<"unitSize::UnitSize.rsc Tests", unitSize::UnitSize::allTests()>
+								<"unitSize::UnitSize.rsc Tests", unitSize::UnitSize::allTests()>,
+								<"wmc::WMCTests.rsc Tests", wmc::WMCTests::allTests()>
 								];
 
 	for (<name, subTests> <- tests)

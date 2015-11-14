@@ -14,6 +14,7 @@ import Util;
 import model::MetricTypes;
 import model::CodeLineModel;
 import model::CodeUnitModel;
+import model::ClassModel;
 
 import volume::Volume;
 import volume::VolumeTests;

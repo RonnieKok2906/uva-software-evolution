@@ -1,8 +1,14 @@
 module wmc::WMCTests
 
+import Prelude;
+
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
+
+import model::CodeLineModel;
+import model::CodeUnitModel;
+import model::ClassModel;
 
 import wmc::WMC;
 
@@ -17,7 +23,6 @@ test bool testThatProjectHasTwoClasses()
 	
 	ClassModel classModel = createClassModel(m3Model, codeUnitModel);
 	
-	println(size(classModel));
 	return size(classModel) == 2;
 }
 

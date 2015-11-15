@@ -29,8 +29,9 @@ public void printVolume(LOC linesOfCode, Rank ranking)
 	println();
 }
 
-
-//Conversion from Lines of Code to an enumerated Rank
+//
+// Converts the Volume metric to a Rank.
+//
 public Rank convertLOCToRankForJava(LOC l) = plusPlus() when l <= 66000;
 public Rank convertLOCToRankForJava(LOC l) = plus() when l <= 246000;
 public Rank convertLOCToRankForJava(LOC l) = neutral() when l <= 665000;

@@ -36,51 +36,73 @@ public void rankMaintainability(loc project)
 	println("Building M3 model for project...");
 	M3 m3Model = createM3FromEclipseProject(project);
 
-	println("Building Ast model for project...");
+	println("Building AST model for project...");
 	set[Declaration] declarations = createAstsFromEclipseProject(project, false);
 	
 	println("Building CodeLineModel...");
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	
 	println("Building CodeUnitModel...");
 	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, declarations);
 	
-	//Volume
-	LOC volumeResults = projectVolume(codeLineModel);
-	Rank volumeRanking = convertLOCToRankForJava(volumeResults);
-	printVolume(volumeResults, volumeRanking);
-	SourceCodeProperty volumeProperty = volume(volumeRanking);
+	// Calculate metrics...
+	SourceCodeProperty volumeProperty = rankVolume(codeLineModel);
+	SourceCodeProperty complexityPerUnitProperty = rankComplexity(codeUnitModel);
+	SourceCodeProperty duplicationProperty = rankDuplication(codeLineModel);
+	SourceCodeProperty unitSizeProperty = rankUnitSize(codeUnitModel);
+	SourceCodeProperty unitTestingProperty = rankUnitTesting(codeLineModel);
 	
-	//Complexity
-	ComplexityMetric complexityPie = projectComplexity(codeUnitModel);
-	Rank complexityRanking = convertPieToRank(complexityPie);
-	printComplexity(complexityPie);
-	SourceCodeProperty complexityPerUnitProperty = complexityPerUnit(complexityRanking);
-	
-	//Duplication
-	DuplicationMetric duplicationResult = projectDuplication(codeLineModel);
-	Rank duplicationRanking = convertPercentageToRank(duplicationResult);
-	printDuplication(duplicationResult);
-	SourceCodeProperty duplicationProperty = duplication(duplicationRanking);
-	
-	//UnitSize
-	UnitSizeMetric unitSizeResults = projectUnitSize(codeUnitModel); 
-	Rank unitSizeRanking = convertUnitSizeMetricToRank(unitSizeResults);
-	printUnitSize(unitSizeResults, unitSizeRanking);
-	SourceCodeProperty unitSizeProperty = unitSize(unitSizeRanking);
-	
-	//UnitTesting
-	Rank unitTestingRanking = projectUnitTesting(codeLineModel);
-	printUnitTesting(unitTestingRanking);
-	SourceCodeProperty unitTestingProperty = unitTesting(unitTestingRanking);
-	
-	//Maintainability
+	// Maintainability
 	printMaintainability(<volumeProperty, unitSizeProperty, complexityPerUnitProperty, duplicationProperty, unitTestingProperty>);
 	
-	
-	//WMC
+	// WMC
 	ClassModel classModel = createClassModel(m3Model, codeUnitModel);
 	WMC wmc = projectWMC(classModel);
 	printTopWMC(wmc);	
+}
+
+private SourceCodeProperty rankVolume(CodeLineModel codeLineModel) 
+{
+	LOC volumeResults = projectVolume(codeLineModel);
+	Rank volumeRanking = convertLOCToRankForJava(volumeResults);
+	printVolume(volumeResults, volumeRanking);
+	
+	return volume(volumeRanking);
+}
+
+private SourceCodeProperty rankComplexity(CodeUnitModel codeUnitModel) 
+{
+	ComplexityMetric complexityPie = projectComplexity(codeUnitModel);
+	Rank complexityRanking = convertPieToRank(complexityPie);
+	printComplexity(complexityPie);
+	
+	return complexityPerUnit(complexityRanking);
+}
+
+private SourceCodeProperty rankDuplication(CodeLineModel codeLineModel) {
+
+	DuplicationMetric duplicationResult = projectDuplication(codeLineModel);
+	Rank duplicationRanking = convertPercentageToRank(duplicationResult);
+	printDuplication(duplicationResult);
+	
+	return duplication(duplicationRanking);
+}
+
+private SourceCodeProperty rankUnitSize(CodeUnitModel codeUnitModel)  
+{
+	UnitSizeMetric unitSizeResults = projectUnitSize(codeUnitModel); 
+	Rank unitSizeRanking = convertUnitSizeMetricToRank(unitSizeResults);
+	printUnitSize(unitSizeResults, unitSizeRanking);
+	
+	return unitSize(unitSizeRanking);
+}
+
+private SourceCodeProperty rankUnitTesting(CodeLineModel codeLineModel)
+{
+	Rank unitTestingRanking = projectUnitTesting(codeLineModel);
+	printUnitTesting(unitTestingRanking);
+	
+	return unitTesting(unitTestingRanking);
 }
 
 //Test Functions

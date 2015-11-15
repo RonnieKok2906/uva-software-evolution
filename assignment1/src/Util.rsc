@@ -1,9 +1,7 @@
 module Util
 
 import Prelude;
-
 import lang::java::jdt::m3::AST;
-
 import model::MetricTypes;
 import model::CodeUnitModel;
 

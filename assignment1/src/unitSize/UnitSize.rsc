@@ -36,6 +36,9 @@ public UnitSizeMetric projectUnitSize(CodeUnitModel codeUnitModel)
 	);
 }
 
+//
+// Pretty prints the Unit Size metrics.  
+//
 public void printUnitSize(UnitSizeMetric results, Rank ranking)
 {
 	println("UNIT SIZE");
@@ -51,6 +54,9 @@ public void printUnitSize(UnitSizeMetric results, Rank ranking)
 	println();
 }
 
+//
+// Converts the Unit Size metric to a Rank.
+//
 public Rank convertUnitSizeMetricToRank(UnitSizeMetric metric) = plusPlus() 
 	when metric[veryHigh()] == 0 && metric[high()] == 0 && metric[medium()] < 25;
 

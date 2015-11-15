@@ -1,9 +1,7 @@
 module Conversion
 
 import Prelude;
-
 import util::Math;
-
 import model::MetricTypes;
 
 //Public functions

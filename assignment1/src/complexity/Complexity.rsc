@@ -111,8 +111,6 @@ private map[ComplexityRiskEvaluation, list[Unit]] groupedUnitsPerRisk(set[Unit] 
 
 //Tests
 public list[bool] allTests() = [
-								testNumberOfUnitsWithoutCommentsAndEmptyLines(),
-								testNumberOfUnitsWithCommentsAndEmptyLines(),
 								testComplexityPieWithoutCommentsAndEmptyLines(),
 								testComplexityPieWithCommentsAndEmptyLines(),
 								testSumComplexityPieWithoutCommentsAndEmptyLinesIsOne(),
@@ -121,30 +119,6 @@ public list[bool] allTests() = [
 								testRankWithCommentsAndEmptyLines()
 								];
 
-
-test bool testNumberOfUnitsWithoutCommentsAndEmptyLines()
-{
-	loc file = |project://testSource/src/TestComplexityWithoutCommentsAndEmptyLines.java|;
-	M3 m3Model = createM3FromEclipseFile(file);
-	Declaration declaration = createAstFromFile(file, false);
-	
-	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, {declaration});
-
-	return size(codeUnitModel) == 4;
-}
-
-test bool testNumberOfUnitsWithCommentsAndEmptyLines()
-{	
-	loc file = |project://testSource/src/TestComplexityWithCommentsAndEmptyLines.java|;
-	M3 m3Model = createM3FromEclipseFile(file);
-	Declaration declaration = createAstFromFile(file, false);
-	
-	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-	CodeUnitModel codeUnitModel = createCodeUnitModel(m3Model, codeLineModel, {declaration});
-
-	return size(codeUnitModel) == 4;
-}
 
 test bool testSumComplexityPieWithoutCommentsAndEmptyLinesIsOne()
 {

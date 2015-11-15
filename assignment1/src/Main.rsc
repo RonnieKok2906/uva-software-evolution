@@ -14,6 +14,7 @@ import Util;
 import model::MetricTypes;
 import model::CodeLineModel;
 import model::CodeUnitModel;
+import model::CodeUnitModelTests;
 import model::ClassModel;
 
 import volume::Volume;
@@ -97,6 +98,7 @@ public void runAllTests()
 {
 	list[tuple[str,list[bool]]] tests = [
 								<"CodeLineModel.rsc Tests", model::CodeLineModel::allTests()>,
+								<"CodeUnitModelTests.rsc Tests", model::CodeUnitModelTests::allTests()>,
 								<"Conversion.rsc Tests", Conversion::allTests()>,
 								<"volume::VolumeTests.rsc Tests", volume::VolumeTests::allTests()>,
 								<"complexity::Complexity.rsc Tests", complexity::Complexity::allTests()>,

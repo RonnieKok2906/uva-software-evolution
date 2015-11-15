@@ -17,6 +17,9 @@ import volume::VolumeTests;
 import complexity::Complexity;
 import complexity::Conversion;
 import complexity::CyclomaticComplexity;
+import complexity::ComplexityTests;
+import complexity::ConversionTests;
+import complexity::CyclomaticComplexityTests;
 import unitSize::UnitSize;
 import unitSize::UnitSizeTests;
 import duplication::Duplication;
@@ -113,9 +116,9 @@ public void runAllTests()
 								<"CodeUnitModelTests.rsc Tests", model::CodeUnitModelTests::allTests()>,
 								<"Conversion.rsc Tests", Conversion::allTests()>,
 								<"volume::VolumeTests.rsc Tests", volume::VolumeTests::allTests()>,
-								<"complexity::Complexity.rsc Tests", complexity::Complexity::allTests()>,
-								<"complexity::Conversion.rsc Tests", complexity::Conversion::allTests()>,
-								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>,
+								<"complexity::ComplexityTests.rsc Tests", complexity::ComplexityTests::allTests()>,
+								<"complexity::ConversionTests.rsc Tests", complexity::ConversionTests::allTests()>,
+								<"complexity::CyclomaticComplexityTests.rcs Tests", complexity::CyclomaticComplexityTests::allTests()>,
 								<"duplication::DuplicationTests.rsc Tests", duplication::DuplicationTests::allTests()>,
 								<"unitSize::UnitSize.rsc Tests", unitSize::UnitSize::allTests()>,
 								<"wmc::WMCTests.rsc Tests", wmc::WMCTests::allTests()>

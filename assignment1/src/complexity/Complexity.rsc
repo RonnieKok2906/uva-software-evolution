@@ -1,4 +1,4 @@
-module complexity::Ranking
+module complexity::Complexity
 
 import Prelude;
 

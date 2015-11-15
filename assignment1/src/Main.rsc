@@ -19,7 +19,7 @@ import model::ClassModel;
 import volume::Volume;
 import volume::VolumeTests;
 
-import complexity::Ranking;
+import complexity::Complexity;
 import complexity::Conversion;
 import complexity::CyclomaticComplexity;
 
@@ -99,7 +99,7 @@ public void runAllTests()
 								<"CodeLineModel.rsc Tests", model::CodeLineModel::allTests()>,
 								<"Conversion.rsc Tests", Conversion::allTests()>,
 								<"volume::VolumeTests.rsc Tests", volume::VolumeTests::allTests()>,
-								<"complexity::Ranking.rsc Tests", complexity::Ranking::allTests()>,
+								<"complexity::Complexity.rsc Tests", complexity::Complexity::allTests()>,
 								<"complexity::Conversion.rsc Tests", complexity::Conversion::allTests()>,
 								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>,
 								<"duplication::Ranking.rsc Tests", duplication::DuplicationTests::allTests()>,

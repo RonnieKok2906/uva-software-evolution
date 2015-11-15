@@ -1,9 +1,7 @@
 module complexity::CyclomaticComplexityTests
 
 import Prelude;
-
 import lang::java::jdt::m3::AST; 
-
 import Util;
 import model::MetricTypes;
 import complexity::CyclomaticComplexity;

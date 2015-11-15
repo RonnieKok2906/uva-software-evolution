@@ -10,8 +10,8 @@ public class TestComplexityWithCommentsAndEmptyLines {
 	
 	
 	
-	
-	// total lines of method: 77
+	// total lines of code: 79
+	// total lines of code in methods: 77
 	// complexity: simple() : 10 lines
 	// complexity: moreComplex() : 17 lines
 	// complexity: complex() : 50

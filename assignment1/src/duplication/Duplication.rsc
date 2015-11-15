@@ -1,16 +1,10 @@
-module duplication::Ranking
+module duplication::Duplication
 
 import Prelude;
-
 import ListRelation;
 import util::Math;
-
-import lang::java::m3::Core;
-import lang::java::jdt::m3::Core;
-
 import model::MetricTypes;
 import model::CodeLineModel;
-
 import volume::Volume;
 
 alias CodeFragment = str;
@@ -137,36 +131,4 @@ private bool percentageConformsToRank(DuplicationMetric result, Rank rank)
 public LOC numberOfDuplicatedLines(CodeLineModel model)
 {
 	return size(duplicationsInProject(model));
-}
-
-
-//Tests
-
-public list[bool] allTests() = [
-								testSourceIsDuplicated(),
-								testSourceIsMinusMinus()
-								]; 
-
-test bool testSourceIsDuplicated()
-{
-	loc testProject = |project://testSource|;
-	M3 m3Model = createM3FromEclipseProject(testProject);
-		
-	CodeLineModel model = createCodeLineModel(m3Model);
-	
-	set[CodeLine] duplicateLines = duplicationsInProject(model);
-	
-	return size(duplicateLines) == 154 && projectVolume(model) == 158;
-}
-
-test bool testSourceIsMinusMinus()
-{
-	loc testProject = |project://testSource|;
-	M3 m3Model = createM3FromEclipseProject(testProject);
-		
-	CodeLineModel model = createCodeLineModel(m3Model);
-	
-	DuplicationMetric result = projectDuplication(model);
-	
-	return convertPercentageToRank(result) == minusMinus();
 }

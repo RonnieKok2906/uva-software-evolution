@@ -26,7 +26,8 @@ import complexity::CyclomaticComplexity;
 import unitSize::UnitSize;
 import unitSize::UnitSizeTests;
 
-import duplication::Ranking;
+import duplication::Duplication;
+import duplication::DuplicationTests;
 
 import unitTesting::Ranking;
 
@@ -101,7 +102,7 @@ public void runAllTests()
 								<"complexity::Ranking.rsc Tests", complexity::Ranking::allTests()>,
 								<"complexity::Conversion.rsc Tests", complexity::Conversion::allTests()>,
 								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>,
-								<"duplication::Ranking.rsc Tests", duplication::Ranking::allTests()>,
+								<"duplication::Ranking.rsc Tests", duplication::DuplicationTests::allTests()>,
 								<"unitSize::UnitSize.rsc Tests", unitSize::UnitSize::allTests()>,
 								<"wmc::WMCTests.rsc Tests", wmc::WMCTests::allTests()>
 								];

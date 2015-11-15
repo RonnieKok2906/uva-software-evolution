@@ -1,37 +1,27 @@
 module Main
 
 import Prelude;
-
 import util::Benchmark;
-
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
-
 import Conversion;
 import Util;
-
 import model::MetricTypes;
 import model::CodeLineModel;
 import model::CodeUnitModel;
 import model::CodeUnitModelTests;
 import model::ClassModel;
-
 import volume::Volume;
 import volume::VolumeTests;
-
 import complexity::Complexity;
 import complexity::Conversion;
 import complexity::CyclomaticComplexity;
-
 import unitSize::UnitSize;
 import unitSize::UnitSizeTests;
-
 import duplication::Duplication;
 import duplication::DuplicationTests;
-
 import unitTesting::Ranking;
-
 import wmc::WMC;
 import wmc::WMCTests;
 
@@ -104,7 +94,7 @@ public void runAllTests()
 								<"complexity::Complexity.rsc Tests", complexity::Complexity::allTests()>,
 								<"complexity::Conversion.rsc Tests", complexity::Conversion::allTests()>,
 								<"complexity::CyclomaticComplexity.rcs Tests", complexity::CyclomaticComplexity::allTests()>,
-								<"duplication::Ranking.rsc Tests", duplication::DuplicationTests::allTests()>,
+								<"duplication::DuplicationTests.rsc Tests", duplication::DuplicationTests::allTests()>,
 								<"unitSize::UnitSize.rsc Tests", unitSize::UnitSize::allTests()>,
 								<"wmc::WMCTests.rsc Tests", wmc::WMCTests::allTests()>
 								];

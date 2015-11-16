@@ -6,14 +6,27 @@ import model::MetricTypes;
 
 //Public functions
 
-//Calculate the average Rank of a list of SourceProperty rankings
-public Rank averageRankOfPropertyRankings(list[SourceCodeProperty] properties)
+//Take the median Rank of a list of SourceProperty rankings
+public Rank medianRankOfPropertyRankings(list[SourceCodeProperty] properties)
 {
 	list[int] ranksToInts = mapper(properties, int (SourceCodeProperty sp){ return convertRankToInt(sp.rank);});
-	real summedRanks = toReal(sum(ranksToInts));
-	real numberOfItems = toReal(size(properties));
 	
-	return convertRealToRank(summedRanks / numberOfItems);
+	list[int] sortedRanks = sort(ranksToInts);
+	
+	listSize = size(properties);
+	
+	int position = 0;
+	
+	if (listSize % 2 == 0)
+	{	
+		position = (listSize / 2) - 1;
+	}
+	else
+	{
+		position = listSize / 2;
+	}
+	
+	return convertIntToRank(sortedRanks[position]);
 }
 
 public void printMaintainability(MaintainabilityResult result)
@@ -24,10 +37,10 @@ public void printMaintainability(MaintainabilityResult result)
 	str unitSizeResult = convertRankToString(result.unitSize.rank);
 	str unitTestingResult = convertRankToString(result.unitTesting.rank);
 
-	Rank analysabilityRank = averageRankOfPropertyRankings([result.volume, result.duplication, result.unitSize]);
-	Rank changeabilityRank = averageRankOfPropertyRankings([result.complexity, result.duplication]);
+	Rank analysabilityRank = medianRankOfPropertyRankings([result.volume, result.duplication, result.unitSize]);
+	Rank changeabilityRank = medianRankOfPropertyRankings([result.complexity, result.duplication]);
 	Rank stabilityRank = undefined();
-	Rank testabilityRank = averageRankOfPropertyRankings([result.complexity, result.unitSize]);
+	Rank testabilityRank = medianRankOfPropertyRankings([result.complexity, result.unitSize]);
 
 	println("MAINTAINABILITY");
 	println("--------------------------------------------------------------------------------------------------------------");
@@ -68,12 +81,12 @@ private int convertRankToInt(Rank r)
 	}
 }
 
-//Conversion from a real to an enumerated Rank
-private Rank convertRealToRank(real r) = plusPlus() when r > 1.5;
-private Rank convertRealToRank(real r) = plus() when r > 0.5;
-private Rank convertRealToRank(real r) = neutral() when r >= -0.5;
-private Rank convertRealToRank(real r) = minus() when r >= -1.5;
-private default Rank convertRealToRank(real r) = minusMinus();
+//Conversion from a int to an enumerated Rank
+private Rank convertIntToRank(2) = plusPlus();
+private Rank convertIntToRank(1) = plus();
+private Rank convertIntToRank(0) = neutral();
+private Rank convertIntToRank(int i) = minus() when i == -1;
+private default Rank convertIntToRank(_) = minusMinus();
 
 
 public list[bool] allTests() = [
@@ -85,30 +98,25 @@ public list[bool] allTests() = [
 								convertToOne(),
 								convertToZero(),
 								convertToMinusOne(),
-								convertToMinusTwo(),
-								convertRealToPlusPlus(),
-								convertRealToPlus(),
-								convertRealToNeutral() ,
-								convertRealToMinus(),
-								convertRealToMinusMinus()
+								convertToMinusTwo()
 								];
 
 //Tests
 //Test cases are extracted from figure 5 in "A Practical Model for Measuring Maintainability", http://dx.doi.org/10.1109/QUATIC.2007.8
-test bool average1() = averageRankOfPropertyRankings([
+test bool average1() = medianRankOfPropertyRankings([
 														volume(plusPlus()), 
 														duplication(minus()), 
 														unitSize(minus()), 
 														unitTesting(neutral())
-													]) == neutral();
+													]) == minus();
 														
-test bool average2() = averageRankOfPropertyRankings([
+test bool average2() = medianRankOfPropertyRankings([
 														complexityPerUnit(minusMinus()), 
 														duplication(minus())
-													]) == minus();
+													]) == minusMinus();
 													
-test bool average3() = averageRankOfPropertyRankings([unitTesting(neutral())]) == neutral();
-test bool average4() = averageRankOfPropertyRankings([
+test bool average3() = medianRankOfPropertyRankings([unitTesting(neutral())]) == neutral();
+test bool average4() = medianRankOfPropertyRankings([
 														complexityPerUnit(minusMinus()),
 														unitSize(minus()),
 														unitTesting(neutral())
@@ -121,10 +129,3 @@ test bool convertToOne() = convertRankToInt(plus()) == 1;
 test bool convertToZero() = convertRankToInt(neutral()) == 0;
 test bool convertToMinusOne() = convertRankToInt(minus()) == -1;
 test bool convertToMinusTwo() = convertRankToInt(minusMinus()) == -2;
-
-
-test bool convertRealToPlusPlus() = all(x <- [1.55, 1.6..3], convertRealToRank(x) == plusPlus());
-test bool convertRealToPlus() = all(x <- [0.55, 0.6..1.55], convertRealToRank(x) == plus());
-test bool convertRealToNeutral() = all(x <- [-0.5, -0.45..0.55], convertRealToRank(x) == neutral());
-test bool convertRealToMinus() = all(x <- [-1.5, -1.45..-0.5], convertRealToRank(x) == minus());
-test bool convertRealToMinusMinus() = all(x <- [-3.45, -3.4..-1.5], convertRealToRank(x) == minusMinus());

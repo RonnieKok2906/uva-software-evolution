@@ -7,7 +7,7 @@ import model::CodeUnitModel;
 import model::CodeLineModel;
 
 data UnitSizeEvaluation = veryHigh() | high() | medium() | low();
-map[UnitSizeEvaluation,int] thresholds = (veryHigh(): 100, high(): 50, medium(): 10, low(): 0); 
+map[UnitSizeEvaluation,int] thresholds = (veryHigh(): 100, high(): 50, medium(): 20, low(): 0); 
 
 // Holds the calculated metric values for Unit Size.
 alias UnitSizeMetric = map[UnitSizeEvaluation eval,int percentage];

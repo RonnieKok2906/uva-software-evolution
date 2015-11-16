@@ -122,7 +122,7 @@ private map[Rank, map[ComplexityRiskEvaluation, real]] thresholdsPie = (
 																		plusPlus() : (simple() : -1.0, moreComplex() : 0.25, complex() : 0.0, untestable() : 0.0),
 																		plus() :  (simple() : -1.0, moreComplex() : 0.3, complex() : 0.05, untestable() : 0.0),
 																		neutral() : (simple() : -1.0, moreComplex() : 0.4, complex() : 0.1, untestable() : 0.0),
-																		minus() :  (simple() : -1.0, moreComplex() : 0.5, complex() : 0.15, untestable() : 0.5),
+																		minus() :  (simple() : -1.0, moreComplex() : 0.5, complex() : 0.15, untestable() : 0.05),
 																		minusMinus() :  (simple() : -1.0, moreComplex() : -1.0, complex() : -1.0, untestable() : -1.0)
 																	);
 

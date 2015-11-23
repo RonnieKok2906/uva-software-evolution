@@ -7,7 +7,7 @@ data Package = package(list[Package] subPackages, list[loc compilationUnit] comp
 
 alias PackageModel = list[Package];
 
-PackageModel createPackageModel(M3 m3Model)
+public PackageModel createPackageModel(M3 m3Model)
 {
-	return package([],[]);
+	return [];
 }

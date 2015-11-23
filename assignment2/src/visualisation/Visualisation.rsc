@@ -2,9 +2,9 @@ module visualisation::Visualisation
 
 import model::PackageModel;
 import model::CodeLineModel;
-import model::CloneTypes;
+import model::CloneModel;
 
-str createJSON(PackageModel packageModel, CodeLineModel codeLineModel, list[CloneClass] cloneClasses) 
+public str createJSON(PackageModel packageModel, CodeLineModel codeLineModel, list[CloneClass] cloneClasses) 
 {
 	return "undefined";
 }

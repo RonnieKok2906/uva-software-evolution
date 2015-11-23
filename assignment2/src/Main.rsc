@@ -7,6 +7,7 @@ import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
 import model::PackageModel;
+import model::PackageModelTests;
 import model::CodeLineModel;
 import model::CloneModel;
 
@@ -38,4 +39,38 @@ public void detectClones(loc project)
 	str JSONType1 = createJSON(packageModel, codeLineModel, cloneModelType1);
 	
 	println("jsonType1:" + JSONType1);
+}
+
+//Test Functions
+public void runAllTests()
+{
+	list[tuple[str,list[bool]]] tests = [
+								<"CodeLineModel.rsc Tests", model::CodeLineModel::allTests()>,
+								<"PackageModelTests.rsc Tests", model::PackageModelTests::allTests()>
+								];
+
+	int numberOfFailedTests = 0;
+	int numberOfPassedTests = 0;
+	
+	println("-----------------------------------------------------------");
+	
+	for (<name, subTests> <- tests)
+	{
+		tuple[int passed, int failed] result = runTests(subTests);
+		numberOfPassedTests += result.passed;
+		numberOfFailedTests += result.failed;
+		println("<name> : <result.passed> passed, <result.failed> failed");
+	}
+	
+	println("-----------------------------------------------------------");
+	println("TEST REPORT:<numberOfPassedTests> passed, <numberOfFailedTests> failed");
+	println("-----------------------------------------------------------");
+}
+
+//Function to run a list of tests
+public tuple[int passed, int failed] runTests(list[bool] tests)
+{
+	int numberOfTests = size(tests);
+	int passedTests = size([t | t <- tests, t == true]);
+	return <passedTests, numberOfTests - passedTests>;
 }

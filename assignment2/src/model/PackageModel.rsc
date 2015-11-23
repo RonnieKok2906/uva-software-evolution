@@ -11,14 +11,9 @@ alias PackageModel = list[Package];
 
 public PackageModel createPackageModel(M3 m3Model)
 {
-	map[loc package, set[loc] files] filesPerPackage = ();
+	set[loc] allPackageLocations = getPackages(m3Model);
 	
-	list[loc] allPackageLocations = [name | <name, file> <- m3Model@containment, name.scheme == "java+package"];
-	
-	for (p <- allPackageLocations)
-	{
-		filesPerPackage[p] = {};
-	}
+	map[loc package, set[loc] files] filesPerPackage = initializeCompilationUnitPackageMap(allPackageLocations);
 	
 	packageCompilationUnitRelation = {<from, to> | <from, to> <- m3Model@containment, from.scheme == "java+package" && to.scheme == "java+compilationUnit"};
 	
@@ -29,9 +24,9 @@ public PackageModel createPackageModel(M3 m3Model)
 	
 	map[loc, Package] packageObjects = (p:package(p, {}, filesPerPackage[p]) | p <- allPackageLocations);
 	
-	list[tuple[loc, loc]] childPackageRelations = [<name, file> | <name, file> <- m3Model@containment, name.scheme == "java+package" && file.scheme == "java+package"];
-	list[loc] childPackages = [f | <n,f> <- childPackageRelations];
-	list[loc] rootPackages = [p | p <- allPackageLocations, !(p in childPackages)];
+	rel[loc, loc] childPackageRelations = getChildPackageRelation(m3Model);
+	set[loc] childPackages = getChildPackages(m3Model);
+	set[loc] rootPackages = getRootPackages(m3Model);
 	
 	for (cp <- childPackageRelations)
 	{
@@ -43,3 +38,34 @@ public PackageModel createPackageModel(M3 m3Model)
 	return result;
 }
 
+private map[loc package, set[loc] files] initializeCompilationUnitPackageMap(set[loc] packages)
+{
+	map[loc package, set[loc] files] filesPerPackage = ();
+
+	for (p <- packages)
+	{
+		filesPerPackage[p] = {};
+	}
+	
+	return filesPerPackage;
+}
+
+public rel[loc,loc] getChildPackageRelation(M3 m3Model)
+{
+	return {<name, file> | <name, file> <- m3Model@containment, name.scheme == "java+package" && file.scheme == "java+package"};
+}
+
+public set[loc] getChildPackages(M3 m3Model)
+{
+	return {f | <n,f> <- getChildPackageRelation(m3Model)};
+}
+
+public set[loc] getRootPackages(M3 m3Model)
+{
+	return {p | p <- getPackages(m3Model), !(p in getChildPackages(m3Model))};
+}
+
+public set[loc] getPackages(M3 m3Model)
+{
+	return {name | <name, file> <- m3Model@containment, name.scheme == "java+package"};
+}

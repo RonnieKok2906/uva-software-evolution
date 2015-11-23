@@ -1,4 +1,4 @@
-module CodeLineModel
+module model::CodeLineModel
 
 import Prelude;
 

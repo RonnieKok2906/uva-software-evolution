@@ -28,11 +28,11 @@ public void detectClones(loc project)
 	//println("Building AST model for project...");
 	//set[Declaration] declarations = createAstsFromEclipseProject(project, false);
 	
-	println("Building PackageModel...");
-	PackageModel packageModel = createPackageModel(m3Model);
-	
 	println("Building CodeLineModel...");
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	
+	println("Building PackageModel...");
+	PackageModel packageModel = createPackageModel(m3Model, codeLineModel);
 	
 	CloneModel cloneModelType1 = type1::Type1::detectClones(codeLineModel);
 	

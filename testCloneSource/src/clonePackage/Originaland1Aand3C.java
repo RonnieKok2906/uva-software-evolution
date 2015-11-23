@@ -1,6 +1,6 @@
 package clonePackage;
 
-public class Original_and_1A_and_3C {
+public class Originaland1Aand3C {
 	//http://bl.ocks.org/mbostock/4063530
 	
 	//Original code fragemnt
@@ -13,7 +13,7 @@ public class Original_and_1A_and_3C {
 		foo(sum, prod); }}
 	
 	//1A. Cloned from clone original with more tabs in the for loop.
-	void sumProd(int n){
+	void sumProd1a(int n){
 	double sum = 0.0;//C1
 	double prod = 1.0;
 	for (int i = 1; i <= n; i++)
@@ -22,7 +22,7 @@ public class Original_and_1A_and_3C {
 			foo(sum, prod); }}
 	
 	//3C. Cloned from original with an if block around the last line. 
-	void sumProd(int n) {
+	void sumProd3c(int n) {
 		double sum = 0.0;//C1
 		double prod = 1.0;
 		for (int i = 1; i <= n; i++)

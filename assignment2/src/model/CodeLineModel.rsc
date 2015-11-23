@@ -5,6 +5,7 @@ import Prelude;
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 
+alias LOC = int;
 data Comment = comment(loc location);
 data CodeLine = codeLine(loc fileName, int lineNumber, str codeFragment);
 

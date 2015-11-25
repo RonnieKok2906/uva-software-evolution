@@ -7,26 +7,42 @@ import lang::java::jdt::m3::Core;
 
 import model::CodeLineModel;
 
-data Package = package(loc file, set[Package] subPackages, set[loc] compilationUnits, LOC linesOfCode);
+data CompilationUnit = compilationUnit(loc file, str name, list[CodeLine] lines);
+
+data Package = package(loc file, str name, set[Package] subPackages, set[CompilationUnit] compilationUnits);
 
 alias PackageModel = set[Package];
+
+public str getPackageNameFromScheme(loc file)
+{
+	return last(split("/", file.path));
+}
+
+public str getClassNameFromLocation(loc file)
+{
+	str nameWithExtension = last(split("/", file.path));
+
+	str result = head(split(".java", nameWithExtension));
+	
+	return result;
+}
 
 public PackageModel createPackageModel(M3 m3Model, CodeLineModel codeLineModel)
 {
 	set[loc] allPackageLocations = getPackages(m3Model);
 	
-	map[loc package, set[loc] files] filesPerPackage = initializeCompilationUnitPackageMap(allPackageLocations);
+	map[loc package, set[CompilationUnit] compilationUnits] filesPerPackage = initializeCompilationUnitPackageMap(allPackageLocations);
 	
 	packageCompilationUnitRelation = {<from, to> | <from, to> <- m3Model@containment, from.scheme == "java+package" && to.scheme == "java+compilationUnit"};
 	
-	map[loc,loc] schemeToFileOfCompilationUnit = (from:to | <from, to> <- m3Model@declarations, from.scheme == "java+compilationUnit");
+	map[loc,CompilationUnit] schemeToCompilationUnit = (from:compilationUnit(to, getClassNameFromLocation(to.top), codeLineModel[to.top]) | <from, to> <- m3Model@declarations, from.scheme == "java+compilationUnit");
 	
 	for (cu <- packageCompilationUnitRelation)
 	{
-		filesPerPackage[cu[0]] += schemeToFileOfCompilationUnit[cu[1]];
+		filesPerPackage[cu[0]] += {schemeToCompilationUnit[cu[1]]};
 	}
 	
-	map[loc, Package] packageObjects = (p:package(p, {}, filesPerPackage[p], 6) | p <- allPackageLocations);
+	map[loc, Package] packageObjects = (p:package(p, getPackageNameFromScheme(p), {}, filesPerPackage[p]) | p <- allPackageLocations);
 	
 	rel[loc, loc] childPackageRelations = getChildPackageRelation(m3Model);
 	set[loc] childPackages = getChildPackages(m3Model);
@@ -39,12 +55,12 @@ public PackageModel createPackageModel(M3 m3Model, CodeLineModel codeLineModel)
 	
 	set[Package] result = {packageObjects[p] | p <- rootPackages};
 
-	return addLinesOfCode(result, codeLineModel);
+	return result;
 }
 
-private map[loc package, set[loc] files] initializeCompilationUnitPackageMap(set[loc] packages)
+private map[loc package, set[CompilationUnit] compilationUnits] initializeCompilationUnitPackageMap(set[loc] packages)
 {
-	map[loc package, set[loc] files] filesPerPackage = ();
+	map[loc package, set[CompilationUnit] compilationUnits] filesPerPackage = ();
 
 	for (p <- packages)
 	{
@@ -52,48 +68,6 @@ private map[loc package, set[loc] files] initializeCompilationUnitPackageMap(set
 	}
 	
 	return filesPerPackage;
-}
-
-public set[Package] addLinesOfCode(set[Package] packages, CodeLineModel codeLineModel)
-{
-	set[Package] returnList = {};
-	
-	println("addLines");
-	for (p <- packages)
-	{
-		LOC linesOfCode = numberOfLinesInPackage(p, codeLineModel);
-		Package newPackage = package(p.file, addLinesOfCode(p.subPackages, codeLineModel), p.compilationUnits, linesOfCode);
-		
-		returnList += newPackage;
-	}
-	
-	return returnList;
-}
-
-public LOC numberOfLinesInPackage(Package package, CodeLineModel codeLineModel)
-{
-	package.linesOfCode = 0;
-
-	LOC numberOfLinesInCompilationUnits = numberOfLinesInCompilationUnits(package.compilationUnits, codeLineModel);
-
-	if (size(package.subPackages) > 0)
-	{
-		package.linesOfCode = (0 | it + numberOfLinesInPackage(i, codeLineModel) | i <- package.subPackages);
-	}
-
-	package.linesOfCode += numberOfLinesInCompilationUnits;
-	
-	return package.linesOfCode;
-}
-
-public LOC numberOfLinesInCompilationUnits(set[loc] compilationUnits, CodeLineModel codeLineModel)
-{
-	if (size(compilationUnits) > 0)
-	{
-		return (0 | it + size(codeLineModel[c.top]) | c <- compilationUnits);
-	}
-	
-	return 0;
 }
 
 public rel[loc,loc] getChildPackageRelation(M3 m3Model)

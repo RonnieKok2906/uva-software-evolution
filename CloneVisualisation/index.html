@@ -27,9 +27,16 @@
   pointer-events: none;
 }
 
+.tooltip{
+	width: 20%;
+	float:right;
+	background-color: red;
+}
+
 </style>
 <body>
 <script src="d3.v3.min.js"></script>
+<script src="util.js"></script>
 <script>
 
 var margin = 20,
@@ -58,13 +65,22 @@ d3.json("flare.json", function(error, root) {
       nodes = pack.nodes(root),
       view;
 
+  var tooltip = d3.select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("visibility", "hidden")
+      .text("Lorem ipsum dolor sit amet, invidunt patrioque mea cu, ad eius populo has. Pri et noluisse indoctum honestatis, eos ei.labore meliore. Has adhuc ipsum errem ut, quo idque labore argumentum ex. Inermis legendos voluptatibus eos at, cu tamquam legimusmea. Illud nusquam minimum eos an, ne labore molestie delectus qui, no illud solet vis.Ei eos minimum persecuti efficiendi, has legimus postulant principes ut, sumo nihil maiorum ex eos. Te nam tempor inimicus definitionem. Ex duo labore ullamcorper voluptatibus, graecis tractatos cum ad, ea dissentiet accommodare sit. Alii aliquid consectetuer te cum, cu noluisse sapientem expetendis mei. Dicat munere vivendo duo te.Solum epicurei maluisset his cu, id modo voluptua constituam his. Posse option reprimique id eum, pri quodsi menandri scribentur in, harum fabulas constituam id eum. Atqui maiorum duo in, illum maiestatis eu has. Sonet feugiat mel ea. Choro veniam ius no, purto paulo doctus cu mea.Ut mucius ridens vim, etiam affert accusam sit cu, dolor laoreet commune cum in. Quo et facilisi gloriatur definitiones, nec rebum nonumy referrentur in. Ne sed elit euismod, salutandi intellegam mel te. Ullum senserit temporibus eu cum, iuvaret convenire facilisis no nec, cu laudem postea his. No est voluptua mediocritatem.In pri epicuri eleifend mnesarchum, ad summo nostro mei, eu mea ipsum percipit efficiantur. Error oportere consetetur no vix, atomorum sensibus vel ei. Amet gubergren has ei. Sit cu modo equidem blandit, et mel albucius recusabo abhorreant. Eius erroribus vix ne, usu essent quaeque maiorum et.");
+
   var circle = svg.selectAll("circle")
       .data(nodes)
     .enter().append("circle")
-      .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
-      .style("fill", function(d) { return d.children ? color(d.depth) : null; })
-      .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); });
+      .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" + d.cloneclass : "node node--root"; })
+      .style("fill", function(d) { return d.children ? color(d.depth) : "FFF"; })
+      .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
+	  .on("mouseover", function(d){ d3.selectAll(".node--leaf" + d.cloneclass).attr("style", "fill:yellow"); return tooltip.style("visibility", "visible"); })
+	  .on("mouseout", function(d){ d3.selectAll(".node--leaf" + d.cloneclass).attr("style", "fill:white"); return tooltip.style("visibility", "hidden");});
 
+	  
   var text = svg.selectAll("text")
       .data(nodes)
     .enter().append("text")

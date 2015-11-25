@@ -1,380 +1,208 @@
+
 {
- "name": "flare",
- "children": [
+  "name":"projectName",
+  "children": [
   {
-   "name": "analytics",
-   "children": [
+    "name":"smallsql",
+    "children": [
     {
-     "name": "cluster",
-     "children": [
-      {"name": "AgglomerativeCluster", "size": 3938},
-      {"name": "CommunityStructure", "size": 3812},
-      {"name": "HierarchicalCluster", "size": 6714},
-      {"name": "MergeEdge", "size": 743}
-     ]
+      "name":"tools",
+      "children": [
+      {"name": "CommandLine", "size": 65, "cloneclass": "20"}
+      ]
     },
     {
-     "name": "graph",
-     "children": [
-      {"name": "BetweennessCentrality", "size": 3534},
-      {"name": "LinkDistance", "size": 5731},
-      {"name": "MaxFlowMinCut", "size": 7840},
-      {"name": "ShortestPaths", "size": 5914},
-      {"name": "SpanningTree", "size": 3416}
-     ]
+      "name":"database",
+      "children": [
+      {"name": "CommandUpdate", "size": 36, "cloneclass": "27"},
+      {"name": "SmallSQLException", "size": 96, "cloneclass": "33"},
+      {"name": "SSStatement", "size": 256, "cloneclass": "56"},
+      {"name": "ExpressionFunctionYear", "size": 11, "cloneclass": "45"},
+      {"name": "Scrollable", "size": 149, "cloneclass": "97"},
+      {"name": "Join", "size": 161, "cloneclass": "68"},
+      {"name": "ExpressionFunctionRepeat", "size": 30, "cloneclass": "28"},
+      {"name": "ForeignKeys", "size": 27, "cloneclass": "74"},
+      {"name": "StorePageLink", "size": 12, "cloneclass": "51"},
+      {"name": "ColumnExpression", "size": 31, "cloneclass": "73"},
+      {"name": "Mutable", "size": 4, "cloneclass": "19"},
+      {"name": "LongList", "size": 33, "cloneclass": "30"},
+      {"name": "DataSources", "size": 21, "cloneclass": "33"},
+      {"name": "Expression", "size": 135, "cloneclass": "88"},
+      {"name": "ExpressionFunctionDayOfMonth", "size": 11, "cloneclass": "21"},
+      {"name": "ExpressionFunctionRadians", "size": 8, "cloneclass": "33"},
+      {"name": "ExpressionFunctionATan", "size": 8, "cloneclass": "92"},
+      {"name": "IndexDescription", "size": 162, "cloneclass": "91"},
+      {"name": "ExpressionFunctionRand", "size": 15, "cloneclass": "21"},
+      {"name": "ExpressionFunctionATan2", "size": 11, "cloneclass": "63"},
+      {"name": "IndexNodeScrollStatus", "size": 28, "cloneclass": "5"},
+      {"name": "MemoryStream", "size": 103, "cloneclass": "58"},
+      {"name": "LongLongList", "size": 41, "cloneclass": "95"},
+      {"name": "DataSource", "size": 27, "cloneclass": "3"},
+      {"name": "ExpressionFunctionLocate", "size": 19, "cloneclass": "76"},
+      {"name": "ExpressionFunctionCos", "size": 8, "cloneclass": "29"},
+      {"name": "ExpressionFunctionReturnP1", "size": 61, "cloneclass": "4"},
+      {"name": "Distinct", "size": 73, "cloneclass": "77"},
+      {"name": "ExpressionFunctionDayOfYear", "size": 11, "cloneclass": "4"},
+      {"name": "Columns", "size": 48, "cloneclass": "96"},
+      {"name": "ExpressionFunctionSoundex", "size": 75, "cloneclass": "57"},
+      {"name": "Expressions", "size": 79, "cloneclass": "85"},
+      {"name": "SSConnection", "size": 250, "cloneclass": "20"},
+      {"name": "ExpressionFunctionPI", "size": 10, "cloneclass": "8"},
+      {"name": "ExpressionFunctionReturnP1Number", "size": 44, "cloneclass": "31"},
+      {"name": "ExpressionFunctionDifference", "size": 21, "cloneclass": "90"},
+      {"name": "Identity", "size": 73, "cloneclass": "78"},
+      {"name": "SQLTokenizer", "size": 837, "cloneclass": "97"},
+      {"name": "ExpressionFunctionSin", "size": 8, "cloneclass": "88"},
+      {"name": "Table", "size": 392, "cloneclass": "30"},
+      {"name": "Strings", "size": 32, "cloneclass": "96"},
+      {"name": "ExpressionFunctionMinute", "size": 11, "cloneclass": "36"},
+      {"name": "ExpressionFunctionLTrim", "size": 31, "cloneclass": "31"},
+      {"name": "ExpressionFunctionMonth", "size": 11, "cloneclass": "54"},
+      {"name": "CommandTable", "size": 78, "cloneclass": "69"},
+      {"name": "ExpressionFunctionTruncate", "size": 31, "cloneclass": "18"},
+      {"name": "Where", "size": 100, "cloneclass": "58"},
+      {"name": "View", "size": 74, "cloneclass": "26"},
+      {"name": "StoreImpl", "size": 1308, "cloneclass": "17"},
+      {"name": "TableStorePage", "size": 31, "cloneclass": "98"},
+      {"name": "ExpressionFunctionDayOfWeek", "size": 10, "cloneclass": "53"},
+      {"name": "TableViewMap", "size": 22, "cloneclass": "84"},
+      {"name": "Command", "size": 87, "cloneclass": "61"},
+      {"name": "FileIndex", "size": 40, "cloneclass": "96"},
+      {"name": "ExpressionFunctionExp", "size": 8, "cloneclass": "75"},
+      {"name": "ExpressionFunctionACos", "size": 8, "cloneclass": "87"},
+      {"name": "Index", "size": 368, "cloneclass": "78"},
+      {"name": "CommandDrop", "size": 40, "cloneclass": "39"},
+      {"name": "ExpressionFunctionTan", "size": 8, "cloneclass": "77"},
+      {"name": "ExpressionFunctionCeiling", "size": 8, "cloneclass": "44"},
+      {"name": "ExpressionFunctionFloor", "size": 12, "cloneclass": "87"},
+      {"name": "SSPreparedStatement", "size": 227, "cloneclass": "34"},
+      {"name": "Logger", "size": 18, "cloneclass": "23"},
+      {"name": "Money", "size": 81, "cloneclass": "68"},
+      {"name": "SQLToken", "size": 22, "cloneclass": "7"},
+      {"name": "ExpressionFunctionReplace", "size": 61, "cloneclass": "0"},
+      {"name": "JoinScroll", "size": 127, "cloneclass": "52"},
+      {"name": "ExpressionFunctionPower", "size": 11, "cloneclass": "40"},
+      {"name": "ExpressionFunctionRight", "size": 25, "cloneclass": "29"},
+      {"name": "ExpressionFunctionRound", "size": 31, "cloneclass": "26"},
+      {"name": "IndexDescriptions", "size": 72, "cloneclass": "18"},
+      {"name": "ForeignKey", "size": 16, "cloneclass": "70"},
+      {"name": "TableResult", "size": 255, "cloneclass": "84"},
+      {"name": "ExpressionFunctionReturnInt", "size": 36, "cloneclass": "5"},
+      {"name": "ExpressionFunctionHour", "size": 11, "cloneclass": "50"},
+      {"name": "TableView", "size": 101, "cloneclass": "17"},
+      {"name": "RowSource", "size": 49, "cloneclass": "99"},
+      {"name": "TableStorePageInsert", "size": 19, "cloneclass": "1"},
+      {"name": "ExpressionFunctionChar", "size": 17, "cloneclass": "30"},
+      {"name": "ExpressionFunctionSubstring", "size": 40, "cloneclass": "45"},
+      {"name": "MutableInteger", "size": 25, "cloneclass": "1"},
+      {"name": "SSCallableStatement", "size": 343, "cloneclass": "0"},
+      {"name": "GroupResult", "size": 154, "cloneclass": "20"},
+      {"name": "ExpressionFunctionCharLen", "size": 14, "cloneclass": "52"},
+      {"name": "SSResultSetMetaData", "size": 244, "cloneclass": "99"},
+      {"name": "ExpressionFunctionCase", "size": 116, "cloneclass": "76"},
+      {"name": "ExpressionFunctionLeft", "size": 25, "cloneclass": "53"},
+      {"name": "UnionAll", "size": 143, "cloneclass": "41"},
+      {"name": "ExpressionFunctionOctetLen", "size": 15, "cloneclass": "51"},
+      {"name": "CommandSelect", "size": 364, "cloneclass": "49"},
+      {"name": "ExpressionFunctionUCase", "size": 17, "cloneclass": "95"},
+      {"name": "FileIndexNode", "size": 48, "cloneclass": "32"},
+      {"name": "ExpressionFunctionReturnString", "size": 37, "cloneclass": "77"},
+      {"name": "CommandSet", "size": 20, "cloneclass": "3"},
+      {"name": "ExpressionInSelect", "size": 30, "cloneclass": "23"},
+      {"name": "ExpressionValue", "size": 564, "cloneclass": "14"},
+      {"name": "ExpressionFunctionTimestampAdd", "size": 77, "cloneclass": "18"},
+      {"name": "StorePageMap", "size": 119, "cloneclass": "61"},
+      {"name": "ExpressionFunctionRTrim", "size": 29, "cloneclass": "63"},
+      {"name": "ExpressionFunctionAbs", "size": 64, "cloneclass": "75"},
+      {"name": "ExpressionFunctionBitLen", "size": 15, "cloneclass": "24"},
+      {"name": "IndexNode", "size": 251, "cloneclass": "22"},
+      {"name": "StorePage", "size": 42, "cloneclass": "99"},
+      {"name": "Column", "size": 110, "cloneclass": "50"},
+      {"name": "CommandCreateDatabase", "size": 23, "cloneclass": "61"},
+      {"name": "LongTreeListEnum", "size": 10, "cloneclass": "9"},
+      {"name": "ExpressionFunctionSpace", "size": 24, "cloneclass": "0"},
+      {"name": "CommandInsert", "size": 129, "cloneclass": "6"},
+      {"name": "ExpressionFunctionLog", "size": 8, "cloneclass": "11"},
+      {"name": "TransactionStep", "size": 12, "cloneclass": "12"},
+      {"name": "ExpressionFunctionLCase", "size": 17, "cloneclass": "91"},
+      {"name": "ExpressionFunctionDegrees", "size": 8, "cloneclass": "84"},
+      {"name": "ExpressionFunctionLog10", "size": 9, "cloneclass": "76"},
+      {"name": "SSDatabaseMetaData", "size": 664, "cloneclass": "73"},
+      {"name": "StoreNull", "size": 58, "cloneclass": "56"},
+      {"name": "MutableLong", "size": 25, "cloneclass": "72"},
+      {"name": "MutableNumeric", "size": 427, "cloneclass": "32"},
+      {"name": "ExpressionFunctionTimestampDiff", "size": 104, "cloneclass": "26"},
+      {"name": "Database", "size": 384, "cloneclass": "34"},
+      {"name": "MutableFloat", "size": 25, "cloneclass": "81"},
+      {"name": "ExpressionFunctionReturnFloat", "size": 40, "cloneclass": "72"},
+      {"name": "MutableDouble", "size": 25, "cloneclass": "63"},
+      {"name": "ExpressionFunctionLength", "size": 13, "cloneclass": "2"},
+      {"name": "SortedResult", "size": 215, "cloneclass": "43"},
+      {"name": "ExpressionFunctionConvert", "size": 185, "cloneclass": "36"},
+      {"name": "ExpressionFunctionIIF", "size": 65, "cloneclass": "42"},
+      {"name": "ExpressionFunctionSqrt", "size": 8, "cloneclass": "9"},
+      {"name": "Lobs", "size": 12, "cloneclass": "72"},
+      {"name": "CommandDelete", "size": 16, "cloneclass": "74"},
+      {"name": "ExpressionFunctionCot", "size": 8, "cloneclass": "59"},
+      {"name": "SSDriver", "size": 72, "cloneclass": "16"},
+      {"name": "MemoryResult", "size": 183, "cloneclass": "96"},
+      {"name": "Utils", "size": 354, "cloneclass": "69"},
+      {"name": "ExpressionFunctionASin", "size": 8, "cloneclass": "42"},
+      {"name": "Store", "size": 24, "cloneclass": "99"},
+      {"name": "ExpressionFunctionSign", "size": 43, "cloneclass": "90"},
+      {"name": "SQLParser", "size": 1668, "cloneclass": "91"},
+      {"name": "CreateFile", "size": 41, "cloneclass": "59"},
+      {"name": "SSResultSet", "size": 704, "cloneclass": "14"},
+      {"name": "ExpressionArithmetic", "size": 858, "cloneclass": "6"},
+      {"name": "ViewResult", "size": 136, "cloneclass": "30"},
+      {"name": "ExpressionFunctionInsert", "size": 40, "cloneclass": "92"},
+      {"name": "SSSavepoint", "size": 18, "cloneclass": "14"},
+      {"name": "ExpressionFunctionAscii", "size": 19, "cloneclass": "60"},
+      {"name": "DateTime", "size": 658, "cloneclass": "90"},
+      {"name": "StoreNoCurrentRow", "size": 52, "cloneclass": "54"},
+      {"name": "ExpressionFunction", "size": 59, "cloneclass": "91"},
+      {"name": "IndexScrollStatus", "size": 102, "cloneclass": "39"},
+      {"name": "ExpressionName", "size": 129, "cloneclass": "9"},
+      {"name": "ExpressionFunctionMod", "size": 11, "cloneclass": "34"},
+      {"name": "CommandCreateView", "size": 16, "cloneclass": "12"},
+      {"name": "JoinScrollIndex", "size": 57, "cloneclass": "42"},
+      {"name": "TableViewResult", "size": 47, "cloneclass": "13"},
+      {"name": "NoFromResult", "size": 77, "cloneclass": "46"},
+      {"name": "ExpressionFunctionReturnP1StringAndBinary", "size": 36, "cloneclass": "15"},
+      {"name": "LongTreeList", "size": 318, "cloneclass": "43"}
+      ]
     },
     {
-     "name": "optimization",
-     "children": [
-      {"name": "AspectRatioBanker", "size": 7074}
-     ]
+      "name":"junit",
+      "children": [
+      {"name": "TestDeleteUpdate", "size": 94, "cloneclass": "40"},
+      {"name": "TestGroupBy", "size": 263, "cloneclass": "81"},
+      {"name": "TestIdentifer", "size": 21, "cloneclass": "72"},
+      {"name": "TestThreads", "size": 111, "cloneclass": "8"},
+      {"name": "TestDataTypes", "size": 279, "cloneclass": "82"},
+      {"name": "TestOrderBy", "size": 613, "cloneclass": "23"},
+      {"name": "TestTokenizer", "size": 105, "cloneclass": "31"},
+      {"name": "TestDBMetaData", "size": 217, "cloneclass": "87"},
+      {"name": "BasicTestCase", "size": 283, "cloneclass": "83"},
+      {"name": "TestResultSet", "size": 185, "cloneclass": "34"},
+      {"name": "TestScrollable", "size": 229, "cloneclass": "76"},
+      {"name": "TestExceptionMethods", "size": 231, "cloneclass": "62"},
+      {"name": "TestExceptions", "size": 89, "cloneclass": "52"},
+      {"name": "TestAlterTable2", "size": 60, "cloneclass": "3"},
+      {"name": "TestOperatoren", "size": 208, "cloneclass": "6"},
+      {"name": "AllTests", "size": 71, "cloneclass": "19"},
+      {"name": "TestAlterTable", "size": 96, "cloneclass": "51"},
+      {"name": "TestMoneyRounding", "size": 66, "cloneclass": "25"},
+      {"name": "TestStatement", "size": 242, "cloneclass": "85"},
+      {"name": "BenchTest", "size": 589, "cloneclass": "77"},
+      {"name": "TestLanguage", "size": 185, "cloneclass": "99"},
+      {"name": "TestFunctions", "size": 370, "cloneclass": "69"},
+      {"name": "TestTransactions", "size": 345, "cloneclass": "59"},
+      {"name": "TestOther", "size": 227, "cloneclass": "2"},
+      {"name": "TestJoins", "size": 156, "cloneclass": "50"}
+      ]
     }
-   ]
-  },
-  {
-   "name": "animate",
-   "children": [
-    {"name": "Easing", "size": 17010},
-    {"name": "FunctionSequence", "size": 5842},
-    {
-     "name": "interpolate",
-     "children": [
-      {"name": "ArrayInterpolator", "size": 1983},
-      {"name": "ColorInterpolator", "size": 2047},
-      {"name": "DateInterpolator", "size": 1375},
-      {"name": "Interpolator", "size": 8746},
-      {"name": "MatrixInterpolator", "size": 2202},
-      {"name": "NumberInterpolator", "size": 1382},
-      {"name": "ObjectInterpolator", "size": 1629},
-      {"name": "PointInterpolator", "size": 1675},
-      {"name": "RectangleInterpolator", "size": 2042}
-     ]
-    },
-    {"name": "ISchedulable", "size": 1041},
-    {"name": "Parallel", "size": 5176},
-    {"name": "Pause", "size": 449},
-    {"name": "Scheduler", "size": 5593},
-    {"name": "Sequence", "size": 5534},
-    {"name": "Transition", "size": 9201},
-    {"name": "Transitioner", "size": 19975},
-    {"name": "TransitionEvent", "size": 1116},
-    {"name": "Tween", "size": 6006}
-   ]
-  },
-  {
-   "name": "data",
-   "children": [
-    {
-     "name": "converters",
-     "children": [
-      {"name": "Converters", "size": 721},
-      {"name": "DelimitedTextConverter", "size": 4294},
-      {"name": "GraphMLConverter", "size": 9800},
-      {"name": "IDataConverter", "size": 1314},
-      {"name": "JSONConverter", "size": 2220}
-     ]
-    },
-    {"name": "DataField", "size": 1759},
-    {"name": "DataSchema", "size": 2165},
-    {"name": "DataSet", "size": 586},
-    {"name": "DataSource", "size": 3331},
-    {"name": "DataTable", "size": 772},
-    {"name": "DataUtil", "size": 3322}
-   ]
-  },
-  {
-   "name": "display",
-   "children": [
-    {"name": "DirtySprite", "size": 8833},
-    {"name": "LineSprite", "size": 1732},
-    {"name": "RectSprite", "size": 3623},
-    {"name": "TextSprite", "size": 10066}
-   ]
-  },
-  {
-   "name": "flex",
-   "children": [
-    {"name": "FlareVis", "size": 4116}
-   ]
-  },
-  {
-   "name": "physics",
-   "children": [
-    {"name": "DragForce", "size": 1082},
-    {"name": "GravityForce", "size": 1336},
-    {"name": "IForce", "size": 319},
-    {"name": "NBodyForce", "size": 10498},
-    {"name": "Particle", "size": 2822},
-    {"name": "Simulation", "size": 9983},
-    {"name": "Spring", "size": 2213},
-    {"name": "SpringForce", "size": 1681}
-   ]
-  },
-  {
-   "name": "query",
-   "children": [
-    {"name": "AggregateExpression", "size": 1616},
-    {"name": "And", "size": 1027},
-    {"name": "Arithmetic", "size": 3891},
-    {"name": "Average", "size": 891},
-    {"name": "BinaryExpression", "size": 2893},
-    {"name": "Comparison", "size": 5103},
-    {"name": "CompositeExpression", "size": 3677},
-    {"name": "Count", "size": 781},
-    {"name": "DateUtil", "size": 4141},
-    {"name": "Distinct", "size": 933},
-    {"name": "Expression", "size": 5130},
-    {"name": "ExpressionIterator", "size": 3617},
-    {"name": "Fn", "size": 3240},
-    {"name": "If", "size": 2732},
-    {"name": "IsA", "size": 2039},
-    {"name": "Literal", "size": 1214},
-    {"name": "Match", "size": 3748},
-    {"name": "Maximum", "size": 843},
-    {
-     "name": "methods",
-     "children": [
-      {"name": "add", "size": 593},
-      {"name": "and", "size": 330},
-      {"name": "average", "size": 287},
-      {"name": "count", "size": 277},
-      {"name": "distinct", "size": 292},
-      {"name": "div", "size": 595},
-      {"name": "eq", "size": 594},
-      {"name": "fn", "size": 460},
-      {"name": "gt", "size": 603},
-      {"name": "gte", "size": 625},
-      {"name": "iff", "size": 748},
-      {"name": "isa", "size": 461},
-      {"name": "lt", "size": 597},
-      {"name": "lte", "size": 619},
-      {"name": "max", "size": 283},
-      {"name": "min", "size": 283},
-      {"name": "mod", "size": 591},
-      {"name": "mul", "size": 603},
-      {"name": "neq", "size": 599},
-      {"name": "not", "size": 386},
-      {"name": "or", "size": 323},
-      {"name": "orderby", "size": 307},
-      {"name": "range", "size": 772},
-      {"name": "select", "size": 296},
-      {"name": "stddev", "size": 363},
-      {"name": "sub", "size": 600},
-      {"name": "sum", "size": 280},
-      {"name": "update", "size": 307},
-      {"name": "variance", "size": 335},
-      {"name": "where", "size": 299},
-      {"name": "xor", "size": 354},
-      {"name": "_", "size": 264}
-     ]
-    },
-    {"name": "Minimum", "size": 843},
-    {"name": "Not", "size": 1554},
-    {"name": "Or", "size": 970},
-    {"name": "Query", "size": 13896},
-    {"name": "Range", "size": 1594},
-    {"name": "StringUtil", "size": 4130},
-    {"name": "Sum", "size": 791},
-    {"name": "Variable", "size": 1124},
-    {"name": "Variance", "size": 1876},
-    {"name": "Xor", "size": 1101}
-   ]
-  },
-  {
-   "name": "scale",
-   "children": [
-    {"name": "IScaleMap", "size": 2105},
-    {"name": "LinearScale", "size": 1316},
-    {"name": "LogScale", "size": 3151},
-    {"name": "OrdinalScale", "size": 3770},
-    {"name": "QuantileScale", "size": 2435},
-    {"name": "QuantitativeScale", "size": 4839},
-    {"name": "RootScale", "size": 1756},
-    {"name": "Scale", "size": 4268},
-    {"name": "ScaleType", "size": 1821},
-    {"name": "TimeScale", "size": 5833}
-   ]
-  },
-  {
-   "name": "util",
-   "children": [
-    {"name": "Arrays", "size": 8258},
-    {"name": "Colors", "size": 10001},
-    {"name": "Dates", "size": 8217},
-    {"name": "Displays", "size": 12555},
-    {"name": "Filter", "size": 2324},
-    {"name": "Geometry", "size": 10993},
-    {
-     "name": "heap",
-     "children": [
-      {"name": "FibonacciHeap", "size": 9354},
-      {"name": "HeapNode", "size": 1233}
-     ]
-    },
-    {"name": "IEvaluable", "size": 335},
-    {"name": "IPredicate", "size": 383},
-    {"name": "IValueProxy", "size": 874},
-    {
-     "name": "math",
-     "children": [
-      {"name": "DenseMatrix", "size": 3165},
-      {"name": "IMatrix", "size": 2815},
-      {"name": "SparseMatrix", "size": 3366}
-     ]
-    },
-    {"name": "Maths", "size": 17705},
-    {"name": "Orientation", "size": 1486},
-    {
-     "name": "palette",
-     "children": [
-      {"name": "ColorPalette", "size": 6367},
-      {"name": "Palette", "size": 1229},
-      {"name": "ShapePalette", "size": 2059},
-      {"name": "SizePalette", "size": 2291}
-     ]
-    },
-    {"name": "Property", "size": 5559},
-    {"name": "Shapes", "size": 19118},
-    {"name": "Sort", "size": 6887},
-    {"name": "Stats", "size": 6557},
-    {"name": "Strings", "size": 22026}
-   ]
-  },
-  {
-   "name": "vis",
-   "children": [
-    {
-     "name": "axis",
-     "children": [
-      {"name": "Axes", "size": 1302},
-      {"name": "Axis", "size": 24593},
-      {"name": "AxisGridLine", "size": 652},
-      {"name": "AxisLabel", "size": 636},
-      {"name": "CartesianAxes", "size": 6703}
-     ]
-    },
-    {
-     "name": "controls",
-     "children": [
-      {"name": "AnchorControl", "size": 2138},
-      {"name": "ClickControl", "size": 3824},
-      {"name": "Control", "size": 1353},
-      {"name": "ControlList", "size": 4665},
-      {"name": "DragControl", "size": 2649},
-      {"name": "ExpandControl", "size": 2832},
-      {"name": "HoverControl", "size": 4896},
-      {"name": "IControl", "size": 763},
-      {"name": "PanZoomControl", "size": 5222},
-      {"name": "SelectionControl", "size": 7862},
-      {"name": "TooltipControl", "size": 8435}
-     ]
-    },
-    {
-     "name": "data",
-     "children": [
-      {"name": "Data", "size": 20544},
-      {"name": "DataList", "size": 19788},
-      {"name": "DataSprite", "size": 10349},
-      {"name": "EdgeSprite", "size": 3301},
-      {"name": "NodeSprite", "size": 19382},
-      {
-       "name": "render",
-       "children": [
-        {"name": "ArrowType", "size": 698},
-        {"name": "EdgeRenderer", "size": 5569},
-        {"name": "IRenderer", "size": 353},
-        {"name": "ShapeRenderer", "size": 2247}
-       ]
-      },
-      {"name": "ScaleBinding", "size": 11275},
-      {"name": "Tree", "size": 7147},
-      {"name": "TreeBuilder", "size": 9930}
-     ]
-    },
-    {
-     "name": "events",
-     "children": [
-      {"name": "DataEvent", "size": 2313},
-      {"name": "SelectionEvent", "size": 1880},
-      {"name": "TooltipEvent", "size": 1701},
-      {"name": "VisualizationEvent", "size": 1117}
-     ]
-    },
-    {
-     "name": "legend",
-     "children": [
-      {"name": "Legend", "size": 20859},
-      {"name": "LegendItem", "size": 4614},
-      {"name": "LegendRange", "size": 10530}
-     ]
-    },
-    {
-     "name": "operator",
-     "children": [
-      {
-       "name": "distortion",
-       "children": [
-        {"name": "BifocalDistortion", "size": 4461},
-        {"name": "Distortion", "size": 6314},
-        {"name": "FisheyeDistortion", "size": 3444}
-       ]
-      },
-      {
-       "name": "encoder",
-       "children": [
-        {"name": "ColorEncoder", "size": 3179},
-        {"name": "Encoder", "size": 4060},
-        {"name": "PropertyEncoder", "size": 4138},
-        {"name": "ShapeEncoder", "size": 1690},
-        {"name": "SizeEncoder", "size": 1830}
-       ]
-      },
-      {
-       "name": "filter",
-       "children": [
-        {"name": "FisheyeTreeFilter", "size": 5219},
-        {"name": "GraphDistanceFilter", "size": 3165},
-        {"name": "VisibilityFilter", "size": 3509}
-       ]
-      },
-      {"name": "IOperator", "size": 1286},
-      {
-       "name": "label",
-       "children": [
-        {"name": "Labeler", "size": 9956},
-        {"name": "RadialLabeler", "size": 3899},
-        {"name": "StackedAreaLabeler", "size": 3202}
-       ]
-      },
-      {
-       "name": "layout",
-       "children": [
-        {"name": "AxisLayout", "size": 6725},
-        {"name": "BundledEdgeRouter", "size": 3727},
-        {"name": "CircleLayout", "size": 9317},
-        {"name": "CirclePackingLayout", "size": 12003},
-        {"name": "DendrogramLayout", "size": 4853},
-        {"name": "ForceDirectedLayout", "size": 8411},
-        {"name": "IcicleTreeLayout", "size": 4864},
-        {"name": "IndentedTreeLayout", "size": 3174},
-        {"name": "Layout", "size": 7881},
-        {"name": "NodeLinkTreeLayout", "size": 12870},
-        {"name": "PieLayout", "size": 2728},
-        {"name": "RadialTreeLayout", "size": 12348},
-        {"name": "RandomLayout", "size": 870},
-        {"name": "StackedAreaLayout", "size": 9121},
-        {"name": "TreeMapLayout", "size": 9191}
-       ]
-      },
-      {"name": "Operator", "size": 2490},
-      {"name": "OperatorList", "size": 5248},
-      {"name": "OperatorSequence", "size": 4190},
-      {"name": "OperatorSwitch", "size": 2581},
-      {"name": "SortOperator", "size": 2023}
-     ]
-    },
-    {"name": "Visualization", "size": 16540}
-   ]
+    ]
   }
- ]
+  ]
 }

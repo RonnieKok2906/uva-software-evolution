@@ -11,15 +11,72 @@
   stroke-width: 1.5px;
 }
 
-.node--leaf {
-  fill: white;
-}
-
 .label {
   font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-anchor: middle;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
 }
+
+.keyContainer
+{
+/*	margin-top:-720px;*/
+	margin-right:20px;
+	width:16%;
+	float:right;
+	top:0px;
+	border: 1px solid black;
+	padding-top:20px;
+	
+}
+
+.keyContainer h3
+{
+	margin-top:0px;
+	width:100%;
+	text-align: center;
+}
+
+.key
+{
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.value
+{
+	width:100%;
+	text-align: center;
+	margin-top:0px;
+	margin-bottom:20px;
+}
+
+#key1
+{
+	background-color:white;
+}
+
+#key2
+{
+	background-color:blue;
+}
+
+#key3
+{
+	background-color:blue;
+	border-radius:50%;
+	border:3px solid red;
+}
+
+#key4
+{
+	background-color:clear;
+	border-radius:50%;
+	border:1px solid black;
+}
+
 
 .label,
 .node--root,
@@ -28,9 +85,7 @@
 }
 
 .tooltip{
-	width: 20%;
-	float:right;
-	background-color: red;
+	width: 100%;
 }
 
 </style>
@@ -65,20 +120,66 @@ d3.json("flare.json", function(error, root) {
       nodes = pack.nodes(root),
       view;
 
+  var keyContainer = d3.select("body")
+	  .append("div")
+	  .attr("class", "keyContainer");  
+	  
+  title = keyContainer.append("h3")
+	  .text("Key");
+	  
+  key1 = keyContainer
+	  .append("div")
+	  .attr("class", "key")
+	  .attr("id", "key1");
+	    
+  value1 = keyContainer
+	  .append("p")
+	  .attr("class", "value")
+	  .text("Clone");
+
+  key2 = keyContainer
+	  .append("div")
+	  .attr("class", "key")
+	  .attr("id", "key2");
+	 	  
+  value2 = keyContainer
+	  .append("p")
+	  .attr("class", "value")
+	  .text("Clone in CloneClass");
+  
+  key3 = keyContainer
+	  .append("div")
+	  .attr("class", "key")
+	  .attr("id", "key3");
+	  
+  value3 = keyContainer
+	  .append("p")
+	  .attr("class", "value")
+	  .text("Selected Clone");
+  
+  key4 = keyContainer
+	  .append("div")
+	  .attr("class", "key")
+	  .attr("id", "key4");
+	  
+  value4 = keyContainer
+	  .append("p")
+	  .attr("class", "value")
+	  .text("Package or non-cloned code"); 
+
   var tooltip = d3.select("body")
       .append("div")
       .attr("class", "tooltip")
-      .style("visibility", "hidden")
-      .text("Lorem ipsum dolor sit amet, invidunt patrioque mea cu, ad eius populo has. Pri et noluisse indoctum honestatis, eos ei.labore meliore. Has adhuc ipsum errem ut, quo idque labore argumentum ex. Inermis legendos voluptatibus eos at, cu tamquam legimusmea. Illud nusquam minimum eos an, ne labore molestie delectus qui, no illud solet vis.Ei eos minimum persecuti efficiendi, has legimus postulant principes ut, sumo nihil maiorum ex eos. Te nam tempor inimicus definitionem. Ex duo labore ullamcorper voluptatibus, graecis tractatos cum ad, ea dissentiet accommodare sit. Alii aliquid consectetuer te cum, cu noluisse sapientem expetendis mei. Dicat munere vivendo duo te.Solum epicurei maluisset his cu, id modo voluptua constituam his. Posse option reprimique id eum, pri quodsi menandri scribentur in, harum fabulas constituam id eum. Atqui maiorum duo in, illum maiestatis eu has. Sonet feugiat mel ea. Choro veniam ius no, purto paulo doctus cu mea.Ut mucius ridens vim, etiam affert accusam sit cu, dolor laoreet commune cum in. Quo et facilisi gloriatur definitiones, nec rebum nonumy referrentur in. Ne sed elit euismod, salutandi intellegam mel te. Ullum senserit temporibus eu cum, iuvaret convenire facilisis no nec, cu laudem postea his. No est voluptua mediocritatem.In pri epicuri eleifend mnesarchum, ad summo nostro mei, eu mea ipsum percipit efficiantur. Error oportere consetetur no vix, atomorum sensibus vel ei. Amet gubergren has ei. Sit cu modo equidem blandit, et mel albucius recusabo abhorreant. Eius erroribus vix ne, usu essent quaeque maiorum et.");
+      .style("visibility", "hidden");
+
+  var selectedCloneClass = "";
 
   var circle = svg.selectAll("circle")
       .data(nodes)
     .enter().append("circle")
       .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" + d.cloneclass : "node node--root"; })
-      .style("fill", function(d) { return d.children ? color(d.depth) : "FFF"; })
-      .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
-	  .on("mouseover", function(d){ d3.selectAll(".node--leaf" + d.cloneclass).attr("style", "fill:yellow"); return tooltip.style("visibility", "visible"); })
-	  .on("mouseout", function(d){ d3.selectAll(".node--leaf" + d.cloneclass).attr("style", "fill:white"); return tooltip.style("visibility", "hidden");});
+      .style({"fill": function(d) { return d.children ? color(d.depth) : (d3.select(this).classed("node--leaf-1") ? color(d.depth) : "FFF"); }})
+      .on("click", function(d) { if (focus !== d){ zoom(d); d3.event.stopPropagation(); if (d3.select(this).classed("node--leaf-1")){ return; }   d3.selectAll(".node--leaf" + d.cloneclass).attr("style", "fill:blue"); if(d3.select(this).classed("node--leaf" + d.cloneclass)){ selectedCloneClass = ".node--leaf" + d.cloneclass; d3.select(this).style({"stroke":"red", "stroke-width" : "3px"}); return tooltip.style("visibility", "visible").html(d.codeFragment); } else { d3.selectAll(selectedCloneClass).attr("style", "fill:white"); return tooltip.style("visibility", "visible").html("<h1>No Clone Selected</h1>"); }} });
 
 	  
   var text = svg.selectAll("text")

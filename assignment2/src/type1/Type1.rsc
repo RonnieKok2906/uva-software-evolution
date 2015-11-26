@@ -5,5 +5,5 @@ import model::CloneModel;
 
 public CloneModel detectClones(CodeLineModel codeLineModel)
 {
-	return [];
+	return ();
 }

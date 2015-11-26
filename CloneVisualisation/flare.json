@@ -3,203 +3,166 @@
   "name":"projectName",
   "children": [
   {
-    "name":"smallsql",
+    "name":"clonePackage",
     "children": [
     {
-      "name":"tools",
+      "name": "Originaland1Aand3C",
       "children": [
-      {"name": "CommandLine", "size": 65, "cloneclass": "20"}
+        {
+          "name": "",
+          "size":7,
+          "cloneclass": "0",
+          "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java</h3><table><tr><td>7</td><td>void sumProd1a(int n){</td></tr><tr><td>8</td><td>double sum = 0.0;//C1</td></tr><tr><td>9</td><td>double prod = 1.0;</td></tr><tr><td>10</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>11</td><td>{sum = sum + i;</td></tr><tr><td>12</td><td>prod = prod * i;</td></tr><tr><td>13</td><td>foo(sum, prod); }}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java</h3><table><tr><td>16</td><td>void sumProd1a(int n){</td></tr><tr><td>17</td><td>double sum = 0.0;//C1</td></tr><tr><td>18</td><td>double prod = 1.0;</td></tr><tr><td>19</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>20</td><td>{sum = sum + i;</td></tr><tr><td>21</td><td>prod = prod * i;</td></tr><tr><td>22</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1B.java</h3><table><tr><td>5</td><td>void sumProd1a(int n){</td></tr><tr><td>6</td><td>double sum = 0.0;//C1'</td></tr><tr><td>7</td><td>double prod = 1.0;//C</td></tr><tr><td>8</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>9</td><td>{sum = sum + i;</td></tr><tr><td>10</td><td>prod = prod * i;</td></tr><tr><td>11</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1C.java</h3><table><tr><td>6</td><td>void sumProd1a(int n){</td></tr><tr><td>7</td><td>double sum = 0.0;//C1'</td></tr><tr><td>8</td><td>double prod = 1.0;//C</td></tr><tr><td>9</td><td>for (int i = 1; i <= n; i++) {</td></tr><tr><td>10</td><td>sum = sum + i;</td></tr><tr><td>11</td><td>prod = prod * i;</td></tr><tr><td>12</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage2/child/CloneType2C.java</h3><table><tr><td>6</td><td>void sumProd1a(int n){</td></tr><tr><td>7</td><td>double sum = 0;//C1'</td></tr><tr><td>8</td><td>double prod = 1;//C</td></tr><tr><td>9</td><td>for (int i = 1; i <= n; i++) {</td></tr><tr><td>10</td><td>sum = sum + i;</td></tr><tr><td>11</td><td>prod = prod * i;</td></tr><tr><td>12</td><td>foo(sum, prod); }}</td></tr></table>"
+        },
+        {
+          "name": "",
+          "size":7,
+          "cloneclass": "0",
+          "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java</h3><table><tr><td>16</td><td>void sumProd1a(int n){</td></tr><tr><td>17</td><td>double sum = 0.0;//C1</td></tr><tr><td>18</td><td>double prod = 1.0;</td></tr><tr><td>19</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>20</td><td>{sum = sum + i;</td></tr><tr><td>21</td><td>prod = prod * i;</td></tr><tr><td>22</td><td>foo(sum, prod); }}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java</h3><table><tr><td>7</td><td>void sumProd1a(int n){</td></tr><tr><td>8</td><td>double sum = 0.0;//C1</td></tr><tr><td>9</td><td>double prod = 1.0;</td></tr><tr><td>10</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>11</td><td>{sum = sum + i;</td></tr><tr><td>12</td><td>prod = prod * i;</td></tr><tr><td>13</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1B.java</h3><table><tr><td>5</td><td>void sumProd1a(int n){</td></tr><tr><td>6</td><td>double sum = 0.0;//C1'</td></tr><tr><td>7</td><td>double prod = 1.0;//C</td></tr><tr><td>8</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>9</td><td>{sum = sum + i;</td></tr><tr><td>10</td><td>prod = prod * i;</td></tr><tr><td>11</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1C.java</h3><table><tr><td>6</td><td>void sumProd1a(int n){</td></tr><tr><td>7</td><td>double sum = 0.0;//C1'</td></tr><tr><td>8</td><td>double prod = 1.0;//C</td></tr><tr><td>9</td><td>for (int i = 1; i <= n; i++) {</td></tr><tr><td>10</td><td>sum = sum + i;</td></tr><tr><td>11</td><td>prod = prod * i;</td></tr><tr><td>12</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage2/child/CloneType2C.java</h3><table><tr><td>6</td><td>void sumProd1a(int n){</td></tr><tr><td>7</td><td>double sum = 0;//C1'</td></tr><tr><td>8</td><td>double prod = 1;//C</td></tr><tr><td>9</td><td>for (int i = 1; i <= n; i++) {</td></tr><tr><td>10</td><td>sum = sum + i;</td></tr><tr><td>11</td><td>prod = prod * i;</td></tr><tr><td>12</td><td>foo(sum, prod); }}</td></tr></table>"
+        },
+        {
+          "name": "no clone",
+          "size":11,
+          "cloneclass": "-1"
+        }
       ]
     },
     {
-      "name":"database",
+      "name": "CloneType1B",
       "children": [
-      {"name": "CommandUpdate", "size": 36, "cloneclass": "27"},
-      {"name": "SmallSQLException", "size": 96, "cloneclass": "33"},
-      {"name": "SSStatement", "size": 256, "cloneclass": "56"},
-      {"name": "ExpressionFunctionYear", "size": 11, "cloneclass": "45"},
-      {"name": "Scrollable", "size": 149, "cloneclass": "97"},
-      {"name": "Join", "size": 161, "cloneclass": "68"},
-      {"name": "ExpressionFunctionRepeat", "size": 30, "cloneclass": "28"},
-      {"name": "ForeignKeys", "size": 27, "cloneclass": "74"},
-      {"name": "StorePageLink", "size": 12, "cloneclass": "51"},
-      {"name": "ColumnExpression", "size": 31, "cloneclass": "73"},
-      {"name": "Mutable", "size": 4, "cloneclass": "19"},
-      {"name": "LongList", "size": 33, "cloneclass": "30"},
-      {"name": "DataSources", "size": 21, "cloneclass": "33"},
-      {"name": "Expression", "size": 135, "cloneclass": "88"},
-      {"name": "ExpressionFunctionDayOfMonth", "size": 11, "cloneclass": "21"},
-      {"name": "ExpressionFunctionRadians", "size": 8, "cloneclass": "33"},
-      {"name": "ExpressionFunctionATan", "size": 8, "cloneclass": "92"},
-      {"name": "IndexDescription", "size": 162, "cloneclass": "91"},
-      {"name": "ExpressionFunctionRand", "size": 15, "cloneclass": "21"},
-      {"name": "ExpressionFunctionATan2", "size": 11, "cloneclass": "63"},
-      {"name": "IndexNodeScrollStatus", "size": 28, "cloneclass": "5"},
-      {"name": "MemoryStream", "size": 103, "cloneclass": "58"},
-      {"name": "LongLongList", "size": 41, "cloneclass": "95"},
-      {"name": "DataSource", "size": 27, "cloneclass": "3"},
-      {"name": "ExpressionFunctionLocate", "size": 19, "cloneclass": "76"},
-      {"name": "ExpressionFunctionCos", "size": 8, "cloneclass": "29"},
-      {"name": "ExpressionFunctionReturnP1", "size": 61, "cloneclass": "4"},
-      {"name": "Distinct", "size": 73, "cloneclass": "77"},
-      {"name": "ExpressionFunctionDayOfYear", "size": 11, "cloneclass": "4"},
-      {"name": "Columns", "size": 48, "cloneclass": "96"},
-      {"name": "ExpressionFunctionSoundex", "size": 75, "cloneclass": "57"},
-      {"name": "Expressions", "size": 79, "cloneclass": "85"},
-      {"name": "SSConnection", "size": 250, "cloneclass": "20"},
-      {"name": "ExpressionFunctionPI", "size": 10, "cloneclass": "8"},
-      {"name": "ExpressionFunctionReturnP1Number", "size": 44, "cloneclass": "31"},
-      {"name": "ExpressionFunctionDifference", "size": 21, "cloneclass": "90"},
-      {"name": "Identity", "size": 73, "cloneclass": "78"},
-      {"name": "SQLTokenizer", "size": 837, "cloneclass": "97"},
-      {"name": "ExpressionFunctionSin", "size": 8, "cloneclass": "88"},
-      {"name": "Table", "size": 392, "cloneclass": "30"},
-      {"name": "Strings", "size": 32, "cloneclass": "96"},
-      {"name": "ExpressionFunctionMinute", "size": 11, "cloneclass": "36"},
-      {"name": "ExpressionFunctionLTrim", "size": 31, "cloneclass": "31"},
-      {"name": "ExpressionFunctionMonth", "size": 11, "cloneclass": "54"},
-      {"name": "CommandTable", "size": 78, "cloneclass": "69"},
-      {"name": "ExpressionFunctionTruncate", "size": 31, "cloneclass": "18"},
-      {"name": "Where", "size": 100, "cloneclass": "58"},
-      {"name": "View", "size": 74, "cloneclass": "26"},
-      {"name": "StoreImpl", "size": 1308, "cloneclass": "17"},
-      {"name": "TableStorePage", "size": 31, "cloneclass": "98"},
-      {"name": "ExpressionFunctionDayOfWeek", "size": 10, "cloneclass": "53"},
-      {"name": "TableViewMap", "size": 22, "cloneclass": "84"},
-      {"name": "Command", "size": 87, "cloneclass": "61"},
-      {"name": "FileIndex", "size": 40, "cloneclass": "96"},
-      {"name": "ExpressionFunctionExp", "size": 8, "cloneclass": "75"},
-      {"name": "ExpressionFunctionACos", "size": 8, "cloneclass": "87"},
-      {"name": "Index", "size": 368, "cloneclass": "78"},
-      {"name": "CommandDrop", "size": 40, "cloneclass": "39"},
-      {"name": "ExpressionFunctionTan", "size": 8, "cloneclass": "77"},
-      {"name": "ExpressionFunctionCeiling", "size": 8, "cloneclass": "44"},
-      {"name": "ExpressionFunctionFloor", "size": 12, "cloneclass": "87"},
-      {"name": "SSPreparedStatement", "size": 227, "cloneclass": "34"},
-      {"name": "Logger", "size": 18, "cloneclass": "23"},
-      {"name": "Money", "size": 81, "cloneclass": "68"},
-      {"name": "SQLToken", "size": 22, "cloneclass": "7"},
-      {"name": "ExpressionFunctionReplace", "size": 61, "cloneclass": "0"},
-      {"name": "JoinScroll", "size": 127, "cloneclass": "52"},
-      {"name": "ExpressionFunctionPower", "size": 11, "cloneclass": "40"},
-      {"name": "ExpressionFunctionRight", "size": 25, "cloneclass": "29"},
-      {"name": "ExpressionFunctionRound", "size": 31, "cloneclass": "26"},
-      {"name": "IndexDescriptions", "size": 72, "cloneclass": "18"},
-      {"name": "ForeignKey", "size": 16, "cloneclass": "70"},
-      {"name": "TableResult", "size": 255, "cloneclass": "84"},
-      {"name": "ExpressionFunctionReturnInt", "size": 36, "cloneclass": "5"},
-      {"name": "ExpressionFunctionHour", "size": 11, "cloneclass": "50"},
-      {"name": "TableView", "size": 101, "cloneclass": "17"},
-      {"name": "RowSource", "size": 49, "cloneclass": "99"},
-      {"name": "TableStorePageInsert", "size": 19, "cloneclass": "1"},
-      {"name": "ExpressionFunctionChar", "size": 17, "cloneclass": "30"},
-      {"name": "ExpressionFunctionSubstring", "size": 40, "cloneclass": "45"},
-      {"name": "MutableInteger", "size": 25, "cloneclass": "1"},
-      {"name": "SSCallableStatement", "size": 343, "cloneclass": "0"},
-      {"name": "GroupResult", "size": 154, "cloneclass": "20"},
-      {"name": "ExpressionFunctionCharLen", "size": 14, "cloneclass": "52"},
-      {"name": "SSResultSetMetaData", "size": 244, "cloneclass": "99"},
-      {"name": "ExpressionFunctionCase", "size": 116, "cloneclass": "76"},
-      {"name": "ExpressionFunctionLeft", "size": 25, "cloneclass": "53"},
-      {"name": "UnionAll", "size": 143, "cloneclass": "41"},
-      {"name": "ExpressionFunctionOctetLen", "size": 15, "cloneclass": "51"},
-      {"name": "CommandSelect", "size": 364, "cloneclass": "49"},
-      {"name": "ExpressionFunctionUCase", "size": 17, "cloneclass": "95"},
-      {"name": "FileIndexNode", "size": 48, "cloneclass": "32"},
-      {"name": "ExpressionFunctionReturnString", "size": 37, "cloneclass": "77"},
-      {"name": "CommandSet", "size": 20, "cloneclass": "3"},
-      {"name": "ExpressionInSelect", "size": 30, "cloneclass": "23"},
-      {"name": "ExpressionValue", "size": 564, "cloneclass": "14"},
-      {"name": "ExpressionFunctionTimestampAdd", "size": 77, "cloneclass": "18"},
-      {"name": "StorePageMap", "size": 119, "cloneclass": "61"},
-      {"name": "ExpressionFunctionRTrim", "size": 29, "cloneclass": "63"},
-      {"name": "ExpressionFunctionAbs", "size": 64, "cloneclass": "75"},
-      {"name": "ExpressionFunctionBitLen", "size": 15, "cloneclass": "24"},
-      {"name": "IndexNode", "size": 251, "cloneclass": "22"},
-      {"name": "StorePage", "size": 42, "cloneclass": "99"},
-      {"name": "Column", "size": 110, "cloneclass": "50"},
-      {"name": "CommandCreateDatabase", "size": 23, "cloneclass": "61"},
-      {"name": "LongTreeListEnum", "size": 10, "cloneclass": "9"},
-      {"name": "ExpressionFunctionSpace", "size": 24, "cloneclass": "0"},
-      {"name": "CommandInsert", "size": 129, "cloneclass": "6"},
-      {"name": "ExpressionFunctionLog", "size": 8, "cloneclass": "11"},
-      {"name": "TransactionStep", "size": 12, "cloneclass": "12"},
-      {"name": "ExpressionFunctionLCase", "size": 17, "cloneclass": "91"},
-      {"name": "ExpressionFunctionDegrees", "size": 8, "cloneclass": "84"},
-      {"name": "ExpressionFunctionLog10", "size": 9, "cloneclass": "76"},
-      {"name": "SSDatabaseMetaData", "size": 664, "cloneclass": "73"},
-      {"name": "StoreNull", "size": 58, "cloneclass": "56"},
-      {"name": "MutableLong", "size": 25, "cloneclass": "72"},
-      {"name": "MutableNumeric", "size": 427, "cloneclass": "32"},
-      {"name": "ExpressionFunctionTimestampDiff", "size": 104, "cloneclass": "26"},
-      {"name": "Database", "size": 384, "cloneclass": "34"},
-      {"name": "MutableFloat", "size": 25, "cloneclass": "81"},
-      {"name": "ExpressionFunctionReturnFloat", "size": 40, "cloneclass": "72"},
-      {"name": "MutableDouble", "size": 25, "cloneclass": "63"},
-      {"name": "ExpressionFunctionLength", "size": 13, "cloneclass": "2"},
-      {"name": "SortedResult", "size": 215, "cloneclass": "43"},
-      {"name": "ExpressionFunctionConvert", "size": 185, "cloneclass": "36"},
-      {"name": "ExpressionFunctionIIF", "size": 65, "cloneclass": "42"},
-      {"name": "ExpressionFunctionSqrt", "size": 8, "cloneclass": "9"},
-      {"name": "Lobs", "size": 12, "cloneclass": "72"},
-      {"name": "CommandDelete", "size": 16, "cloneclass": "74"},
-      {"name": "ExpressionFunctionCot", "size": 8, "cloneclass": "59"},
-      {"name": "SSDriver", "size": 72, "cloneclass": "16"},
-      {"name": "MemoryResult", "size": 183, "cloneclass": "96"},
-      {"name": "Utils", "size": 354, "cloneclass": "69"},
-      {"name": "ExpressionFunctionASin", "size": 8, "cloneclass": "42"},
-      {"name": "Store", "size": 24, "cloneclass": "99"},
-      {"name": "ExpressionFunctionSign", "size": 43, "cloneclass": "90"},
-      {"name": "SQLParser", "size": 1668, "cloneclass": "91"},
-      {"name": "CreateFile", "size": 41, "cloneclass": "59"},
-      {"name": "SSResultSet", "size": 704, "cloneclass": "14"},
-      {"name": "ExpressionArithmetic", "size": 858, "cloneclass": "6"},
-      {"name": "ViewResult", "size": 136, "cloneclass": "30"},
-      {"name": "ExpressionFunctionInsert", "size": 40, "cloneclass": "92"},
-      {"name": "SSSavepoint", "size": 18, "cloneclass": "14"},
-      {"name": "ExpressionFunctionAscii", "size": 19, "cloneclass": "60"},
-      {"name": "DateTime", "size": 658, "cloneclass": "90"},
-      {"name": "StoreNoCurrentRow", "size": 52, "cloneclass": "54"},
-      {"name": "ExpressionFunction", "size": 59, "cloneclass": "91"},
-      {"name": "IndexScrollStatus", "size": 102, "cloneclass": "39"},
-      {"name": "ExpressionName", "size": 129, "cloneclass": "9"},
-      {"name": "ExpressionFunctionMod", "size": 11, "cloneclass": "34"},
-      {"name": "CommandCreateView", "size": 16, "cloneclass": "12"},
-      {"name": "JoinScrollIndex", "size": 57, "cloneclass": "42"},
-      {"name": "TableViewResult", "size": 47, "cloneclass": "13"},
-      {"name": "NoFromResult", "size": 77, "cloneclass": "46"},
-      {"name": "ExpressionFunctionReturnP1StringAndBinary", "size": 36, "cloneclass": "15"},
-      {"name": "LongTreeList", "size": 318, "cloneclass": "43"}
+        {
+          "name": "",
+          "size":7,
+          "cloneclass": "0",
+          "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1B.java</h3><table><tr><td>5</td><td>void sumProd1a(int n){</td></tr><tr><td>6</td><td>double sum = 0.0;//C1'</td></tr><tr><td>7</td><td>double prod = 1.0;//C</td></tr><tr><td>8</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>9</td><td>{sum = sum + i;</td></tr><tr><td>10</td><td>prod = prod * i;</td></tr><tr><td>11</td><td>foo(sum, prod); }}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java</h3><table><tr><td>7</td><td>void sumProd1a(int n){</td></tr><tr><td>8</td><td>double sum = 0.0;//C1</td></tr><tr><td>9</td><td>double prod = 1.0;</td></tr><tr><td>10</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>11</td><td>{sum = sum + i;</td></tr><tr><td>12</td><td>prod = prod * i;</td></tr><tr><td>13</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java</h3><table><tr><td>16</td><td>void sumProd1a(int n){</td></tr><tr><td>17</td><td>double sum = 0.0;//C1</td></tr><tr><td>18</td><td>double prod = 1.0;</td></tr><tr><td>19</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>20</td><td>{sum = sum + i;</td></tr><tr><td>21</td><td>prod = prod * i;</td></tr><tr><td>22</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1C.java</h3><table><tr><td>6</td><td>void sumProd1a(int n){</td></tr><tr><td>7</td><td>double sum = 0.0;//C1'</td></tr><tr><td>8</td><td>double prod = 1.0;//C</td></tr><tr><td>9</td><td>for (int i = 1; i <= n; i++) {</td></tr><tr><td>10</td><td>sum = sum + i;</td></tr><tr><td>11</td><td>prod = prod * i;</td></tr><tr><td>12</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage2/child/CloneType2C.java</h3><table><tr><td>6</td><td>void sumProd1a(int n){</td></tr><tr><td>7</td><td>double sum = 0;//C1'</td></tr><tr><td>8</td><td>double prod = 1;//C</td></tr><tr><td>9</td><td>for (int i = 1; i <= n; i++) {</td></tr><tr><td>10</td><td>sum = sum + i;</td></tr><tr><td>11</td><td>prod = prod * i;</td></tr><tr><td>12</td><td>foo(sum, prod); }}</td></tr></table>"
+        },
+        {
+          "name": "no clone",
+          "size":3,
+          "cloneclass": "-1"
+        }
       ]
     },
     {
-      "name":"junit",
+      "name": "CloneType1C",
       "children": [
-      {"name": "TestDeleteUpdate", "size": 94, "cloneclass": "40"},
-      {"name": "TestGroupBy", "size": 263, "cloneclass": "81"},
-      {"name": "TestIdentifer", "size": 21, "cloneclass": "72"},
-      {"name": "TestThreads", "size": 111, "cloneclass": "8"},
-      {"name": "TestDataTypes", "size": 279, "cloneclass": "82"},
-      {"name": "TestOrderBy", "size": 613, "cloneclass": "23"},
-      {"name": "TestTokenizer", "size": 105, "cloneclass": "31"},
-      {"name": "TestDBMetaData", "size": 217, "cloneclass": "87"},
-      {"name": "BasicTestCase", "size": 283, "cloneclass": "83"},
-      {"name": "TestResultSet", "size": 185, "cloneclass": "34"},
-      {"name": "TestScrollable", "size": 229, "cloneclass": "76"},
-      {"name": "TestExceptionMethods", "size": 231, "cloneclass": "62"},
-      {"name": "TestExceptions", "size": 89, "cloneclass": "52"},
-      {"name": "TestAlterTable2", "size": 60, "cloneclass": "3"},
-      {"name": "TestOperatoren", "size": 208, "cloneclass": "6"},
-      {"name": "AllTests", "size": 71, "cloneclass": "19"},
-      {"name": "TestAlterTable", "size": 96, "cloneclass": "51"},
-      {"name": "TestMoneyRounding", "size": 66, "cloneclass": "25"},
-      {"name": "TestStatement", "size": 242, "cloneclass": "85"},
-      {"name": "BenchTest", "size": 589, "cloneclass": "77"},
-      {"name": "TestLanguage", "size": 185, "cloneclass": "99"},
-      {"name": "TestFunctions", "size": 370, "cloneclass": "69"},
-      {"name": "TestTransactions", "size": 345, "cloneclass": "59"},
-      {"name": "TestOther", "size": 227, "cloneclass": "2"},
-      {"name": "TestJoins", "size": 156, "cloneclass": "50"}
+        {
+          "name": "",
+          "size":7,
+          "cloneclass": "0",
+          "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1C.java</h3><table><tr><td>6</td><td>void sumProd1a(int n){</td></tr><tr><td>7</td><td>double sum = 0.0;//C1'</td></tr><tr><td>8</td><td>double prod = 1.0;//C</td></tr><tr><td>9</td><td>for (int i = 1; i <= n; i++) {</td></tr><tr><td>10</td><td>sum = sum + i;</td></tr><tr><td>11</td><td>prod = prod * i;</td></tr><tr><td>12</td><td>foo(sum, prod); }}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java</h3><table><tr><td>7</td><td>void sumProd1a(int n){</td></tr><tr><td>8</td><td>double sum = 0.0;//C1</td></tr><tr><td>9</td><td>double prod = 1.0;</td></tr><tr><td>10</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>11</td><td>{sum = sum + i;</td></tr><tr><td>12</td><td>prod = prod * i;</td></tr><tr><td>13</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java</h3><table><tr><td>16</td><td>void sumProd1a(int n){</td></tr><tr><td>17</td><td>double sum = 0.0;//C1</td></tr><tr><td>18</td><td>double prod = 1.0;</td></tr><tr><td>19</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>20</td><td>{sum = sum + i;</td></tr><tr><td>21</td><td>prod = prod * i;</td></tr><tr><td>22</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1B.java</h3><table><tr><td>5</td><td>void sumProd1a(int n){</td></tr><tr><td>6</td><td>double sum = 0.0;//C1'</td></tr><tr><td>7</td><td>double prod = 1.0;//C</td></tr><tr><td>8</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>9</td><td>{sum = sum + i;</td></tr><tr><td>10</td><td>prod = prod * i;</td></tr><tr><td>11</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage2/child/CloneType2C.java</h3><table><tr><td>6</td><td>void sumProd1a(int n){</td></tr><tr><td>7</td><td>double sum = 0;//C1'</td></tr><tr><td>8</td><td>double prod = 1;//C</td></tr><tr><td>9</td><td>for (int i = 1; i <= n; i++) {</td></tr><tr><td>10</td><td>sum = sum + i;</td></tr><tr><td>11</td><td>prod = prod * i;</td></tr><tr><td>12</td><td>foo(sum, prod); }}</td></tr></table>"
+        },
+        {
+          "name": "no clone",
+          "size":3,
+          "cloneclass": "-1"
+        }
+      ]
+    },
+    {
+      "name": "CloneType2D",
+      "children": [
+        {
+          "name": "no clone",
+          "size":10,
+          "cloneclass": "-1"
+        }
+      ]
+    },
+    {
+      "name":"child",
+      "children": [
+      {
+        "name": "CloneType2B",
+        "children": [
+          {
+            "name": "no clone",
+            "size":10,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CloneType3B",
+        "children": [
+          {
+            "name": "no clone",
+            "size":10,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name":"child2",
+        "children": [
+        {
+          "name": "CloneType3E",
+          "children": [
+            {
+              "name": "no clone",
+              "size":10,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "CloneType3A",
+          "children": [
+            {
+              "name": "no clone",
+              "size":10,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      }
+      ]
+    }
+    ]
+  },
+  {
+    "name":"clonePackage2",
+    "children": [
+    {
+      "name": "CloneType2A",
+      "children": [
+        {
+          "name": "no clone",
+          "size":10,
+          "cloneclass": "-1"
+        }
+      ]
+    },
+    {
+      "name":"child",
+      "children": [
+      {
+        "name": "CloneType2C",
+        "children": [
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "0",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage2/child/CloneType2C.java</h3><table><tr><td>6</td><td>void sumProd1a(int n){</td></tr><tr><td>7</td><td>double sum = 0;//C1'</td></tr><tr><td>8</td><td>double prod = 1;//C</td></tr><tr><td>9</td><td>for (int i = 1; i <= n; i++) {</td></tr><tr><td>10</td><td>sum = sum + i;</td></tr><tr><td>11</td><td>prod = prod * i;</td></tr><tr><td>12</td><td>foo(sum, prod); }}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java</h3><table><tr><td>7</td><td>void sumProd1a(int n){</td></tr><tr><td>8</td><td>double sum = 0.0;//C1</td></tr><tr><td>9</td><td>double prod = 1.0;</td></tr><tr><td>10</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>11</td><td>{sum = sum + i;</td></tr><tr><td>12</td><td>prod = prod * i;</td></tr><tr><td>13</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java</h3><table><tr><td>16</td><td>void sumProd1a(int n){</td></tr><tr><td>17</td><td>double sum = 0.0;//C1</td></tr><tr><td>18</td><td>double prod = 1.0;</td></tr><tr><td>19</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>20</td><td>{sum = sum + i;</td></tr><tr><td>21</td><td>prod = prod * i;</td></tr><tr><td>22</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1B.java</h3><table><tr><td>5</td><td>void sumProd1a(int n){</td></tr><tr><td>6</td><td>double sum = 0.0;//C1'</td></tr><tr><td>7</td><td>double prod = 1.0;//C</td></tr><tr><td>8</td><td>for (int i = 1; i <= n; i++)</td></tr><tr><td>9</td><td>{sum = sum + i;</td></tr><tr><td>10</td><td>prod = prod * i;</td></tr><tr><td>11</td><td>foo(sum, prod); }}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1C.java</h3><table><tr><td>6</td><td>void sumProd1a(int n){</td></tr><tr><td>7</td><td>double sum = 0.0;//C1'</td></tr><tr><td>8</td><td>double prod = 1.0;//C</td></tr><tr><td>9</td><td>for (int i = 1; i <= n; i++) {</td></tr><tr><td>10</td><td>sum = sum + i;</td></tr><tr><td>11</td><td>prod = prod * i;</td></tr><tr><td>12</td><td>foo(sum, prod); }}</td></tr></table>"
+          },
+          {
+            "name": "no clone",
+            "size":3,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CloneType3D",
+        "children": [
+          {
+            "name": "no clone",
+            "size":9,
+            "cloneclass": "-1"
+          }
+        ]
+      }
       ]
     }
     ]

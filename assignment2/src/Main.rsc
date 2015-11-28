@@ -126,7 +126,7 @@ public void detectClones(loc project)
 	
 	CloneModel cloneModelType1 = type1::Type1::detectClones(codeLineModel);
 	
-	createVisualisation(packageModel, codeLineModel, myCloneClasses);
+	createVisualisation(packageModel, codeLineModel, myCloneClasses, type1());
 }
 
 //Test Functions

@@ -1,0 +1,124 @@
+.node {
+  cursor: pointer;
+}
+
+.node:hover {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.label {
+  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-anchor: middle;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+}
+
+.keyContainer
+{
+	margin-right:20px;
+	width:16%;
+	float:right;
+	top:0px;
+	border: 1px solid black;
+	padding-top:20px;
+	
+}
+
+#menuContainer
+{
+	width:100%;
+	margin-bottom:20px;
+	clear:both;
+}
+
+#menuContainer ul
+{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-align: center;
+}
+
+#menuContainer ul li
+{
+	display: inline;
+}
+
+#menuContainer ul li a
+{
+	text-decoration: none;
+	padding: .2em 1em;
+	color: #fff;
+	background-color: #036;
+}
+
+#menuContainer ul li .selected
+{
+	background-color: blue;
+}
+
+
+#menuContainer ul li a:hover
+{
+	color: #fff;
+	background-color: #369;
+}
+
+.keyContainer h3
+{
+	margin-top:0px;
+	width:100%;
+	text-align: center;
+}
+
+.key
+{
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.value
+{
+	width:100%;
+	text-align: center;
+	margin-top:0px;
+	margin-bottom:20px;
+}
+
+#key1
+{
+	background-color:white;
+}
+
+#key2
+{
+	background-color:blue;
+}
+
+#key3
+{
+	background-color:blue;
+	border-radius:50%;
+	border:3px solid red;
+}
+
+#key4
+{
+	background-color:clear;
+	border-radius:50%;
+	border:1px solid black;
+}
+
+
+.label,
+.node--root,
+.node--leaf {
+  pointer-events: none;
+}
+
+.tooltip{
+	width: 100%;
+}

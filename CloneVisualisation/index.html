@@ -1,227 +1,24 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
+<head>
+	<link rel="stylesheet" href="style.css">
+</head>
 
-.node {
-  cursor: pointer;
-}
-
-.node:hover {
-  stroke: #000;
-  stroke-width: 1.5px;
-}
-
-.label {
-  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-anchor: middle;
-  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
-}
-
-.keyContainer
-{
-/*	margin-top:-720px;*/
-	margin-right:20px;
-	width:16%;
-	float:right;
-	top:0px;
-	border: 1px solid black;
-	padding-top:20px;
-	
-}
-
-.keyContainer h3
-{
-	margin-top:0px;
-	width:100%;
-	text-align: center;
-}
-
-.key
-{
-	width: 70px;
-	height: 70px;
-	border-radius: 50%;
-	margin-left:auto;
-	margin-right:auto;
-}
-
-.value
-{
-	width:100%;
-	text-align: center;
-	margin-top:0px;
-	margin-bottom:20px;
-}
-
-#key1
-{
-	background-color:white;
-}
-
-#key2
-{
-	background-color:blue;
-}
-
-#key3
-{
-	background-color:blue;
-	border-radius:50%;
-	border:3px solid red;
-}
-
-#key4
-{
-	background-color:clear;
-	border-radius:50%;
-	border:1px solid black;
-}
-
-
-.label,
-.node--root,
-.node--leaf {
-  pointer-events: none;
-}
-
-.tooltip{
-	width: 100%;
-}
-
-</style>
 <body>
 <script src="d3.v3.min.js"></script>
 <script src="util.js"></script>
+<script src="circles.js"></script>
+
+
 <script>
 
-var margin = 20,
-    diameter = 960;
-
-var color = d3.scale.linear()
-    .domain([-1, 5])
-    .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
-    .interpolate(d3.interpolateHcl);
-
-var pack = d3.layout.pack()
-    .padding(2)
-    .size([diameter - margin, diameter - margin])
-    .value(function(d) { return d.size; })
-
-var svg = d3.select("body").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter)
-  .append("g")
-    .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
-
-d3.json("flare.json", function(error, root) {
-  if (error) throw error;
-
-  var focus = root,
-      nodes = pack.nodes(root),
-      view;
-
-  var keyContainer = d3.select("body")
-	  .append("div")
-	  .attr("class", "keyContainer");  
-	  
-  title = keyContainer.append("h3")
-	  .text("Key");
-	  
-  key1 = keyContainer
-	  .append("div")
-	  .attr("class", "key")
-	  .attr("id", "key1");
-	    
-  value1 = keyContainer
-	  .append("p")
-	  .attr("class", "value")
-	  .text("Clone");
-
-  key2 = keyContainer
-	  .append("div")
-	  .attr("class", "key")
-	  .attr("id", "key2");
-	 	  
-  value2 = keyContainer
-	  .append("p")
-	  .attr("class", "value")
-	  .text("Clone in CloneClass");
-  
-  key3 = keyContainer
-	  .append("div")
-	  .attr("class", "key")
-	  .attr("id", "key3");
-	  
-  value3 = keyContainer
-	  .append("p")
-	  .attr("class", "value")
-	  .text("Selected Clone");
-  
-  key4 = keyContainer
-	  .append("div")
-	  .attr("class", "key")
-	  .attr("id", "key4");
-	  
-  value4 = keyContainer
-	  .append("p")
-	  .attr("class", "value")
-	  .text("Package or non-cloned code"); 
-
-  var tooltip = d3.select("body")
-      .append("div")
-      .attr("class", "tooltip")
-      .style("visibility", "hidden");
-
-  var selectedCloneClass = "";
-
-  var circle = svg.selectAll("circle")
-      .data(nodes)
-    .enter().append("circle")
-      .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" + d.cloneclass : "node node--root"; })
-      .style({"fill": function(d) { return d.children ? color(d.depth) : (d3.select(this).classed("node--leaf-1") ? color(d.depth) : "FFF"); }})
-      .on("click", function(d) { if (focus !== d){ zoom(d); d3.event.stopPropagation(); if (d3.select(this).classed("node--leaf-1")){ return; }   d3.selectAll(".node--leaf" + d.cloneclass).attr("style", "fill:blue"); if(d3.select(this).classed("node--leaf" + d.cloneclass)){ selectedCloneClass = ".node--leaf" + d.cloneclass; d3.select(this).style({"stroke":"red", "stroke-width" : "3px"}); return tooltip.style("visibility", "visible").html(d.codeFragment); } else { d3.selectAll(selectedCloneClass).attr("style", "fill:white"); return tooltip.style("visibility", "visible").html("<h1>No Clone Selected</h1>"); }} });
-
-	  
-  var text = svg.selectAll("text")
-      .data(nodes)
-    .enter().append("text")
-      .attr("class", "label")
-      .style("fill-opacity", function(d) { return d.parent === root ? 1 : 0; })
-      .style("display", function(d) { return d.parent === root ? "inline" : "none"; })
-      .text(function(d) { return d.name; });
-
-  var node = svg.selectAll("circle,text");
-
-  d3.select("body")
-      .style("background", color(-1))
-      .on("click", function() { zoom(root); });
-
-  zoomTo([root.x, root.y, root.r * 2 + margin]);
-
-  function zoom(d) {
-    var focus0 = focus; focus = d;
-
-    var transition = d3.transition()
-        .duration(d3.event.altKey ? 7500 : 750)
-        .tween("zoom", function(d) {
-          var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 + margin]);
-          return function(t) { zoomTo(i(t)); };
-        });
-
-    transition.selectAll("text")
-      .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
-        .style("fill-opacity", function(d) { return d.parent === focus ? 1 : 0; })
-        .each("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
-        .each("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
-  }
-
-  function zoomTo(v) {
-    var k = diameter / v[2]; view = v;
-    node.attr("transform", function(d) { return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")"; });
-    circle.attr("r", function(d) { return d.r * k; });
-  }
-});
-
-d3.select(self.frameElement).style("height", diameter + "px");
+var full_url = document.URL; 
+var url_array = full_url.split('?');
+var last_segment = "";
+if (url_array.length > 1)
+{
+	last_segment = url_array[url_array.length-1];
+}
+document.getElementsByTagName('body').onload = loadContent(last_segment);
 
 </script>

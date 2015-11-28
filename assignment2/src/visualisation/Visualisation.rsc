@@ -15,19 +15,37 @@ import visualisation::JSON;
 
 data CloneType = type1() | type2() | type3() | type4();
 
-public void createVisualisation(PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel, CloneType cloneType) 
+public void createVisualisation(str projectName, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel, CloneType cloneType) 
 {
-	str JSONString = createJSON(packageModel, codeLineModel, cloneModel);
+	str JSONString = createJSON(projectName, packageModel, codeLineModel, cloneModel);
 	
 	loc file;
 	
-	switch(cloneType)
+	loc projectFolder = |project://cloneVisualisation| + projectName;
+	
+	if (!exists(projectFolder))
 	{
-		case type1(): file = |project://CloneVisualisation/type1.json|;
-		case type2(): file = |project://CloneVisualisation/type2.json|;
-		case type3(): file = |project://CloneVisualisation/type3.json|;
-		case type4(): file = |project://CloneVisualisation/type4.json|;
+		println("wants to create again");
+	
+		mkDirectory(projectFolder);
 	}
 	
+	switch(cloneType)
+	{
+		case type1(): file = projectFolder + "type1.json";
+		case type2(): file = projectFolder + "type2.json";
+		case type3(): file = projectFolder + "type3.json";
+		case type4(): file = projectFolder + "type4.json";
+	}
+	
+	println("file:<file>");
+	
+	if (!exists(file))
+	{
+		println("wants to create file again: <file>" );
+	
+		resolveLocation(file);
+	}
+
 	writeFile(file, JSONString);
 }

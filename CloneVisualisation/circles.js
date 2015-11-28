@@ -1,4 +1,4 @@
-function loadContent(type)
+function loadContent(projectName, type)
 {
 
 	var margin = 20,
@@ -14,7 +14,9 @@ function loadContent(type)
 	.size([diameter - margin, diameter - margin])
 	.value(function(d) { return d.size; })
 
-	var jsonFile = "type1.json";
+	var jsonFile = projectName + "/type1.json";
+
+	createMenu(type, projectName);
 
 	if (type != "")
 	{
@@ -24,9 +26,7 @@ function loadContent(type)
 	d3.json(jsonFile, function(error, root) {
 		
 		if (error)
-		{
-			createMenu(type);
-			
+		{			
 			d3.select("body")
 			.style("background", color(-1))
 			.append("p")
@@ -35,7 +35,6 @@ function loadContent(type)
 		
 		if (error) throw error;
 
-		createMenu(type);
 		createKey();
 		
 		var svg = d3.select("body").append("svg")
@@ -62,10 +61,14 @@ function loadContent(type)
 		}
 
 		function deselectAllSelectedNodes(d)
-		{				
-			d3.selectAll("circle")
-			.filter(function(d){ return !d.children && d.cloneclass != "-1"; })
-			.attr("style", "fill:white");
+		{
+			if (!d.children)
+			{
+				d3.selectAll("circle")
+				.filter(function(d){ return !d.children && d.cloneclass != "-1"; })
+				.attr("style", "fill:white");
+			}				
+			
 		}
 
 		function selectNodesOfTheSameCloneClass(d)
@@ -200,7 +203,7 @@ function createTooltip()
 }
 
 
-function createMenu(typeString)
+function createMenu(typeString, projectName)
 {
 	var menuContainer = d3.select("body")
 	.append("div")
@@ -209,7 +212,7 @@ function createMenu(typeString)
 	var unorderedList = menuContainer.append("ul")
 	
 	var li1 = unorderedList.append("li").append("a")
-    .attr("href", "/?type1")
+    .attr("href", "/?" + projectName +"?type1")
     .html("Type 1");
 	
 	if (typeString == "" || typeString == "type1")
@@ -219,7 +222,7 @@ function createMenu(typeString)
 	
 	
   	var li2 = unorderedList.append("li").append("a")
-    .attr("href", "/?type2")
+    .attr("href", "/?" + projectName +"?type2")
     .html("Type 2");
 	
 	if (typeString == "type2")
@@ -228,7 +231,7 @@ function createMenu(typeString)
 	}
 	
   	var li3 = unorderedList.append("li").append("a")
-    .attr("href", "/?type3")
+    .attr("href", "/?" + projectName +"?type3")
     .html("Type 3");
 	
 	if (typeString == "type3")
@@ -236,4 +239,5 @@ function createMenu(typeString)
 		li3.attr("class", "selected");
 	}
 	
+	menuContainer.append("h1").html("Project: " + projectName);
 }

@@ -17,8 +17,16 @@ var url_array = full_url.split('?');
 var last_segment = "";
 if (url_array.length > 1)
 {
-	last_segment = url_array[url_array.length-1];
+	projectName = url_array[1];
 }
-document.getElementsByTagName('body').onload = loadContent(last_segment);
+
+if (url_array.length > 1)
+{	
+	type = url_array[2];
+}
+
+document.getElementsByTagName('body').onload = loadContent(projectName, type);
+
+
 
 </script>

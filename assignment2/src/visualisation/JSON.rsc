@@ -8,12 +8,12 @@ import model::CloneModel;
 import visualisation::HTML;
 import util::Math;
 
-public str createJSON(PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel)
+public str createJSON(str projectName, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel)
 {
 	str result = "\n{\n";
 	str indents = "  ";
 	
-	result += "<indents>\"name\":\"projectName\",\n";
+	result += "<indents>\"name\":\"<projectName>\",\n";
 	
 	if (size(packageModel) > 0)
 	{

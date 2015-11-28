@@ -38,7 +38,7 @@ private str htmlForCloneFragment(list[CodeLine] lines)
 		result += "<l.lineNumber>";
 		result += "\</td\>";
 		result += "\<td\>";
-		result += "<removeTabs(l.codeFragment)>";
+		result += "<cleanString(l.codeFragment)>";
 		result += "\</td\>";
 		result += "\</tr\>";
 	}
@@ -46,6 +46,38 @@ private str htmlForCloneFragment(list[CodeLine] lines)
 	result += "\</table\>";
 	
 	return result;
+}
+
+private str cleanString(str string)
+{
+	result = escapeLTandST(string);
+	result = removeTabs(result);
+	result = quotationMark(result);
+	result = singleQuotation(result);
+	result = removeBackslash(result);
+	
+	return result;
+}
+
+private str escapeLTandST(str string)
+{
+	result = replaceAll(string, "\<", "&lt;");
+	return replaceAll(result, "\>", "&gt;");
+}
+
+private str singleQuotation(str string)
+{
+	return replaceAll(string, "\'", "&#8216;");
+}
+
+private str quotationMark(str string)
+{
+	return replaceAll(string, "\"", "&#x22;");
+}
+
+private str removeBackslash(str string)
+{
+	return replaceAll(string, "\\", "");
 }
 
 private str removeTabs(str string)

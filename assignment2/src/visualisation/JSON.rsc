@@ -44,7 +44,7 @@ public str jsonForCodeClones(CompilationUnit compilationUnit, CloneModel cloneMo
 		
 		result += "<indents>  \"name\": \"\",\n";
 		result += "<indents>  \"size\":<size(c.lines)>,\n";
-		result += "<indents>  \"cloneclass\": \"<c[0]>\",\n";
+		result += "<indents>  \"cloneclass\": \"<c.cloneClassIdentifier>\",\n";
 		result += "<indents>  \"codeFragment\": \"<htmlForCloneClass(c, cloneClassForCloneFragment(cloneModel, c))>\"\n";
 		result += "<indents>},\n";
 

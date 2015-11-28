@@ -68,6 +68,23 @@ test bool testThatCloneSourceHasFivePackages()
 	return size(packages) == 5;
 }
 
+private LOC getLinesOfCodeOfPackages(PackageModel packageModel, CodeLineModel codeLineModel)
+{
+	LOC result = 0;
+	
+	for (p <- packageModel)
+	{
+		for (cu <- p.compilationUnits)
+		{
+			result += size(codeLineModel[cu.file]);
+		}
+	
+		result += getLinesOfCodeOfPackages(p.subPackages, codeLineModel);
+	}
+	
+	return result;
+}
+
 test bool testThatCloneSourceHasCorrectNumberOfLines()
 {
 	// Arrange
@@ -77,8 +94,10 @@ test bool testThatCloneSourceHasCorrectNumberOfLines()
 		
 	// Act
 	PackageModel model = createPackageModel(m3Model, codeLineModel);
-	LOC linesOfCode = (0 | it + p.linesOfCode | p <- model);
-	
+	LOC linesOfCodeOfCodeLineModel = (0 | it + size(codeLineModel[cu])| cu <- codeLineModel);
+
+	LOC linesOfCodeOfPackageModel = getLinesOfCodeOfPackages(model, codeLineModel);
+
 	// Assert
-	return linesOfCode == 124;
+	return linesOfCodeOfCodeLineModel == 124 && linesOfCodeOfCodeLineModel == linesOfCodeOfPackageModel;
 }

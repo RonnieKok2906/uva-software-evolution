@@ -35,7 +35,7 @@ public PackageModel createPackageModel(M3 m3Model, CodeLineModel codeLineModel)
 	
 	packageCompilationUnitRelation = {<from, to> | <from, to> <- m3Model@containment, from.scheme == "java+package" && to.scheme == "java+compilationUnit"};
 	
-	map[loc,CompilationUnit] schemeToCompilationUnit = (from:compilationUnit(to, getClassNameFromLocation(to.top), codeLineModel[to.top]) | <from, to> <- m3Model@declarations, from.scheme == "java+compilationUnit");
+	map[loc,CompilationUnit] schemeToCompilationUnit = (from:compilationUnit(to.top, getClassNameFromLocation(to.top), codeLineModel[to.top]) | <from, to> <- m3Model@declarations, from.scheme == "java+compilationUnit");
 	
 	for (cu <- packageCompilationUnitRelation)
 	{

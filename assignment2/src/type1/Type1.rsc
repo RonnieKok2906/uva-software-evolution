@@ -9,13 +9,15 @@ import util::Math;
 import IO;
 
 
-//alias CodeFragment = str;
+alias CodeFragment = str;
 alias CodeBlock = list[CodeLine];
 
 
 public CloneModel detectClones(CodeLineModel codeLineModel)
 {
     duplicationsInProject(codeLineModel);
+    
+    return ();
 }
 
 

@@ -15,7 +15,7 @@ import type1::Type1;
 
 import visualisation::Visualisation;
 
-CodeFragment original = <0, [
+CloneFragment original = <0, [
 						codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java|,
 	7, "	void sumProd1a(int n){"),
 	codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java|,
@@ -32,7 +32,7 @@ CodeFragment original = <0, [
 	13, "		foo(sum, prod); }}")
 ]>;
 
-CodeFragment clone1A = <0, [
+CloneFragment clone1A = <0, [
 						codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java|,
 	16, "	void sumProd1a(int n){"),
 	codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java|,
@@ -49,7 +49,7 @@ CodeFragment clone1A = <0, [
 	22, "			foo(sum, prod); }}")
 ]>;
 
-CodeFragment clone1B = <0, [
+CloneFragment clone1B = <0, [
 						codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1B.java|,
 	5, "	void sumProd1a(int n){"),
 	codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1B.java|,
@@ -66,7 +66,7 @@ CodeFragment clone1B = <0, [
 	11, "		foo(sum, prod); }}")
 ]>;
 
-CodeFragment clone1C = <0, [
+CloneFragment clone1C = <0, [
 						codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1C.java|,
 	6, "	void sumProd1a(int n){"),
 	codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/CloneType1C.java|,
@@ -83,7 +83,7 @@ CodeFragment clone1C = <0, [
 	12, "		foo(sum, prod); }}")
 ]>;
 
-CodeFragment clone2C = <0, [
+CloneFragment clone2C = <0, [
 						codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage2/child/CloneType2C.java|,
 	6, "	void sumProd1a(int n){"),
 	codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage2/child/CloneType2C.java|,

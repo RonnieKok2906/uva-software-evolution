@@ -12,11 +12,6 @@ alias CodeFragment = str;
 alias CodeBlock = list[CodeLine];
 
 
-alias CloneModel = map[int identifier, CloneClass cloneClass];
-alias CloneClass = list[CloneFragment];
-alias CloneFragment = tuple[int identifier, list[CodeLine] lines];
-
-
 public CloneModel clonesInProject(CodeLineModel model)
 {	
 	map[list[str], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, 6);

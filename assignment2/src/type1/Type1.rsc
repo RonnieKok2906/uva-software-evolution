@@ -1,7 +1,6 @@
 module type1::Type1
 
 import model::CodeLineModel;
-import model::CloneModel;
 
 import Prelude;
 import ListRelation;
@@ -9,40 +8,42 @@ import util::Math;
 import IO;
 
 
-//alias CodeFragment = str;
+alias CodeFragment = str;
 alias CodeBlock = list[CodeLine];
 
 
-public CloneModel detectClones(CodeLineModel codeLineModel)
-{
-    duplicationsInProject(codeLineModel);
-}
+alias CloneModel = map[int identifier, CloneClass cloneClass];
+alias CloneClass = list[CloneFragment];
+alias CloneFragment = tuple[int identifier, list[CodeLine] lines];
 
 
-public set[CodeLine] duplicationsInProject(CodeLineModel model)
+public CloneModel clonesInProject(CodeLineModel model)
 {	
-	map[list[CodeFragment], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, 6);
+	map[list[str], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, 6);
 	
-	println("<mapping>");
+	map[list[str], set[CodeBlock]] duplicationsMap = (cf : mapping[cf] | list[str] cf <- mapping,  size(mapping[cf]) > 1);
+
+	CloneModel cloneModel = ();
 	
-	map[list[CodeFragment], set[CodeBlock]] duplicationsMap = (cf : mapping[cf] | list[CodeFragment] cf <- mapping,  size(mapping[cf]) > 1);
+	int cloneId = 1;
+	int cloneClassId = 1;
 	
-	set[CodeLine] duplicatedLines = {};
-	
-	for (dm <- duplicationsMap)
+	for(k <- duplicationsMap) 
 	{
-		set[CodeBlock] setOfCodeBlocks = duplicationsMap[dm];
+		CloneClass cloneClass = [];
 		
-		for (codeBlock <- setOfCodeBlocks)
+		for(clone <- duplicationsMap[k]) 
 		{
-			for (codeLine <- codeBlock)
-			{
-				duplicatedLines += codeLine;
-			}
+            cloneClass += <cloneId, clone>;
+            cloneId += 1;		
 		}
-	}
 	
-	return duplicatedLines;
+		cloneModel += (cloneClassId : cloneClass);
+	
+		cloneClassId += 1;
+	}
+
+	return cloneModel;
 }
 
 private map[list[CodeFragment], set[CodeBlock]] indexAllPossibleCodeFragmentsOfNLines(CodeLineModel model, int nrOfLines)

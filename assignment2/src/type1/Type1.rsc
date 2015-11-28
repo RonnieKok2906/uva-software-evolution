@@ -1,6 +1,7 @@
 module type1::Type1
 
 import model::CodeLineModel;
+import model::CloneModel;
 
 import Prelude;
 import ListRelation;

@@ -48,18 +48,43 @@ function loadContent(type)
 		nodes = pack.nodes(root),
 		view;
 		
-	
-		
-		createTooltip();
+		var tooltip = createTooltip();
 		
 		var selectedCloneClass = "";
+
+		function zoomIfNeeded(d)
+		{
+			if (d.children)
+			{
+				zoom(d); 
+				d3.event.stopPropagation();		
+			}		
+		}
+
+		function deselectAllSelectedNodes(d)
+		{						
+			d3.selectAll(".node--leaf1").attr("style", "fill:white");
+			d3.selectAll(".node--leaf2").attr("style", "fill:white");
+		}
+
+		function selectNodesOfTheSameCloneClass(d)
+		{
+			if (d.cloneclass == "-1")
+			{
+				return;
+			}
+			
+			d3.selectAll(".node--leaf" + d.cloneclass).attr("style", "fill:blue");
+			
+			return tooltip.style("visibility", "visible").html(d.codeFragment);
+		}
 
 		var circle = svg.selectAll("circle")
 		.data(nodes)
 		.enter().append("circle")
-		.attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" + d.cloneclass : "node node--root"; })
-		.style({"fill": function(d) { return d.children ? color(d.depth) : (d3.select(this).classed("node--leaf-1") ? color(d.depth) : "FFF"); }})
-		.on("click", function(d) { if (focus !== d){ zoom(d); d3.event.stopPropagation(); if (d3.select(this).classed("node--leaf-1")){ return; }   d3.selectAll(".node--leaf" + d.cloneclass).attr("style", "fill:blue"); if(d3.select(this).classed("node--leaf" + d.cloneclass)){ selectedCloneClass = ".node--leaf" + d.cloneclass; d3.select(this).style({"stroke":"red", "stroke-width" : "3px"}); return tooltip.style("visibility", "visible").html(d.codeFragment); } else { d3.selectAll(selectedCloneClass).attr("style", "fill:white"); return tooltip.style("visibility", "visible").html("<h1>No Clone Selected</h1>"); }} });
+		.attr("class", function(d) { return d.parent ? d.children ? "node" : "test node node--leaf" + d.cloneclass : "node node--root"; })
+		.style({"fill": function(d) { return d.children ? color(d.depth) : (d3.select(this).classed("node--leaf-1") ? "AAA" : "FFF"); }})
+		.on("click", function(d) { if (focus !== d){ zoomIfNeeded(d); deselectAllSelectedNodes(d); selectNodesOfTheSameCloneClass(d); }});
 
 	  
 		var text = svg.selectAll("text")
@@ -161,6 +186,8 @@ function createTooltip()
 	.append("div")
 	.attr("class", "tooltip")
 	.style("visibility", "hidden");
+	
+	return tooltip;
 }
 
 

@@ -30,7 +30,7 @@ public CloneModel clonesInProject(CodeLineModel model)
 		
 		for(clone <- duplicationsMap[k]) 
 		{
-            cloneClass += <cloneId, clone>;
+            cloneClass += <cloneClassId, cloneId, clone>;
             cloneId += 1;		
 		}
 	

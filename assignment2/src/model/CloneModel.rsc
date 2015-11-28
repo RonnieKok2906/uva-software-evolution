@@ -2,7 +2,7 @@ module model::CloneModel
 
 import model::CodeLineModel;
 
-alias CloneFragment = tuple[int identifier, list[CodeLine] lines];
+alias CloneFragment = tuple[int cloneClassIdentifier, int cloneIdentifier, list[CodeLine] lines];
 alias CloneClass = list[CloneFragment];
 
 alias CloneModel = map[int identifier, CloneClass cloneClass];
@@ -15,7 +15,7 @@ public list[CloneFragment] getClonesInCompilationUnit(loc compilationUnit, Clone
 	{
 		for (c <- cloneModel[k])
 		{
-			if (c[1][0].fileName == compilationUnit)
+			if (c.lines[0].fileName == compilationUnit)
 			{
 				cloneFragments += c;
 			}

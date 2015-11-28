@@ -6,6 +6,7 @@ import model::PackageModel;
 import model::CodeLineModel;
 import model::CloneModel;
 import visualisation::HTML;
+import util::Math;
 
 public str createJSON(PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel)
 {
@@ -38,18 +39,19 @@ public str jsonForCodeClones(CompilationUnit compilationUnit, CloneModel cloneMo
 	for (c <- clonesForCompilationUnit)
 	{
 		counter += 1;
-		clonedLines += size(c[1]);
+		clonedLines += size(c.lines);
 		result += "<indents>{\n";
 		
 		result += "<indents>  \"name\": \"\",\n";
-		result += "<indents>  \"size\":<size(c[1])>,\n";
+		result += "<indents>  \"size\":<size(c.lines)>,\n";
 		result += "<indents>  \"cloneclass\": \"<c[0]>\",\n";
 		result += "<indents>  \"codeFragment\": \"<htmlForCloneClass(c, cloneClassForCloneFragment(cloneModel, c))>\"\n";
 		result += "<indents>},\n";
 
 	}
 	
-	int restLines = size(codeLineModel[compilationUnit.file]) - clonedLines;
+	int restLines = max(size(codeLineModel[compilationUnit.file]) - clonedLines, 0);
+	
 	result += "<indents>{\n";
 	result += "<indents>  \"name\": \"no clone\",\n";
 	result += "<indents>  \"size\":<restLines>,\n";

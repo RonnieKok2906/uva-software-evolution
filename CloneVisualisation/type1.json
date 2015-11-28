@@ -96,7 +96,7 @@
         },
         {
           "name": "no clone",
-          "size":-2,
+          "size":0,
           "cloneclass": "-1"
         }
       ]

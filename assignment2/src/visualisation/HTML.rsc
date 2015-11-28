@@ -8,8 +8,8 @@ import model::CloneModel;
 public str htmlForCloneClass(CloneFragment cloneFragment, CloneClass cloneClass)
 {
 	result = "\<h1\>Selected CodeFragment\</h1\>";
-	result += "\<h3\><cloneFragment[1][0].fileName.path>\</h3\>";
-	result += htmlForCloneFragment(cloneFragment[1]);
+	result += "\<h3\><cloneFragment.lines[0].fileName.path>\</h3\>";
+	result += htmlForCloneFragment(cloneFragment.lines);
 	
 	result += "\<h1\>Clones from Selected CodeFragment\</h1\>";
 	
@@ -17,8 +17,8 @@ public str htmlForCloneClass(CloneFragment cloneFragment, CloneClass cloneClass)
 	{
 		if (c != cloneFragment)
 		{
-			result += "\<h3\><c[1][0].fileName.path>\</h3\>";
-			result += htmlForCloneFragment(c[1]);
+			result += "\<h3\><c.lines[0].fileName.path>\</h3\>";
+			result += htmlForCloneFragment(c.lines);
 		}
 	}
 	

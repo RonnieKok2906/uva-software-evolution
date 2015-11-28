@@ -62,9 +62,10 @@ function loadContent(type)
 		}
 
 		function deselectAllSelectedNodes(d)
-		{						
-			d3.selectAll(".node--leaf1").attr("style", "fill:white");
-			d3.selectAll(".node--leaf2").attr("style", "fill:white");
+		{				
+			d3.selectAll("circle")
+			.filter(function(d){ return !d.children && d.cloneclass != "-1"; })
+			.attr("style", "fill:white");
 		}
 
 		function selectNodesOfTheSameCloneClass(d)
@@ -74,9 +75,17 @@ function loadContent(type)
 				return;
 			}
 			
-			d3.selectAll(".node--leaf" + d.cloneclass).attr("style", "fill:blue");
+			d3.selectAll(".node--leaf" + d.cloneclass).attr("style", "fill:blue");			
 			
 			return tooltip.style("visibility", "visible").html(d.codeFragment);
+		}
+
+		function giveStrokeIfNeeded(it, d)
+		{
+			if (d3.select(it).classed("node--leaf" + d.cloneclass) && !d3.select(it).classed("node--leaf-1"))
+			{
+				d3.select(it).style({"stroke":"red", "stroke-width" : "3px"});
+			}
 		}
 
 		var circle = svg.selectAll("circle")
@@ -84,7 +93,7 @@ function loadContent(type)
 		.enter().append("circle")
 		.attr("class", function(d) { return d.parent ? d.children ? "node" : "test node node--leaf" + d.cloneclass : "node node--root"; })
 		.style({"fill": function(d) { return d.children ? color(d.depth) : (d3.select(this).classed("node--leaf-1") ? "AAA" : "FFF"); }})
-		.on("click", function(d) { if (focus !== d){ zoomIfNeeded(d); deselectAllSelectedNodes(d); selectNodesOfTheSameCloneClass(d); }});
+		.on("click", function(d) { if (focus !== d){ zoomIfNeeded(d); deselectAllSelectedNodes(d); selectNodesOfTheSameCloneClass(d); giveStrokeIfNeeded(this, d); }});
 
 	  
 		var text = svg.selectAll("text")

@@ -28,7 +28,7 @@ public str jsonForCodeClones(CompilationUnit compilationUnit, CloneModel cloneMo
 {
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 	
-	list[CodeFragment] clonesForCompilationUnit = getClonesInCompilationUnit(compilationUnit.file, cloneModel);
+	list[CloneFragment] clonesForCompilationUnit = getClonesInCompilationUnit(compilationUnit.file, cloneModel);
 	
 	str result = "";
 	int counter = 0;
@@ -44,12 +44,12 @@ public str jsonForCodeClones(CompilationUnit compilationUnit, CloneModel cloneMo
 		result += "<indents>  \"name\": \"\",\n";
 		result += "<indents>  \"size\":<size(c[1])>,\n";
 		result += "<indents>  \"cloneclass\": \"<c[0]>\",\n";
-		result += "<indents>  \"codeFragment\": \"<htmlForCloneClass(c, cloneClassForCodeFragment(cloneModel, c))>\"\n";
+		result += "<indents>  \"codeFragment\": \"<htmlForCloneClass(c, cloneClassForCloneFragment(cloneModel, c))>\"\n";
 		result += "<indents>},\n";
 
 	}
 	
-	int restLines = size(codeLineModel[compilationUnit.file.top]) - clonedLines;
+	int restLines = size(codeLineModel[compilationUnit.file]) - clonedLines;
 	result += "<indents>{\n";
 	result += "<indents>  \"name\": \"no clone\",\n";
 	result += "<indents>  \"size\":<restLines>,\n";

@@ -5,27 +5,27 @@ import Prelude;
 import model::CodeLineModel;
 import model::CloneModel;
 
-public str htmlForCloneClass(CodeFragment codeFragment, CloneClass cloneClass)
+public str htmlForCloneClass(CloneFragment cloneFragment, CloneClass cloneClass)
 {
 	result = "\<h1\>Selected CodeFragment\</h1\>";
-	result += "\<h3\><codeFragment[1][0].fileName.path>\</h3\>";
-	result += htmlForCodeFragment(codeFragment[1]);
+	result += "\<h3\><cloneFragment[1][0].fileName.path>\</h3\>";
+	result += htmlForCloneFragment(cloneFragment[1]);
 	
 	result += "\<h1\>Clones from Selected CodeFragment\</h1\>";
 	
 	for (c <- cloneClass)
 	{
-		if (c != codeFragment)
+		if (c != cloneFragment)
 		{
 			result += "\<h3\><c[1][0].fileName.path>\</h3\>";
-			result += htmlForCodeFragment(c[1]);
+			result += htmlForCloneFragment(c[1]);
 		}
 	}
 	
 	return result;
 }
 
-private str htmlForCodeFragment(list[CodeLine] lines)
+private str htmlForCloneFragment(list[CodeLine] lines)
 {
 	str result = "";
 	

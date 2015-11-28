@@ -42,7 +42,7 @@ private list[CodeLine] relevantCodeFromFile(loc fileName, list[Comment] comments
 {
 	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	
-	return [codeLine(fileName, i+1, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
+	return [codeLine(fileName.top, i+1, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
 }
 
 private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] comments)
@@ -53,7 +53,7 @@ private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] commen
 	
 	for (i <- [0..size(lines)])
 	{
-		linesToReturn += codeLine(fileName, i+1, lines[i]);
+		linesToReturn += codeLine(fileName.top, i+1, lines[i]);
 	}
 	
 	for (c <- comments)

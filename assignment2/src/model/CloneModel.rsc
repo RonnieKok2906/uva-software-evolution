@@ -2,36 +2,36 @@ module model::CloneModel
 
 import model::CodeLineModel;
 
-alias CodeFragment = tuple[int identifier, list[CodeLine] lines];
-alias CloneClass = list[CodeFragment];
+alias CloneFragment = tuple[int identifier, list[CodeLine] lines];
+alias CloneClass = list[CloneFragment];
 
 alias CloneModel = map[int identifier, CloneClass cloneClass];
 
-public list[CodeFragment] getClonesInCompilationUnit(loc compilationUnit, CloneModel cloneModel)
+public list[CloneFragment] getClonesInCompilationUnit(loc compilationUnit, CloneModel cloneModel)
 {
-	list[CodeFragment] codeFragments = [];
+	list[CloneFragment] cloneFragments = [];
 	
 	for (k <- cloneModel)
 	{
 		for (c <- cloneModel[k])
 		{
-			if (c[1][0].fileName == compilationUnit.top)
+			if (c[1][0].fileName == compilationUnit)
 			{
-				codeFragments += c;
+				cloneFragments += c;
 			}
 		}
 	}
 	
-	return codeFragments;
+	return cloneFragments;
 }
 
-public CloneClass cloneClassForCodeFragment(CloneModel cloneModel, CodeFragment codeFragment)
+public CloneClass cloneClassForCloneFragment(CloneModel cloneModel, CloneFragment cloneFragment)
 {
 	for (c <- cloneModel)
 	{
 		for (f <- cloneModel[c])
 		{
-			if (codeFragment == f)
+			if (cloneFragment == f)
 			{
 				return cloneModel[c];
 			}

@@ -25,8 +25,6 @@ public void createVisualisation(str projectName, PackageModel packageModel, Code
 	
 	if (!exists(projectFolder))
 	{
-		println("wants to create again");
-	
 		mkDirectory(projectFolder);
 	}
 	
@@ -38,14 +36,11 @@ public void createVisualisation(str projectName, PackageModel packageModel, Code
 		case type4(): file = projectFolder + "type4.json";
 	}
 	
-	println("file:<file>");
-	
 	if (!exists(file))
-	{
-		println("wants to create file again: <file>" );
-	
+	{	
 		resolveLocation(file);
 	}
+
 
 	writeFile(file, JSONString);
 }

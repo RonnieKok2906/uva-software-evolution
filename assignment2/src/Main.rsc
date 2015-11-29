@@ -127,6 +127,7 @@ public void detectClones(loc project)
 	println("Building cloneModelType1...");
 	CloneModel cloneModelType1 = type1::Type1::clonesInProject(codeLineModel);
 	
+	println("Building visualisation..");
 	str projectName = project.authority;
 
 	createVisualisation(projectName, packageModel, codeLineModel, cloneModelType1, type1());

@@ -1,42 +1,26 @@
 module model::CloneModel
 
+import Prelude;
+
 import model::CodeLineModel;
+import model::PackageModel;
 
 alias CloneFragment = tuple[int cloneClassIdentifier, int cloneIdentifier, list[CodeLine] lines];
 alias CloneClass = list[CloneFragment];
 
 alias CloneModel = map[int identifier, CloneClass cloneClass];
 
-public list[CloneFragment] getClonesInCompilationUnit(loc compilationUnit, CloneModel cloneModel)
+public map[loc compilationUnit, list[CloneFragment] cloneFragments] clonesMappedOnCompilationUnit(set[loc] compilationUnits, CloneModel cloneModel)
 {
-	list[CloneFragment] cloneFragments = [];
-	
+	map[loc compilationUnit, list[CloneFragment] cloneFragments] returnMap = (c:[]| c <- compilationUnits);
+
 	for (k <- cloneModel)
 	{
 		for (c <- cloneModel[k])
 		{
-			if (c.lines[0].fileName == compilationUnit)
-			{
-				cloneFragments += c;
-			}
+			returnMap[c.lines[0].fileName] += c;		
 		}
 	}
 	
-	return cloneFragments;
-}
-
-public CloneClass cloneClassForCloneFragment(CloneModel cloneModel, CloneFragment cloneFragment)
-{
-	for (c <- cloneModel)
-	{
-		for (f <- cloneModel[c])
-		{
-			if (cloneFragment == f)
-			{
-				return cloneModel[c];
-			}
-		}
-	}
-	
-	return fail;
+	return returnMap;
 }

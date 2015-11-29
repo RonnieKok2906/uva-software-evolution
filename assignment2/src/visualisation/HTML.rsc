@@ -61,8 +61,6 @@ private str htmlForCloneFragment(list[CodeLine] lines)
 	return result;
 }
 
-
-
 private str replaceLTandGT(str string)
 {
 	result = replaceAll(string, "\<", "&lt;");
@@ -81,9 +79,7 @@ private str replaceDoubleQuotation(str string)
 
 private str removeTabs(str string)
 {
-	list[str] splittedString = split("\t", string);
-	
-	return ("" | it + s | s <- splittedString);
+	return replaceAll(string, "\t", "");
 }
 
 private str replaceBackslash(str string)

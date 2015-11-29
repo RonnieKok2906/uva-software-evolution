@@ -1,0 +1,1847 @@
+
+{
+  "name":"smallsql0.21_src",
+  "numberOfCloneClasses":0,
+  "children": [
+  {
+    "name":"smallsql",
+    "children": [
+    {
+      "name":"database",
+      "children": [
+      {
+        "name": "CommandUpdate",
+        "children": [
+          {
+            "name": "no clone",
+            "size":36,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StoreImpl",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1308,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TableStorePage",
+        "children": [
+          {
+            "name": "no clone",
+            "size":31,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionDayOfWeek",
+        "children": [
+          {
+            "name": "no clone",
+            "size":10,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TableViewMap",
+        "children": [
+          {
+            "name": "no clone",
+            "size":22,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Command",
+        "children": [
+          {
+            "name": "no clone",
+            "size":87,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "FileIndex",
+        "children": [
+          {
+            "name": "no clone",
+            "size":40,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionExp",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionACos",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Index",
+        "children": [
+          {
+            "name": "no clone",
+            "size":368,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CommandDrop",
+        "children": [
+          {
+            "name": "no clone",
+            "size":40,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionTan",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionCeiling",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionFloor",
+        "children": [
+          {
+            "name": "no clone",
+            "size":12,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SSPreparedStatement",
+        "children": [
+          {
+            "name": "no clone",
+            "size":227,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Logger",
+        "children": [
+          {
+            "name": "no clone",
+            "size":18,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Money",
+        "children": [
+          {
+            "name": "no clone",
+            "size":81,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SQLToken",
+        "children": [
+          {
+            "name": "no clone",
+            "size":22,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionReplace",
+        "children": [
+          {
+            "name": "no clone",
+            "size":61,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "JoinScroll",
+        "children": [
+          {
+            "name": "no clone",
+            "size":127,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionPower",
+        "children": [
+          {
+            "name": "no clone",
+            "size":11,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionRight",
+        "children": [
+          {
+            "name": "no clone",
+            "size":25,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionRound",
+        "children": [
+          {
+            "name": "no clone",
+            "size":31,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "IndexDescriptions",
+        "children": [
+          {
+            "name": "no clone",
+            "size":72,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ForeignKey",
+        "children": [
+          {
+            "name": "no clone",
+            "size":16,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SmallSQLException",
+        "children": [
+          {
+            "name": "no clone",
+            "size":96,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SSStatement",
+        "children": [
+          {
+            "name": "no clone",
+            "size":256,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionYear",
+        "children": [
+          {
+            "name": "no clone",
+            "size":11,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Scrollable",
+        "children": [
+          {
+            "name": "no clone",
+            "size":149,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Join",
+        "children": [
+          {
+            "name": "no clone",
+            "size":161,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionRepeat",
+        "children": [
+          {
+            "name": "no clone",
+            "size":30,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ForeignKeys",
+        "children": [
+          {
+            "name": "no clone",
+            "size":27,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StorePageLink",
+        "children": [
+          {
+            "name": "no clone",
+            "size":12,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ColumnExpression",
+        "children": [
+          {
+            "name": "no clone",
+            "size":31,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Mutable",
+        "children": [
+          {
+            "name": "no clone",
+            "size":4,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "LongList",
+        "children": [
+          {
+            "name": "no clone",
+            "size":33,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "DataSources",
+        "children": [
+          {
+            "name": "no clone",
+            "size":21,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Expression",
+        "children": [
+          {
+            "name": "no clone",
+            "size":135,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionDayOfMonth",
+        "children": [
+          {
+            "name": "no clone",
+            "size":11,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionRadians",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionATan",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "IndexDescription",
+        "children": [
+          {
+            "name": "no clone",
+            "size":162,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionRand",
+        "children": [
+          {
+            "name": "no clone",
+            "size":15,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionATan2",
+        "children": [
+          {
+            "name": "no clone",
+            "size":11,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "IndexNodeScrollStatus",
+        "children": [
+          {
+            "name": "no clone",
+            "size":28,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "MemoryStream",
+        "children": [
+          {
+            "name": "no clone",
+            "size":103,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "LongLongList",
+        "children": [
+          {
+            "name": "no clone",
+            "size":41,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "DataSource",
+        "children": [
+          {
+            "name": "no clone",
+            "size":27,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionLocate",
+        "children": [
+          {
+            "name": "no clone",
+            "size":19,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionCos",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionReturnP1",
+        "children": [
+          {
+            "name": "no clone",
+            "size":61,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Distinct",
+        "children": [
+          {
+            "name": "no clone",
+            "size":73,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionDayOfYear",
+        "children": [
+          {
+            "name": "no clone",
+            "size":11,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Columns",
+        "children": [
+          {
+            "name": "no clone",
+            "size":48,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionSoundex",
+        "children": [
+          {
+            "name": "no clone",
+            "size":75,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Expressions",
+        "children": [
+          {
+            "name": "no clone",
+            "size":79,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SSConnection",
+        "children": [
+          {
+            "name": "no clone",
+            "size":250,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionPI",
+        "children": [
+          {
+            "name": "no clone",
+            "size":10,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionReturnP1Number",
+        "children": [
+          {
+            "name": "no clone",
+            "size":44,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionDifference",
+        "children": [
+          {
+            "name": "no clone",
+            "size":21,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Identity",
+        "children": [
+          {
+            "name": "no clone",
+            "size":73,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SQLTokenizer",
+        "children": [
+          {
+            "name": "no clone",
+            "size":837,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionSin",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Table",
+        "children": [
+          {
+            "name": "no clone",
+            "size":392,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Strings",
+        "children": [
+          {
+            "name": "no clone",
+            "size":32,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionMinute",
+        "children": [
+          {
+            "name": "no clone",
+            "size":11,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionLTrim",
+        "children": [
+          {
+            "name": "no clone",
+            "size":31,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionMonth",
+        "children": [
+          {
+            "name": "no clone",
+            "size":11,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CommandTable",
+        "children": [
+          {
+            "name": "no clone",
+            "size":78,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionTruncate",
+        "children": [
+          {
+            "name": "no clone",
+            "size":31,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Where",
+        "children": [
+          {
+            "name": "no clone",
+            "size":100,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "View",
+        "children": [
+          {
+            "name": "no clone",
+            "size":74,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "MutableFloat",
+        "children": [
+          {
+            "name": "no clone",
+            "size":25,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionReturnFloat",
+        "children": [
+          {
+            "name": "no clone",
+            "size":40,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "MutableDouble",
+        "children": [
+          {
+            "name": "no clone",
+            "size":25,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionLength",
+        "children": [
+          {
+            "name": "no clone",
+            "size":13,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SortedResult",
+        "children": [
+          {
+            "name": "no clone",
+            "size":215,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionConvert",
+        "children": [
+          {
+            "name": "no clone",
+            "size":185,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionIIF",
+        "children": [
+          {
+            "name": "no clone",
+            "size":65,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionSqrt",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Lobs",
+        "children": [
+          {
+            "name": "no clone",
+            "size":12,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CommandDelete",
+        "children": [
+          {
+            "name": "no clone",
+            "size":16,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionCot",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SSDriver",
+        "children": [
+          {
+            "name": "no clone",
+            "size":72,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "MemoryResult",
+        "children": [
+          {
+            "name": "no clone",
+            "size":183,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Utils",
+        "children": [
+          {
+            "name": "no clone",
+            "size":354,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionASin",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Store",
+        "children": [
+          {
+            "name": "no clone",
+            "size":24,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionSign",
+        "children": [
+          {
+            "name": "no clone",
+            "size":43,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SQLParser",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1668,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CreateFile",
+        "children": [
+          {
+            "name": "no clone",
+            "size":41,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SSResultSet",
+        "children": [
+          {
+            "name": "no clone",
+            "size":704,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionArithmetic",
+        "children": [
+          {
+            "name": "no clone",
+            "size":858,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ViewResult",
+        "children": [
+          {
+            "name": "no clone",
+            "size":136,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionInsert",
+        "children": [
+          {
+            "name": "no clone",
+            "size":40,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SSSavepoint",
+        "children": [
+          {
+            "name": "no clone",
+            "size":18,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionAscii",
+        "children": [
+          {
+            "name": "no clone",
+            "size":19,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "DateTime",
+        "children": [
+          {
+            "name": "no clone",
+            "size":658,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StoreNoCurrentRow",
+        "children": [
+          {
+            "name": "no clone",
+            "size":52,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunction",
+        "children": [
+          {
+            "name": "no clone",
+            "size":59,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "IndexScrollStatus",
+        "children": [
+          {
+            "name": "no clone",
+            "size":102,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionName",
+        "children": [
+          {
+            "name": "no clone",
+            "size":129,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionMod",
+        "children": [
+          {
+            "name": "no clone",
+            "size":11,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CommandCreateView",
+        "children": [
+          {
+            "name": "no clone",
+            "size":16,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "JoinScrollIndex",
+        "children": [
+          {
+            "name": "no clone",
+            "size":57,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TableViewResult",
+        "children": [
+          {
+            "name": "no clone",
+            "size":47,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "NoFromResult",
+        "children": [
+          {
+            "name": "no clone",
+            "size":77,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionReturnP1StringAndBinary",
+        "children": [
+          {
+            "name": "no clone",
+            "size":36,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "LongTreeList",
+        "children": [
+          {
+            "name": "no clone",
+            "size":318,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TableResult",
+        "children": [
+          {
+            "name": "no clone",
+            "size":255,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionReturnInt",
+        "children": [
+          {
+            "name": "no clone",
+            "size":36,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionHour",
+        "children": [
+          {
+            "name": "no clone",
+            "size":11,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TableView",
+        "children": [
+          {
+            "name": "no clone",
+            "size":101,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RowSource",
+        "children": [
+          {
+            "name": "no clone",
+            "size":49,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TableStorePageInsert",
+        "children": [
+          {
+            "name": "no clone",
+            "size":19,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionChar",
+        "children": [
+          {
+            "name": "no clone",
+            "size":17,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionSubstring",
+        "children": [
+          {
+            "name": "no clone",
+            "size":40,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "MutableInteger",
+        "children": [
+          {
+            "name": "no clone",
+            "size":25,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SSCallableStatement",
+        "children": [
+          {
+            "name": "no clone",
+            "size":343,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "GroupResult",
+        "children": [
+          {
+            "name": "no clone",
+            "size":154,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionCharLen",
+        "children": [
+          {
+            "name": "no clone",
+            "size":14,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SSResultSetMetaData",
+        "children": [
+          {
+            "name": "no clone",
+            "size":244,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionCase",
+        "children": [
+          {
+            "name": "no clone",
+            "size":116,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionLeft",
+        "children": [
+          {
+            "name": "no clone",
+            "size":25,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "UnionAll",
+        "children": [
+          {
+            "name": "no clone",
+            "size":143,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionOctetLen",
+        "children": [
+          {
+            "name": "no clone",
+            "size":15,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CommandSelect",
+        "children": [
+          {
+            "name": "no clone",
+            "size":364,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionUCase",
+        "children": [
+          {
+            "name": "no clone",
+            "size":17,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "FileIndexNode",
+        "children": [
+          {
+            "name": "no clone",
+            "size":48,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionReturnString",
+        "children": [
+          {
+            "name": "no clone",
+            "size":37,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CommandSet",
+        "children": [
+          {
+            "name": "no clone",
+            "size":20,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionInSelect",
+        "children": [
+          {
+            "name": "no clone",
+            "size":30,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionValue",
+        "children": [
+          {
+            "name": "no clone",
+            "size":564,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionTimestampAdd",
+        "children": [
+          {
+            "name": "no clone",
+            "size":77,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StorePageMap",
+        "children": [
+          {
+            "name": "no clone",
+            "size":119,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionRTrim",
+        "children": [
+          {
+            "name": "no clone",
+            "size":29,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionAbs",
+        "children": [
+          {
+            "name": "no clone",
+            "size":64,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionBitLen",
+        "children": [
+          {
+            "name": "no clone",
+            "size":15,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "IndexNode",
+        "children": [
+          {
+            "name": "no clone",
+            "size":251,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StorePage",
+        "children": [
+          {
+            "name": "no clone",
+            "size":42,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Column",
+        "children": [
+          {
+            "name": "no clone",
+            "size":110,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CommandCreateDatabase",
+        "children": [
+          {
+            "name": "no clone",
+            "size":23,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "LongTreeListEnum",
+        "children": [
+          {
+            "name": "no clone",
+            "size":10,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionSpace",
+        "children": [
+          {
+            "name": "no clone",
+            "size":24,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CommandInsert",
+        "children": [
+          {
+            "name": "no clone",
+            "size":129,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionLog",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TransactionStep",
+        "children": [
+          {
+            "name": "no clone",
+            "size":12,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionLCase",
+        "children": [
+          {
+            "name": "no clone",
+            "size":17,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionDegrees",
+        "children": [
+          {
+            "name": "no clone",
+            "size":8,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionLog10",
+        "children": [
+          {
+            "name": "no clone",
+            "size":9,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SSDatabaseMetaData",
+        "children": [
+          {
+            "name": "no clone",
+            "size":664,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StoreNull",
+        "children": [
+          {
+            "name": "no clone",
+            "size":58,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "MutableLong",
+        "children": [
+          {
+            "name": "no clone",
+            "size":25,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "MutableNumeric",
+        "children": [
+          {
+            "name": "no clone",
+            "size":427,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionFunctionTimestampDiff",
+        "children": [
+          {
+            "name": "no clone",
+            "size":104,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Database",
+        "children": [
+          {
+            "name": "no clone",
+            "size":384,
+            "cloneclass": "-1"
+          }
+        ]
+      }
+      ]
+    },
+    {
+      "name":"tools",
+      "children": [
+      {
+        "name": "CommandLine",
+        "children": [
+          {
+            "name": "no clone",
+            "size":65,
+            "cloneclass": "-1"
+          }
+        ]
+      }
+      ]
+    },
+    {
+      "name":"junit",
+      "children": [
+      {
+        "name": "TestDeleteUpdate",
+        "children": [
+          {
+            "name": "no clone",
+            "size":94,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestGroupBy",
+        "children": [
+          {
+            "name": "no clone",
+            "size":263,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestIdentifer",
+        "children": [
+          {
+            "name": "no clone",
+            "size":21,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestTokenizer",
+        "children": [
+          {
+            "name": "no clone",
+            "size":105,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestDBMetaData",
+        "children": [
+          {
+            "name": "no clone",
+            "size":217,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "BasicTestCase",
+        "children": [
+          {
+            "name": "no clone",
+            "size":283,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestThreads",
+        "children": [
+          {
+            "name": "no clone",
+            "size":111,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestDataTypes",
+        "children": [
+          {
+            "name": "no clone",
+            "size":279,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestOrderBy",
+        "children": [
+          {
+            "name": "no clone",
+            "size":613,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestResultSet",
+        "children": [
+          {
+            "name": "no clone",
+            "size":185,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestScrollable",
+        "children": [
+          {
+            "name": "no clone",
+            "size":229,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestExceptionMethods",
+        "children": [
+          {
+            "name": "no clone",
+            "size":231,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestExceptions",
+        "children": [
+          {
+            "name": "no clone",
+            "size":89,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestAlterTable2",
+        "children": [
+          {
+            "name": "no clone",
+            "size":60,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestOperatoren",
+        "children": [
+          {
+            "name": "no clone",
+            "size":208,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "AllTests",
+        "children": [
+          {
+            "name": "no clone",
+            "size":71,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestAlterTable",
+        "children": [
+          {
+            "name": "no clone",
+            "size":96,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestMoneyRounding",
+        "children": [
+          {
+            "name": "no clone",
+            "size":66,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestTransactions",
+        "children": [
+          {
+            "name": "no clone",
+            "size":345,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestOther",
+        "children": [
+          {
+            "name": "no clone",
+            "size":227,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestJoins",
+        "children": [
+          {
+            "name": "no clone",
+            "size":156,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestStatement",
+        "children": [
+          {
+            "name": "no clone",
+            "size":242,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "BenchTest",
+        "children": [
+          {
+            "name": "no clone",
+            "size":589,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestLanguage",
+        "children": [
+          {
+            "name": "no clone",
+            "size":185,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TestFunctions",
+        "children": [
+          {
+            "name": "no clone",
+            "size":370,
+            "cloneclass": "-1"
+          }
+        ]
+      }
+      ]
+    }
+    ]
+  }
+  ]
+}

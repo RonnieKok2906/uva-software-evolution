@@ -1,0 +1,142 @@
+
+{
+  "name":"testCloneSource",
+  "numberOfCloneClasses":0,
+  "children": [
+  {
+    "name":"clonePackage2",
+    "children": [
+    {
+      "name": "CloneType2A",
+      "children": [
+        {
+          "name": "no clone",
+          "size":10,
+          "cloneclass": "-1"
+        }
+      ]
+    },
+    {
+      "name":"child",
+      "children": [
+      {
+        "name": "CloneType2C",
+        "children": [
+          {
+            "name": "no clone",
+            "size":10,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CloneType3D",
+        "children": [
+          {
+            "name": "no clone",
+            "size":9,
+            "cloneclass": "-1"
+          }
+        ]
+      }
+      ]
+    }
+    ]
+  },
+  {
+    "name":"clonePackage",
+    "children": [
+    {
+      "name": "Originaland1Aand3C",
+      "children": [
+        {
+          "name": "no clone",
+          "size":25,
+          "cloneclass": "-1"
+        }
+      ]
+    },
+    {
+      "name": "CloneType1B",
+      "children": [
+        {
+          "name": "no clone",
+          "size":10,
+          "cloneclass": "-1"
+        }
+      ]
+    },
+    {
+      "name": "CloneType2D",
+      "children": [
+        {
+          "name": "no clone",
+          "size":10,
+          "cloneclass": "-1"
+        }
+      ]
+    },
+    {
+      "name": "CloneType1C",
+      "children": [
+        {
+          "name": "no clone",
+          "size":10,
+          "cloneclass": "-1"
+        }
+      ]
+    },
+    {
+      "name":"child",
+      "children": [
+      {
+        "name": "CloneType2B",
+        "children": [
+          {
+            "name": "no clone",
+            "size":10,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "CloneType3B",
+        "children": [
+          {
+            "name": "no clone",
+            "size":10,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name":"child2",
+        "children": [
+        {
+          "name": "CloneType3E",
+          "children": [
+            {
+              "name": "no clone",
+              "size":10,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "CloneType3A",
+          "children": [
+            {
+              "name": "no clone",
+              "size":10,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      }
+      ]
+    }
+    ]
+  }
+  ]
+}

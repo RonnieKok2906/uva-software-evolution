@@ -1,6 +1,7 @@
 
 {
   "name":"testCloneSource",
+  "numberOfCloneClasses":3,
   "children": [
   {
     "name":"clonePackage2",

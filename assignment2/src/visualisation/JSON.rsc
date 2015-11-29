@@ -24,6 +24,7 @@ public str createJSON(str projectName, PackageModel packageModel, CodeLineModel 
 	map[loc, list[CloneFragment]] clonesForCompilationUnit = clonesMappedOnCompilationUnit(compilationUnits, cloneModel);
 	
 	result += "<indents>\"name\":\"<projectName>\",\n";
+	result += "<indents>\"numberOfCloneClasses\":<size(cloneModel)>,\n";
 	
 	if (size(packageModel) > 0)
 	{

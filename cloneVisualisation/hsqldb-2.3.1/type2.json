@@ -1,0 +1,4352 @@
+
+{
+  "name":"hsqldb-2.3.1",
+  "numberOfCloneClasses":0,
+  "children": [
+  {
+    "name":"org",
+    "children": [
+    {
+      "name":"hibernate",
+      "children": [
+      {
+        "name":"dialect",
+        "children": [
+        {
+          "name": "HSQLDialect",
+          "children": [
+            {
+              "name": "no clone",
+              "size":435,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HSQLDialect",
+          "children": [
+            {
+              "name": "no clone",
+              "size":384,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      }
+      ]
+    },
+    {
+      "name":"hsqldb",
+      "children": [
+      {
+        "name": "StatementSession",
+        "children": [
+          {
+            "name": "no clone",
+            "size":538,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementSimple",
+        "children": [
+          {
+            "name": "no clone",
+            "size":132,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SchemaManager",
+        "children": [
+          {
+            "name": "no clone",
+            "size":2013,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Server",
+        "children": [
+          {
+            "name": "no clone",
+            "size":4,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementHandler",
+        "children": [
+          {
+            "name": "no clone",
+            "size":136,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ParserDML",
+        "children": [
+          {
+            "name": "no clone",
+            "size":878,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "HsqlDateTime",
+        "children": [
+          {
+            "name": "no clone",
+            "size":579,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionValue",
+        "children": [
+          {
+            "name": "no clone",
+            "size":52,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementCompound",
+        "children": [
+          {
+            "name": "no clone",
+            "size":608,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementQuery",
+        "children": [
+          {
+            "name": "no clone",
+            "size":57,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementSchema",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1188,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Tokens",
+        "children": [
+          {
+            "name": "no clone",
+            "size":2485,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SchemaObject",
+        "children": [
+          {
+            "name": "no clone",
+            "size":81,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "FunctionSQL",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1586,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RowAVL",
+        "children": [
+          {
+            "name": "no clone",
+            "size":72,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TypeInvariants",
+        "children": [
+          {
+            "name": "no clone",
+            "size":45,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementProcedure",
+        "children": [
+          {
+            "name": "no clone",
+            "size":237,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ParserDDL",
+        "children": [
+          {
+            "name": "no clone",
+            "size":3796,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionAggregate",
+        "children": [
+          {
+            "name": "no clone",
+            "size":203,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Expression",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1453,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ParserCommand",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1615,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Session",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1446,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionColumn",
+        "children": [
+          {
+            "name": "no clone",
+            "size":884,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "QuerySpecification",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1829,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementCursor",
+        "children": [
+          {
+            "name": "no clone",
+            "size":42,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementResultUpdate",
+        "children": [
+          {
+            "name": "no clone",
+            "size":148,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "HsqlNameManager",
+        "children": [
+          {
+            "name": "no clone",
+            "size":358,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionArithmetic",
+        "children": [
+          {
+            "name": "no clone",
+            "size":477,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RangeVariableResolver",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1099,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RowDiskDataChange",
+        "children": [
+          {
+            "name": "no clone",
+            "size":92,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementTypes",
+        "children": [
+          {
+            "name": "no clone",
+            "size":237,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SchemaObjectSet",
+        "children": [
+          {
+            "name": "no clone",
+            "size":398,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Token",
+        "children": [
+          {
+            "name": "no clone",
+            "size":197,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TransactionManager2PL",
+        "children": [
+          {
+            "name": "no clone",
+            "size":198,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TableDerived",
+        "children": [
+          {
+            "name": "no clone",
+            "size":294,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ColumnBase",
+        "children": [
+          {
+            "name": "no clone",
+            "size":92,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ConstraintCore",
+        "children": [
+          {
+            "name": "no clone",
+            "size":37,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RowAction",
+        "children": [
+          {
+            "name": "no clone",
+            "size":654,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionOrderBy",
+        "children": [
+          {
+            "name": "no clone",
+            "size":68,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "View",
+        "children": [
+          {
+            "name": "no clone",
+            "size":166,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RangeVariableJoined",
+        "children": [
+          {
+            "name": "no clone",
+            "size":239,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Like",
+        "children": [
+          {
+            "name": "no clone",
+            "size":279,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TableWorks",
+        "children": [
+          {
+            "name": "no clone",
+            "size":885,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Database",
+        "children": [
+          {
+            "name": "no clone",
+            "size":565,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RangeGroup",
+        "children": [
+          {
+            "name": "no clone",
+            "size":53,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionAccessor",
+        "children": [
+          {
+            "name": "no clone",
+            "size":112,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TriggerDefSQL",
+        "children": [
+          {
+            "name": "no clone",
+            "size":57,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RowAVLDiskLarge",
+        "children": [
+          {
+            "name": "no clone",
+            "size":33,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RangeVariable",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1427,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "FunctionCustom",
+        "children": [
+          {
+            "name": "no clone",
+            "size":3052,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Row",
+        "children": [
+          {
+            "name": "no clone",
+            "size":102,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RowAVLDisk",
+        "children": [
+          {
+            "name": "no clone",
+            "size":175,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SessionContext",
+        "children": [
+          {
+            "name": "no clone",
+            "size":219,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ParserRoutine",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1551,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SessionData",
+        "children": [
+          {
+            "name": "no clone",
+            "size":471,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementSchemaDefinition",
+        "children": [
+          {
+            "name": "no clone",
+            "size":143,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TransactionManagerMVCC",
+        "children": [
+          {
+            "name": "no clone",
+            "size":607,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "DatabaseURL",
+        "children": [
+          {
+            "name": "no clone",
+            "size":223,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementCommand",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1057,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ParserDQL",
+        "children": [
+          {
+            "name": "no clone",
+            "size":4645,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TextTable",
+        "children": [
+          {
+            "name": "no clone",
+            "size":202,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "DatabaseManager",
+        "children": [
+          {
+            "name": "no clone",
+            "size":296,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementManager",
+        "children": [
+          {
+            "name": "no clone",
+            "size":181,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionLogical",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1726,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RowAVLDiskData",
+        "children": [
+          {
+            "name": "no clone",
+            "size":121,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Trigger",
+        "children": [
+          {
+            "name": "no clone",
+            "size":14,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RowActionBase",
+        "children": [
+          {
+            "name": "no clone",
+            "size":38,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Schema",
+        "children": [
+          {
+            "name": "no clone",
+            "size":239,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionLike",
+        "children": [
+          {
+            "name": "no clone",
+            "size":244,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementInsert",
+        "children": [
+          {
+            "name": "no clone",
+            "size":118,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionColumnAccessor",
+        "children": [
+          {
+            "name": "no clone",
+            "size":91,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementDMQL",
+        "children": [
+          {
+            "name": "no clone",
+            "size":538,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementExpression",
+        "children": [
+          {
+            "name": "no clone",
+            "size":106,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TransactionManagerMV2PL",
+        "children": [
+          {
+            "name": "no clone",
+            "size":338,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ColumnSchema",
+        "children": [
+          {
+            "name": "no clone",
+            "size":250,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Table",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1966,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TransactionManagerCommon",
+        "children": [
+          {
+            "name": "no clone",
+            "size":547,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Scanner",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1800,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TriggerDef",
+        "children": [
+          {
+            "name": "no clone",
+            "size":416,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "RoutineSchema",
+        "children": [
+          {
+            "name": "no clone",
+            "size":223,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ParserBase",
+        "children": [
+          {
+            "name": "no clone",
+            "size":568,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementDML",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1138,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "jdbcDriver",
+        "children": [
+          {
+            "name": "no clone",
+            "size":3,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "OpTypes",
+        "children": [
+          {
+            "name": "no clone",
+            "size":92,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "HsqlException",
+        "children": [
+          {
+            "name": "no clone",
+            "size":81,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Constraint",
+        "children": [
+          {
+            "name": "no clone",
+            "size":642,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SortAndSlice",
+        "children": [
+          {
+            "name": "no clone",
+            "size":347,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TableBase",
+        "children": [
+          {
+            "name": "no clone",
+            "size":347,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TransactionManager",
+        "children": [
+          {
+            "name": "no clone",
+            "size":41,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SessionManager",
+        "children": [
+          {
+            "name": "no clone",
+            "size":132,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionArrayAggregate",
+        "children": [
+          {
+            "name": "no clone",
+            "size":274,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "QueryExpression",
+        "children": [
+          {
+            "name": "no clone",
+            "size":775,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionOp",
+        "children": [
+          {
+            "name": "no clone",
+            "size":644,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ExpressionTable",
+        "children": [
+          {
+            "name": "no clone",
+            "size":168,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SetFunction",
+        "children": [
+          {
+            "name": "no clone",
+            "size":474,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "TableUtil",
+        "children": [
+          {
+            "name": "no clone",
+            "size":53,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Routine",
+        "children": [
+          {
+            "name": "no clone",
+            "size":1024,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "StatementSet",
+        "children": [
+          {
+            "name": "no clone",
+            "size":272,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "FunctionSQLInvoked",
+        "children": [
+          {
+            "name": "no clone",
+            "size":215,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "Statement",
+        "children": [
+          {
+            "name": "no clone",
+            "size":166,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SqlInvariants",
+        "children": [
+          {
+            "name": "no clone",
+            "size":98,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "NumberSequence",
+        "children": [
+          {
+            "name": "no clone",
+            "size":503,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "SessionInterface",
+        "children": [
+          {
+            "name": "no clone",
+            "size":66,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ClientConnectionHTTP",
+        "children": [
+          {
+            "name": "no clone",
+            "size":79,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name": "ClientConnection",
+        "children": [
+          {
+            "name": "no clone",
+            "size":428,
+            "cloneclass": "-1"
+          }
+        ]
+      },
+      {
+        "name":"index",
+        "children": [
+        {
+          "name": "IndexAVLMemory",
+          "children": [
+            {
+              "name": "no clone",
+              "size":330,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "NodeAVLDiskLarge",
+          "children": [
+            {
+              "name": "no clone",
+              "size":366,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Index",
+          "children": [
+            {
+              "name": "no clone",
+              "size":74,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "IndexAVL",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1321,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "NodeAVLDisk",
+          "children": [
+            {
+              "name": "no clone",
+              "size":340,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "NodeAVL",
+          "children": [
+            {
+              "name": "no clone",
+              "size":151,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"rowio",
+        "children": [
+        {
+          "name": "RowOutputInterface",
+          "children": [
+            {
+              "name": "no clone",
+              "size":29,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowInputTextQuoted",
+          "children": [
+            {
+              "name": "no clone",
+              "size":82,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowOutputTextQuoted",
+          "children": [
+            {
+              "name": "no clone",
+              "size":25,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowInputInterface",
+          "children": [
+            {
+              "name": "no clone",
+              "size":18,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowOutputBase",
+          "children": [
+            {
+              "name": "no clone",
+              "size":175,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowInputBase",
+          "children": [
+            {
+              "name": "no clone",
+              "size":191,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowInputBinary",
+          "children": [
+            {
+              "name": "no clone",
+              "size":177,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowOutputBinary180",
+          "children": [
+            {
+              "name": "no clone",
+              "size":44,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowInputBinary180",
+          "children": [
+            {
+              "name": "no clone",
+              "size":44,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowInputTextLog",
+          "children": [
+            {
+              "name": "no clone",
+              "size":354,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowOutputText",
+          "children": [
+            {
+              "name": "no clone",
+              "size":239,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowInputBinaryDecode",
+          "children": [
+            {
+              "name": "no clone",
+              "size":20,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowOutputBinaryEncode",
+          "children": [
+            {
+              "name": "no clone",
+              "size":38,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowInputText",
+          "children": [
+            {
+              "name": "no clone",
+              "size":365,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowOutputTextLog",
+          "children": [
+            {
+              "name": "no clone",
+              "size":192,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowOutputBinary",
+          "children": [
+            {
+              "name": "no clone",
+              "size":300,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"test",
+        "children": [
+        {
+          "name": "TestAcl",
+          "children": [
+            {
+              "name": "no clone",
+              "size":278,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestMerge",
+          "children": [
+            {
+              "name": "no clone",
+              "size":279,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestKarl",
+          "children": [
+            {
+              "name": "no clone",
+              "size":179,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestTextTable",
+          "children": [
+            {
+              "name": "no clone",
+              "size":344,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestPreparedStatements",
+          "children": [
+            {
+              "name": "no clone",
+              "size":150,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestLikePredicateOptimizations",
+          "children": [
+            {
+              "name": "no clone",
+              "size":168,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestSubselect",
+          "children": [
+            {
+              "name": "no clone",
+              "size":263,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestBug785429",
+          "children": [
+            {
+              "name": "no clone",
+              "size":101,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestOdbcService",
+          "children": [
+            {
+              "name": "no clone",
+              "size":290,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestBase",
+          "children": [
+            {
+              "name": "no clone",
+              "size":100,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestDbBackup",
+          "children": [
+            {
+              "name": "no clone",
+              "size":452,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestStressInsert",
+          "children": [
+            {
+              "name": "no clone",
+              "size":132,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestCacheSize",
+          "children": [
+            {
+              "name": "no clone",
+              "size":675,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestDima",
+          "children": [
+            {
+              "name": "no clone",
+              "size":156,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestBug778213",
+          "children": [
+            {
+              "name": "no clone",
+              "size":105,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestUtil",
+          "children": [
+            {
+              "name": "no clone",
+              "size":789,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestHSQLDB",
+          "children": [
+            {
+              "name": "no clone",
+              "size":42,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestSqlPersistent",
+          "children": [
+            {
+              "name": "no clone",
+              "size":365,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqldbTestCase",
+          "children": [
+            {
+              "name": "no clone",
+              "size":83,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestTextTables",
+          "children": [
+            {
+              "name": "no clone",
+              "size":161,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestMultiInsert",
+          "children": [
+            {
+              "name": "no clone",
+              "size":91,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestGroupByHaving",
+          "children": [
+            {
+              "name": "no clone",
+              "size":182,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ClearTests",
+          "children": [
+            {
+              "name": "no clone",
+              "size":16,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestUpdatableResultSets",
+          "children": [
+            {
+              "name": "no clone",
+              "size":192,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestQuotes",
+          "children": [
+            {
+              "name": "no clone",
+              "size":93,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TriggerClass",
+          "children": [
+            {
+              "name": "no clone",
+              "size":20,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestNitin",
+          "children": [
+            {
+              "name": "no clone",
+              "size":45,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestSchemaParse",
+          "children": [
+            {
+              "name": "no clone",
+              "size":760,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestBug808460",
+          "children": [
+            {
+              "name": "no clone",
+              "size":35,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestBench",
+          "children": [
+            {
+              "name": "no clone",
+              "size":761,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestDataStructures",
+          "children": [
+            {
+              "name": "no clone",
+              "size":337,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestInstantiation",
+          "children": [
+            {
+              "name": "no clone",
+              "size":32,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestLibSpeed",
+          "children": [
+            {
+              "name": "no clone",
+              "size":166,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestPreparedSubQueries",
+          "children": [
+            {
+              "name": "no clone",
+              "size":197,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestTypeConversion",
+          "children": [
+            {
+              "name": "no clone",
+              "size":127,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestJDBCGeneratedColumns",
+          "children": [
+            {
+              "name": "no clone",
+              "size":157,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestJavaFunctions",
+          "children": [
+            {
+              "name": "no clone",
+              "size":128,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestDateTime",
+          "children": [
+            {
+              "name": "no clone",
+              "size":181,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestBatchBug",
+          "children": [
+            {
+              "name": "no clone",
+              "size":139,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestObjectSize",
+          "children": [
+            {
+              "name": "no clone",
+              "size":30,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestDatabaseMetaData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":191,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestOdbcTypes",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1282,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestViewAsterisks",
+          "children": [
+            {
+              "name": "no clone",
+              "size":349,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestCascade",
+          "children": [
+            {
+              "name": "no clone",
+              "size":98,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestJDBCSavepoints",
+          "children": [
+            {
+              "name": "no clone",
+              "size":280,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestMultipleConnections",
+          "children": [
+            {
+              "name": "no clone",
+              "size":42,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestHTTPKeepAlive",
+          "children": [
+            {
+              "name": "no clone",
+              "size":102,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "AllSimpleTests",
+          "children": [
+            {
+              "name": "no clone",
+              "size":33,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestHashStructures",
+          "children": [
+            {
+              "name": "no clone",
+              "size":394,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "AllTests",
+          "children": [
+            {
+              "name": "no clone",
+              "size":47,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestINPredicateParameterizationAndCorrelation",
+          "children": [
+            {
+              "name": "no clone",
+              "size":116,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestTriggers",
+          "children": [
+            {
+              "name": "no clone",
+              "size":109,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestHarness",
+          "children": [
+            {
+              "name": "no clone",
+              "size":179,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestStoredProcedure",
+          "children": [
+            {
+              "name": "no clone",
+              "size":362,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "AbstractTestOdbc",
+          "children": [
+            {
+              "name": "no clone",
+              "size":128,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestLobs",
+          "children": [
+            {
+              "name": "no clone",
+              "size":673,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestScript",
+          "children": [
+            {
+              "name": "no clone",
+              "size":19,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BlaineTrig",
+          "children": [
+            {
+              "name": "no clone",
+              "size":10,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestAllTypes",
+          "children": [
+            {
+              "name": "no clone",
+              "size":304,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestUpdatableResults",
+          "children": [
+            {
+              "name": "no clone",
+              "size":53,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HSQLBug",
+          "children": [
+            {
+              "name": "no clone",
+              "size":58,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestScriptRunner",
+          "children": [
+            {
+              "name": "no clone",
+              "size":277,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Waiter",
+          "children": [
+            {
+              "name": "no clone",
+              "size":56,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCBench",
+          "children": [
+            {
+              "name": "no clone",
+              "size":806,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestNullInUnion",
+          "children": [
+            {
+              "name": "no clone",
+              "size":44,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestDatetimeSimple",
+          "children": [
+            {
+              "name": "no clone",
+              "size":189,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestSql",
+          "children": [
+            {
+              "name": "no clone",
+              "size":652,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestSubQueriesInPreparedStatements",
+          "children": [
+            {
+              "name": "no clone",
+              "size":84,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestCollation",
+          "children": [
+            {
+              "name": "no clone",
+              "size":144,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestBug1191815",
+          "children": [
+            {
+              "name": "no clone",
+              "size":64,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestBatchExecution",
+          "children": [
+            {
+              "name": "no clone",
+              "size":283,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TestScripts",
+          "children": [
+            {
+              "name": "no clone",
+              "size":122,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"rights",
+        "children": [
+        {
+          "name": "GrantConstants",
+          "children": [
+            {
+              "name": "no clone",
+              "size":21,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Right",
+          "children": [
+            {
+              "name": "no clone",
+              "size":693,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "GranteeManager",
+          "children": [
+            {
+              "name": "no clone",
+              "size":477,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "User",
+          "children": [
+            {
+              "name": "no clone",
+              "size":119,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "UserManager",
+          "children": [
+            {
+              "name": "no clone",
+              "size":253,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Grantee",
+          "children": [
+            {
+              "name": "no clone",
+              "size":725,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"server",
+        "children": [
+        {
+          "name": "OdbcPacketInputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":131,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "PgType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":327,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "WebServerConnection",
+          "children": [
+            {
+              "name": "no clone",
+              "size":344,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlServerFactory",
+          "children": [
+            {
+              "name": "no clone",
+              "size":35,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlSocketFactory",
+          "children": [
+            {
+              "name": "no clone",
+              "size":73,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ServerConfiguration",
+          "children": [
+            {
+              "name": "no clone",
+              "size":138,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "OdbcUtil",
+          "children": [
+            {
+              "name": "no clone",
+              "size":204,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlSocketRequestHandler",
+          "children": [
+            {
+              "name": "no clone",
+              "size":6,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Server",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1111,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "WebServer",
+          "children": [
+            {
+              "name": "no clone",
+              "size":78,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ServerConstants",
+          "children": [
+            {
+              "name": "no clone",
+              "size":28,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "OdbcPreparedStatement",
+          "children": [
+            {
+              "name": "no clone",
+              "size":54,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RecoverableOdbcFailure",
+          "children": [
+            {
+              "name": "no clone",
+              "size":33,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlSocketFactorySecure",
+          "children": [
+            {
+              "name": "no clone",
+              "size":183,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ServerAcl",
+          "children": [
+            {
+              "name": "no clone",
+              "size":319,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "StatementPortal",
+          "children": [
+            {
+              "name": "no clone",
+              "size":72,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ServerProperties",
+          "children": [
+            {
+              "name": "no clone",
+              "size":196,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ServerConnection",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1198,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "OdbcPacketOutputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":70,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Servlet",
+          "children": [
+            {
+              "name": "no clone",
+              "size":165,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"dbinfo",
+        "children": [
+        {
+          "name": "DatabaseInformationFull",
+          "children": [
+            {
+              "name": "no clone",
+              "size":4847,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DITableInfo",
+          "children": [
+            {
+              "name": "no clone",
+              "size":103,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DatabaseInformationMain",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1909,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DatabaseInformation",
+          "children": [
+            {
+              "name": "no clone",
+              "size":260,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"result",
+        "children": [
+        {
+          "name": "ResultMetaData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":355,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ResultLob",
+          "children": [
+            {
+              "name": "no clone",
+              "size":494,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ResultConstants",
+          "children": [
+            {
+              "name": "no clone",
+              "size":213,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Result",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1078,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ResultProperties",
+          "children": [
+            {
+              "name": "no clone",
+              "size":87,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"util",
+        "children": [
+        {
+          "name": "HelperFactory",
+          "children": [
+            {
+              "name": "no clone",
+              "size":25,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ConnectionDialogCommon",
+          "children": [
+            {
+              "name": "no clone",
+              "size":190,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "CommonSwing",
+          "children": [
+            {
+              "name": "no clone",
+              "size":106,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TransferSQLText",
+          "children": [
+            {
+              "name": "no clone",
+              "size":636,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DataAccessPoint",
+          "children": [
+            {
+              "name": "no clone",
+              "size":71,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Transfer",
+          "children": [
+            {
+              "name": "no clone",
+              "size":827,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Traceable",
+          "children": [
+            {
+              "name": "no clone",
+              "size":5,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqldbTransferHelper",
+          "children": [
+            {
+              "name": "no clone",
+              "size":52,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ConnectionDialog",
+          "children": [
+            {
+              "name": "no clone",
+              "size":223,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "MainInvoker",
+          "children": [
+            {
+              "name": "no clone",
+              "size":69,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DatabaseManager",
+          "children": [
+            {
+              "name": "no clone",
+              "size":958,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "OracleTransferHelper",
+          "children": [
+            {
+              "name": "no clone",
+              "size":105,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Grid",
+          "children": [
+            {
+              "name": "no clone",
+              "size":278,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "InformixTransferHelper",
+          "children": [
+            {
+              "name": "no clone",
+              "size":34,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "SQLStatements",
+          "children": [
+            {
+              "name": "no clone",
+              "size":19,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TransferDb",
+          "children": [
+            {
+              "name": "no clone",
+              "size":670,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCTypes",
+          "children": [
+            {
+              "name": "no clone",
+              "size":92,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ConnectionDialogSwing",
+          "children": [
+            {
+              "name": "no clone",
+              "size":255,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DataAccessPointException",
+          "children": [
+            {
+              "name": "no clone",
+              "size":9,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TransferCommon",
+          "children": [
+            {
+              "name": "no clone",
+              "size":67,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TableSorter",
+          "children": [
+            {
+              "name": "no clone",
+              "size":373,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "FontDialogSwing",
+          "children": [
+            {
+              "name": "no clone",
+              "size":195,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "GridSwing",
+          "children": [
+            {
+              "name": "no clone",
+              "size":111,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "CodeSwitcher",
+          "children": [
+            {
+              "name": "no clone",
+              "size":295,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TransferHelper",
+          "children": [
+            {
+              "name": "no clone",
+              "size":127,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DatabaseManagerSwing",
+          "children": [
+            {
+              "name": "no clone",
+              "size":2133,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TransferTable",
+          "children": [
+            {
+              "name": "no clone",
+              "size":296,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "SqlServerTransferHelper",
+          "children": [
+            {
+              "name": "no clone",
+              "size":66,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Tree",
+          "children": [
+            {
+              "name": "no clone",
+              "size":253,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TransferResultSet",
+          "children": [
+            {
+              "name": "no clone",
+              "size":99,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "PostgresTransferHelper",
+          "children": [
+            {
+              "name": "no clone",
+              "size":95,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "McKoiTransferHelper",
+          "children": [
+            {
+              "name": "no clone",
+              "size":33,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ConnectionSetting",
+          "children": [
+            {
+              "name": "no clone",
+              "size":46,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DatabaseManagerCommon",
+          "children": [
+            {
+              "name": "no clone",
+              "size":246,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "CSVWriter",
+          "children": [
+            {
+              "name": "no clone",
+              "size":55,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"scriptio",
+        "children": [
+        {
+          "name": "ScriptReaderDecode",
+          "children": [
+            {
+              "name": "no clone",
+              "size":80,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ScriptReaderBase",
+          "children": [
+            {
+              "name": "no clone",
+              "size":66,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ScriptWriterEncode",
+          "children": [
+            {
+              "name": "no clone",
+              "size":91,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ScriptWriterBase",
+          "children": [
+            {
+              "name": "no clone",
+              "size":265,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ScriptWriterText",
+          "children": [
+            {
+              "name": "no clone",
+              "size":208,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ScriptReaderText",
+          "children": [
+            {
+              "name": "no clone",
+              "size":216,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"cmdline",
+        "children": [
+        {
+          "name": "SqltoolRB",
+          "children": [
+            {
+              "name": "no clone",
+              "size":284,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "SqlToolSprayer",
+          "children": [
+            {
+              "name": "no clone",
+              "size":100,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "SqlFile",
+          "children": [
+            {
+              "name": "no clone",
+              "size":4660,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "SqlTool",
+          "children": [
+            {
+              "name": "no clone",
+              "size":550,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "SqlToolError",
+          "children": [
+            {
+              "name": "no clone",
+              "size":16,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"lib",
+        "children": [
+        {
+          "name": "CountdownInputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":71,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlArrayHeap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":128,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlTimer",
+          "children": [
+            {
+              "name": "no clone",
+              "size":366,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "LineReader",
+          "children": [
+            {
+              "name": "no clone",
+              "size":60,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ThreadFactory",
+          "children": [
+            {
+              "name": "no clone",
+              "size":4,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "CharArrayWriter",
+          "children": [
+            {
+              "name": "no clone",
+              "size":98,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "LongLookup",
+          "children": [
+            {
+              "name": "no clone",
+              "size":9,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "InputStreamInterface",
+          "children": [
+            {
+              "name": "no clone",
+              "size":12,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HashSet",
+          "children": [
+            {
+              "name": "no clone",
+              "size":110,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "OrderedLongHashSet",
+          "children": [
+            {
+              "name": "no clone",
+              "size":82,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ArrayListIdentity",
+          "children": [
+            {
+              "name": "no clone",
+              "size":11,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "FrameworkLogger",
+          "children": [
+            {
+              "name": "no clone",
+              "size":301,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlHeap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":10,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ValidatingResourceBundle",
+          "children": [
+            {
+              "name": "no clone",
+              "size":189,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "LongValueHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":123,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "CountUpDownLatch",
+          "children": [
+            {
+              "name": "no clone",
+              "size":40,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "FileArchiver",
+          "children": [
+            {
+              "name": "no clone",
+              "size":142,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlByteArrayInputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":162,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlArrayList",
+          "children": [
+            {
+              "name": "no clone",
+              "size":209,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "IntValueHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":159,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "FileUtil",
+          "children": [
+            {
+              "name": "no clone",
+              "size":321,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "MD5",
+          "children": [
+            {
+              "name": "no clone",
+              "size":45,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "IntKeyIntValueHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":114,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RefCapablePropertyResourceBundle",
+          "children": [
+            {
+              "name": "no clone",
+              "size":258,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "MultiValueHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":115,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ArrayUtil",
+          "children": [
+            {
+              "name": "no clone",
+              "size":969,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "IntKeyHashMapConcurrent",
+          "children": [
+            {
+              "name": "no clone",
+              "size":147,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "StringConverter",
+          "children": [
+            {
+              "name": "no clone",
+              "size":435,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "StopWatch",
+          "children": [
+            {
+              "name": "no clone",
+              "size":67,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "IntKeyHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":107,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ArrayCounter",
+          "children": [
+            {
+              "name": "no clone",
+              "size":58,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "LongKeyIntValueHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":121,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ReadWriteLockDummy",
+          "children": [
+            {
+              "name": "no clone",
+              "size":28,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlByteArrayOutputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":241,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RCData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":292,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "KMPSearchAlgorithm",
+          "children": [
+            {
+              "name": "no clone",
+              "size":278,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlDeque",
+          "children": [
+            {
+              "name": "no clone",
+              "size":204,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "OrderedIntKeyHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":115,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RefCapableRBInterface",
+          "children": [
+            {
+              "name": "no clone",
+              "size":18,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Iterator",
+          "children": [
+            {
+              "name": "no clone",
+              "size":10,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":130,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "FileAccess",
+          "children": [
+            {
+              "name": "no clone",
+              "size":22,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "IntKeyLongValueHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":45,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DataOutputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":117,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ClosableByteArrayOutputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":147,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Set",
+          "children": [
+            {
+              "name": "no clone",
+              "size":13,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "OrderedHashSet",
+          "children": [
+            {
+              "name": "no clone",
+              "size":110,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ClosableCharArrayWriter",
+          "children": [
+            {
+              "name": "no clone",
+              "size":158,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlTaskQueue",
+          "children": [
+            {
+              "name": "no clone",
+              "size":94,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ObjectComparator",
+          "children": [
+            {
+              "name": "no clone",
+              "size":6,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ArraySort",
+          "children": [
+            {
+              "name": "no clone",
+              "size":115,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "IntLookup",
+          "children": [
+            {
+              "name": "no clone",
+              "size":9,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "OrderedLongKeyHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":145,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Collection",
+          "children": [
+            {
+              "name": "no clone",
+              "size":12,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlThreadFactory",
+          "children": [
+            {
+              "name": "no clone",
+              "size":28,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "AppendableException",
+          "children": [
+            {
+              "name": "no clone",
+              "size":42,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "StringInputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":31,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "LineGroupReader",
+          "children": [
+            {
+              "name": "no clone",
+              "size":120,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "StringUtil",
+          "children": [
+            {
+              "name": "no clone",
+              "size":197,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ReaderInputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":27,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "InOutUtil",
+          "children": [
+            {
+              "name": "no clone",
+              "size":119,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DoubleIntIndex",
+          "children": [
+            {
+              "name": "no clone",
+              "size":508,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "LongDeque",
+          "children": [
+            {
+              "name": "no clone",
+              "size":199,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BasicTextJdkLogFormatter",
+          "children": [
+            {
+              "name": "no clone",
+              "size":31,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HashMappedList",
+          "children": [
+            {
+              "name": "no clone",
+              "size":130,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "InputStreamWrapper",
+          "children": [
+            {
+              "name": "no clone",
+              "size":64,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "SimpleLog",
+          "children": [
+            {
+              "name": "no clone",
+              "size":145,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "LongKeyHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":172,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "LongKeyLongValueHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":118,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "OrderedIntHashSet",
+          "children": [
+            {
+              "name": "no clone",
+              "size":82,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "HsqlList",
+          "children": [
+            {
+              "name": "no clone",
+              "size":11,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Storage",
+          "children": [
+            {
+              "name": "no clone",
+              "size":17,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "WrapperIterator",
+          "children": [
+            {
+              "name": "no clone",
+              "size":96,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BaseList",
+          "children": [
+            {
+              "name": "no clone",
+              "size":111,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "StringComparator",
+          "children": [
+            {
+              "name": "no clone",
+              "size":16,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"types",
+        "children": [
+        {
+          "name": "UserTypeModifier",
+          "children": [
+            {
+              "name": "no clone",
+              "size":144,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BlobInputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":84,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BooleanType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":193,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ArrayType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":348,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TimestampData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":55,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DateTimeType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1417,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "DTIType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":337,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JavaObjectData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":41,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BinaryType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":533,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ClobInputStream",
+          "children": [
+            {
+              "name": "no clone",
+              "size":95,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BlobData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":30,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Collation",
+          "children": [
+            {
+              "name": "no clone",
+              "size":404,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "OtherType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":111,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Types",
+          "children": [
+            {
+              "name": "no clone",
+              "size":591,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ClobData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":27,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "LobData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":9,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BlobType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":197,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Charset",
+          "children": [
+            {
+              "name": "no clone",
+              "size":168,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "RowType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":332,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "Type",
+          "children": [
+            {
+              "name": "no clone",
+              "size":834,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "IntervalMonthData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":55,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BlobDataID",
+          "children": [
+            {
+              "name": "no clone",
+              "size":160,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "IntervalSecondData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":106,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "CharacterType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":799,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "TimeData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":51,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "NumberType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1450,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "IntervalType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1233,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BinaryData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":188,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ClobType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":140,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BitType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":395,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ClobDataID",
+          "children": [
+            {
+              "name": "no clone",
+              "size":158,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "NullType",
+          "children": [
+            {
+              "name": "no clone",
+              "size":61,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"resources",
+        "children": [
+        {
+          "name": "ResourceBundleHandler",
+          "children": [
+            {
+              "name": "no clone",
+              "size":110,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"jdbc",
+        "children": [
+        {
+          "name": "JDBCUtil",
+          "children": [
+            {
+              "name": "no clone",
+              "size":124,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCDriver",
+          "children": [
+            {
+              "name": "no clone",
+              "size":172,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCClob",
+          "children": [
+            {
+              "name": "no clone",
+              "size":221,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCConnection",
+          "children": [
+            {
+              "name": "no clone",
+              "size":865,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCDataSourceFactory",
+          "children": [
+            {
+              "name": "no clone",
+              "size":117,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCConnectionEventListener",
+          "children": [
+            {
+              "name": "no clone",
+              "size":6,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCResultSetMetaData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":231,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCRowId",
+          "children": [
+            {
+              "name": "no clone",
+              "size":50,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCBlobFile",
+          "children": [
+            {
+              "name": "no clone",
+              "size":376,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCDatabaseMetaData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1111,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCResultSet",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1668,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCBlob",
+          "children": [
+            {
+              "name": "no clone",
+              "size":202,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCClobFile",
+          "children": [
+            {
+              "name": "no clone",
+              "size":581,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCClobClient",
+          "children": [
+            {
+              "name": "no clone",
+              "size":421,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCArrayBasic",
+          "children": [
+            {
+              "name": "no clone",
+              "size":113,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCParameterMetaData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":171,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCPreparedStatement",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1562,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCStatement",
+          "children": [
+            {
+              "name": "no clone",
+              "size":329,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCSQLXML",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1132,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCDataSource",
+          "children": [
+            {
+              "name": "no clone",
+              "size":80,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCNClob",
+          "children": [
+            {
+              "name": "no clone",
+              "size":10,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCSavepoint",
+          "children": [
+            {
+              "name": "no clone",
+              "size":42,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCPool",
+          "children": [
+            {
+              "name": "no clone",
+              "size":197,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCStatementBase",
+          "children": [
+            {
+              "name": "no clone",
+              "size":174,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCCallableStatement",
+          "children": [
+            {
+              "name": "no clone",
+              "size":786,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCBlobClient",
+          "children": [
+            {
+              "name": "no clone",
+              "size":161,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCArray",
+          "children": [
+            {
+              "name": "no clone",
+              "size":148,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCCommonDataSource",
+          "children": [
+            {
+              "name": "no clone",
+              "size":100,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "JDBCColumnMetaData",
+          "children": [
+            {
+              "name": "no clone",
+              "size":74,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      },
+      {
+        "name":"map",
+        "children": [
+        {
+          "name": "HashIndex",
+          "children": [
+            {
+              "name": "no clone",
+              "size":117,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BaseHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":1180,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "BitMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":452,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ReusableObjectCache",
+          "children": [
+            {
+              "name": "no clone",
+              "size":21,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ValuePool",
+          "children": [
+            {
+              "name": "no clone",
+              "size":124,
+              "cloneclass": "-1"
+            }
+          ]
+        },
+        {
+          "name": "ValuePoolHashMap",
+          "children": [
+            {
+              "name": "no clone",
+              "size":241,
+              "cloneclass": "-1"
+            }
+          ]
+        }
+        ]
+      }
+      ]
+    }
+    ]
+  }
+  ]
+}

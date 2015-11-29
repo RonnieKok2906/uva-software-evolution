@@ -38,6 +38,7 @@ public str cleanString(str string)
 
 
 //Private Functions
+
 private str htmlForCloneFragment(list[CodeLine] lines)
 {
 	str result = "";

@@ -36,6 +36,7 @@ function loadContent(projectName, type)
 		if (error) throw error;
 
 		createKey();
+		createMetaDataDiv(root);
 		
 		var svg = d3.select("body").append("svg")
 		.attr("width", diameter)
@@ -95,7 +96,7 @@ function loadContent(projectName, type)
 		.data(nodes)
 		.enter().append("circle")
 		.attr("class", function(d) { return d.parent ? d.children ? "node" : "test node node--leaf" + d.cloneclass : "node node--root"; })
-		.style({"fill": function(d) { return d.children ? color(d.depth) : (d3.select(this).classed("node--leaf-1") ? "AAA" : "FFF"); }})
+		.style({"fill": function(d) { return d.children ? color(d.depth) : (d3.select(this).classed("node--leaf-1") ? "AAA" : rainbow(root.numberOfCloneClasses, d.cloneclass - 1)); }})
 		.on("click", function(d) { if (focus !== d){ zoomIfNeeded(d); deselectAllSelectedNodes(d); selectNodesOfTheSameCloneClass(d); giveStrokeIfNeeded(this, d); }});
 
 	  
@@ -189,7 +190,18 @@ function createKey()
 	value4 = keyContainer
 	.append("p")
 	.attr("class", "value")
-	.text("Package or non-cloned code"); 
+	.text("non-cloned code"); 
+	
+	key5 = keyContainer
+	.append("div")
+	.attr("class", "key")
+	.attr("id", "key5");
+  
+	value5 = keyContainer
+	.append("p")
+	.attr("class", "value")
+	.text("Package or CompilationUnit"); 
+	
 }
 
 function createTooltip()
@@ -239,5 +251,24 @@ function createMenu(typeString, projectName)
 		li3.attr("class", "selected");
 	}
 	
+  	var li4 = unorderedList.append("li").append("a")
+  	.html("Rainbow view")
+	.on("click", function(d){ window.location.reload(true); });
+  
+	
 	menuContainer.append("h1").html("Project: " + projectName);
+}
+
+function createMetaDataDiv(root)
+{
+	var metaDataDiv = d3.select("body")
+	.append("div")
+	.attr("id", "metaDataDiv");
+	
+	metaDataDiv.append("h3")
+	.html("Metadata");
+	
+	metaDataDiv.append("p")
+	.html("Number of Clone Classes: " + root.numberOfCloneClasses);
+	
 }

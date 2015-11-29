@@ -16,11 +16,11 @@
 .keyContainer
 {
 	margin-right:20px;
-	width:16%;
+	width:20%;
 	float:right;
-	top:0px;
 	border: 1px solid black;
 	padding-top:20px;
+	min-width: 250px;
 	
 }
 
@@ -67,6 +67,9 @@
 .keyContainer h3
 {
 	margin-top:0px;
+	margin-left:0px;
+	margin-right:0px;
+	margin-bottom:20px;
 	width:100%;
 	text-align: center;
 }
@@ -107,11 +110,38 @@
 
 #key4
 {
-	background-color:clear;
+	background-color:#AAA;
 	border-radius:50%;
-	border:1px solid black;
 }
 
+#key5
+{
+		border-radius: 35px;
+	    border-style: solid;
+	    border-width: 35px;
+	    border-bottom-color: #80DACD;
+	    border-left-color: #5DC0CC;
+	    border-right-color: #3F89B8;
+	    border-top-color: #436EA4;
+	    height: 0px;
+	    width: 0px;
+}
+
+#metaDataDiv
+{
+	margin-top:20px;
+	margin-right:20px;
+	
+	float:right;
+	clear:right;
+	width:20%;
+	border: 1px solid black;
+	min-width: 250px;
+}
+#metaDataDiv p,h3
+{
+	margin:20px;
+}
 
 .label,
 .node--root,

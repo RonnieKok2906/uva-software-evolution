@@ -20,10 +20,10 @@ function loadContent(projectName, type)
 
 	if (type != "")
 	{
-		jsonFile = type + ".json";
+		jsonFile =  projectName + "/" + type + ".json";
 	}
 
-	d3.json(jsonFile, function(error, root) {
+	d3.json("" + jsonFile, function(error, root) {
 		
 		if (error)
 		{			

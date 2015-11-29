@@ -32,6 +32,7 @@ public str cleanString(str string)
 	result = replaceSingleQuotation(result);
 	result = removeTabs(result);
 	result = replaceBackslash(result);
+	result = removeNewLines(result);
 	
 	return result;
 }
@@ -86,4 +87,10 @@ private str removeTabs(str string)
 private str replaceBackslash(str string)
 {
 	return replaceAll(string, "\\", "&#92;");
+}
+
+private str removeNewLines(str string)
+{
+	result = replaceAll(string, "\\n", "");
+	return replaceAll(result, "\\r", "");
 }

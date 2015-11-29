@@ -33,7 +33,7 @@ public str createJSON(str projectName, PackageModel packageModel, CodeLineModel 
 	
 	result += "}";
 	
-	println("createJSON:<round((systemTime() - bf) / 1000)>");
+	//println("createJSON:<round((systemTime() - bf) / 1000)>");
 	
 	return result;
 }
@@ -88,7 +88,7 @@ private str jsonForSubPackages(set[Package] packages, set[CompilationUnit] compi
 	
 	result += "<indents>]\n";
 	
-	println("jsonForSubPackages:<round((systemTime() - bf) / 1000)>");
+	//println("jsonForSubPackages:<round((systemTime() - bf) / 1000)>");
 	
 	return result;
 }
@@ -122,7 +122,7 @@ private str jsonForCompilationUnits(set[CompilationUnit] compilationUnits, map[l
 		}
 	}
 	
-	println("jsonForCompilationUnits:<round((systemTime() - bf) / 1000)>");
+	//println("jsonForCompilationUnits:<round((systemTime() - bf) / 1000)>");
 	
 	return result;
 }

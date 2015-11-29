@@ -1,7 +1,7 @@
 
 {
   "name":"smallsql0.21_src",
-  "numberOfCloneClasses":0,
+  "numberOfCloneClasses":24,
   "children": [
   {
     "name":"smallsql",
@@ -233,8 +233,14 @@
         "name": "ExpressionFunctionRound",
         "children": [
           {
+            "name": "",
+            "size":11,
+            "cloneclass": "23",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/ExpressionFunctionRound.java</h3><table><tr><td>50</td><td>if(places &gt; 0){</td></tr><tr><td>51</td><td>for(int i=0; i&lt;places; i++){</td></tr><tr><td>52</td><td>factor *= 10;</td></tr><tr><td>53</td><td>}</td></tr><tr><td>54</td><td>value *= factor;</td></tr><tr><td>55</td><td>}else{</td></tr><tr><td>56</td><td>for(int i=0; i&gt;places; i--){</td></tr><tr><td>57</td><td>factor *= 10;</td></tr><tr><td>58</td><td>}</td></tr><tr><td>59</td><td>value /= factor;</td></tr><tr><td>60</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/ExpressionFunctionTruncate.java</h3><table><tr><td>50</td><td>if(places &gt; 0){</td></tr><tr><td>51</td><td>for(int i=0; i&lt;places; i++){</td></tr><tr><td>52</td><td>factor *= 10;</td></tr><tr><td>53</td><td>}</td></tr><tr><td>54</td><td>value *= factor;</td></tr><tr><td>55</td><td>}else{</td></tr><tr><td>56</td><td>for(int i=0; i&gt;places; i--){</td></tr><tr><td>57</td><td>factor *= 10;</td></tr><tr><td>58</td><td>}</td></tr><tr><td>59</td><td>value /= factor;</td></tr><tr><td>60</td><td>}</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":31,
+            "size":20,
             "cloneclass": "-1"
           }
         ]
@@ -423,8 +429,20 @@
         "name": "IndexDescription",
         "children": [
           {
+            "name": "",
+            "size":9,
+            "cloneclass": "3",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexDescription.java</h3><table><tr><td>186</td><td>catch(Throwable e){</td></tr><tr><td>187</td><td>if(raFile != null)</td></tr><tr><td>188</td><td>try{</td></tr><tr><td>189</td><td>raFile.close();</td></tr><tr><td>190</td><td>}catch(Exception e2){</td></tr><tr><td>191</td><td>DriverManager.println(e2.toString());</td></tr><tr><td>192</td><td>}</td></tr><tr><td>193</td><td>throw SmallSQLException.createFromException(e);</td></tr><tr><td>194</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/TableView.java</h3><table><tr><td>105</td><td>catch(Throwable e){</td></tr><tr><td>106</td><td>if(raFile != null)</td></tr><tr><td>107</td><td>try{</td></tr><tr><td>108</td><td>raFile.close();</td></tr><tr><td>109</td><td>}catch(Exception e2){</td></tr><tr><td>110</td><td>DriverManager.println(e2.toString());</td></tr><tr><td>111</td><td>}</td></tr><tr><td>112</td><td>throw SmallSQLException.createFromException(e);</td></tr><tr><td>113</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":9,
+            "cloneclass": "6",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexDescription.java</h3><table><tr><td>186</td><td>{</td></tr><tr><td>187</td><td>if(raFile != null)</td></tr><tr><td>188</td><td>try{</td></tr><tr><td>189</td><td>raFile.close();</td></tr><tr><td>190</td><td>}catch(Exception e2){</td></tr><tr><td>191</td><td>DriverManager.println(e2.toString());</td></tr><tr><td>192</td><td>}</td></tr><tr><td>193</td><td>throw SmallSQLException.createFromException(e);</td></tr><tr><td>194</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/TableView.java</h3><table><tr><td>105</td><td>{</td></tr><tr><td>106</td><td>if(raFile != null)</td></tr><tr><td>107</td><td>try{</td></tr><tr><td>108</td><td>raFile.close();</td></tr><tr><td>109</td><td>}catch(Exception e2){</td></tr><tr><td>110</td><td>DriverManager.println(e2.toString());</td></tr><tr><td>111</td><td>}</td></tr><tr><td>112</td><td>throw SmallSQLException.createFromException(e);</td></tr><tr><td>113</td><td>}</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":162,
+            "size":144,
             "cloneclass": "-1"
           }
         ]
@@ -643,8 +661,38 @@
         "name": "Table",
         "children": [
           {
+            "name": "",
+            "size":7,
+            "cloneclass": "22",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>388</td><td>{</td></tr><tr><td>389</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>390</td><td>while(values.hasNext()){</td></tr><tr><td>391</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>392</td><td>if(lock.con != con) return null;</td></tr><tr><td>393</td><td>}</td></tr><tr><td>394</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>358</td><td>{</td></tr><tr><td>359</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>360</td><td>while(values.hasNext()){</td></tr><tr><td>361</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>362</td><td>if(lock.con != con) return null;</td></tr><tr><td>363</td><td>}</td></tr><tr><td>364</td><td>}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>370</td><td>{</td></tr><tr><td>371</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>372</td><td>while(values.hasNext()){</td></tr><tr><td>373</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>374</td><td>if(lock.con != con) return null;</td></tr><tr><td>375</td><td>}</td></tr><tr><td>376</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "22",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>358</td><td>{</td></tr><tr><td>359</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>360</td><td>while(values.hasNext()){</td></tr><tr><td>361</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>362</td><td>if(lock.con != con) return null;</td></tr><tr><td>363</td><td>}</td></tr><tr><td>364</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>388</td><td>{</td></tr><tr><td>389</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>390</td><td>while(values.hasNext()){</td></tr><tr><td>391</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>392</td><td>if(lock.con != con) return null;</td></tr><tr><td>393</td><td>}</td></tr><tr><td>394</td><td>}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>370</td><td>{</td></tr><tr><td>371</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>372</td><td>while(values.hasNext()){</td></tr><tr><td>373</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>374</td><td>if(lock.con != con) return null;</td></tr><tr><td>375</td><td>}</td></tr><tr><td>376</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "22",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>370</td><td>{</td></tr><tr><td>371</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>372</td><td>while(values.hasNext()){</td></tr><tr><td>373</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>374</td><td>if(lock.con != con) return null;</td></tr><tr><td>375</td><td>}</td></tr><tr><td>376</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>388</td><td>{</td></tr><tr><td>389</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>390</td><td>while(values.hasNext()){</td></tr><tr><td>391</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>392</td><td>if(lock.con != con) return null;</td></tr><tr><td>393</td><td>}</td></tr><tr><td>394</td><td>}</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>358</td><td>{</td></tr><tr><td>359</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>360</td><td>while(values.hasNext()){</td></tr><tr><td>361</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>362</td><td>if(lock.con != con) return null;</td></tr><tr><td>363</td><td>}</td></tr><tr><td>364</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "4",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>388</td><td>if(serializeConnections.size() &gt; 0){</td></tr><tr><td>389</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>390</td><td>while(values.hasNext()){</td></tr><tr><td>391</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>392</td><td>if(lock.con != con) return null;</td></tr><tr><td>393</td><td>}</td></tr><tr><td>394</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>370</td><td>if(serializeConnections.size() &gt; 0){</td></tr><tr><td>371</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>372</td><td>while(values.hasNext()){</td></tr><tr><td>373</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>374</td><td>if(lock.con != con) return null;</td></tr><tr><td>375</td><td>}</td></tr><tr><td>376</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "4",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>370</td><td>if(serializeConnections.size() &gt; 0){</td></tr><tr><td>371</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>372</td><td>while(values.hasNext()){</td></tr><tr><td>373</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>374</td><td>if(lock.con != con) return null;</td></tr><tr><td>375</td><td>}</td></tr><tr><td>376</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Table.java</h3><table><tr><td>388</td><td>if(serializeConnections.size() &gt; 0){</td></tr><tr><td>389</td><td>Iterator values = locks.values().iterator();</td></tr><tr><td>390</td><td>while(values.hasNext()){</td></tr><tr><td>391</td><td>TableStorePage lock = (TableStorePage)values.next();</td></tr><tr><td>392</td><td>if(lock.con != con) return null;</td></tr><tr><td>393</td><td>}</td></tr><tr><td>394</td><td>}</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":392,
+            "size":357,
             "cloneclass": "-1"
           }
         ]
@@ -703,8 +751,14 @@
         "name": "ExpressionFunctionTruncate",
         "children": [
           {
+            "name": "",
+            "size":11,
+            "cloneclass": "23",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/ExpressionFunctionTruncate.java</h3><table><tr><td>50</td><td>if(places &gt; 0){</td></tr><tr><td>51</td><td>for(int i=0; i&lt;places; i++){</td></tr><tr><td>52</td><td>factor *= 10;</td></tr><tr><td>53</td><td>}</td></tr><tr><td>54</td><td>value *= factor;</td></tr><tr><td>55</td><td>}else{</td></tr><tr><td>56</td><td>for(int i=0; i&gt;places; i--){</td></tr><tr><td>57</td><td>factor *= 10;</td></tr><tr><td>58</td><td>}</td></tr><tr><td>59</td><td>value /= factor;</td></tr><tr><td>60</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/ExpressionFunctionRound.java</h3><table><tr><td>50</td><td>if(places &gt; 0){</td></tr><tr><td>51</td><td>for(int i=0; i&lt;places; i++){</td></tr><tr><td>52</td><td>factor *= 10;</td></tr><tr><td>53</td><td>}</td></tr><tr><td>54</td><td>value *= factor;</td></tr><tr><td>55</td><td>}else{</td></tr><tr><td>56</td><td>for(int i=0; i&gt;places; i--){</td></tr><tr><td>57</td><td>factor *= 10;</td></tr><tr><td>58</td><td>}</td></tr><tr><td>59</td><td>value /= factor;</td></tr><tr><td>60</td><td>}</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":31,
+            "size":20,
             "cloneclass": "-1"
           }
         ]
@@ -853,8 +907,14 @@
         "name": "MemoryResult",
         "children": [
           {
+            "name": "",
+            "size":7,
+            "cloneclass": "21",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/MemoryResult.java</h3><table><tr><td>98</td><td>/**</td></tr><tr><td>99</td><td>     * Add a column definition. This is used from the SQLParser.</td></tr><tr><td>100</td><td>     * @see SQLParser#createTable</td></tr><tr><td>101</td><td>     */</td></tr><tr><td>102</td><td>void addColumn( Column column ){</td></tr><tr><td>103</td><td>columns.add( column );</td></tr><tr><td>104</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/CommandCreateView.java</h3><table><tr><td>48</td><td>/**</td></tr><tr><td>49</td><td>     * Add a column definition. This is used from the SQLParser.</td></tr><tr><td>50</td><td>     * @see SQLParser#createTable</td></tr><tr><td>51</td><td>     */</td></tr><tr><td>52</td><td>void addColumn( Column column ){</td></tr><tr><td>53</td><td>columns.add( column );</td></tr><tr><td>54</td><td>}</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":183,
+            "size":176,
             "cloneclass": "-1"
           }
         ]
@@ -863,8 +923,20 @@
         "name": "Utils",
         "children": [
           {
+            "name": "",
+            "size":8,
+            "cloneclass": "10",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Utils.java</h3><table><tr><td>205</td><td>private static String bytes2hex( byte[] bytes ){</td></tr><tr><td>206</td><td>StringBuffer buf = new StringBuffer(bytes.length &lt;&lt; 1);</td></tr><tr><td>207</td><td>for(int i=0; i&lt;bytes.length; i++){</td></tr><tr><td>208</td><td>buf.append( digits[ (bytes[i] &gt;&gt; 4) & 0x0F ] );</td></tr><tr><td>209</td><td>buf.append( digits[ (bytes[i]     ) & 0x0F ] );</td></tr><tr><td>210</td><td>}</td></tr><tr><td>211</td><td>return buf.toString();</td></tr><tr><td>212</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/BasicTestCase.java</h3><table><tr><td>102</td><td>private static String bytes2hex( byte[] bytes ){</td></tr><tr><td>103</td><td>StringBuffer buf = new StringBuffer(bytes.length &lt;&lt; 1);</td></tr><tr><td>104</td><td>for(int i=0; i&lt;bytes.length; i++){</td></tr><tr><td>105</td><td>buf.append( digits[ (bytes[i] &gt;&gt; 4) & 0x0F ] );</td></tr><tr><td>106</td><td>buf.append( digits[ (bytes[i]     ) & 0x0F ] );</td></tr><tr><td>107</td><td>}</td></tr><tr><td>108</td><td>return buf.toString();</td></tr><tr><td>109</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "16",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Utils.java</h3><table><tr><td>205</td><td>{</td></tr><tr><td>206</td><td>        StringBuffer buf = new StringBuffer(bytes.length &lt;&lt; 1);</td></tr><tr><td>207</td><td>        for(int i=0; i&lt;bytes.length; i++){</td></tr><tr><td>208</td><td>            buf.append( digits[ (bytes[i] &gt;&gt; 4) & 0x0F ] );</td></tr><tr><td>209</td><td>            buf.append( digits[ (bytes[i]     ) & 0x0F ] );</td></tr><tr><td>210</td><td>        }</td></tr><tr><td>211</td><td>        return buf.toString();</td></tr><tr><td>212</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/BasicTestCase.java</h3><table><tr><td>102</td><td>{</td></tr><tr><td>103</td><td>        StringBuffer buf = new StringBuffer(bytes.length &lt;&lt; 1);</td></tr><tr><td>104</td><td>        for(int i=0; i&lt;bytes.length; i++){</td></tr><tr><td>105</td><td>            buf.append( digits[ (bytes[i] &gt;&gt; 4) & 0x0F ] );</td></tr><tr><td>106</td><td>            buf.append( digits[ (bytes[i]     ) & 0x0F ] );</td></tr><tr><td>107</td><td>        }</td></tr><tr><td>108</td><td>        return buf.toString();</td></tr><tr><td>109</td><td>    }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":354,
+            "size":338,
             "cloneclass": "-1"
           }
         ]
@@ -1013,8 +1085,56 @@
         "name": "IndexScrollStatus",
         "children": [
           {
+            "name": "",
+            "size":11,
+            "cloneclass": "14",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>120</td><td>{</td></tr><tr><td>121</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>122</td><td>level++;</td></tr><tr><td>123</td><td>nodeStack.push(</td></tr><tr><td>124</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>125</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>126</td><td>scroll, level));</td></tr><tr><td>127</td><td>continue;</td></tr><tr><td>128</td><td>}else</td></tr><tr><td>129</td><td>return getReturnValue(status.nodeValue);</td></tr><tr><td>130</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>89</td><td>{</td></tr><tr><td>90</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>91</td><td>level++;</td></tr><tr><td>92</td><td>nodeStack.push(</td></tr><tr><td>93</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>94</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>95</td><td>scroll, level));</td></tr><tr><td>96</td><td>continue;</td></tr><tr><td>97</td><td>}else</td></tr><tr><td>98</td><td>return getReturnValue(status.nodeValue);</td></tr><tr><td>99</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":11,
+            "cloneclass": "14",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>89</td><td>{</td></tr><tr><td>90</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>91</td><td>level++;</td></tr><tr><td>92</td><td>nodeStack.push(</td></tr><tr><td>93</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>94</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>95</td><td>scroll, level));</td></tr><tr><td>96</td><td>continue;</td></tr><tr><td>97</td><td>}else</td></tr><tr><td>98</td><td>return getReturnValue(status.nodeValue);</td></tr><tr><td>99</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>120</td><td>{</td></tr><tr><td>121</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>122</td><td>level++;</td></tr><tr><td>123</td><td>nodeStack.push(</td></tr><tr><td>124</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>125</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>126</td><td>scroll, level));</td></tr><tr><td>127</td><td>continue;</td></tr><tr><td>128</td><td>}else</td></tr><tr><td>129</td><td>return getReturnValue(status.nodeValue);</td></tr><tr><td>130</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":12,
+            "cloneclass": "24",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>120</td><td>if(status.nodeValue != null){</td></tr><tr><td>121</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>122</td><td>level++;</td></tr><tr><td>123</td><td>nodeStack.push(</td></tr><tr><td>124</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>125</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>126</td><td>scroll, level));</td></tr><tr><td>127</td><td>continue;</td></tr><tr><td>128</td><td>}else</td></tr><tr><td>129</td><td>return getReturnValue(status.nodeValue);</td></tr><tr><td>130</td><td>}</td></tr><tr><td>131</td><td>//There is no RowOffset in this node</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>89</td><td>if(status.nodeValue != null){</td></tr><tr><td>90</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>91</td><td>level++;</td></tr><tr><td>92</td><td>nodeStack.push(</td></tr><tr><td>93</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>94</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>95</td><td>scroll, level));</td></tr><tr><td>96</td><td>continue;</td></tr><tr><td>97</td><td>}else</td></tr><tr><td>98</td><td>return getReturnValue(status.nodeValue);</td></tr><tr><td>99</td><td>}</td></tr><tr><td>100</td><td>//There is no RowOffset in this node</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":12,
+            "cloneclass": "24",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>89</td><td>if(status.nodeValue != null){</td></tr><tr><td>90</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>91</td><td>level++;</td></tr><tr><td>92</td><td>nodeStack.push(</td></tr><tr><td>93</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>94</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>95</td><td>scroll, level));</td></tr><tr><td>96</td><td>continue;</td></tr><tr><td>97</td><td>}else</td></tr><tr><td>98</td><td>return getReturnValue(status.nodeValue);</td></tr><tr><td>99</td><td>}</td></tr><tr><td>100</td><td>//There is no RowOffset in this node</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>120</td><td>if(status.nodeValue != null){</td></tr><tr><td>121</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>122</td><td>level++;</td></tr><tr><td>123</td><td>nodeStack.push(</td></tr><tr><td>124</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>125</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>126</td><td>scroll, level));</td></tr><tr><td>127</td><td>continue;</td></tr><tr><td>128</td><td>}else</td></tr><tr><td>129</td><td>return getReturnValue(status.nodeValue);</td></tr><tr><td>130</td><td>}</td></tr><tr><td>131</td><td>//There is no RowOffset in this node</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "12",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>121</td><td>{</td></tr><tr><td>122</td><td>level++;</td></tr><tr><td>123</td><td>nodeStack.push(</td></tr><tr><td>124</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>125</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>126</td><td>scroll, level));</td></tr><tr><td>127</td><td>continue;</td></tr><tr><td>128</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>90</td><td>{</td></tr><tr><td>91</td><td>level++;</td></tr><tr><td>92</td><td>nodeStack.push(</td></tr><tr><td>93</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>94</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>95</td><td>scroll, level));</td></tr><tr><td>96</td><td>continue;</td></tr><tr><td>97</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "12",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>90</td><td>{</td></tr><tr><td>91</td><td>level++;</td></tr><tr><td>92</td><td>nodeStack.push(</td></tr><tr><td>93</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>94</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>95</td><td>scroll, level));</td></tr><tr><td>96</td><td>continue;</td></tr><tr><td>97</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>121</td><td>{</td></tr><tr><td>122</td><td>level++;</td></tr><tr><td>123</td><td>nodeStack.push(</td></tr><tr><td>124</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>125</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>126</td><td>scroll, level));</td></tr><tr><td>127</td><td>continue;</td></tr><tr><td>128</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":9,
+            "cloneclass": "17",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>121</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>122</td><td>level++;</td></tr><tr><td>123</td><td>nodeStack.push(</td></tr><tr><td>124</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>125</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>126</td><td>scroll, level));</td></tr><tr><td>127</td><td>continue;</td></tr><tr><td>128</td><td>}else</td></tr><tr><td>129</td><td>return getReturnValue(status.nodeValue);</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>90</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>91</td><td>level++;</td></tr><tr><td>92</td><td>nodeStack.push(</td></tr><tr><td>93</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>94</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>95</td><td>scroll, level));</td></tr><tr><td>96</td><td>continue;</td></tr><tr><td>97</td><td>}else</td></tr><tr><td>98</td><td>return getReturnValue(status.nodeValue);</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":9,
+            "cloneclass": "17",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>90</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>91</td><td>level++;</td></tr><tr><td>92</td><td>nodeStack.push(</td></tr><tr><td>93</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>94</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>95</td><td>scroll, level));</td></tr><tr><td>96</td><td>continue;</td></tr><tr><td>97</td><td>}else</td></tr><tr><td>98</td><td>return getReturnValue(status.nodeValue);</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexScrollStatus.java</h3><table><tr><td>121</td><td>if(status.nodeValue instanceof IndexNode){</td></tr><tr><td>122</td><td>level++;</td></tr><tr><td>123</td><td>nodeStack.push(</td></tr><tr><td>124</td><td>new IndexNodeScrollStatus( (IndexNode)status.nodeValue, </td></tr><tr><td>125</td><td>(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), </td></tr><tr><td>126</td><td>scroll, level));</td></tr><tr><td>127</td><td>continue;</td></tr><tr><td>128</td><td>}else</td></tr><tr><td>129</td><td>return getReturnValue(status.nodeValue);</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":102,
+            "size":22,
             "cloneclass": "-1"
           }
         ]
@@ -1043,8 +1163,14 @@
         "name": "CommandCreateView",
         "children": [
           {
+            "name": "",
+            "size":7,
+            "cloneclass": "21",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/CommandCreateView.java</h3><table><tr><td>48</td><td>/**</td></tr><tr><td>49</td><td>     * Add a column definition. This is used from the SQLParser.</td></tr><tr><td>50</td><td>     * @see SQLParser#createTable</td></tr><tr><td>51</td><td>     */</td></tr><tr><td>52</td><td>void addColumn( Column column ){</td></tr><tr><td>53</td><td>columns.add( column );</td></tr><tr><td>54</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/MemoryResult.java</h3><table><tr><td>98</td><td>/**</td></tr><tr><td>99</td><td>     * Add a column definition. This is used from the SQLParser.</td></tr><tr><td>100</td><td>     * @see SQLParser#createTable</td></tr><tr><td>101</td><td>     */</td></tr><tr><td>102</td><td>void addColumn( Column column ){</td></tr><tr><td>103</td><td>columns.add( column );</td></tr><tr><td>104</td><td>}</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":16,
+            "size":9,
             "cloneclass": "-1"
           }
         ]
@@ -1133,8 +1259,20 @@
         "name": "TableView",
         "children": [
           {
+            "name": "",
+            "size":9,
+            "cloneclass": "3",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/TableView.java</h3><table><tr><td>105</td><td>catch(Throwable e){</td></tr><tr><td>106</td><td>if(raFile != null)</td></tr><tr><td>107</td><td>try{</td></tr><tr><td>108</td><td>raFile.close();</td></tr><tr><td>109</td><td>}catch(Exception e2){</td></tr><tr><td>110</td><td>DriverManager.println(e2.toString());</td></tr><tr><td>111</td><td>}</td></tr><tr><td>112</td><td>throw SmallSQLException.createFromException(e);</td></tr><tr><td>113</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexDescription.java</h3><table><tr><td>186</td><td>catch(Throwable e){</td></tr><tr><td>187</td><td>if(raFile != null)</td></tr><tr><td>188</td><td>try{</td></tr><tr><td>189</td><td>raFile.close();</td></tr><tr><td>190</td><td>}catch(Exception e2){</td></tr><tr><td>191</td><td>DriverManager.println(e2.toString());</td></tr><tr><td>192</td><td>}</td></tr><tr><td>193</td><td>throw SmallSQLException.createFromException(e);</td></tr><tr><td>194</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":9,
+            "cloneclass": "6",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/TableView.java</h3><table><tr><td>105</td><td>{</td></tr><tr><td>106</td><td>if(raFile != null)</td></tr><tr><td>107</td><td>try{</td></tr><tr><td>108</td><td>raFile.close();</td></tr><tr><td>109</td><td>}catch(Exception e2){</td></tr><tr><td>110</td><td>DriverManager.println(e2.toString());</td></tr><tr><td>111</td><td>}</td></tr><tr><td>112</td><td>throw SmallSQLException.createFromException(e);</td></tr><tr><td>113</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/IndexDescription.java</h3><table><tr><td>186</td><td>{</td></tr><tr><td>187</td><td>if(raFile != null)</td></tr><tr><td>188</td><td>try{</td></tr><tr><td>189</td><td>raFile.close();</td></tr><tr><td>190</td><td>}catch(Exception e2){</td></tr><tr><td>191</td><td>DriverManager.println(e2.toString());</td></tr><tr><td>192</td><td>}</td></tr><tr><td>193</td><td>throw SmallSQLException.createFromException(e);</td></tr><tr><td>194</td><td>}</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":101,
+            "size":83,
             "cloneclass": "-1"
           }
         ]
@@ -1193,8 +1331,32 @@
         "name": "SSCallableStatement",
         "children": [
           {
+            "name": "",
+            "size":7,
+            "cloneclass": "7",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/SSCallableStatement.java</h3><table><tr><td>118</td><td>try{</td></tr><tr><td>119</td><td>            Expression expr = getValue(i);</td></tr><tr><td>120</td><td>            wasNull = expr.isNull();</td></tr><tr><td>121</td><td>            return expr.getLong();</td></tr><tr><td>122</td><td>        }catch(Exception e){</td></tr><tr><td>123</td><td>            throw SmallSQLException.createFromException( e );</td></tr><tr><td>124</td><td>        }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/SSCallableStatement.java</h3><table><tr><td>136</td><td>try{</td></tr><tr><td>137</td><td>            Expression expr = getValue(i);</td></tr><tr><td>138</td><td>            wasNull = expr.isNull();</td></tr><tr><td>139</td><td>            return expr.getLong();</td></tr><tr><td>140</td><td>        }catch(Exception e){</td></tr><tr><td>141</td><td>            throw SmallSQLException.createFromException( e );</td></tr><tr><td>142</td><td>        }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "7",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/SSCallableStatement.java</h3><table><tr><td>136</td><td>try{</td></tr><tr><td>137</td><td>            Expression expr = getValue(i);</td></tr><tr><td>138</td><td>            wasNull = expr.isNull();</td></tr><tr><td>139</td><td>            return expr.getLong();</td></tr><tr><td>140</td><td>        }catch(Exception e){</td></tr><tr><td>141</td><td>            throw SmallSQLException.createFromException( e );</td></tr><tr><td>142</td><td>        }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/SSCallableStatement.java</h3><table><tr><td>118</td><td>try{</td></tr><tr><td>119</td><td>            Expression expr = getValue(i);</td></tr><tr><td>120</td><td>            wasNull = expr.isNull();</td></tr><tr><td>121</td><td>            return expr.getLong();</td></tr><tr><td>122</td><td>        }catch(Exception e){</td></tr><tr><td>123</td><td>            throw SmallSQLException.createFromException( e );</td></tr><tr><td>124</td><td>        }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":9,
+            "cloneclass": "20",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/SSCallableStatement.java</h3><table><tr><td>135</td><td>{</td></tr><tr><td>136</td><td>        try{</td></tr><tr><td>137</td><td>            Expression expr = getValue(i);</td></tr><tr><td>138</td><td>            wasNull = expr.isNull();</td></tr><tr><td>139</td><td>            return expr.getLong();</td></tr><tr><td>140</td><td>        }catch(Exception e){</td></tr><tr><td>141</td><td>            throw SmallSQLException.createFromException( e );</td></tr><tr><td>142</td><td>        }</td></tr><tr><td>143</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/SSCallableStatement.java</h3><table><tr><td>117</td><td>{</td></tr><tr><td>118</td><td>        try{</td></tr><tr><td>119</td><td>            Expression expr = getValue(i);</td></tr><tr><td>120</td><td>            wasNull = expr.isNull();</td></tr><tr><td>121</td><td>            return expr.getLong();</td></tr><tr><td>122</td><td>        }catch(Exception e){</td></tr><tr><td>123</td><td>            throw SmallSQLException.createFromException( e );</td></tr><tr><td>124</td><td>        }</td></tr><tr><td>125</td><td>    }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":9,
+            "cloneclass": "20",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/SSCallableStatement.java</h3><table><tr><td>117</td><td>{</td></tr><tr><td>118</td><td>        try{</td></tr><tr><td>119</td><td>            Expression expr = getValue(i);</td></tr><tr><td>120</td><td>            wasNull = expr.isNull();</td></tr><tr><td>121</td><td>            return expr.getLong();</td></tr><tr><td>122</td><td>        }catch(Exception e){</td></tr><tr><td>123</td><td>            throw SmallSQLException.createFromException( e );</td></tr><tr><td>124</td><td>        }</td></tr><tr><td>125</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/SSCallableStatement.java</h3><table><tr><td>135</td><td>{</td></tr><tr><td>136</td><td>        try{</td></tr><tr><td>137</td><td>            Expression expr = getValue(i);</td></tr><tr><td>138</td><td>            wasNull = expr.isNull();</td></tr><tr><td>139</td><td>            return expr.getLong();</td></tr><tr><td>140</td><td>        }catch(Exception e){</td></tr><tr><td>141</td><td>            throw SmallSQLException.createFromException( e );</td></tr><tr><td>142</td><td>        }</td></tr><tr><td>143</td><td>    }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":343,
+            "size":311,
             "cloneclass": "-1"
           }
         ]
@@ -1643,8 +1805,20 @@
         "name": "BasicTestCase",
         "children": [
           {
+            "name": "",
+            "size":8,
+            "cloneclass": "10",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/BasicTestCase.java</h3><table><tr><td>102</td><td>private static String bytes2hex( byte[] bytes ){</td></tr><tr><td>103</td><td>StringBuffer buf = new StringBuffer(bytes.length &lt;&lt; 1);</td></tr><tr><td>104</td><td>for(int i=0; i&lt;bytes.length; i++){</td></tr><tr><td>105</td><td>buf.append( digits[ (bytes[i] &gt;&gt; 4) & 0x0F ] );</td></tr><tr><td>106</td><td>buf.append( digits[ (bytes[i]     ) & 0x0F ] );</td></tr><tr><td>107</td><td>}</td></tr><tr><td>108</td><td>return buf.toString();</td></tr><tr><td>109</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Utils.java</h3><table><tr><td>205</td><td>private static String bytes2hex( byte[] bytes ){</td></tr><tr><td>206</td><td>StringBuffer buf = new StringBuffer(bytes.length &lt;&lt; 1);</td></tr><tr><td>207</td><td>for(int i=0; i&lt;bytes.length; i++){</td></tr><tr><td>208</td><td>buf.append( digits[ (bytes[i] &gt;&gt; 4) & 0x0F ] );</td></tr><tr><td>209</td><td>buf.append( digits[ (bytes[i]     ) & 0x0F ] );</td></tr><tr><td>210</td><td>}</td></tr><tr><td>211</td><td>return buf.toString();</td></tr><tr><td>212</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "16",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/BasicTestCase.java</h3><table><tr><td>102</td><td>{</td></tr><tr><td>103</td><td>        StringBuffer buf = new StringBuffer(bytes.length &lt;&lt; 1);</td></tr><tr><td>104</td><td>        for(int i=0; i&lt;bytes.length; i++){</td></tr><tr><td>105</td><td>            buf.append( digits[ (bytes[i] &gt;&gt; 4) & 0x0F ] );</td></tr><tr><td>106</td><td>            buf.append( digits[ (bytes[i]     ) & 0x0F ] );</td></tr><tr><td>107</td><td>        }</td></tr><tr><td>108</td><td>        return buf.toString();</td></tr><tr><td>109</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/database/Utils.java</h3><table><tr><td>205</td><td>{</td></tr><tr><td>206</td><td>        StringBuffer buf = new StringBuffer(bytes.length &lt;&lt; 1);</td></tr><tr><td>207</td><td>        for(int i=0; i&lt;bytes.length; i++){</td></tr><tr><td>208</td><td>            buf.append( digits[ (bytes[i] &gt;&gt; 4) & 0x0F ] );</td></tr><tr><td>209</td><td>            buf.append( digits[ (bytes[i]     ) & 0x0F ] );</td></tr><tr><td>210</td><td>        }</td></tr><tr><td>211</td><td>        return buf.toString();</td></tr><tr><td>212</td><td>    }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":283,
+            "size":267,
             "cloneclass": "-1"
           }
         ]
@@ -1663,8 +1837,26 @@
         "name": "TestDataTypes",
         "children": [
           {
+            "name": "",
+            "size":10,
+            "cloneclass": "13",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>68</td><td>{</td></tr><tr><td>69</td><td>        try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr><tr><td>77</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>374</td><td>{</td></tr><tr><td>375</td><td>        try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr><tr><td>383</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>95</td><td>{</td></tr><tr><td>96</td><td>        try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr><tr><td>104</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>53</td><td>{</td></tr><tr><td>54</td><td>        try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr><tr><td>62</td><td>    }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "18",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>69</td><td>try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>54</td><td>try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>375</td><td>try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>96</td><td>try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":10,
+            "cloneclass": "8",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>68</td><td>public void tearDown(){</td></tr><tr><td>69</td><td>        try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr><tr><td>77</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>374</td><td>public void tearDown(){</td></tr><tr><td>375</td><td>        try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr><tr><td>383</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>95</td><td>public void tearDown(){</td></tr><tr><td>96</td><td>        try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr><tr><td>104</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>53</td><td>public void tearDown(){</td></tr><tr><td>54</td><td>        try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr><tr><td>62</td><td>    }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":279,
+            "size":251,
             "cloneclass": "-1"
           }
         ]
@@ -1673,8 +1865,32 @@
         "name": "TestOrderBy",
         "children": [
           {
+            "name": "",
+            "size":8,
+            "cloneclass": "9",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOrderBy.java</h3><table><tr><td>239</td><td>{</td></tr><tr><td>240</td><td>String newValue = rs.getString(&#x22;v&#x22;);</td></tr><tr><td>241</td><td>if(newValue != null){</td></tr><tr><td>242</td><td>assertTrue( oldValue.compareTo( newValue ) &gt; 0 );</td></tr><tr><td>243</td><td>count++;</td></tr><tr><td>244</td><td>}</td></tr><tr><td>245</td><td>oldValue = newValue;</td></tr><tr><td>246</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOrderBy.java</h3><table><tr><td>211</td><td>{</td></tr><tr><td>212</td><td>String newValue = rs.getString(&#x22;v&#x22;);</td></tr><tr><td>213</td><td>if(newValue != null){</td></tr><tr><td>214</td><td>assertTrue( oldValue.compareTo( newValue ) &gt; 0 );</td></tr><tr><td>215</td><td>count++;</td></tr><tr><td>216</td><td>}</td></tr><tr><td>217</td><td>oldValue = newValue;</td></tr><tr><td>218</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "9",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOrderBy.java</h3><table><tr><td>211</td><td>{</td></tr><tr><td>212</td><td>String newValue = rs.getString(&#x22;v&#x22;);</td></tr><tr><td>213</td><td>if(newValue != null){</td></tr><tr><td>214</td><td>assertTrue( oldValue.compareTo( newValue ) &gt; 0 );</td></tr><tr><td>215</td><td>count++;</td></tr><tr><td>216</td><td>}</td></tr><tr><td>217</td><td>oldValue = newValue;</td></tr><tr><td>218</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOrderBy.java</h3><table><tr><td>239</td><td>{</td></tr><tr><td>240</td><td>String newValue = rs.getString(&#x22;v&#x22;);</td></tr><tr><td>241</td><td>if(newValue != null){</td></tr><tr><td>242</td><td>assertTrue( oldValue.compareTo( newValue ) &gt; 0 );</td></tr><tr><td>243</td><td>count++;</td></tr><tr><td>244</td><td>}</td></tr><tr><td>245</td><td>oldValue = newValue;</td></tr><tr><td>246</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "2",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOrderBy.java</h3><table><tr><td>239</td><td>while(oldValue != null && rs.next()){</td></tr><tr><td>240</td><td>String newValue = rs.getString(&#x22;v&#x22;);</td></tr><tr><td>241</td><td>if(newValue != null){</td></tr><tr><td>242</td><td>assertTrue( oldValue.compareTo( newValue ) &gt; 0 );</td></tr><tr><td>243</td><td>count++;</td></tr><tr><td>244</td><td>}</td></tr><tr><td>245</td><td>oldValue = newValue;</td></tr><tr><td>246</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOrderBy.java</h3><table><tr><td>211</td><td>while(oldValue != null && rs.next()){</td></tr><tr><td>212</td><td>String newValue = rs.getString(&#x22;v&#x22;);</td></tr><tr><td>213</td><td>if(newValue != null){</td></tr><tr><td>214</td><td>assertTrue( oldValue.compareTo( newValue ) &gt; 0 );</td></tr><tr><td>215</td><td>count++;</td></tr><tr><td>216</td><td>}</td></tr><tr><td>217</td><td>oldValue = newValue;</td></tr><tr><td>218</td><td>}</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "2",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOrderBy.java</h3><table><tr><td>211</td><td>while(oldValue != null && rs.next()){</td></tr><tr><td>212</td><td>String newValue = rs.getString(&#x22;v&#x22;);</td></tr><tr><td>213</td><td>if(newValue != null){</td></tr><tr><td>214</td><td>assertTrue( oldValue.compareTo( newValue ) &gt; 0 );</td></tr><tr><td>215</td><td>count++;</td></tr><tr><td>216</td><td>}</td></tr><tr><td>217</td><td>oldValue = newValue;</td></tr><tr><td>218</td><td>}</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOrderBy.java</h3><table><tr><td>239</td><td>while(oldValue != null && rs.next()){</td></tr><tr><td>240</td><td>String newValue = rs.getString(&#x22;v&#x22;);</td></tr><tr><td>241</td><td>if(newValue != null){</td></tr><tr><td>242</td><td>assertTrue( oldValue.compareTo( newValue ) &gt; 0 );</td></tr><tr><td>243</td><td>count++;</td></tr><tr><td>244</td><td>}</td></tr><tr><td>245</td><td>oldValue = newValue;</td></tr><tr><td>246</td><td>}</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":613,
+            "size":581,
             "cloneclass": "-1"
           }
         ]
@@ -1723,8 +1939,20 @@
         "name": "TestAlterTable2",
         "children": [
           {
+            "name": "",
+            "size":7,
+            "cloneclass": "11",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestAlterTable2.java</h3><table><tr><td>20</td><td>{</td></tr><tr><td>21</td><td>        try {</td></tr><tr><td>22</td><td>            dropTable( AllTests.getConnection(), table );</td></tr><tr><td>23</td><td>        } catch (SQLException ex) {</td></tr><tr><td>24</td><td>            ex.printStackTrace();</td></tr><tr><td>25</td><td>        }</td></tr><tr><td>26</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestAlterTable.java</h3><table><tr><td>39</td><td>{</td></tr><tr><td>40</td><td>        try {</td></tr><tr><td>41</td><td>            dropTable( AllTests.getConnection(), table );</td></tr><tr><td>42</td><td>        } catch (SQLException ex) {</td></tr><tr><td>43</td><td>            ex.printStackTrace();</td></tr><tr><td>44</td><td>        }</td></tr><tr><td>45</td><td>    }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "5",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestAlterTable2.java</h3><table><tr><td>20</td><td>public void tearDown(){</td></tr><tr><td>21</td><td>        try {</td></tr><tr><td>22</td><td>            dropTable( AllTests.getConnection(), table );</td></tr><tr><td>23</td><td>        } catch (SQLException ex) {</td></tr><tr><td>24</td><td>            ex.printStackTrace();</td></tr><tr><td>25</td><td>        }</td></tr><tr><td>26</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestAlterTable.java</h3><table><tr><td>39</td><td>public void tearDown(){</td></tr><tr><td>40</td><td>        try {</td></tr><tr><td>41</td><td>            dropTable( AllTests.getConnection(), table );</td></tr><tr><td>42</td><td>        } catch (SQLException ex) {</td></tr><tr><td>43</td><td>            ex.printStackTrace();</td></tr><tr><td>44</td><td>        }</td></tr><tr><td>45</td><td>    }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":60,
+            "size":46,
             "cloneclass": "-1"
           }
         ]
@@ -1733,8 +1961,38 @@
         "name": "TestOperatoren",
         "children": [
           {
+            "name": "",
+            "size":10,
+            "cloneclass": "13",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>95</td><td>{</td></tr><tr><td>96</td><td>        try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr><tr><td>104</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>374</td><td>{</td></tr><tr><td>375</td><td>        try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr><tr><td>383</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>53</td><td>{</td></tr><tr><td>54</td><td>        try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr><tr><td>62</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>68</td><td>{</td></tr><tr><td>69</td><td>        try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr><tr><td>77</td><td>    }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "19",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>267</td><td>{</td></tr><tr><td>268</td><td>        TestValue value = new TestValue();</td></tr><tr><td>269</td><td>        value.dataType  = dataType;</td></tr><tr><td>270</td><td>        value.small     = small;</td></tr><tr><td>271</td><td>        value.large     = large;</td></tr><tr><td>272</td><td>        return value;</td></tr><tr><td>273</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestJoins.java</h3><table><tr><td>204</td><td>{</td></tr><tr><td>205</td><td>        TestValue value = new TestValue();</td></tr><tr><td>206</td><td>        value.dataType  = dataType;</td></tr><tr><td>207</td><td>        value.small     = small;</td></tr><tr><td>208</td><td>        value.large     = large;</td></tr><tr><td>209</td><td>        return value;</td></tr><tr><td>210</td><td>    }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "18",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>96</td><td>try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>54</td><td>try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>375</td><td>try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>69</td><td>try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "25",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>267</td><td>private static TestValue a(String dataType, Object small, Object large){</td></tr><tr><td>268</td><td>        TestValue value = new TestValue();</td></tr><tr><td>269</td><td>        value.dataType  = dataType;</td></tr><tr><td>270</td><td>        value.small     = small;</td></tr><tr><td>271</td><td>        value.large     = large;</td></tr><tr><td>272</td><td>        return value;</td></tr><tr><td>273</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestJoins.java</h3><table><tr><td>204</td><td>private static TestValue a(String dataType, Object small, Object large){</td></tr><tr><td>205</td><td>        TestValue value = new TestValue();</td></tr><tr><td>206</td><td>        value.dataType  = dataType;</td></tr><tr><td>207</td><td>        value.small     = small;</td></tr><tr><td>208</td><td>        value.large     = large;</td></tr><tr><td>209</td><td>        return value;</td></tr><tr><td>210</td><td>    }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":10,
+            "cloneclass": "8",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>95</td><td>public void tearDown(){</td></tr><tr><td>96</td><td>        try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr><tr><td>104</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>374</td><td>public void tearDown(){</td></tr><tr><td>375</td><td>        try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr><tr><td>383</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>53</td><td>public void tearDown(){</td></tr><tr><td>54</td><td>        try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr><tr><td>62</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>68</td><td>public void tearDown(){</td></tr><tr><td>69</td><td>        try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr><tr><td>77</td><td>    }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":208,
+            "size":166,
             "cloneclass": "-1"
           }
         ]
@@ -1753,8 +2011,20 @@
         "name": "TestAlterTable",
         "children": [
           {
+            "name": "",
+            "size":7,
+            "cloneclass": "11",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestAlterTable.java</h3><table><tr><td>39</td><td>{</td></tr><tr><td>40</td><td>        try {</td></tr><tr><td>41</td><td>            dropTable( AllTests.getConnection(), table );</td></tr><tr><td>42</td><td>        } catch (SQLException ex) {</td></tr><tr><td>43</td><td>            ex.printStackTrace();</td></tr><tr><td>44</td><td>        }</td></tr><tr><td>45</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestAlterTable2.java</h3><table><tr><td>20</td><td>{</td></tr><tr><td>21</td><td>        try {</td></tr><tr><td>22</td><td>            dropTable( AllTests.getConnection(), table );</td></tr><tr><td>23</td><td>        } catch (SQLException ex) {</td></tr><tr><td>24</td><td>            ex.printStackTrace();</td></tr><tr><td>25</td><td>        }</td></tr><tr><td>26</td><td>    }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "5",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestAlterTable.java</h3><table><tr><td>39</td><td>public void tearDown(){</td></tr><tr><td>40</td><td>        try {</td></tr><tr><td>41</td><td>            dropTable( AllTests.getConnection(), table );</td></tr><tr><td>42</td><td>        } catch (SQLException ex) {</td></tr><tr><td>43</td><td>            ex.printStackTrace();</td></tr><tr><td>44</td><td>        }</td></tr><tr><td>45</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestAlterTable2.java</h3><table><tr><td>20</td><td>public void tearDown(){</td></tr><tr><td>21</td><td>        try {</td></tr><tr><td>22</td><td>            dropTable( AllTests.getConnection(), table );</td></tr><tr><td>23</td><td>        } catch (SQLException ex) {</td></tr><tr><td>24</td><td>            ex.printStackTrace();</td></tr><tr><td>25</td><td>        }</td></tr><tr><td>26</td><td>    }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":96,
+            "size":82,
             "cloneclass": "-1"
           }
         ]
@@ -1763,8 +2033,26 @@
         "name": "TestMoneyRounding",
         "children": [
           {
+            "name": "",
+            "size":10,
+            "cloneclass": "13",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>53</td><td>{</td></tr><tr><td>54</td><td>        try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr><tr><td>62</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>374</td><td>{</td></tr><tr><td>375</td><td>        try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr><tr><td>383</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>95</td><td>{</td></tr><tr><td>96</td><td>        try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr><tr><td>104</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>68</td><td>{</td></tr><tr><td>69</td><td>        try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr><tr><td>77</td><td>    }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "18",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>54</td><td>try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>375</td><td>try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>69</td><td>try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>96</td><td>try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":10,
+            "cloneclass": "8",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>53</td><td>public void tearDown(){</td></tr><tr><td>54</td><td>        try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr><tr><td>62</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>374</td><td>public void tearDown(){</td></tr><tr><td>375</td><td>        try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr><tr><td>383</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>95</td><td>public void tearDown(){</td></tr><tr><td>96</td><td>        try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr><tr><td>104</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>68</td><td>public void tearDown(){</td></tr><tr><td>69</td><td>        try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr><tr><td>77</td><td>    }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":66,
+            "size":38,
             "cloneclass": "-1"
           }
         ]
@@ -1793,8 +2081,20 @@
         "name": "TestJoins",
         "children": [
           {
+            "name": "",
+            "size":7,
+            "cloneclass": "19",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestJoins.java</h3><table><tr><td>204</td><td>{</td></tr><tr><td>205</td><td>        TestValue value = new TestValue();</td></tr><tr><td>206</td><td>        value.dataType  = dataType;</td></tr><tr><td>207</td><td>        value.small     = small;</td></tr><tr><td>208</td><td>        value.large     = large;</td></tr><tr><td>209</td><td>        return value;</td></tr><tr><td>210</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>267</td><td>{</td></tr><tr><td>268</td><td>        TestValue value = new TestValue();</td></tr><tr><td>269</td><td>        value.dataType  = dataType;</td></tr><tr><td>270</td><td>        value.small     = small;</td></tr><tr><td>271</td><td>        value.large     = large;</td></tr><tr><td>272</td><td>        return value;</td></tr><tr><td>273</td><td>    }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "25",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestJoins.java</h3><table><tr><td>204</td><td>private static TestValue a(String dataType, Object small, Object large){</td></tr><tr><td>205</td><td>        TestValue value = new TestValue();</td></tr><tr><td>206</td><td>        value.dataType  = dataType;</td></tr><tr><td>207</td><td>        value.small     = small;</td></tr><tr><td>208</td><td>        value.large     = large;</td></tr><tr><td>209</td><td>        return value;</td></tr><tr><td>210</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>267</td><td>private static TestValue a(String dataType, Object small, Object large){</td></tr><tr><td>268</td><td>        TestValue value = new TestValue();</td></tr><tr><td>269</td><td>        value.dataType  = dataType;</td></tr><tr><td>270</td><td>        value.small     = small;</td></tr><tr><td>271</td><td>        value.large     = large;</td></tr><tr><td>272</td><td>        return value;</td></tr><tr><td>273</td><td>    }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":156,
+            "size":142,
             "cloneclass": "-1"
           }
         ]
@@ -1813,8 +2113,20 @@
         "name": "BenchTest",
         "children": [
           {
+            "name": "",
+            "size":7,
+            "cloneclass": "15",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/BenchTest.java</h3><table><tr><td>322</td><td>// There are not the correct count of rows.</td></tr><tr><td>323</td><td>                if (count == 0){</td></tr><tr><td>324</td><td>                    createTestDataWithClassicInsert( con );</td></tr><tr><td>325</td><td>                    rs = st1.executeQuery( &#x22;SELECT count(*) FROM &#x22; + tableName);</td></tr><tr><td>326</td><td>                    rs.next();</td></tr><tr><td>327</td><td>                    count = rs.getInt(1);</td></tr><tr><td>328</td><td>                }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/BenchTest.java</h3><table><tr><td>208</td><td>// There are not the correct count of rows.</td></tr><tr><td>209</td><td>                if (count == 0){</td></tr><tr><td>210</td><td>                    createTestDataWithClassicInsert( con );</td></tr><tr><td>211</td><td>                    rs = st1.executeQuery( &#x22;SELECT count(*) FROM &#x22; + tableName);</td></tr><tr><td>212</td><td>                    rs.next();</td></tr><tr><td>213</td><td>                    count = rs.getInt(1);</td></tr><tr><td>214</td><td>                }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":7,
+            "cloneclass": "15",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/BenchTest.java</h3><table><tr><td>208</td><td>// There are not the correct count of rows.</td></tr><tr><td>209</td><td>                if (count == 0){</td></tr><tr><td>210</td><td>                    createTestDataWithClassicInsert( con );</td></tr><tr><td>211</td><td>                    rs = st1.executeQuery( &#x22;SELECT count(*) FROM &#x22; + tableName);</td></tr><tr><td>212</td><td>                    rs.next();</td></tr><tr><td>213</td><td>                    count = rs.getInt(1);</td></tr><tr><td>214</td><td>                }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/BenchTest.java</h3><table><tr><td>322</td><td>// There are not the correct count of rows.</td></tr><tr><td>323</td><td>                if (count == 0){</td></tr><tr><td>324</td><td>                    createTestDataWithClassicInsert( con );</td></tr><tr><td>325</td><td>                    rs = st1.executeQuery( &#x22;SELECT count(*) FROM &#x22; + tableName);</td></tr><tr><td>326</td><td>                    rs.next();</td></tr><tr><td>327</td><td>                    count = rs.getInt(1);</td></tr><tr><td>328</td><td>                }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":589,
+            "size":575,
             "cloneclass": "-1"
           }
         ]
@@ -1833,8 +2145,26 @@
         "name": "TestFunctions",
         "children": [
           {
+            "name": "",
+            "size":10,
+            "cloneclass": "13",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>374</td><td>{</td></tr><tr><td>375</td><td>        try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr><tr><td>383</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>95</td><td>{</td></tr><tr><td>96</td><td>        try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr><tr><td>104</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>53</td><td>{</td></tr><tr><td>54</td><td>        try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr><tr><td>62</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>68</td><td>{</td></tr><tr><td>69</td><td>        try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr><tr><td>77</td><td>    }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":8,
+            "cloneclass": "18",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>375</td><td>try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>54</td><td>try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>69</td><td>try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>96</td><td>try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr></table>"
+          },
+          {
+            "name": "",
+            "size":10,
+            "cloneclass": "8",
+            "codeFragment": "<h1>Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestFunctions.java</h3><table><tr><td>374</td><td>public void tearDown(){</td></tr><tr><td>375</td><td>        try{</td></tr><tr><td>376</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>377</td><td>            Statement st = con.createStatement();</td></tr><tr><td>378</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>379</td><td>            st.close();</td></tr><tr><td>380</td><td>        }catch(Throwable e){</td></tr><tr><td>381</td><td>            //e.printStackTrace();</td></tr><tr><td>382</td><td>        }</td></tr><tr><td>383</td><td>    }</td></tr></table><h1>Clones from Selected CodeFragment</h1><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestOperatoren.java</h3><table><tr><td>95</td><td>public void tearDown(){</td></tr><tr><td>96</td><td>        try{</td></tr><tr><td>97</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>98</td><td>            Statement st = con.createStatement();</td></tr><tr><td>99</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>100</td><td>            st.close();</td></tr><tr><td>101</td><td>        }catch(Throwable e){</td></tr><tr><td>102</td><td>            //e.printStackTrace();</td></tr><tr><td>103</td><td>        }</td></tr><tr><td>104</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestMoneyRounding.java</h3><table><tr><td>53</td><td>public void tearDown(){</td></tr><tr><td>54</td><td>        try{</td></tr><tr><td>55</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>56</td><td>            Statement st = con.createStatement();</td></tr><tr><td>57</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>58</td><td>            st.close();</td></tr><tr><td>59</td><td>        }catch(Throwable e){</td></tr><tr><td>60</td><td>            //e.printStackTrace();</td></tr><tr><td>61</td><td>        }</td></tr><tr><td>62</td><td>    }</td></tr></table><h3>/Users/tonheijligers/Documents/WorkspaceSE/smallsql0.21_src/src/smallsql/junit/TestDataTypes.java</h3><table><tr><td>68</td><td>public void tearDown(){</td></tr><tr><td>69</td><td>        try{</td></tr><tr><td>70</td><td>            Connection con = AllTests.getConnection();</td></tr><tr><td>71</td><td>            Statement st = con.createStatement();</td></tr><tr><td>72</td><td>            st.execute(&#x22;drop table &#x22; + table);</td></tr><tr><td>73</td><td>            st.close();</td></tr><tr><td>74</td><td>        }catch(Throwable e){</td></tr><tr><td>75</td><td>            //e.printStackTrace();</td></tr><tr><td>76</td><td>        }</td></tr><tr><td>77</td><td>    }</td></tr></table>"
+          },
+          {
             "name": "no clone",
-            "size":370,
+            "size":342,
             "cloneclass": "-1"
           }
         ]

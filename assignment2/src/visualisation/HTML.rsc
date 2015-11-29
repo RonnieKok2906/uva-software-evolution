@@ -25,6 +25,19 @@ public str htmlForCloneClass(CloneFragment cloneFragment, CloneClass cloneClass)
 	return result;
 }
 
+public str cleanString(str string)
+{
+	result = replaceLTandGT(string);
+	result = replaceDoubleQuotation(result);
+	result = replaceSingleQuotation(result);
+	result = removeTabs(result);
+	result = replaceBackslash(result);
+	
+	return result;
+}
+
+
+//Private Functions
 private str htmlForCloneFragment(list[CodeLine] lines)
 {
 	str result = "";
@@ -48,36 +61,22 @@ private str htmlForCloneFragment(list[CodeLine] lines)
 	return result;
 }
 
-private str cleanString(str string)
-{
-	result = escapeLTandST(string);
-	result = removeTabs(result);
-	result = quotationMark(result);
-	result = singleQuotation(result);
-	result = removeBackslash(result);
-	
-	return result;
-}
 
-private str escapeLTandST(str string)
+
+private str replaceLTandGT(str string)
 {
 	result = replaceAll(string, "\<", "&lt;");
 	return replaceAll(result, "\>", "&gt;");
 }
 
-private str singleQuotation(str string)
+private str replaceSingleQuotation(str string)
 {
 	return replaceAll(string, "\'", "&#8216;");
 }
 
-private str quotationMark(str string)
+private str replaceDoubleQuotation(str string)
 {
 	return replaceAll(string, "\"", "&#x22;");
-}
-
-private str removeBackslash(str string)
-{
-	return replaceAll(string, "\\", "");
 }
 
 private str removeTabs(str string)
@@ -85,4 +84,9 @@ private str removeTabs(str string)
 	list[str] splittedString = split("\t", string);
 	
 	return ("" | it + s | s <- splittedString);
+}
+
+private str replaceBackslash(str string)
+{
+	return replaceAll(string, "\\", "&#92;");
 }

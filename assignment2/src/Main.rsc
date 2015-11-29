@@ -12,6 +12,9 @@ import model::CodeLineModel;
 import model::CloneModel;
 
 import type1::Type1;
+import type2::Type2;
+
+import visualisation::HTMLTests;
 
 import visualisation::Visualisation;
 
@@ -115,22 +118,28 @@ public void detectClones(loc project)
 	println("Building M3 model for project...");
 	M3 m3Model = createM3FromEclipseProject(project);
 
-	//println("Building AST model for project...");
-	//set[Declaration] declarations = createAstsFromEclipseProject(project, false);
+	println("Building AST model for project...");
+	set[Declaration] declarations = createAstsFromEclipseProject(project, false);
 	
 	println("Building CodeLineModel...");
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 	
 	println("Building PackageModel...");
 	PackageModel packageModel = createPackageModel(m3Model, codeLineModel);
-	
+
+	//Type 1
 	println("Building cloneModelType1...");
 	CloneModel cloneModelType1 = type1::Type1::clonesInProject(codeLineModel);
-	
-	println("Building visualisation..");
-	str projectName = project.authority;
 
-	createVisualisation(projectName, packageModel, codeLineModel, cloneModelType1, type1());
+	println("Building visualisation Type1..");
+	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1());
+	
+	//Type 2
+	println("Building cloneModelType2...");
+	CloneModel cloneModelType2 = type2::Type2::clonesInProject(codeLineModel);
+
+	println("Building visualisation Type1..");
+	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2());
 }
 
 //Test Functions
@@ -138,7 +147,8 @@ public void runAllTests()
 {
 	list[tuple[str,list[bool]]] tests = [
 								<"CodeLineModel.rsc Tests", model::CodeLineModel::allTests()>,
-								<"PackageModelTests.rsc Tests", model::PackageModelTests::allTests()>
+								<"PackageModelTests.rsc Tests", model::PackageModelTests::allTests()>,
+								<"HTMLTests.rsc Tests", visualisation::HTMLTests::allTests()>
 								];
 
 	int numberOfFailedTests = 0;

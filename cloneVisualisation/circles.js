@@ -96,7 +96,7 @@ function loadContent(projectName, type)
 		.data(nodes)
 		.enter().append("circle")
 		.attr("class", function(d) { return d.parent ? d.children ? "node" : "test node node--leaf" + d.cloneclass : "node node--root"; })
-		.style({"fill": function(d) { return d.children ? color(d.depth) : (d3.select(this).classed("node--leaf-1") ? "AAA" : rainbow(root.numberOfCloneClasses, d.cloneclass - 1)); }})
+		.style({"fill": function(d) { return d.children ? color(d.depth) : (d3.select(this).classed("node--leaf-1") ? "#AAA" : rainbow(root.numberOfCloneClasses, d.cloneclass - 1)); }})
 		.on("click", function(d) { if (focus !== d){ zoomIfNeeded(d); deselectAllSelectedNodes(d); selectNodesOfTheSameCloneClass(d); giveStrokeIfNeeded(this, d); }});
 
 	  

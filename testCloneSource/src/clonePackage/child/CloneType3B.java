@@ -1,5 +1,7 @@
 package clonePackage.child;
 
+import clonePackage.Util;
+
 public class CloneType3B {
 	
 	//3B. Cloned from Original with other interface for foo (see also 3A.)
@@ -9,6 +11,6 @@ public class CloneType3B {
 		for (int i = 1; i <= n; i++)
 			{sum = sum + i;
 			prod = prod * i;
-			foo(prod); }}
+			Util.foo(prod); }}
 	
 }

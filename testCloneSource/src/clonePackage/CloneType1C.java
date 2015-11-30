@@ -9,5 +9,5 @@ public class CloneType1C {
 		for (int i = 1; i <= n; i++) {
 			sum = sum + i;
 			prod = prod * i;
-			foo(sum, prod); }}
+			Util.foo(sum, prod); }}
 }

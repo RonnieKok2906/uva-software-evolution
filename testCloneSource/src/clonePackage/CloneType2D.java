@@ -9,5 +9,5 @@ public class CloneType2D {
 		for (int i = 1; i <= n; i++)
 			{sum = sum + (i*i);
 			prod = prod * (i*i);
-			foo(sum, prod); }}
+			Util.foo(sum, prod); }}
 }

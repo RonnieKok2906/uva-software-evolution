@@ -10,7 +10,7 @@ public class Originaland1Aand3C {
 	for (int i = 1; i <= n; i++)
 		{sum = sum + i;
 		prod = prod * i;
-		foo(sum, prod); }}
+		Util.foo(sum, prod); }}
 	
 	//1A. Cloned from clone original with more tabs in the for loop.
 	void sumProd1a(int n){
@@ -19,7 +19,7 @@ public class Originaland1Aand3C {
 	for (int i = 1; i <= n; i++)
 			{sum = sum + i;
 			prod = prod * i;
-			foo(sum, prod); }}
+			Util.foo(sum, prod); }}
 	
 	//3C. Cloned from original with an if block around the last line. 
 	void sumProd3c(int n) {
@@ -29,5 +29,9 @@ public class Originaland1Aand3C {
 			{sum = sum + i;
 			prod = prod * i;
 			if (n % 2 == 0) {
-			foo(sum, prod);} }}
+			Util.foo(sum, prod);} }}
+	
+	
+	
+	
 }

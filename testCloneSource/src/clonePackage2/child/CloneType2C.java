@@ -1,5 +1,7 @@
 package clonePackage2.child;
 
+import clonePackage.Util;
+
 public class CloneType2C {
 
 	//2C. Cloned from original with the double variables assigned by ints.
@@ -9,5 +11,5 @@ public class CloneType2C {
 		for (int i = 1; i <= n; i++)
 			{sum = sum + i;
 			prod = prod * i;
-			foo(sum, prod); }}
+			Util.foo(sum, prod); }}
 }

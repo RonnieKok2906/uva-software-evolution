@@ -1,5 +1,7 @@
 package clonePackage2.child;
 
+import clonePackage.Util;
+
 public class CloneType3D {
 	
 	
@@ -9,5 +11,5 @@ public class CloneType3D {
 		double prod = 1.0;
 		for (int i = 1; i <= n; i++)
 			{sum = sum + i;
-			foo(sum, prod); }}
+			Util.foo(sum, prod); }}
 }

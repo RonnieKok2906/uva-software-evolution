@@ -2,7 +2,7 @@ module type1::Type1
 
 import model::CodeLineModel;
 import model::CloneModel;
-
+import type1::Type1Config;
 import Prelude;
 import ListRelation;
 import util::Math;
@@ -15,9 +15,16 @@ alias CodeBlock = list[CodeLine];
 
 public CloneModel clonesInProject(CodeLineModel model)
 {	
-	map[list[str], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, 6);
-	
+	println("Code fragment line threshold: <LineThreshold>");
+	map[list[str], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, LineThreshold);
+	println("Number of all possible code fragments: <size(mapping)>");
+
 	map[list[str], set[CodeBlock]] duplicationsMap = (cf : mapping[cf] | list[str] cf <- mapping,  size(mapping[cf]) > 1);
+	
+	int nrOfClones = (0 | it + size(duplicationsMap[k]) | k <- duplicationsMap);
+	
+	println("Number of clones: <nrOfClones>");
+	println("Number of clone classes: <size(duplicationsMap)>");
 
 	CloneModel cloneModel = ();
 	
@@ -35,7 +42,6 @@ public CloneModel clonesInProject(CodeLineModel model)
 		}
 	
 		cloneModel += (cloneClassId : cloneClass);
-	
 		cloneClassId += 1;
 	}
 

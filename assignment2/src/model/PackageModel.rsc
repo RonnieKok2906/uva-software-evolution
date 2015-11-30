@@ -72,7 +72,7 @@ private map[loc package, set[CompilationUnit] compilationUnits] initializeCompil
 
 public rel[loc,loc] getChildPackageRelation(M3 m3Model)
 {
-	return {<name, file> | <name, file> <- m3Model@containment, name.scheme == "java+package" && file.scheme == "java+package"};
+	return {<name, file> | <name, file> <- m3Model@containment, name.scheme == "java+package" && name != |java+package:///| && file.scheme == "java+package"};
 }
 
 public set[loc] getChildPackages(M3 m3Model)
@@ -82,10 +82,10 @@ public set[loc] getChildPackages(M3 m3Model)
 
 public set[loc] getRootPackages(M3 m3Model)
 {
-	return {p | p <- getPackages(m3Model), !(p in getChildPackages(m3Model))};
+	return {p | p <- getPackages(m3Model), p notin getChildPackages(m3Model) };
 }
 
 public set[loc] getPackages(M3 m3Model)
 {
-	return {name | <name, file> <- m3Model@containment, name.scheme == "java+package"};
+	return {name | <name, file> <- m3Model@containment, name.scheme == "java+package" && name != |java+package:///| };
 }

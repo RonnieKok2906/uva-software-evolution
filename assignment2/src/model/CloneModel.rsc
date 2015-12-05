@@ -12,12 +12,17 @@ alias CloneModel = map[int identifier, CloneClass cloneClass];
 
 public map[loc compilationUnit, list[CloneFragment] cloneFragments] clonesMappedOnCompilationUnit(set[loc] compilationUnits, CloneModel cloneModel)
 {
-	map[loc compilationUnit, list[CloneFragment] cloneFragments] returnMap = (c:[]| c <- compilationUnits);
+	map[loc compilationUnit, list[CloneFragment] cloneFragments] returnMap = (c:[] | c <- compilationUnits);
 
 	for (k <- cloneModel)
 	{
 		for (c <- cloneModel[k])
 		{
+			if (size(c.lines) == 0)
+			{
+				println("no lines:<cloneModel[k]>");
+			}
+		
 			returnMap[c.lines[0].fileName] += c;		
 		}
 	}

@@ -8,21 +8,21 @@ import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
-import model::CodeLineModel;
+import type2::CodeLineModel2;
 import model::CloneModel;
 
 import type2::Util;
 import type2::Config;
 
-public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations)
+public CloneModel clonesInProject(CodeLineModel2 codeLineModel, set[Declaration] declarations)
 {
 	map[node, set[loc]] subtrees = findAllPossibleSubtrees(declarations);
 
 	map[node, set[loc]] cloneCandidates = filterAllPossibleSubtreeCandidatesOfMoreThanNLines(type2::Config::numberOfLines, subtrees, codeLineModel);
 
-	map[node, set[loc]] subsumedCandidates = subsumeCandidatesWhenPossible(cloneCandidates);
+	//cloneCandidates = subsumeCandidatesWhenPossible(cloneCandidates);
 
-	CloneModel cloneModel = createCloneModelFromCandidates(subsumedCandidates, codeLineModel);
+	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates, codeLineModel);
 
 	return cloneModel;
 }
@@ -70,7 +70,7 @@ private node normalizeNode(node subtree)
 	return subtree;
 }
 
-private map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfMoreThanNLines(int numberOflines, map[node, set[loc]] subtrees, CodeLineModel codeLineModel)
+private map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfMoreThanNLines(int numberOflines, map[node, set[loc]] subtrees, CodeLineModel2 codeLineModel)
 {	
 	map[node, set[loc]] clonedSubtrees = (k:subtrees[k] | k <- subtrees, size(subtrees[k]) > 1);
 			
@@ -130,7 +130,7 @@ private set[node] subtreesFromNode(node n)
 	return subtrees;
 }
 
-private CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates, CodeLineModel codeLineModel)
+private CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates, CodeLineModel2 codeLineModel)
 {
 	CloneModel rawCloneModel = ();
 	
@@ -186,7 +186,7 @@ private CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates
 //	
 //}
 
-private CloneClass createCloneClass(int classIdentifier, set[loc] locations, CodeLineModel codeLineModel)
+private CloneClass createCloneClass(int classIdentifier, set[loc] locations, CodeLineModel2 codeLineModel)
 {
 	CloneClass cc = [];
 

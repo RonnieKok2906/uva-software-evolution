@@ -14,13 +14,13 @@ function loadContent(projectName, type)
 	.size([diameter - margin, diameter - margin])
 	.value(function(d) { return d.size; })
 
-	var jsonFile = projectName + "/type1.json";
+	var jsonFile = "projects/" + projectName + "/type1.json";
 
 	createMenu(type, projectName);
 
 	if (type != "")
 	{
-		jsonFile =  projectName + "/" + type + ".json";
+		jsonFile = "projects/" + projectName + "/" + type + ".json";
 	}
 
 	d3.json("" + jsonFile, function(error, root) {

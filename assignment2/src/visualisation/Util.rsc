@@ -12,10 +12,12 @@ public str aggrateTempFiles(int counter, str aggregatedText, set[Package] packag
 		
 	aggregatedText = replaceAll(aggregatedText, tempFileName, innerString);
 	
-	int innerCounter = counter + size(packages);
+	int innerCounter = counter;
 	
 	for (p <- packages)
 	{	
+		innerCounter += 1;
+		
 		str innerString = readTempFile(innerCounter);
 		
 		aggregatedText = replaceAll(aggregatedText, tempFileName, innerString);
@@ -24,8 +26,6 @@ public str aggrateTempFiles(int counter, str aggregatedText, set[Package] packag
 		{
 			aggregatedText = aggrateTempFiles(innerCounter, aggregatedText, p.subPackages);
 		}
-		
-		innerCounter += 1;
 	}
 	
 	return aggregatedText;

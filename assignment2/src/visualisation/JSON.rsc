@@ -48,72 +48,77 @@ private void jsonForSubPackages(int counter, set[Package] packages, set[Compilat
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 	
 	str result = "<indents>\"children\": [\n";
+
+	writeToTempFile(counter, result);
 	
 	if (size(compilationUnits) > 0)
-	{
-		result += jsonForCompilationUnits(compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, indentationLevel); 
+	{	
+		jsonForCompilationUnits(counter, compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, indentationLevel); 
 		
 		if (size(packages) > 0)
 		{	
-			result += ",\n";
+			result = ",\n";
 		}
 		else
 		{
-			result += "\n";
+			result = "\n";
 		}
+		
+		appendToTempFile(counter, result);
 	}
 	
-	writeToTempFile(counter, result);
-	
-	str result2 = "";
-	
-	int innerCounter = counter + size(packages);
 	int packageCounter = 0;
-	
+	int innerCounter = counter;
 	for (p <- packages)
 	{	
 		packageCounter += 1;
 		
-		result2 += "<indents>{\n";
-	
+		innerCounter += 1;
+		
+		result = "<indents>{\n";
+
 		if (size(p.subPackages) > 0 || size(p.compilationUnits) > 0)
 		{
 			jsonForSubPackages(innerCounter, p.subPackages, p.compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, (indentationLevel + 1));
 			
-			result2 += "<indents>  \"name\":\"<p.name>\",\ntempFile<innerCounter>";
+			result += "<indents>  \"name\":\"<p.name>\",\ntempFile<innerCounter>";
 		}
 		
 		if (packageCounter == size(packages))
 		{
-			result2 += "<indents>}\n";
+			result += "<indents>}\n";
 		}
 		else
 		{
-			result2 += "<indents>},\n";
+			result += "<indents>},\n";
 		}
 		
-		innerCounter += 1;
+		appendToTempFile(counter, result);
+		
+
 	}
 	
-	result2 += "<indents>]\n";
-
-	appendToTempFile(counter, result2);
+	result = "<indents>]\n";
+	
+	appendToTempFile(counter, result);
 }
 
 
-private str jsonForCompilationUnits(set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
+private void jsonForCompilationUnits(int counter, set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
-	str result = "";
-	int counter = 0;
+	
+	int i = 0;
 	
 	for (c <- compilationUnits)
 	{
-		counter += 1;
+		str result = "";
+		
+		i += 1;
 		
 		result += "<indents>{\n<indents>  \"name\": \"<c.name>\",\n<indents>  \"children\": [\n<jsonForCodeClones(c, clonesForCompilationUnit[c.file], cloneModel, codeLineModel, indentationLevel + 2)><indents>  ]\n<indents>}";
 		
-		if (counter == size(compilationUnits))
+		if (i == size(compilationUnits))
 		{
 			result += "";
 		}
@@ -121,9 +126,9 @@ private str jsonForCompilationUnits(set[CompilationUnit] compilationUnits, map[l
 		{
 			result += ",\n";
 		}
+		
+		appendToTempFile(counter, result);
 	}
-	
-	return result;
 }
 
 public str jsonForCodeClones(CompilationUnit compilationUnit, list[CloneFragment] cloneFragments, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)

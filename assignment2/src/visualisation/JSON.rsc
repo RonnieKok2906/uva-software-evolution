@@ -11,7 +11,7 @@ import visualisation::HTML;
 import util::Math;
 import visualisation::Util;
 
-public str createJSON(str projectName, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel)
+public void createJSON(str projectName, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel)
 {	
 	str result = "\n{\n";
 	str indents = "  ";
@@ -21,26 +21,17 @@ public str createJSON(str projectName, PackageModel packageModel, CodeLineModel 
 	map[loc, list[CloneFragment]] clonesForCompilationUnit = clonesMappedOnCompilationUnit(compilationUnits, cloneModel);
 	
 	result += "<indents>\"name\":\"<projectName>\",\n<indents>\"update\":\"<now()>\",\n<indents>\"numberOfCloneClasses\":<size(cloneModel)>,\n";
+	
+	writeToTempFile(0, result);
 
 	if (size(packageModel) > 0)
 	{
-		jsonForSubPackages(1, packageModel, {}, clonesForCompilationUnit, cloneModel, codeLineModel, 1);
-	
-		result += "tempFile1";
+		jsonForSubPackages(0, packageModel, {}, clonesForCompilationUnit, cloneModel, codeLineModel, 1);
 	}
 	
-	result += "}";
-	
-	writeToTempFile(0, result);
-	
-	str tempFile0 = readTempFile(0);
-	
-	if (size(packageModel) > 0)
-	{
-		tempFile0 = aggrateTempFiles(1, tempFile0, packageModel);
-	}
-	
-	return tempFile0;
+	result = "}";	
+	appendToTempFile(0, result);
+
 }
 
 private void jsonForSubPackages(int counter, set[Package] packages, set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
@@ -49,11 +40,11 @@ private void jsonForSubPackages(int counter, set[Package] packages, set[Compilat
 	
 	str result = "<indents>\"children\": [\n";
 
-	writeToTempFile(counter, result);
+	appendToTempFile(0, result);
 	
 	if (size(compilationUnits) > 0)
 	{	
-		jsonForCompilationUnits(counter, compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, indentationLevel); 
+		jsonForCompilationUnits(compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, indentationLevel); 
 		
 		if (size(packages) > 0)
 		{	
@@ -64,7 +55,7 @@ private void jsonForSubPackages(int counter, set[Package] packages, set[Compilat
 			result = "\n";
 		}
 		
-		appendToTempFile(counter, result);
+		appendToTempFile(0, result);
 	}
 	
 	int packageCounter = 0;
@@ -76,35 +67,36 @@ private void jsonForSubPackages(int counter, set[Package] packages, set[Compilat
 		innerCounter += 1;
 		
 		result = "<indents>{\n";
-
+		appendToTempFile(0, result);
+		
 		if (size(p.subPackages) > 0 || size(p.compilationUnits) > 0)
 		{
-			jsonForSubPackages(innerCounter, p.subPackages, p.compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, (indentationLevel + 1));
+			result = "<indents>  \"name\":\"<p.name>\",\n";
+			appendToTempFile(0, result);
 			
-			result += "<indents>  \"name\":\"<p.name>\",\ntempFile<innerCounter>";
+			jsonForSubPackages(innerCounter, p.subPackages, p.compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, (indentationLevel + 1));
 		}
 		
 		if (packageCounter == size(packages))
 		{
-			result += "<indents>}\n";
+			result = "<indents>}\n";
 		}
 		else
 		{
-			result += "<indents>},\n";
+			result = "<indents>},\n";
 		}
 		
-		appendToTempFile(counter, result);
+		appendToTempFile(0, result);
 		
 
 	}
 	
 	result = "<indents>]\n";
-	
-	appendToTempFile(counter, result);
+	appendToTempFile(0, result);
 }
 
 
-private void jsonForCompilationUnits(int counter, set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
+private void jsonForCompilationUnits(set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 	
@@ -127,7 +119,7 @@ private void jsonForCompilationUnits(int counter, set[CompilationUnit] compilati
 			result += ",\n";
 		}
 		
-		appendToTempFile(counter, result);
+		appendToTempFile(0, result);
 	}
 }
 

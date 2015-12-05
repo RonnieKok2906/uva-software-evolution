@@ -4,33 +4,6 @@ import Prelude;
 
 import model::PackageModel;
 
-public str aggrateTempFiles(int counter, str aggregatedText, set[Package] packages)
-{	
-	str tempFileName = tempFileWithoutExtesion(counter);
-	
-	str innerString = readTempFile(counter);
-		
-	aggregatedText = replaceAll(aggregatedText, tempFileName, innerString);
-	
-	int innerCounter = counter;
-	
-	for (p <- packages)
-	{	
-		innerCounter += 1;
-		
-		str innerString = readTempFile(innerCounter);
-		
-		aggregatedText = replaceAll(aggregatedText, tempFileName, innerString);
-		
-		if (size(p.subPackages) > 0 || size(p.compilationUnits) > 0)
-		{
-			aggregatedText = aggrateTempFiles(innerCounter, aggregatedText, p.subPackages);
-		}
-	}
-	
-	return aggregatedText;
-}
-
 public void appendToTempFile(int counter, str string)
 {
 	loc file = tempFileForCounter(counter);

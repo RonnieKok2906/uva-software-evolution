@@ -6,6 +6,7 @@ import model::CodeLineModel;
 import model::PackageModel;
 
 alias CloneFragment = tuple[int cloneClassIdentifier, int cloneIdentifier, list[CodeLine] lines];
+data CloneType = type1() | type2() | type3() | type4();
 
 // Proposed replacement for CloneFragment.
 data Clone = clone(int cloneId, int classId, loc filename, list[CodeLine] lines); 

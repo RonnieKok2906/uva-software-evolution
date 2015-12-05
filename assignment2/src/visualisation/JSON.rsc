@@ -11,7 +11,7 @@ import visualisation::HTML;
 import util::Math;
 import visualisation::Util;
 
-public void createJSON(str projectName, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel)
+public void createJSON(str projectName, CloneType cloneType, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel)
 {	
 	str result = "\n{\n";
 	str indents = "  ";
@@ -22,29 +22,29 @@ public void createJSON(str projectName, PackageModel packageModel, CodeLineModel
 	
 	result += "<indents>\"name\":\"<projectName>\",\n<indents>\"update\":\"<now()>\",\n<indents>\"numberOfCloneClasses\":<size(cloneModel)>,\n";
 	
-	writeToTempFile(0, result);
+	writeToJSONFile(projectName, result, cloneType);
 
 	if (size(packageModel) > 0)
 	{
-		jsonForSubPackages(0, packageModel, {}, clonesForCompilationUnit, cloneModel, codeLineModel, 1);
+		jsonForSubPackages(projectName, cloneType, packageModel, {}, clonesForCompilationUnit, cloneModel, codeLineModel, 1);
 	}
 	
 	result = "}";	
-	appendToTempFile(0, result);
+	appendToJSONFile(projectName, result, cloneType);
 
 }
 
-private void jsonForSubPackages(int counter, set[Package] packages, set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
+private void jsonForSubPackages(str projectName, CloneType cloneType, set[Package] packages, set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {			
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 	
 	str result = "<indents>\"children\": [\n";
 
-	appendToTempFile(0, result);
+	appendToJSONFile(projectName, result, cloneType);
 	
 	if (size(compilationUnits) > 0)
 	{	
-		jsonForCompilationUnits(compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, indentationLevel); 
+		jsonForCompilationUnits(projectName, cloneType, compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, indentationLevel); 
 		
 		if (size(packages) > 0)
 		{	
@@ -55,26 +55,24 @@ private void jsonForSubPackages(int counter, set[Package] packages, set[Compilat
 			result = "\n";
 		}
 		
-		appendToTempFile(0, result);
+		appendToJSONFile(projectName, result, cloneType);
 	}
 	
 	int packageCounter = 0;
-	int innerCounter = counter;
+	
 	for (p <- packages)
 	{	
 		packageCounter += 1;
 		
-		innerCounter += 1;
-		
 		result = "<indents>{\n";
-		appendToTempFile(0, result);
+		appendToJSONFile(projectName, result, cloneType);
 		
 		if (size(p.subPackages) > 0 || size(p.compilationUnits) > 0)
 		{
 			result = "<indents>  \"name\":\"<p.name>\",\n";
-			appendToTempFile(0, result);
+			appendToJSONFile(projectName, result, cloneType);
 			
-			jsonForSubPackages(innerCounter, p.subPackages, p.compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, (indentationLevel + 1));
+			jsonForSubPackages(projectName, cloneType, p.subPackages, p.compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, (indentationLevel + 1));
 		}
 		
 		if (packageCounter == size(packages))
@@ -86,17 +84,15 @@ private void jsonForSubPackages(int counter, set[Package] packages, set[Compilat
 			result = "<indents>},\n";
 		}
 		
-		appendToTempFile(0, result);
-		
-
+		appendToJSONFile(projectName, result, cloneType);
 	}
 	
 	result = "<indents>]\n";
-	appendToTempFile(0, result);
+	appendToJSONFile(projectName, result, cloneType);
 }
 
 
-private void jsonForCompilationUnits(set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
+private void jsonForCompilationUnits(str projectName, CloneType cloneType, set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 	
@@ -119,7 +115,7 @@ private void jsonForCompilationUnits(set[CompilationUnit] compilationUnits, map[
 			result += ",\n";
 		}
 		
-		appendToTempFile(0, result);
+		appendToJSONFile(projectName, result, cloneType);
 	}
 }
 

@@ -3,24 +3,25 @@ module visualisation::Util
 import Prelude;
 
 import model::PackageModel;
+import model::CloneModel;
 
-public void appendToTempFile(int counter, str string)
+public void appendToJSONFile(str projectName, str string, CloneType cloneType)
 {
-	loc file = tempFileForCounter(counter);
+	loc file = jsonFileForProject(projectName, cloneType);
 
 	appendToFile(file, string);
 }
 
-public void writeToTempFile(int counter, str string)
+public void writeToJSONFile(str projectName, str string, CloneType cloneType)
 {
-	loc file = tempFileForCounter(counter);
+	loc projectFolder = projectFolder(projectName);
 	
-	loc tempFolder = tempFolder();
-	
-	if (!exists(tempFolder))
+	if (!exists(projectFolder))
 	{
-		mkDirectory(tempFolder);
+		mkDirectory(projectFolder);
 	}
+	
+	loc file = jsonFileForProject(projectName, cloneType);
 	
 	if (!exists(file))
 	{	
@@ -30,18 +31,22 @@ public void writeToTempFile(int counter, str string)
 	writeFile(file, string);
 }
 
-public str readTempFile(counter) = readFile(tempFileForCounter(counter));
+public str readJsonFile(str projectName, CloneType cloneType) = readFile(tempFileForProject(projectName), cloneType);
 
-private loc tempFolder() = |project://cloneVisualisation/projects/temp|;
+private loc projectFolder(str projectName) = |project://cloneVisualisation/projects| + projectName;
 
-private loc tempFileForCounter(int counter)
+private loc jsonFileForProject(str projectName, CloneType cloneType)
 {
-	loc projectFolder = |project://cloneVisualisation/projects/temp|;
-		
-	return tempFolder() + "tempFile<counter>.json";
-}
-
-private str tempFileWithoutExtesion(int counter)
-{	
-	return "tempFile<counter>";
+	loc projectFolder = projectFolder(projectName);
+	loc file;
+	
+	switch(cloneType)
+	{
+		case type1(): file = projectFolder + "type1.json";
+		case type2(): file = projectFolder + "type2.json";
+		case type3(): file = projectFolder + "type3.json";
+		case type4(): file = projectFolder + "type4.json";
+	}
+	
+	return file;
 }

@@ -20,7 +20,7 @@ public CloneModel clonesInProject(CodeLineModel2 codeLineModel, set[Declaration]
 
 	map[node, set[loc]] cloneCandidates = filterAllPossibleSubtreeCandidatesOfMoreThanNLines(type2::Config::numberOfLines, subtrees, codeLineModel);
 
-	//cloneCandidates = subsumeCandidatesWhenPossible(cloneCandidates);
+	cloneCandidates = subsumeCandidatesWhenPossible(cloneCandidates);
 
 	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates, codeLineModel);
 
@@ -91,22 +91,48 @@ private map[node, set[loc]] subsumeCandidatesWhenPossible(map[node, set[loc]] ca
 {
 	map[node, set[loc]] returnMap = ();
 	
-	for (c <- candidates)
+	list[node] sortedNodeList = sort(domain(candidates), bool(node a, node b){ return size(subtreesFromNode(a)) < size(subtreesFromNode(b)); });
+	
+	for (n <- sortedNodeList)
 	{
-		bool canBeSubsumed = (false | it || nodesCanBeSubsumed(c, r) | r <- candidates, size(candidates[c]) <= size(candidates[r]));
+		set[loc] tempLocations = candidates[n];
+		
+		candidates = candidates - (n:tempLocations);
+	
+		bool canBeSubsumed = any(r <- domain((candidates - returnMap)), nodesCanBeSubsumed(n, r), locationsCanBeSubsumed(tempLocations, candidates[r]));
 		
 		if (!canBeSubsumed)
 		{	
-			returnMap[c] = candidates[c];
+			returnMap += (n:tempLocations);
 		}
 	}
 	
 	return returnMap;
 }
 
+private bool locationsCanBeSubsumed(set[loc] toBeSubsumedLocations, set[loc] referenceLocations)
+{
+	return all(l <- toBeSubsumedLocations, locationCanBeSubsumed(l, referenceLocations));
+}
+
+private bool locationCanBeSubsumed(loc toBeSubsumedLocation, set[loc] referenceLocations)
+{
+	return any(r <- referenceLocations, locationAIsPartOfLocationB(toBeSubsumedLocation, r));
+}
+
+private bool locationAIsPartOfLocationB(loc a, loc b)
+{
+	int beginA = a.begin[0];
+	int beginB = b.begin[0];
+	int endA = a.end[0];
+	int endB = b.end[0];
+	
+	return beginA >= beginB && beginA <= endB && endA <= endB;
+}
+
 private bool nodesCanBeSubsumed(node toBeSubsumedNode, node referenceNode)
 {
-	set[node] toBeSubsumedNodeSubtrees = subtreesFromNode(toBeSubsumedNode);
+	set[node] toBeSubsumedNodeSubtrees = {toBeSubsumedNode};
 	set[node] referenceNodeSubtrees = subtreesFromNode(referenceNode);
 	
 	return toBeSubsumedNodeSubtrees < referenceNodeSubtrees;
@@ -144,47 +170,7 @@ private CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates
 	}
 	
 	return rawCloneModel;
-	
-//	CloneModel subsumedCodeModel = ();
-//	
-//	counter = 0;
-//	
-//	for (c <- rawCloneModel)
-//	{
-//		bool canBeSubsumed = (false | it || cloneClassCanBeSubsumed(rawCloneModel[r], rawCloneModel[c]) | r <- rawCloneModel);
-//		
-//		if (!canBeSubsumed)
-//		{
-//			counter += 1;
-//			
-//			subsumedCodeModel[counter] = [<counter, cf.cloneIdentifier, cf.lines> | cf <- rawCloneModel[c]];
-//		}
-//	}
-//
-//	return subsumedCodeModel;
 }
-
-//private bool cloneClassCanBeSubsumed(CloneClass referencedCloneClass, CloneClass toBeSubsumed)
-//{
-//	if (referencedCloneClass == toBeSubsumed)
-//	{
-//		return false;	
-//	}
-//
-//	if (size(referencedCloneClass) != size(toBeSubsumed))
-//	{
-//		return false;
-//	}
-//	
-//	str toBeSubsumedCodeFragment = ("" | it + l.codeFragment + " " | l <- toBeSubsumed[0].lines);
-//	str referenceCodeFragment = ("" | it + l.codeFragment + " " | l <- referencedCloneClass[0].lines);
-//	
-//	//str toBeSubsumedCodeFragment = readFile(toBeSubsumed[0].
-//	//str referenceCodeFragment = ("" | it + l.codeFragment + " " | l <- referencedCloneClass[0].lines);
-//	
-//	return contains(toBeSubsumedCodeFragment, referenceCodeFragment);
-//	
-//}
 
 private CloneClass createCloneClass(int classIdentifier, set[loc] locations, CodeLineModel2 codeLineModel)
 {

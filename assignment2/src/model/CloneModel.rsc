@@ -29,3 +29,22 @@ public map[loc compilationUnit, list[CloneFragment] cloneFragments] clonesMapped
 	
 	return returnMap;
 }
+
+public list[loc] getFilesFromCloneModel(CloneModel cloneModel) 
+{
+	list[loc] files = [];
+	
+	for(k <- cloneModel) 
+	{
+		for(clone <- cloneModel[k]) 
+		{
+			file = clone[2][0].fileName;
+			
+			if(file notin files) 
+			{
+				files += file;
+			}
+		}
+	}
+	return files;
+}

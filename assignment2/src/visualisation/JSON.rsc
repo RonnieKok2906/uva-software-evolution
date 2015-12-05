@@ -2,7 +2,6 @@ module visualisation::JSON
 
 import Prelude;
 
-import util::Benchmark;
 import DateTime;
 
 import model::PackageModel;
@@ -10,13 +9,10 @@ import model::CodeLineModel;
 import model::CloneModel;
 import visualisation::HTML;
 import util::Math;
-
-public int before = systemTime();
+import visualisation::Util;
 
 public str createJSON(str projectName, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel)
-{
-	bf = systemTime();
-
+{	
 	str result = "\n{\n";
 	str indents = "  ";
 	
@@ -25,21 +21,30 @@ public str createJSON(str projectName, PackageModel packageModel, CodeLineModel 
 	map[loc, list[CloneFragment]] clonesForCompilationUnit = clonesMappedOnCompilationUnit(compilationUnits, cloneModel);
 	
 	result += "<indents>\"name\":\"<projectName>\",\n<indents>\"update\":\"<now()>\",\n<indents>\"numberOfCloneClasses\":<size(cloneModel)>,\n";
-	
+
 	if (size(packageModel) > 0)
 	{
-		result += jsonForSubPackages(packageModel, {}, clonesForCompilationUnit, cloneModel, codeLineModel, 1);
+		jsonForSubPackages(1, packageModel, {}, clonesForCompilationUnit, cloneModel, codeLineModel, 1);
+	
+		result += "tempFile1";
 	}
 	
 	result += "}";
 	
-	return result;
+	writeToTempFile(0, result);
+	
+	str tempFile0 = readTempFile(0);
+	
+	if (size(packageModel) > 0)
+	{
+		tempFile0 = aggrateTempFiles(1, tempFile0, packageModel);
+	}
+	
+	return tempFile0;
 }
 
-private str jsonForSubPackages(set[Package] packages, set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
-{
-	bf = systemTime();
-	
+private void jsonForSubPackages(int counter, set[Package] packages, set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
+{			
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 	
 	str result = "<indents>\"children\": [\n";
@@ -58,38 +63,46 @@ private str jsonForSubPackages(set[Package] packages, set[CompilationUnit] compi
 		}
 	}
 	
-	int counter = 0;
+	writeToTempFile(counter, result);
+	
+	str result2 = "";
+	
+	int innerCounter = counter + size(packages);
+	int packageCounter = 0;
 	
 	for (p <- packages)
 	{	
-		counter += 1;
-	
-		result += "<indents>{\n";
+		packageCounter += 1;
+		
+		result2 += "<indents>{\n";
 	
 		if (size(p.subPackages) > 0 || size(p.compilationUnits) > 0)
 		{
-			result += "<indents>  \"name\":\"<p.name>\",\n<jsonForSubPackages(p.subPackages, p.compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, (indentationLevel + 1))>";
+			jsonForSubPackages(innerCounter, p.subPackages, p.compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, (indentationLevel + 1));
+			
+			result2 += "<indents>  \"name\":\"<p.name>\",\ntempFile<innerCounter>";
 		}
 		
-		if (counter == size(packages))
+		if (packageCounter == size(packages))
 		{
-			result += "<indents>}\n";
+			result2 += "<indents>}\n";
 		}
 		else
 		{
-			result += "<indents>},\n";
+			result2 += "<indents>},\n";
 		}
+		
+		innerCounter += 1;
 	}
 	
-	result += "<indents>]\n";
-	
-	return result;
+	result2 += "<indents>]\n";
+
+	appendToTempFile(counter, result2);
 }
+
 
 private str jsonForCompilationUnits(set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {
-	bf = systemTime();
-
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 	str result = "";
 	int counter = 0;
@@ -115,8 +128,6 @@ private str jsonForCompilationUnits(set[CompilationUnit] compilationUnits, map[l
 
 public str jsonForCodeClones(CompilationUnit compilationUnit, list[CloneFragment] cloneFragments, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {
-	bf = systemTime();
-	
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 
 	str result = "";
@@ -138,6 +149,3 @@ public str jsonForCodeClones(CompilationUnit compilationUnit, list[CloneFragment
 	
 	return result;
 }
-
-
-

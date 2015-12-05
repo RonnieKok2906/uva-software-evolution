@@ -101,7 +101,7 @@ public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel2 cod
 	
 		if (!l.onlyComment)
 		{
-			returnList += codeLine(l.fileName, l.lineNumber, l.codeFragment);
+			returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, 0, l.codeFragment);
 		}
 	}
 	

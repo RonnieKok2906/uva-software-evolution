@@ -8,17 +8,17 @@ import model::PackageModel;
 import model::CodeLineModel;
 import model::CloneModel;
 
-import lang::json::IO;
-
 import visualisation::HTML;
 import visualisation::JSON;
 
 data CloneType = type1() | type2() | type3() | type4();
 
 public void createVisualisation(str projectName, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel, CloneType cloneType) 
-{
+{	
+	println("Building JSON string...");
 	str JSONString = createJSON(projectName, packageModel, codeLineModel, cloneModel);
 	
+	println("Writing to file..");
 	loc file;
 	
 	loc projectFolder = |project://cloneVisualisation/projects| + projectName;

@@ -5,6 +5,8 @@ import Prelude;
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 
+import visualisation::HTML;
+
 alias LOC = int;
 data Comment = comment(loc location);
 data CodeLine = codeLine(loc fileName, int lineNumber, int orderNumber, str codeFragment);
@@ -42,7 +44,7 @@ private list[CodeLine] relevantCodeFromFile(loc fileName, list[Comment] comments
 {
 	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	
-	list[CodeLine] linesWithoutOrderNumber = [codeLine(fileName.top, i+1, 0, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
+	list[CodeLine] linesWithoutOrderNumber = [codeLine(fileName.top, i+1, 0, cleanString(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
 	
 	return [ codeLine(line.fileName, line.lineNumber, indexOf(linesWithoutOrderNumber, line), line.codeFragment) | line <- linesWithoutOrderNumber ];
 }

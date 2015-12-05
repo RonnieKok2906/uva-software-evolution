@@ -7,7 +7,7 @@ import lang::java::jdt::m3::Core;
 
 alias LOC = int;
 data Comment = comment(loc location);
-data CodeLine = codeLine(loc fileName, int lineNumber, str codeFragment);
+data CodeLine = codeLine(loc fileName, int lineNumber, int orderNumber, str codeFragment);
 
 alias CodeLineModel = map[loc compilationUnit, list[CodeLine] lines];
 
@@ -42,7 +42,9 @@ private list[CodeLine] relevantCodeFromFile(loc fileName, list[Comment] comments
 {
 	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	
-	return [codeLine(fileName.top, i+1, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
+	list[CodeLine] linesWithoutOrderNumber = [codeLine(fileName.top, i+1, 0, trim(linesWithoutComments[i].codeFragment)) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
+	
+	return [ codeLine(line.fileName, line.lineNumber, indexOf(linesWithoutOrderNumber, line), line.codeFragment) | line <- linesWithoutOrderNumber ];
 }
 
 private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] comments)
@@ -53,7 +55,7 @@ private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] commen
 	
 	for (i <- [0..size(lines)])
 	{
-		linesToReturn += codeLine(fileName.top, i+1, lines[i]);
+		linesToReturn += codeLine(fileName.top, i+1, 0, lines[i]);
 	}
 	
 	for (c <- comments)
@@ -67,7 +69,7 @@ private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] commen
 
 			str resultLine = ("" | it + s | s <- split(commentLines[i], fragmentWithComment));
 	
-			linesToReturn[lineNumber - 1] = codeLine(fileName, lineNumber, resultLine);
+			linesToReturn[lineNumber - 1] = codeLine(fileName, lineNumber, 0, resultLine);
 		}
 	}
 

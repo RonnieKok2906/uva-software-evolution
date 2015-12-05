@@ -13,6 +13,7 @@ import model::CloneModel;
 
 import type1::Type1;
 import type2::Type2;
+import type2::CodeLineModel2;
 
 import visualisation::HTMLTests;
 
@@ -135,8 +136,11 @@ public void detectClones(loc project)
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1());
 	
 	//Type 2
+	println("Building CodeLineModel2...");
+	CodeLineModel2 codeLineModel2 = type2::CodeLineModel2::createCodeLineModel(m3Model);
+	
 	println("Building cloneModelType2...");
-	CloneModel cloneModelType2 = type2::Type2::clonesInProject(codeLineModel, declarations);
+	CloneModel cloneModelType2 = type2::Type2::clonesInProject(codeLineModel2, declarations);
 
 	println("Building visualisation Type2..");
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2());

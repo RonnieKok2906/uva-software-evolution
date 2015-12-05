@@ -101,7 +101,6 @@ public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel2 cod
 	
 		if (!l.onlyComment)
 		{
-		//codeLine(loc fileName, int lineNumber, str codeFragment);
 			returnList += codeLine(l.fileName, l.lineNumber, l.codeFragment);
 		}
 	}

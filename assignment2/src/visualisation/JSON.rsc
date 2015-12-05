@@ -24,9 +24,7 @@ public str createJSON(str projectName, PackageModel packageModel, CodeLineModel 
 	
 	map[loc, list[CloneFragment]] clonesForCompilationUnit = clonesMappedOnCompilationUnit(compilationUnits, cloneModel);
 	
-	result += "<indents>\"name\":\"<projectName>\",\n";
-	result += "<indents>\"update\":\"<now()>\",\n";
-	result += "<indents>\"numberOfCloneClasses\":<size(cloneModel)>,\n";
+	result += "<indents>\"name\":\"<projectName>\",\n<indents>\"update\":\"<now()>\",\n<indents>\"numberOfCloneClasses\":<size(cloneModel)>,\n";
 	
 	if (size(packageModel) > 0)
 	{
@@ -34,8 +32,6 @@ public str createJSON(str projectName, PackageModel packageModel, CodeLineModel 
 	}
 	
 	result += "}";
-	
-	//println("createJSON:<round((systemTime() - bf) / 1000)>");
 	
 	return result;
 }
@@ -70,12 +66,9 @@ private str jsonForSubPackages(set[Package] packages, set[CompilationUnit] compi
 	
 		result += "<indents>{\n";
 	
-		
 		if (size(p.subPackages) > 0 || size(p.compilationUnits) > 0)
 		{
-			result += "<indents>  \"name\":\"<p.name>\",\n";
-		
-			result += jsonForSubPackages(p.subPackages, p.compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, (indentationLevel + 1));
+			result += "<indents>  \"name\":\"<p.name>\",\n<jsonForSubPackages(p.subPackages, p.compilationUnits, clonesForCompilationUnit, cloneModel, codeLineModel, (indentationLevel + 1))>";
 		}
 		
 		if (counter == size(packages))
@@ -89,8 +82,6 @@ private str jsonForSubPackages(set[Package] packages, set[CompilationUnit] compi
 	}
 	
 	result += "<indents>]\n";
-	
-	//println("jsonForSubPackages:<round((systemTime() - bf) / 1000)>");
 	
 	return result;
 }
@@ -107,12 +98,7 @@ private str jsonForCompilationUnits(set[CompilationUnit] compilationUnits, map[l
 	{
 		counter += 1;
 		
-		result += "<indents>{\n";
-		result += "<indents>  \"name\": \"<c.name>\",\n";
-		result += "<indents>  \"children\": [\n";
-		result += jsonForCodeClones(c, clonesForCompilationUnit[c.file], cloneModel, codeLineModel, indentationLevel + 2);
-		result += "<indents>  ]\n";
-		result += "<indents>}";
+		result += "<indents>{\n<indents>  \"name\": \"<c.name>\",\n<indents>  \"children\": [\n<jsonForCodeClones(c, clonesForCompilationUnit[c.file], cloneModel, codeLineModel, indentationLevel + 2)><indents>  ]\n<indents>}";
 		
 		if (counter == size(compilationUnits))
 		{
@@ -123,8 +109,6 @@ private str jsonForCompilationUnits(set[CompilationUnit] compilationUnits, map[l
 			result += ",\n";
 		}
 	}
-	
-	//println("jsonForCompilationUnits:<round((systemTime() - bf) / 1000)>");
 	
 	return result;
 }
@@ -144,23 +128,13 @@ public str jsonForCodeClones(CompilationUnit compilationUnit, list[CloneFragment
 	{
 		counter += 1;
 		clonedLines += size(c.lines);
-		result += "<indents>{\n";
 		
-		result += "<indents>  \"name\": \"\",\n";
-		result += "<indents>  \"size\":<size(c.lines)>,\n";
-		result += "<indents>  \"cloneclass\": \"<c.cloneClassIdentifier>\",\n";
-		result += "<indents>  \"codeFragment\": \"<htmlForCloneClass(c, cloneModel[c.cloneClassIdentifier])>\"\n";
-		result += "<indents>},\n";
-
+		result += "<indents>{\n<indents>  \"name\": \"\",\n<indents>  \"size\":<size(c.lines)>,\n<indents>  \"cloneclass\": \"<c.cloneClassIdentifier>\",\n<indents>  \"codeFragment\": \"<htmlForCloneClass(c, cloneModel[c.cloneClassIdentifier])>\"\n<indents>},\n";
 	}
 	
 	int restLines = max(size(codeLineModel[compilationUnit.file]) - clonedLines, 0);
 	
-	result += "<indents>{\n";
-	result += "<indents>  \"name\": \"no clone\",\n";
-	result += "<indents>  \"size\":<restLines>,\n";
-	result += "<indents>  \"cloneclass\": \"-1\"\n";
-	result += "<indents>}\n";
+	result += "<indents>{\n<indents>  \"name\": \"no clone\",\n<indents>  \"size\":<restLines>,\n<indents>  \"cloneclass\": \"-1\"\n<indents>}\n";
 	
 	return result;
 }

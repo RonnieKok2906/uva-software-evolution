@@ -21,7 +21,7 @@ public void createVisualisation(str projectName, PackageModel packageModel, Code
 	
 	loc file;
 	
-	loc projectFolder = |project://cloneVisualisation| + projectName;
+	loc projectFolder = |project://cloneVisualisation/projects| + projectName;
 	
 	if (!exists(projectFolder))
 	{

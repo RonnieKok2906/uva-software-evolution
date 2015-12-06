@@ -9,7 +9,7 @@ alias CloneFragment = tuple[int cloneClassIdentifier, int cloneIdentifier, list[
 data CloneType = type1() | type2() | type3() | type4();
 
 // Proposed replacement for CloneFragment.
-data Clone = clone(int cloneId, int classId, loc filename, list[CodeLine] lines); 
+data Clone = clone(int cloneId, loc filename, list[CodeLine] lines); 
  
 alias CloneClass = list[CloneFragment];
 alias CloneModel = map[int classId, CloneClass cloneClass];
@@ -128,7 +128,7 @@ public bool alle( list[&T] lst, bool (&T) fn)
 }
 
 
-private bool clonesAreAdjacentOrOverlaps(CloneFragment clone1, CloneFragment clone2) 
+public bool clonesAreAdjacentOrOverlaps(CloneFragment clone1, CloneFragment clone2) 
 {
 	list[int] range1 = cloneRange(clone1);
 	list[int] range2 = cloneRange(clone2);
@@ -143,13 +143,24 @@ private bool clonesAreAdjacentOrOverlaps(CloneFragment clone1, CloneFragment clo
 public CloneFragment mergeClones(list[CloneFragment] clones)
 {
 	if(isEmpty(clones)) return [];
+	if(size(clones) == 1) return clones; 
 	
-	assert all(CloneFragment clone <- clones, clone.lines[0].fileName == first(clones).lines[0].fileName);
+	assert all(CloneFragment clone <- clones, clone.lines[0].fileName == head(clones).lines[0].fileName);
 	
+	CloneFragment clone1 = first(clones);
+	CloneFragment clone2 = last(take(clones, 2));
+	list[CloneFragment] remaining = drop(2, clones);
 	
+	return mergeClones(clone1, clone2) + mergeClones(remaining);
+}
+
+public CloneFragment mergeClones(CloneFragment clone1, CloneFragment clone2) 
+{
+	assert clone1.lines[0].fileName == clone2.lines[0].fileName;
 	
+	list[CodeLine] lines = dup(clone1.lines + clone2.lines);
 	
-	return -1;
+	return <clone1.cloneClassIdentifier, clone1.cloneIdentifier, lines>;
 }
 
 //

@@ -2,9 +2,9 @@ package type2TestSource;
 
 public class TestClass3 {
 	
-	public boolean test1()
+	public double test1()
 	{
-		return true;
+		return 0;
 	}
 	
 	public int test2()

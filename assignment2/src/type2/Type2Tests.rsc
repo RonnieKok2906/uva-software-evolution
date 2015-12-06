@@ -133,7 +133,7 @@ test bool testThatDifferentReturnExpressionIsRecognized()
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
-	
+	println("cloneModel:<cloneModel>");
 	//Assert
 	return size(cloneModel) == 0;
 }
@@ -151,7 +151,7 @@ test bool testThatDifferentVariableNamesAreIgnored()
 	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 1;
+	config.numberOfLines = 5;
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);

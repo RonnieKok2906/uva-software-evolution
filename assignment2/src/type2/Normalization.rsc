@@ -108,11 +108,11 @@ private Expression normalizeNumberLiteral(Expression numberLiteral, Config confi
 	}
 	
 	numberLiteral = setAnnotations(numberLiteral, annotations);
-	
+
 	return numberLiteral;
 }
 
-private Expression normalizeBooleanLiteral(node booleanLiteral, Config config)
+private Expression normalizeBooleanLiteral(Expression booleanLiteral, Config config)
 {
 	map[str, value] annotations = getAnnotations(booleanLiteral);
 	
@@ -124,7 +124,7 @@ private Expression normalizeBooleanLiteral(node booleanLiteral, Config config)
 	{
 		booleanLiteral = \stringLiteral("literal");
 		
-		annotations["typ"] = string();
+		annotations["typ"] = \string();
 	}
 		
 	booleanLiteral = setAnnotations(booleanLiteral, annotations);
@@ -134,7 +134,7 @@ private Expression normalizeBooleanLiteral(node booleanLiteral, Config config)
 
 private Expression normalizeStringLiteral(Expression stringLiteral, Config config)
 {
-	map[str, value] annotations = getAnnotations(booleanLiteral);
+	map[str, value] annotations = getAnnotations(stringLiteral);
 	
 	if (config.respectLiteralType)
 	{
@@ -152,22 +152,27 @@ private Expression normalizeStringLiteral(Expression stringLiteral, Config confi
 	return stringLiteral;
 }
 
-private Expression normalizeVariableName(Expression variable, Config config)
+private Expression normalizeVariableName(Expression variableNode, Config config)
 {	
-
-//
-
-
-	map[str, value] annotations = getAnnotations(variable);
+	map[str, value] annotations = getAnnotations(variableNode);
 	
 	if (!config.respectVariableType)
 	{
 		annotations["typ"] = string();
 	}
 	
-	variable = setAnnotations(variable, annotations);
-	//println("variable:<variable>");
-	return variable;
+	if (v:\variable(name, extraDimensions) := variableNode)
+	{
+		variableNode = \variable("variable", extraDimensions);
+	}
+	else if (v:\variable(name, extraDimensions, expressionInitializer) := variableNode)
+	{
+		variableNode = \variable("variable", extraDimensions, expressionInitializer);
+	}
+	
+	variableNode = setAnnotations(variableNode, annotations);
+	
+	return variableNode;
 }
 
 private Declaration normalizeVariableDeclaration(Declaration variableDeclaration, Config config)
@@ -180,7 +185,7 @@ private Declaration normalizeVariableDeclaration(Declaration variableDeclaration
 	}	
 
 	if (v:\variables(variableType, parameters) := variableDeclaration)
-	{	
+	{		
 		variableDeclaration = \variables(config.respectVariableType ? variableType : string(), parameters);
 	}
 	

@@ -1,5 +1,5 @@
 module type2::Config
 
-public int numberOfLines = 15;
-public bool respectType = false;
-public bool respectLiteralType = false;
+data Config = config(int numberOfLines, bool respectLiteralType);
+
+public Config defaultConfiguration = config(10, false);

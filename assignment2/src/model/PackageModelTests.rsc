@@ -7,14 +7,13 @@ import model::PackageModel;
 import model::CodeLineModel;
 
 public list[bool] allTests() = [
-								testThatCloneSourceHasThreeChildPackagesRelation(),
-								testThatCloneSourceHasThreeChildPackages(),
-								testThatCloneSourceHasTwoRootPackages(),
-								testThatCloneSourceHasFivePackages(),
-								testThatCloneSourceHasCorrectNumberOfLines()
+								testThatCloneSourceHasCorrectChildPackagesRelation(),
+								testThatCloneSourceHasCorrectChildPackages(),
+								testThatCloneSourceHasCorrectRootPackages(),
+								testThatCloneSourceHasCorrectPackages()
 								];
 
-test bool testThatCloneSourceHasThreeChildPackagesRelation()
+test bool testThatCloneSourceHasCorrectChildPackagesRelation()
 {
 	// Arrange
 	loc testProject = |project://testCloneSource|;
@@ -24,10 +23,10 @@ test bool testThatCloneSourceHasThreeChildPackagesRelation()
 	rel[loc, loc] childPackageRelation = getChildPackageRelation(m3Model);
 	
 	// Assert
-	return size(childPackageRelation) == 3 ;
+	return size(childPackageRelation) == 3;
 }
 
-test bool testThatCloneSourceHasThreeChildPackages()
+test bool testThatCloneSourceHasCorrectChildPackages()
 {
 	// Arrange
 	loc testProject = |project://testCloneSource|;
@@ -37,10 +36,10 @@ test bool testThatCloneSourceHasThreeChildPackages()
 	set[loc] childPackages = getChildPackages(m3Model);
 	
 	// Assert
-	return size(childPackages) == 3 ;
+	return size(childPackages) == 3;
 }
 
-test bool testThatCloneSourceHasTwoRootPackages()
+test bool testThatCloneSourceHasCorrectRootPackages()
 {
 	// Arrange
 	loc testProject = |project://testCloneSource|;
@@ -52,10 +51,10 @@ test bool testThatCloneSourceHasTwoRootPackages()
 	PackageModel model = createPackageModel(m3Model, codeLineModel);
 	
 	// Assert
-	return size(rootPackages) == 2 && size(model) == 2;
+	return size(rootPackages) == 3 && size(model) == 3;
 }
 
-test bool testThatCloneSourceHasFivePackages()
+test bool testThatCloneSourceHasCorrectPackages()
 {
 	// Arrange
 	loc testProject = |project://testCloneSource|;
@@ -65,39 +64,5 @@ test bool testThatCloneSourceHasFivePackages()
 	set[loc] packages = getPackages(m3Model);
 	
 	// Assert
-	return size(packages) == 5;
-}
-
-private LOC getLinesOfCodeOfPackages(PackageModel packageModel, CodeLineModel codeLineModel)
-{
-	LOC result = 0;
-	
-	for (p <- packageModel)
-	{
-		for (cu <- p.compilationUnits)
-		{
-			result += size(codeLineModel[cu.file]);
-		}
-	
-		result += getLinesOfCodeOfPackages(p.subPackages, codeLineModel);
-	}
-	
-	return result;
-}
-
-test bool testThatCloneSourceHasCorrectNumberOfLines()
-{
-	// Arrange
-	loc testProject = |project://testCloneSource|;
-	M3 m3Model = createM3FromEclipseProject(testProject);
-	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-		
-	// Act
-	PackageModel model = createPackageModel(m3Model, codeLineModel);
-	LOC linesOfCodeOfCodeLineModel = (0 | it + size(codeLineModel[cu])| cu <- codeLineModel);
-
-	LOC linesOfCodeOfPackageModel = getLinesOfCodeOfPackages(model, codeLineModel);
-
-	// Assert
-	return linesOfCodeOfCodeLineModel == 124 && linesOfCodeOfCodeLineModel == linesOfCodeOfPackageModel;
+	return size(packages) == 6;
 }

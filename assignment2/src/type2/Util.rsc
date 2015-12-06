@@ -68,14 +68,16 @@ public loc getSourceFromNode(node n)
 			return e@src;
 		}
 	}
+	
+	println("thisNode:<n>:<isExpression(n)>");
 }
 
 public bool isCloneSubtreeCandidate(node n)
 {
-	if (isDeclaration(n) || isStatement(n))
+	if (isDeclaration(n) || isStatement(n) || isExpression(n))
 	{					
 		if (hasAnnotatedSource(n))
-		{	
+		{			
 			return true;
 		}
 	}
@@ -113,15 +115,7 @@ private bool consistsOfMoreThanNLines(int numberOfLines, loc codeFragment, CodeL
 	return size(codeLinesForFragement(codeFragment, codeLineModel)) >= numberOfLines;
 }
 
-public bool oneOfTheCodeFragmentsHasEnoughLines(int numberOfLines, set[loc] codeFragments, CodeLineModel2 codeLineModel)
+public bool allTheCodeFragmentsHasEnoughLines(int numberOfLines, set[loc] codeFragments, CodeLineModel2 codeLineModel)
 {
-	for (c <- codeFragments)
-	{
-		if (consistsOfMoreThanNLines(numberOfLines, c, codeLineModel))
-		{
-			return true;
-		}
-	}
-	
-	return false;
+	return all(c <- codeFragments, consistsOfMoreThanNLines(numberOfLines, c, codeLineModel));
 }

@@ -13,6 +13,7 @@ import model::CloneModel;
 
 import type1::Type1;
 import type2::Type2;
+import type2::Type2Tests;
 import type2::CodeLineModel2;
 
 import visualisation::HTMLTests;
@@ -152,7 +153,8 @@ public void runAllTests()
 	list[tuple[str,list[bool]]] tests = [
 								<"CodeLineModel.rsc Tests", model::CodeLineModel::allTests()>,
 								<"PackageModelTests.rsc Tests", model::PackageModelTests::allTests()>,
-								<"HTMLTests.rsc Tests", visualisation::HTMLTests::allTests()>
+								<"HTMLTests.rsc Tests", visualisation::HTMLTests::allTests()>,
+								<"Type2Tests.rsc Tests", type2::Type2Tests::allTests()>
 								];
 
 	int numberOfFailedTests = 0;

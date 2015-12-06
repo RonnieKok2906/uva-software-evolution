@@ -4,9 +4,6 @@ import Prelude;
 
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
-
-import visualisation::HTML;
-
 alias LOC = int;
 data Comment = comment(loc location);
 data CodeLine2 = codeLine(loc fileName, int lineNumber, str codeFragment, bool onlyComment);
@@ -44,7 +41,7 @@ private map[int, CodeLine2] relevantCodeFromFile(loc fileName, list[Comment] com
 {
 	list[CodeLine2] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	
-	return (i+1:codeLine(fileName.top, i+1, cleanString(linesWithoutComments[i].codeFragment), isEmptyLine(linesWithoutComments[i])) | i <- [0..size(linesWithoutComments)]);
+	return (i+1:codeLine(fileName.top, i+1, linesWithoutComments[i].codeFragment, isEmptyLine(linesWithoutComments[i])) | i <- [0..size(linesWithoutComments)]);
 }
 
 private list[CodeLine2] removeCommentsFromFile(loc fileName, list[Comment] comments)

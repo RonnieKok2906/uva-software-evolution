@@ -140,7 +140,7 @@ private bool clonesAreAdjacentOrOverlaps(CloneFragment clone1, CloneFragment clo
 // Assuming all given clone fragments are from the same file and are adjacent or overlapping each other...
 // ... merge all clone fragments into one large fragment.
 //
-public CloneFragement mergeClones(list[CloneFragment] clones)
+public CloneFragment mergeClones(list[CloneFragment] clones)
 {
 	if(isEmpty(clones)) return [];
 	

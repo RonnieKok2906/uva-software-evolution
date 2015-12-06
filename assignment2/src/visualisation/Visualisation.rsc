@@ -13,6 +13,5 @@ import visualisation::Util;
 
 public void createVisualisation(str projectName, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel, CloneType cloneType) 
 {	
-	println("Building JSON file...");
 	createJSON(projectName, cloneType, packageModel, codeLineModel, cloneModel);
 }

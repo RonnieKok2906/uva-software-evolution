@@ -43,7 +43,7 @@ private Declaration normalizeMethod(Declaration methodDeclaration, Config config
 	{
 		returnType = config.respectMethodReturnType ? returnType : string();
 	
-		methodDeclaration = \method(returnType, "methodIdentifier", parameters, exceptions, impl);
+		methodDeclaration = \method(returnType, "methodIdentifier", parameters, exceptions);
 	}
 
 	methodDeclaration = setAnnotations(methodDeclaration, annotations);
@@ -122,24 +122,24 @@ private Expression normalizeBooleanLiteral(Expression booleanLiteral, Config con
 	return booleanLiteral;
 }
 
-private Expression normalizeStringLiteral(Expression stringLiteral, Config config)
+private Expression normalizeStringLiteral(Expression sLiteral, Config config)
 {
-	map[str, value] annotations = getAnnotations(stringLiteral);
+	map[str, value] annotations = getAnnotations(sLiteral);
 	
 	if (config.respectLiteralType)
 	{
-		stringLiteral = \stringLiteral("stringLiteral");
+		sLiteral = \stringLiteral("stringLiteral");
 	}
 	else
 	{
-		stringLiteral = \stringLiteral("literal");
+		sLiteral = \stringLiteral("literal");
 		
 		annotations["typ"] = string();
 	}
 		
-	stringLiteral = setAnnotations(stringLiteral, annotations);
+	sLiteral = setAnnotations(sLiteral, annotations);
 	
-	return stringLiteral;
+	return sLiteral;
 }
 
 private Expression normalizeVariableName(Expression variableNode, Config config)

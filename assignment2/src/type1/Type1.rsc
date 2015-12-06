@@ -45,6 +45,15 @@ public CloneModel clonesInProject(CodeLineModel model)
 		cloneClassId += 1;
 	}
 
+	list[loc] files = getFilesFromCloneModel(cloneModel);
+	
+	println("Files:");
+	for(file <- files) 
+	{ 
+	    println("<file>"); 
+	}
+
+
 	return cloneModel;
 }
 

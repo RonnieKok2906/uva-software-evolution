@@ -72,16 +72,102 @@ public list[CloneFragment] getClonesFromFile(CloneModel cloneModel, loc filename
 	return clones;
 } 
 
+//
+// Tries to make the largset possible clones in a clone model.
+//
+public CloneModel normalizeCloneModel(CloneModel model) 
+{
+	list[loc] files = getFilesFromCloneModel(model);
+	
+	for(file <- files) 
+	{
+		// List of clones from the same file.
+		list[CloneFragment] clones = getClonesFromFile(model, file);
+		
+		// Maak de grootste mogelijke clones.
+		list[CloneFragment] largestPossibleClones = consolidateClones(clones);
+		
+		// Maak alle mogelijke subclones.
+		
+		
+		 
+	}
+	
+	
+	// Vergelijk alle subclones met elkaar. Filter weg wat geen clone is.
+	
+	// 
+}
+
+public list[CloneFragment] consolidateClones(list[CloneFragment] clones)
+{
+	CloneFragment first = head(clones);
+	list[CloneFragment] tail = tail(clones);
+
+	// Select all clones that overlaps with the first
+	clonesWithOverlap = [ c | c <- clones, clonesAreAdjacentOrOverlaps(first, c) ];
+	remaining = [ c | c <- tail, !clonesAreAdjacentOrOverlaps(first, c) ];
+
+	// Merge the clones with overlap
+	CloneFragment mergedClone = mergeClones(clonesWithOverlap); 
+
+	return mergedClone + consolidateClones(remaining);
+
+	
+
+	//while([*CloneFragment nums1, CloneFragment p, *CloneFragment nums2, CloneFragment q, *CloneFragment nums3] := clones && p.cloneIdentifier > q.cloneIdentifier)
+	//{
+	//	println("Clone <p.cloneIdentifier> and <q.cloneIdentifier>");
+	//}
+	//return [];
+}
+
+public bool alle( list[&T] lst, bool (&T) fn)
+{
+	return all(mapper( lst, fn));
+}
+
+
+private bool clonesAreAdjacentOrOverlaps(CloneFragment clone1, CloneFragment clone2) 
+{
+	list[int] range1 = cloneRange(clone1);
+	list[int] range2 = cloneRange(clone2);
+	
+	return rangesAreAdjacentOrOverlaps(range1, range2);
+}
+
+//
+// Assuming all given clone fragments are from the same file and are adjacent or overlapping each other...
+// ... merge all clone fragments into one large fragment.
+//
+public CloneFragement mergeClones(list[CloneFragment] clones)
+{
+	if(isEmpty(clones)) return [];
+	
+	assert all(CloneFragment clone <- clones, clone.lines[0].fileName == first(clones).lines[0].fileName);
+	
+	
+	
+	
+	return -1;
+}
+
+//
+// Gets the range of a clone. 
+//
 public list[int] cloneRange(CloneFragment clone) 
 {
 	return [ codeLine.orderNumber | codeLine <- clone.lines ];
 }
 
 //
-// Determines whether to ranges overlap each other.
+// Determines whether to ranges are adjacent or overlap each other.
 //
-public bool rangeOverlaps(list[int] range1, list[int] range2) 
+public bool rangesAreAdjacentOrOverlaps(list[int] range1, list[int] range2) 
 {
-	return false;
+	range1 += max(range1) + 1;
+	range1 += min(range1) - 1;
+	
+	return !isEmpty(range1 & range2);
 }
 

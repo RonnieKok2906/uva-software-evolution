@@ -5,14 +5,15 @@ import Prelude;
 import model::CodeLineModel;
 import model::PackageModel;
 
-alias CloneFragment = tuple[int cloneClassIdentifier, int cloneIdentifier, list[CodeLine] lines];
+data Clone = clone(int cloneClassIdentifier, int cloneId, loc filename, list[CodeLine] lines); 
 data CloneType = type1() | type2() | type3() | type4();
 
-// Proposed replacement for CloneFragment.
-data Clone = clone(int cloneId, loc filename, list[CodeLine] lines); 
- 
 alias CloneClass = list[CloneFragment];
 alias CloneModel = map[int classId, CloneClass cloneClass];
+
+//These types could be refactored to this.
+//data CloneClass = cloneClass(int classId, list[Clone]);
+//alias CloneModel = list[CloneClass];
 
 public map[loc compilationUnit, list[CloneFragment] cloneFragments] clonesMappedOnCompilationUnit(set[loc] compilationUnits, CloneModel cloneModel)
 {

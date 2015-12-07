@@ -53,9 +53,7 @@ private Declaration normalizeMethod(Declaration methodDeclaration, Config config
 
 private Expression normalizeSimpleName(Expression simpleNameNode)
 {	
-	map[str, value] annotations = getAnnotations(simpleNameNode);
-
-	return setAnnotations(\simpleName("variable"), annotations);
+	return setAnnotations(\simpleName("variable"), getAnnotations(simpleNameNode));
 }
 
 private Expression normalizeCharacterLiteral(Expression characterLiteral, Config config)

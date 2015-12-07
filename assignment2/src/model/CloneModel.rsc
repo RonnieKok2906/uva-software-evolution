@@ -15,11 +15,7 @@ alias CloneModel = map[int classId, CloneClass cloneClass];
 //data CloneClass = cloneClass(int classId, list[Clone]);
 //alias CloneModel = list[CloneClass];
 
-<<<<<<< HEAD
 public map[loc compilationUnit, list[Clone] clonees] clonesMappedOnCompilationUnit(set[loc] compilationUnits, CloneModel cloneModel)
-=======
-public map[loc compilationUnit, list[Clone] cloneFragments] clonesMappedOnCompilationUnit(set[loc] compilationUnits, CloneModel cloneModel)
->>>>>>> origin/master
 {
 	map[loc compilationUnit, list[Clone] cloneFragments] returnMap = (c:[] | c <- compilationUnits);
 
@@ -32,11 +28,7 @@ public map[loc compilationUnit, list[Clone] cloneFragments] clonesMappedOnCompil
 				println("no lines:<cloneModel[k]>");
 			}
 		
-<<<<<<< HEAD
 			returnMap[c.filename] += c;		
-=======
-			returnMap[c.lines[0].fileName] += c;
->>>>>>> origin/master
 		}
 	}
 	
@@ -65,11 +57,7 @@ public list[loc] getFilesFromCloneModel(CloneModel cloneModel)
 public list[Clone] getClonesFromFile(CloneModel cloneModel, loc filename) 
 {
 	list[Clone] clones = [];
-<<<<<<< HEAD
-		
-=======
-	
->>>>>>> origin/master
+
 	for(k <- cloneModel) 
 	{
 		for(clone <- cloneModel[k]) 
@@ -154,17 +142,10 @@ public Clone mergeClones(list[Clone] clones)
 	assert !isEmpty(clones);
 	if(size(clones) == 1) return clones[0]; 
 	
-<<<<<<< HEAD
 	assert all(Clone clone <- clones, clone.filename == head(clones).filename);
 	
 	Clone clone1 = head(clones);
 	Clone clone2 = last(take(2, clones));
-=======
-	assert all(Clone clone <- clones, clone.lines[0].fileName == head(clones).lines[0].fileName);
-	
-	Clone clone1 = first(clones);
-	Clone clone2 = last(take(clones, 2));
->>>>>>> origin/master
 	list[Clone] remaining = drop(2, clones);
 	
 	Clone mergedClone = mergeClones(clone1, clone2);

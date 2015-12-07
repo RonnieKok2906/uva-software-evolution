@@ -18,7 +18,7 @@ public void createJSON(str projectName, CloneType cloneType, PackageModel packag
 	
 	set[loc] compilationUnits = toSet([c |c <-codeLineModel]);
 	
-	map[loc, list[CloneFragment]] clonesForCompilationUnit = clonesMappedOnCompilationUnit(compilationUnits, cloneModel);
+	map[loc, list[Clone]] clonesForCompilationUnit = clonesMappedOnCompilationUnit(compilationUnits, cloneModel);
 	
 	result += "<indents>\"name\":\"<projectName>\",\n<indents>\"update\":\"<now()>\",\n<indents>\"numberOfCloneClasses\":<size(cloneModel)>,\n";
 	
@@ -34,7 +34,7 @@ public void createJSON(str projectName, CloneType cloneType, PackageModel packag
 
 }
 
-private void jsonForSubPackages(str projectName, CloneType cloneType, set[Package] packages, set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
+private void jsonForSubPackages(str projectName, CloneType cloneType, set[Package] packages, set[CompilationUnit] compilationUnits, map[loc, list[Clone]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {			
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 	
@@ -92,7 +92,7 @@ private void jsonForSubPackages(str projectName, CloneType cloneType, set[Packag
 }
 
 
-private void jsonForCompilationUnits(str projectName, CloneType cloneType, set[CompilationUnit] compilationUnits, map[loc, list[CloneFragment]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
+private void jsonForCompilationUnits(str projectName, CloneType cloneType, set[CompilationUnit] compilationUnits, map[loc, list[Clone]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 	
@@ -119,7 +119,7 @@ private void jsonForCompilationUnits(str projectName, CloneType cloneType, set[C
 	}
 }
 
-public str jsonForCodeClones(CompilationUnit compilationUnit, list[CloneFragment] cloneFragments, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
+public str jsonForCodeClones(CompilationUnit compilationUnit, list[Clone] cloneFragments, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 

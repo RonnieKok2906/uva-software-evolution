@@ -5,7 +5,7 @@ import Prelude;
 import model::CodeLineModel;
 import model::CloneModel;
 
-public str htmlForCloneClass(CloneFragment cloneFragment, CloneClass cloneClass)
+public str htmlForCloneClass(Clone cloneFragment, CloneClass cloneClass)
 {
 	result = "\<h1\>Selected CodeFragment\</h1\>";
 	result += "\<h3\><cloneFragment.lines[0].fileName.path>\</h3\>";

@@ -35,9 +35,9 @@ public CloneModel clonesInProject(CodeLineModel model)
 	{
 		CloneClass cloneClass = [];
 		
-		for(clone <- duplicationsMap[k]) 
+		for(c <- duplicationsMap[k]) 
 		{
-            cloneClass += <cloneClassId, cloneId, clone>;
+            cloneClass += clone(cloneClassId, cloneId, c[0].fileName, c);
             cloneId += 1;		
 		}
 	

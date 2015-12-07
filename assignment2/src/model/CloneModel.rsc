@@ -8,16 +8,16 @@ import model::PackageModel;
 data Clone = clone(int cloneClassIdentifier, int cloneId, loc filename, list[CodeLine] lines); 
 data CloneType = type1() | type2() | type3() | type4();
 
-alias CloneClass = list[CloneFragment];
+alias CloneClass = list[Clone];
 alias CloneModel = map[int classId, CloneClass cloneClass];
 
 //These types could be refactored to this.
 //data CloneClass = cloneClass(int classId, list[Clone]);
 //alias CloneModel = list[CloneClass];
 
-public map[loc compilationUnit, list[CloneFragment] cloneFragments] clonesMappedOnCompilationUnit(set[loc] compilationUnits, CloneModel cloneModel)
+public map[loc compilationUnit, list[Clone] cloneFragments] clonesMappedOnCompilationUnit(set[loc] compilationUnits, CloneModel cloneModel)
 {
-	map[loc compilationUnit, list[CloneFragment] cloneFragments] returnMap = (c:[] | c <- compilationUnits);
+	map[loc compilationUnit, list[Clone] cloneFragments] returnMap = (c:[] | c <- compilationUnits);
 
 	for (k <- cloneModel)
 	{
@@ -28,7 +28,7 @@ public map[loc compilationUnit, list[CloneFragment] cloneFragments] clonesMapped
 				println("no lines:<cloneModel[k]>");
 			}
 		
-			returnMap[c.lines[0].fileName] += c;		
+			returnMap[c.lines[0].fileName] += c;
 		}
 	}
 	
@@ -54,9 +54,9 @@ public list[loc] getFilesFromCloneModel(CloneModel cloneModel)
 	return files;
 }
 
-public list[CloneFragment] getClonesFromFile(CloneModel cloneModel, loc filename) 
+public list[Clone] getClonesFromFile(CloneModel cloneModel, loc filename) 
 {
-	list[CloneFragment] clones = [];
+	list[Clone] clones = [];
 	
 	for(k <- cloneModel) 
 	{
@@ -83,10 +83,10 @@ public CloneModel normalizeCloneModel(CloneModel model)
 	for(file <- files) 
 	{
 		// List of clones from the same file.
-		list[CloneFragment] clones = getClonesFromFile(model, file);
+		list[Clone] clones = getClonesFromFile(model, file);
 		
 		// Maak de grootste mogelijke clones.
-		list[CloneFragment] largestPossibleClones = consolidateClones(clones);
+		list[Clone] largestPossibleClones = consolidateClones(clones);
 		
 		// Maak alle mogelijke subclones.
 		
@@ -100,17 +100,17 @@ public CloneModel normalizeCloneModel(CloneModel model)
 	// 
 }
 
-public list[CloneFragment] consolidateClones(list[CloneFragment] clones)
+public list[Clone] consolidateClones(list[Clone] clones)
 {
-	CloneFragment first = head(clones);
-	list[CloneFragment] tail = tail(clones);
+	Clone first = head(clones);
+	list[Clone] tail = tail(clones);
 
 	// Select all clones that overlaps with the first
 	clonesWithOverlap = [ c | c <- clones, clonesAreAdjacentOrOverlaps(first, c) ];
 	remaining = [ c | c <- tail, !clonesAreAdjacentOrOverlaps(first, c) ];
 
 	// Merge the clones with overlap
-	CloneFragment mergedClone = mergeClones(clonesWithOverlap); 
+	Clone mergedClone = mergeClones(clonesWithOverlap); 
 
 	return mergedClone + consolidateClones(remaining);
 
@@ -129,7 +129,7 @@ public bool alle( list[&T] lst, bool (&T) fn)
 }
 
 
-public bool clonesAreAdjacentOrOverlaps(CloneFragment clone1, CloneFragment clone2) 
+public bool clonesAreAdjacentOrOverlaps(Clone clone1, Clone clone2) 
 {
 	list[int] range1 = cloneRange(clone1);
 	list[int] range2 = cloneRange(clone2);
@@ -141,21 +141,21 @@ public bool clonesAreAdjacentOrOverlaps(CloneFragment clone1, CloneFragment clon
 // Assuming all given clone fragments are from the same file and are adjacent or overlapping each other...
 // ... merge all clone fragments into one large fragment.
 //
-public CloneFragment mergeClones(list[CloneFragment] clones)
+public Clone mergeClones(list[Clone] clones)
 {
 	if(isEmpty(clones)) return [];
 	if(size(clones) == 1) return clones; 
 	
-	assert all(CloneFragment clone <- clones, clone.lines[0].fileName == head(clones).lines[0].fileName);
+	assert all(Clone clone <- clones, clone.lines[0].fileName == head(clones).lines[0].fileName);
 	
-	CloneFragment clone1 = first(clones);
-	CloneFragment clone2 = last(take(clones, 2));
-	list[CloneFragment] remaining = drop(2, clones);
+	Clone clone1 = first(clones);
+	Clone clone2 = last(take(clones, 2));
+	list[Clone] remaining = drop(2, clones);
 	
 	return mergeClones(clone1, clone2) + mergeClones(remaining);
 }
 
-public CloneFragment mergeClones(CloneFragment clone1, CloneFragment clone2) 
+public Clone mergeClones(Clone clone1, Clone clone2) 
 {
 	assert clone1.lines[0].fileName == clone2.lines[0].fileName;
 	
@@ -167,7 +167,7 @@ public CloneFragment mergeClones(CloneFragment clone1, CloneFragment clone2)
 //
 // Gets the range of a clone. 
 //
-public list[int] cloneRange(CloneFragment clone) 
+public list[int] cloneRange(Clone clone) 
 {
 	return [ codeLine.orderNumber | codeLine <- clone.lines ];
 }

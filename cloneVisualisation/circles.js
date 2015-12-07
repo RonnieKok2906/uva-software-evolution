@@ -271,4 +271,6 @@ function createMetaDataDiv(root)
 	metaDataDiv.append("p")
 	.html("Number of Clone Classes: " + root.numberOfCloneClasses);
 	
+	metaDataDiv.append("p")
+	.html("Minimum number of Lines: " + root.minumumNumberOfLines);
 }

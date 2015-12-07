@@ -114,7 +114,7 @@ private CloneClass createCloneClass(int classIdentifier, set[loc] locations, Cod
 	
 	for (l <- locations)
 	{
-		cc += <classIdentifier, counter, codeLinesForFragement(l, codeLineModel)>;
+		cc += clone(classIdentifier, counter, l.top, codeLinesForFragement(l, codeLineModel));
 	}
 
 	return cc;

@@ -6,7 +6,7 @@ import util::Math;
 
 import lang::java::jdt::m3::AST;
 
-import type2::CodeLineModel2;
+import model::CodeLineModel;
 import model::CloneModel;
 
 import type2::Util;
@@ -14,12 +14,12 @@ import type2::Config;
 import type2::Normalization;
 import type2::Subsumption;
 
-public CloneModel clonesInProject(CodeLineModel2 codeLineModel, set[Declaration] declarations)
+public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations)
 {
 	return clonesInProject(codeLineModel, declarations, defaultConfiguration);
 }
 
-public CloneModel clonesInProject(CodeLineModel2 codeLineModel, set[Declaration] declarations, Config config)
+public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations, Config config)
 {
 	map[node, set[loc]] subtrees = findAllPossibleNormalizedSubtrees(declarations, config);
 
@@ -71,7 +71,7 @@ private map[node, set[loc]] addNodeToSubtrees(node n, map[node, set[loc]] subtre
 }
 
 
-private map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfNLinesOrMore(int numberOflines, map[node, set[loc]] subtrees, CodeLineModel2 codeLineModel)
+private map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfNLinesOrMore(int numberOflines, map[node, set[loc]] subtrees, CodeLineModel codeLineModel)
 {	
 	map[node, set[loc]] clonedSubtrees = (k:subtrees[k] | k <- subtrees, size(subtrees[k]) > 1);
 			
@@ -90,7 +90,7 @@ private map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfNLinesOrMore(int
 
 
 
-private CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates, CodeLineModel2 codeLineModel)
+private CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates, CodeLineModel codeLineModel)
 {
 	CloneModel rawCloneModel = ();
 	
@@ -106,7 +106,7 @@ private CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates
 	return rawCloneModel;
 }
 
-private CloneClass createCloneClass(int classIdentifier, set[loc] locations, CodeLineModel2 codeLineModel)
+private CloneClass createCloneClass(int classIdentifier, set[loc] locations, CodeLineModel codeLineModel)
 {
 	CloneClass cc = [];
 

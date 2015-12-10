@@ -4,12 +4,11 @@ import Prelude;
 
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
-
 alias LOC = int;
 data Comment = comment(loc location);
-data CodeLine = codeLine(loc fileName, int lineNumber, int orderNumber, str codeFragment);
+data CodeLine = codeLine(loc fileName, int lineNumber, int orderNumber, str codeFragment, bool hasOnlyCode);
 
-alias CodeLineModel = map[loc compilationUnit, list[CodeLine] lines];
+alias CodeLineModel = map[loc compilationUnit, map[int lineNumber, CodeLine line] lines];
 
 //Public functions
 
@@ -20,6 +19,45 @@ public CodeLineModel createCodeLineModel(M3 model)
 	return (f : relevantCodeFromFile(f, comments[f]) | f <- getFilesFromModel(model));
 }
 
+public list[CodeLine] sortedLinesForCompilationUnit(loc compilationUnit, CodeLineModel codeLineModel)
+{
+	map[int, CodeLine] lines = codeLineModel[compilationUnit];
+
+	return sort(toList(range(lines)), bool(CodeLine l1, CodeLine l2){ return l1.lineNumber < l2.lineNumber; });
+}
+
+public CodeLineModel removeEmptyLinesAndAssignOrderNumber(CodeLineModel codeLineModel)
+{
+	for (f <- codeLineModel)
+	{
+		map[int, CodeLine] tempMap = codeLineModel[f];
+		map[int, CodeLine] mapToReturn = ();
+		
+		for (ln <- tempMap)
+		{
+			if (tempMap[ln].hasOnlyCode)
+			{
+				mapToReturn[ln] = tempMap[ln];
+			}
+		}
+		
+		codeLineModel[f] = mapToReturn;
+	}
+	
+	for (f <- codeLineModel)
+	{
+		list[int] sortedLineNumbers = sort(domain(codeLineModel[f]));
+	
+		for (orderNumber <- [0..size(sortedLineNumbers)])
+		{
+			CodeLine line = codeLineModel[f][sortedLineNumbers[orderNumber]];
+			line.orderNumber = orderNumber;
+			codeLineModel[f][sortedLineNumbers[orderNumber]] = line;
+		}
+	}
+	
+	return codeLineModel;
+}
 
 //Private functions
 
@@ -38,13 +76,11 @@ private map[loc, list[Comment]] commentsPerFile(M3 model)
 	return mapToReturn;
 }
 
-private list[CodeLine] relevantCodeFromFile(loc fileName, list[Comment] comments)
+private map[int, CodeLine] relevantCodeFromFile(loc fileName, list[Comment] comments)
 {
 	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	
-	list[CodeLine] linesWithoutOrderNumber = [codeLine(fileName.top, i+1, 0, linesWithoutComments[i].codeFragment) | i <- [0..size(linesWithoutComments)], !isEmptyLine(linesWithoutComments[i])];
-	
-	return [ codeLine(line.fileName, line.lineNumber, indexOf(linesWithoutOrderNumber, line), line.codeFragment) | line <- linesWithoutOrderNumber ];
+	return (i+1:codeLine(fileName.top, i+1, 0, linesWithoutComments[i].codeFragment, isEmptyLine(linesWithoutComments[i])) | i <- [0..size(linesWithoutComments)]);
 }
 
 private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] comments)
@@ -55,7 +91,7 @@ private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] commen
 	
 	for (i <- [0..size(lines)])
 	{
-		linesToReturn += codeLine(fileName.top, i+1, 0, lines[i]);
+		linesToReturn += codeLine(fileName.top, i+1, 0, lines[i], true);
 	}
 	
 	for (c <- comments)
@@ -69,7 +105,7 @@ private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] commen
 
 			str resultLine = ("" | it + s | s <- split(commentLines[i], fragmentWithComment));
 	
-			linesToReturn[lineNumber - 1] = codeLine(fileName, lineNumber, 0, resultLine);
+			linesToReturn[lineNumber - 1] = codeLine(fileName, lineNumber, 0, resultLine, true);
 		}
 	}
 

@@ -7,7 +7,7 @@ import lang::java::jdt::m3::Core;
 
 import model::CodeLineModel;
 
-data CompilationUnit = compilationUnit(loc file, str name, list[CodeLine] lines);
+data CompilationUnit = compilationUnit(loc file, str name, map[int lineNumber, CodeLine line] lines);
 
 data Package = package(loc file, str name, set[Package] subPackages, set[CompilationUnit] compilationUnits);
 

@@ -15,6 +15,8 @@ alias CodeBlock = list[CodeLine];
 
 public CloneModel clonesInProject(CodeLineModel model)
 {	
+	model = removeEmptyLinesAndAssignOrderNumber(model);
+
 	println("Code fragment line threshold: <LineThreshold>");
 	map[list[str], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, LineThreshold);
 	println("Number of all possible code fragments: <size(mapping)>");
@@ -59,11 +61,10 @@ public CloneModel clonesInProject(CodeLineModel model)
 
 private map[list[CodeFragment], set[CodeBlock]] indexAllPossibleCodeFragmentsOfNLines(CodeLineModel model, int nrOfLines)
 {	
-	lrel[list[CodeFragment], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(model[f], nrOfLines) | f <- model);
+	lrel[list[CodeFragment], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(sortedLinesForCompilationUnit(f, model), nrOfLines) | f <- model);
 
 	return ListRelation::index(blocks);
 }
-
 
 private lrel[list[CodeFragment], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(list[CodeLine] lines, int nrOfLinesInBlock)
 {	

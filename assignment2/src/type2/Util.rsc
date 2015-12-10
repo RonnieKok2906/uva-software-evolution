@@ -4,7 +4,6 @@ import Prelude;
 
 import lang::java::jdt::m3::AST;
 
-import type2::CodeLineModel2;
 import model::CodeLineModel;
 
 public bool isDeclaration(node n)
@@ -86,12 +85,12 @@ public bool isCloneSubtreeCandidate(node n)
 }
 
 //Could be replaced to the CodeLineModel
-public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel2 codeLineModel)
+public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel codeLineModel)
 {
 	int begin = codeFragment.begin[0];
 	int end = codeFragment.end[0];
 	
-	map[int, CodeLine2] linesOfFile = codeLineModel[codeFragment.top];
+	map[int, CodeLine] linesOfFile = codeLineModel[codeFragment.top];
 	
 	returnList = [];
 	
@@ -99,23 +98,23 @@ public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel2 cod
 	
 	for (i <- [begin..end+1])
 	{
-		CodeLine2 l = linesOfFile[i];
+		CodeLine l = linesOfFile[i];
 	
-		if (!l.onlyComment)
+		if (l.hasOnlyCode)
 		{
-			returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, 0, l.codeFragment);
+			returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, 0, l.codeFragment, true);
 		}
 	}
 	
 	return returnList;
 }
 
-private bool consistsOfMoreThanNLines(int numberOfLines, loc codeFragment, CodeLineModel2 codeLineModel)
+private bool consistsOfMoreThanNLines(int numberOfLines, loc codeFragment, CodeLineModel codeLineModel)
 {
 	return size(codeLinesForFragement(codeFragment, codeLineModel)) >= numberOfLines;
 }
 
-public bool allTheCodeFragmentsHasEnoughLines(int numberOfLines, set[loc] codeFragments, CodeLineModel2 codeLineModel)
+public bool allTheCodeFragmentsHasEnoughLines(int numberOfLines, set[loc] codeFragments, CodeLineModel codeLineModel)
 {
 	return all(c <- codeFragments, consistsOfMoreThanNLines(numberOfLines, c, codeLineModel));
 }

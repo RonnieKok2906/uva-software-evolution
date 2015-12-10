@@ -100,7 +100,7 @@ public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel code
 	{
 		CodeLine l = linesOfFile[i];
 	
-		if (l.hasOnlyCode)
+		if (l.hasCode)
 		{
 			returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, 0, l.codeFragment, true);
 		}

@@ -7,7 +7,7 @@ import lang::java::jdt::m3::Core;
 
 import model::CodeLineModel;
 
-data CompilationUnit = compilationUnit(loc file, str name, map[int lineNumber, CodeLine line] lines);
+data CompilationUnit = compilationUnit(loc file, str name);
 
 data Package = package(loc file, str name, set[Package] subPackages, set[CompilationUnit] compilationUnits);
 
@@ -35,7 +35,7 @@ public PackageModel createPackageModel(M3 m3Model, CodeLineModel codeLineModel)
 	
 	packageCompilationUnitRelation = {<from, to> | <from, to> <- m3Model@containment, from.scheme == "java+package" && to.scheme == "java+compilationUnit"};
 	
-	map[loc,CompilationUnit] schemeToCompilationUnit = (from:compilationUnit(to.top, getClassNameFromLocation(to.top), codeLineModel[to.top]) | <from, to> <- m3Model@declarations, from.scheme == "java+compilationUnit");
+	map[loc,CompilationUnit] schemeToCompilationUnit = (from:compilationUnit(to.top, getClassNameFromLocation(to.top)) | <from, to> <- m3Model@declarations, from.scheme == "java+compilationUnit");
 	
 	for (cu <- packageCompilationUnitRelation)
 	{

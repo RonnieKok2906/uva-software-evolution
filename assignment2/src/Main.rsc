@@ -15,6 +15,8 @@ import type1::Type1;
 import type2::Type2;
 import type2::Type2Tests;
 
+import type3::Type3;
+
 import visualisation::HTMLTests;
 
 import visualisation::Visualisation;
@@ -141,6 +143,13 @@ public void detectClones(loc project)
 
 	println("Building visualisation Type2..");
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2());
+	
+	//Type 3
+	//println("Building cloneModelType3..");
+	//CloneModel cloneModelType3 = type3::Type3::clonesInProject(codeLineModel, declarations);
+	//
+	//println("Building visualisation Type3..");
+	//createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType3, type3());
 }
 
 //Test Functions

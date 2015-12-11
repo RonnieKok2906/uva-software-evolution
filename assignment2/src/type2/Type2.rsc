@@ -1,18 +1,16 @@
 module type2::Type2
 
 import Prelude;
-import ListRelation;
-import util::Math;
 
 import lang::java::jdt::m3::AST;
 
 import model::CodeLineModel;
 import model::CloneModel;
 
-import type2::Util;
 import type2::Config;
-import type2::Normalization;
-import type2::Subsumption;
+import util::Subsumption;
+
+import util::TypeUtil;
 
 public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations)
 {
@@ -32,46 +30,7 @@ public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] 
 	return cloneModel;
 }
 
-private map[node, set[loc]] findAllPossibleNormalizedSubtrees(set[Declaration] declarations, Config config)
-{
-	map[node, set[loc]] subtrees = ();
-
-	for (d <- declarations)
-	{				
-		visit(d)
-		{
-			case node n : {
-			
-							if (isCloneSubtreeCandidate(n))
-							{
-								subtrees = addNodeToSubtrees(normalizeNode(n, config), subtrees);
-							}
-						}
-		}
-		
-	}
-	
-	return subtrees;
-}
-
-
-
-private map[node, set[loc]] addNodeToSubtrees(node n, map[node, set[loc]] subtrees)
-{
-	if (n in subtrees)
-	{
-		subtrees[n] += getSourceFromNode(n);
-	}
-	else
-	{
-		subtrees[n] = {getSourceFromNode(n)};
-	}
-	
-	return subtrees;
-}
-
-
-private map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfNLinesOrMore(int numberOflines, map[node, set[loc]] subtrees, CodeLineModel codeLineModel)
+public map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfNLinesOrMore(int numberOflines, map[node, set[loc]] subtrees, CodeLineModel codeLineModel)
 {	
 	map[node, set[loc]] clonedSubtrees = (k:subtrees[k] | k <- subtrees, size(subtrees[k]) > 1);
 			
@@ -88,14 +47,11 @@ private map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfNLinesOrMore(int
 	return subtreesToReturn;
 }
 
-
-
-private CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates, CodeLineModel codeLineModel)
+public CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates, CodeLineModel codeLineModel)
 {
 	CloneModel rawCloneModel = ();
 	
 	int counter = 0;
-	
 	for (c <- candidates)
 	{
 		counter += 1;

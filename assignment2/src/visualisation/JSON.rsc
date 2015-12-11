@@ -13,6 +13,7 @@ import visualisation::Util;
 
 import type1::Type1Config;
 import type2::Config;
+import type3::Config;
 
 public void createJSON(str projectName, CloneType cloneType, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel)
 {	
@@ -30,6 +31,7 @@ public void createJSON(str projectName, CloneType cloneType, PackageModel packag
 	{
 		case type1() : result += "<indents>\"minumumNumberOfLines\":<type1::Type1Config::LineThreshold>,\n";
 		case type2() : result += "<indents>\"minumumNumberOfLines\":<type2::Config::defaultConfiguration.numberOfLines>,\n";
+		case type3() : result += "<indents>\"minumumNumberOfLines\":<type3::Config::defaultConfiguration.numberOfLines>,\n";
 	}
 	
 	writeToJSONFile(projectName, result, cloneType);

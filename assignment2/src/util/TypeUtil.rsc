@@ -1,10 +1,53 @@
-module type2::Util
+module util::TypeUtil
 
 import Prelude;
 
 import lang::java::jdt::m3::AST;
 
+import util::Normalization;
 import model::CodeLineModel;
+import type2::Config;
+import type3::Config;
+
+public map[node, set[loc]] findAllPossibleNormalizedSubtrees(set[Declaration] declarations, Config config)
+{
+	map[node, set[loc]] subtrees = ();
+
+	for (d <- declarations)
+	{				
+		visit(d)
+		{
+			case node n : {
+			
+							if (isCloneSubtreeCandidate(n))
+							{
+								subtrees = addNodeToSubtrees(normalizeNode(n, config), subtrees);
+							}
+						}
+		}
+		
+	}
+	
+	return subtrees;
+}
+
+public set[node] subtreesFromNode(node n)
+{
+	set[node] subtrees = {};
+
+	visit(n)
+	{
+		case node i: 
+		{
+			if (isCloneSubtreeCandidate(n))
+			{
+				subtrees += i;
+			}
+		}
+	}
+	
+	return subtrees;
+}
 
 public bool isDeclaration(node n)
 {	
@@ -102,7 +145,7 @@ public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel code
 	
 		if (l.hasCode)
 		{
-			returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, 0, l.codeFragment, true);
+			returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, 0, l.codeFragment, l.hasCode);
 		}
 	}
 	
@@ -111,10 +154,36 @@ public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel code
 
 private bool consistsOfMoreThanNLines(int numberOfLines, loc codeFragment, CodeLineModel codeLineModel)
 {
-	return size(codeLinesForFragement(codeFragment, codeLineModel)) >= numberOfLines;
+	int nr = size(codeLinesForFragement(codeFragment, codeLineModel)) ;
+	
+	//println("consists:<nr>,<nr >= numberOfLines>");
+	
+	return nr >= numberOfLines;
 }
 
 public bool allTheCodeFragmentsHasEnoughLines(int numberOfLines, set[loc] codeFragments, CodeLineModel codeLineModel)
 {
+	//if (size(codeFragments) > 60)
+	//{
+	//	println("++++++++++++");	
+	//}
+	//else
+	//{	println("---------------");
+	//}
+
 	return all(c <- codeFragments, consistsOfMoreThanNLines(numberOfLines, c, codeLineModel));
+}
+
+public map[node, set[loc]] addNodeToSubtrees(node n, map[node, set[loc]] subtrees)
+{
+	if (n in subtrees)
+	{
+		subtrees[n] += getSourceFromNode(n);
+	}
+	else
+	{
+		subtrees[n] = {getSourceFromNode(n)};
+	}
+	
+	return subtrees;
 }

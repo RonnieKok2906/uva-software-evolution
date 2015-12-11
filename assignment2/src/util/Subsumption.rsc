@@ -1,14 +1,15 @@
-module type2::Subsumption
+module util::Subsumption
 
 import Prelude;
-import type2::Util;
+
+import util::TypeUtil;
 
 public map[node, set[loc]] subsumeCandidatesWhenPossible(map[node, set[loc]] candidates)
 {
 	map[node, set[loc]] returnMap = ();
 	
 	list[node] sortedNodeList = sort(domain(candidates), bool(node a, node b){ return size(subtreesFromNode(a)) < size(subtreesFromNode(b)); });
-	
+	println("sortedNodeListType2:<size(sortedNodeList)>");
 	for (n <- sortedNodeList)
 	{
 		set[loc] tempLocations = candidates[n];
@@ -52,22 +53,4 @@ private bool nodesCanBeSubsumed(node toBeSubsumedNode, node referenceNode)
 	set[node] referenceNodeSubtrees = subtreesFromNode(referenceNode);
 	
 	return toBeSubsumedNodeSubtrees < referenceNodeSubtrees;
-}
-
-
-private set[node] subtreesFromNode(node n)
-{
-	set[node] subtrees = {};
-
-	visit(n)
-	{
-		case node i: {
-							if (isCloneSubtreeCandidate(n))
-							{
-								subtrees += i;
-							}
-		}
-	}
-	
-	return subtrees;
 }

@@ -8,7 +8,7 @@ import lang::java::jdt::m3::AST;
 
 import model::CloneModel;
 
-import type2::CodeLineModel2;
+import model::CodeLineModel;
 import type2::Type2;
 import type2::Config;
 
@@ -36,7 +36,7 @@ test bool testThatClassOfOneLineHasNoCloneClasses()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 1;
@@ -58,7 +58,7 @@ test bool testThatDifferentMethodNamesOrIgnored()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 3;
@@ -81,7 +81,7 @@ test bool testThatDifferentMethodReturnTypeIsIngored()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 4;
@@ -103,7 +103,7 @@ test bool testThatDifferentMethodReturnTypeIsRespectedWithConfig()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 4;
@@ -126,7 +126,7 @@ test bool testThatDifferentReturnExpressionIsRecognized()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 3;
@@ -148,7 +148,7 @@ test bool testThatDifferentVariableNamesAreIgnored()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 5;
@@ -171,7 +171,7 @@ test bool testThatDifferentNumericalLiteralsAreIgnored()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 5;
@@ -193,7 +193,7 @@ test bool testThatWhiteSpaceIsIgnored()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 3;
@@ -215,7 +215,7 @@ test bool testThatLiteralTypeIsRespectedWithConfig()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 3;
@@ -238,7 +238,7 @@ test bool testThatLiteralTypeIsIgnored()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 3;
@@ -260,7 +260,7 @@ test bool testThatDocumentationIsIgnored()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 4;
@@ -282,7 +282,7 @@ test bool testThatDifferentVariableTypesAreIgnored()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 5;
@@ -304,7 +304,7 @@ test bool testThatDifferentVariableTypesAreRecognizedWithConfig()
 
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
-	CodeLineModel2 codeLineModel = createCodeLineModel(m3Model);
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
 	config.numberOfLines = 5;

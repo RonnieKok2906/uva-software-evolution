@@ -1,4 +1,4 @@
-module type2::Normalization
+module util::Normalization
 
 import Prelude;
 import lang::java::jdt::m3::AST;

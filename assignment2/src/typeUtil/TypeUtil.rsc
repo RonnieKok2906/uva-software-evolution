@@ -1,13 +1,10 @@
-module util::TypeUtil
+module typeUtil::TypeUtil
 
 import Prelude;
 
 import lang::java::jdt::m3::AST;
 
 import model::CodeLineModel;
-import type2::Config;
-import type3::Config;
-
 
 public map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfNLinesOrMore(int numberOflines, map[node, set[loc]] subtrees, CodeLineModel codeLineModel)
 {	
@@ -140,7 +137,7 @@ public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel code
 	
 		if (l.hasCode)
 		{
-			returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, 0, l.codeFragment, l.hasCode);
+			returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, l.codeFragment, l.hasCode);
 		}
 	}
 	

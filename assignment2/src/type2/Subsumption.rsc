@@ -2,14 +2,14 @@ module type2::Subsumption
 
 import Prelude;
 
-import util::TypeUtil;
+import typeUtil::TypeUtil;
 
 public map[node, set[loc]] subsumeCandidatesWhenPossible(map[node, set[loc]] candidates)
 {
 	map[node, set[loc]] returnMap = ();
 	
 	list[node] sortedNodeList = sort(domain(candidates), bool(node a, node b){ return size(subtreesFromNode(a)) < size(subtreesFromNode(b)); });
-	println("sortedNodeListType2:<size(sortedNodeList)>");
+
 	for (n <- sortedNodeList)
 	{
 		set[loc] tempLocations = candidates[n];

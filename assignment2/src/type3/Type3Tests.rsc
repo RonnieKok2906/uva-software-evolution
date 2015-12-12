@@ -7,12 +7,16 @@ import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
 import model::CloneModel;
-
 import model::CodeLineModel;
+
+import normalization::Normalization;
+import normalization::Config;
+
 import type3::Type3;
 import type3::Config;
 
- public list[bool] allTests() = type1Tests() + type2Tests() + type3Tests();
+
+public list[bool] allTests() = type1Tests() + type2Tests() + type3Tests();
 
 
 private list[bool] type1Tests() = [
@@ -53,11 +57,13 @@ test bool testThatWhiteSpaceIsIgnored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 3;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, normalizationConfig, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -76,11 +82,15 @@ test bool testThatDocumentationIsIgnored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 4;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, normalizationConfig, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -100,11 +110,15 @@ test bool testThatClassOfOneLineHasNoCloneClasses()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 1;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 0;
@@ -123,12 +137,15 @@ test bool testThatDifferentMethodNamesOrIgnored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 3;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -148,11 +165,15 @@ test bool testThatDifferentMethodReturnTypeIsIngored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 4;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -172,12 +193,16 @@ test bool testThatDifferentMethodReturnTypeIsRespectedWithConfig()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 4;
-	config.respectMethodReturnType = true;
+	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	normalizationConfig.respectMethodReturnType = true;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 
 	//Assert
 	return size(cloneModel) == 0;
@@ -195,12 +220,16 @@ test bool testThatDifferentReturnExpressionIsRecognized()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 3;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
-	println("cloneModel:<cloneModel>");
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+
 	//Assert
 	return size(cloneModel) == 0;
 }
@@ -218,11 +247,15 @@ test bool testThatDifferentVariableNamesAreIgnored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 5;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -240,11 +273,15 @@ test bool testThatDifferentNumericalLiteralsAreIgnored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 5;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -262,11 +299,15 @@ test bool testThatDifferentVariableTypesAreIgnored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 5;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -284,12 +325,16 @@ test bool testThatDifferentVariableTypesAreRecognizedWithConfig()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 5;
-	config.respectVariableType = true;
+	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	normalizationConfig.respectVariableType = true;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 0;
@@ -308,12 +353,16 @@ test bool testThatLiteralTypeIsRespectedWithConfig()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 3;
-	config.respectLiteralType = true;
+	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	normalizationConfig.respectLiteralType = true;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 
 	//Assert
 	return size(cloneModel) == 0;
@@ -331,11 +380,15 @@ test bool testThatLiteralTypeIsIgnored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 3;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -356,17 +409,21 @@ test bool testThatClassOneLineRemovedIsIgnored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 3;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
 
-//Test 1							
+//Test 2							
 test bool testThatClassOneLineRemovedIsIgnoredYieldingTwoCloneClasses()
 {
 	//Arrange
@@ -378,11 +435,15 @@ test bool testThatClassOneLineRemovedIsIgnoredYieldingTwoCloneClasses()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 9;
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 	
 	println("print cloneModel:<size(cloneModel)>");
 	

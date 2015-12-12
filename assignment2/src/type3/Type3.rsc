@@ -8,27 +8,35 @@ import lang::java::jdt::m3::AST;
 import model::CodeLineModel;
 import model::CloneModel;
 
-import util::TypeUtil;
-import util::CloneModelFactory;
-import util::Normalization;
+import typeUtil::TypeUtil;
+import typeUtil::CloneModelFactory;
+
+import normalization::Normalization;
+import normalization::Config;
 
 import type3::Config;
+import type3::Subsumption;
 
 public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations)
 {
-	return clonesInProject(codeLineModel, declarations, defaultConfiguration);
+	return clonesInProject(codeLineModel, declarations, normalization::Config::defaultConfiguration, type3::Config::defaultConfiguration);
 }
 
-public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations, Config config)
+public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations, Config normalizationConfig, Config config)
 {
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees(declarations, config);
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees(declarations, normalizationConfig);
 
-	return clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel);
+	return clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 }
 
 public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, CodeLineModel codeLineModel)
 {
-	map[node, set[node]] cutSubtrees = (n:generateNodesWithNRemovedStatements(type3::Type3::defaultConfiguration.numberOfLinesThatCanBeSkipped, n, codeLineModel) | n <- normalizedSubtrees);
+	return clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, type3::Config::defaultConfiguration);
+}
+
+public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, CodeLineModel codeLineModel, Config config)
+{
+	map[node, set[node]] cutSubtrees = (n:generateNodesWithNRemovedStatements(config.numberOfLinesThatCanBeSkipped, n, codeLineModel) | n <- normalizedSubtrees);
 	println("after generation..");
 	for (k <- cutSubtrees)
 	{
@@ -49,7 +57,7 @@ public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] norm
 	normalizedSubtrees = (k : m | k <- normalizedSubtrees, m := normalizedSubtrees[k], size(m) > 1);
 	println("filter..");
 	
-	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(type3::Type3::defaultConfiguration.minimumNumberOfLines, normalizedSubtrees, codeLineModel);
+	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, normalizedSubtrees, codeLineModel);
 	println("subsume..");
 	cloneCandidates = subsumeCandidatesWhenPossibleType3(cloneCandidates, cutSubtrees);
 	println("createCloneModel..");
@@ -58,84 +66,7 @@ public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] norm
 	return cloneModel;
 }
 
-public map[node, set[loc]] subsumeCandidatesWhenPossibleType3(map[node, set[loc]] candidates, map[node, set[node]] cutSubtrees)
-{
-	map[node, set[loc]] returnMap = ();
-	println("sorting..<size(candidates)>");
-	list[node] sortedNodeList = sort(domain(candidates), bool(node a, node b){ return size(subtreesFromNode(a)) < size(subtreesFromNode(b)); });
-	println("sortedNodeList:<size(sortedNodeList)>");
-	for (n <- sortedNodeList)
-	{
-		set[loc] tempLocations = candidates[n];
-		
-		candidates = candidates - (n:tempLocations);
 
-		bool canBeSubsumed = any(r <- domain((candidates - returnMap)), nodesCanBeSubsumed(n, r, r in cutSubtrees ? cutSubtrees[r] : {}), locationsCanBeSubsumed(tempLocations, candidates[r]));
-		
-		if (!canBeSubsumed)
-		{	
-			returnMap += (n:tempLocations);
-		}
-		
-		println("after subsumption:<size(candidates)>");
-	}
-	
-	return returnMap;
-}
-
-private bool nodesCanBeSubsumed(node toBeSubsumedNode, node referenceNode, set[node] cutSubtrees)
-{
-	if (toBeSubsumedNode in cutSubtrees)
-	{
-		return true;
-	}
-
-	set[node] toBeSubsumedNodeSubtrees = subtreesFromNode(toBeSubsumedNode);
-	set[node] referenceNodeSubtrees = subtreesFromNode(referenceNode);
-	
-	return toBeSubsumedNodeSubtrees < referenceNodeSubtrees;
-}
-
-private bool locationsCanBeSubsumed(set[loc] toBeSubsumedLocations, set[loc] referenceLocations)
-{
-	bool returnValue = all(l <- toBeSubsumedLocations, locationCanBeSubsumed(l, referenceLocations));
-
-	return returnValue;
-}
-
-private bool locationCanBeSubsumed(loc toBeSubsumedLocation, set[loc] referenceLocations)
-{	
-	bool isProperSub = any(r <- referenceLocations, locationAIsPartOfLocationB(toBeSubsumedLocation, r));
-	
-	bool isOverlapping = any(r <- referenceLocations, locationAIsOverlappingLocationB(toBeSubsumedLocation, r));
-
-	return isProperSub || isOverlapping;
-}
-
-private bool locationAIsPartOfLocationB(loc a, loc b)
-{
-	int beginA = a.begin[0];
-	int beginB = b.begin[0];
-	int endA = a.end[0];
-	int endB = b.end[0];
-	
-	return a.top == b.top;// && beginA >= beginB && beginA <= endB && endA <= endB;
-}
-
-private bool locationAIsOverlappingLocationB(loc a, loc b)
-{
-	int beginA = a.begin[0];
-	int beginB = b.begin[0];
-	int endA = a.end[0];
-	int endB = b.end[0];
-	
-	bool AisSmallThanB = beginA >= beginB && endA <= endB;
-	bool AisBiggerThanB = beginA <= beginB && endA >= endB;
-	bool AstartsBeforeB = beginA <= beginB && endA >= beginB && endA <= endB;
-	bool AstartsAfterB = beginA >= beginB && beginB <= endA && endA >= endB;
-	
-	return a.top == b.top;// && (AisSmallThanB || AisBiggerThanB || AstartsBeforeB || AstartsAfterB);
-}
 
 
 private set[node] generateNodesWithNRemovedStatements(int numberOfLinesToRemove, node n, CodeLineModel codeLineModel)

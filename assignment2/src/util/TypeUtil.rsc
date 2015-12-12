@@ -4,31 +4,26 @@ import Prelude;
 
 import lang::java::jdt::m3::AST;
 
-import util::Normalization;
 import model::CodeLineModel;
 import type2::Config;
 import type3::Config;
 
-public map[node, set[loc]] findAllPossibleNormalizedSubtrees(set[Declaration] declarations, Config config)
-{
-	map[node, set[loc]] subtrees = ();
 
-	for (d <- declarations)
-	{				
-		visit(d)
-		{
-			case node n : {
+public map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfNLinesOrMore(int numberOflines, map[node, set[loc]] subtrees, CodeLineModel codeLineModel)
+{	
+	map[node, set[loc]] clonedSubtrees = (k:subtrees[k] | k <- subtrees, size(subtrees[k]) > 1);
 			
-							if (isCloneSubtreeCandidate(n))
-							{
-								subtrees = addNodeToSubtrees(normalizeNode(n, config), subtrees);
-							}
-						}
+	map[node, set[loc]] subtreesToReturn = ();
+	
+	for (k <- clonedSubtrees)
+	{
+		if (allTheCodeFragmentsHasEnoughLines(numberOflines, clonedSubtrees[k], codeLineModel))
+		{
+			subtreesToReturn[k] = clonedSubtrees[k];
 		}
-		
 	}
 	
-	return subtrees;
+	return subtreesToReturn;
 }
 
 public set[node] subtreesFromNode(node n)

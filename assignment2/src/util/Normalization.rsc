@@ -3,8 +3,32 @@ module util::Normalization
 import Prelude;
 import lang::java::jdt::m3::AST;
 import type2::Config;
+import util::TypeUtil;
 
-public node normalizeNode(node subtree, Config config)
+public map[node, set[loc]] findAllPossibleNormalizedSubtrees(set[Declaration] declarations, Config config)
+{
+	map[node, set[loc]] subtrees = ();
+
+	for (d <- declarations)
+	{				
+		visit(d)
+		{
+			case node n : {
+			
+							if (isCloneSubtreeCandidate(n))
+							{
+								subtrees = addNodeToSubtrees(normalizeNode(n, config), subtrees);
+							}
+						}
+		}
+		
+	}
+	
+	return subtrees;
+}
+
+
+private node normalizeNode(node subtree, Config config)
 {	
 	subtree = visit(subtree)
 	{

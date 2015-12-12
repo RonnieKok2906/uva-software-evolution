@@ -18,6 +18,8 @@ import type2::Type2Tests;
 import type3::Type3;
 import type3::Type3Tests;
 
+import util::Normalization;
+import type2::Config;
 import visualisation::HTMLTests;
 
 import visualisation::Visualisation;
@@ -33,9 +35,6 @@ public void detectClones(loc project)
 	println("Building M3 model for project...");
 	M3 m3Model = createM3FromEclipseProject(project);
 
-	println("Building AST model for project...");
-	set[Declaration] declarations = createAstsFromEclipseProject(project, false);
-	
 	println("Building CodeLineModel...");
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 	
@@ -49,16 +48,24 @@ public void detectClones(loc project)
 	println("Building visualisation Type1..");
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1());
 	
+
+	println("Preparing for Type2 and Type3..");
+	
+	println("Building AST model for project...");
+	set[Declaration] declarations = createAstsFromEclipseProject(project, false);
+
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees(declarations, type2::Type2::defaultConfiguration);
+
 	//Type 2
 	println("Building cloneModelType2...");
-	CloneModel cloneModelType2 = type2::Type2::clonesInProject(codeLineModel, declarations);
+	CloneModel cloneModelType2 = type2::Type2::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel);
 
 	println("Building visualisation Type2..");
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2());
 	
-	//Type 3
+	////Type 3
 	println("Building cloneModelType3..");
-	CloneModel cloneModelType3 = type3::Type3::clonesInProject(codeLineModel, declarations);
+	CloneModel cloneModelType3 = type3::Type3::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel);
 	
 	println("Building visualisation Type3..");
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType3, type3());

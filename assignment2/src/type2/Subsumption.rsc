@@ -1,4 +1,4 @@
-module util::Subsumption
+module type2::Subsumption
 
 import Prelude;
 

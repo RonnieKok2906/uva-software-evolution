@@ -9,10 +9,10 @@ import model::CodeLineModel;
 import model::CloneModel;
 
 import util::TypeUtil;
+import util::CloneModelFactory;
+import util::Normalization;
 
 import type3::Config;
-import type2::Type2;
-import util::Subsumption;
 
 public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations)
 {
@@ -21,34 +21,35 @@ public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] 
 
 public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations, Config config)
 {
-	map[node, set[loc]] subtrees = findAllPossibleNormalizedSubtrees(declarations, config);
+	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees(declarations, config);
 
-	//map[node, set[loc]] cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, subtrees, codeLineModel);
+	return clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel);
+}
 
-	//cloneCandidates = subsumeCandidatesWhenPossible(cloneCandidates);
-
-	map[node, set[node]] cutSubtrees = (n:generateNodesWithNRemovedStatements(config.numberOfLinesThatCanBeSkipped, n, codeLineModel) | n <- subtrees);
+public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, CodeLineModel codeLineModel)
+{
+	map[node, set[node]] cutSubtrees = (n:generateNodesWithNRemovedStatements(type3::Type3::defaultConfiguration.numberOfLinesThatCanBeSkipped, n, codeLineModel) | n <- normalizedSubtrees);
 	println("after generation..");
 	for (k <- cutSubtrees)
 	{
 		for (r <- cutSubtrees[k])
 		{
-			if (r in subtrees)
+			if (r in normalizedSubtrees)
 			{
-				subtrees[r] += subtrees[k];
+				normalizedSubtrees[r] += normalizedSubtrees[k];
 				//subtrees[k] += subtrees[r];
 			}
 			else
 			{
-				subtrees[r] = subtrees[k];
+				normalizedSubtrees[r] = normalizedSubtrees[k];
 			}
 		}
 	}
 	
-	subtrees = (k : m | k <-subtrees, m := subtrees[k], size(m) > 1);
+	normalizedSubtrees = (k : m | k <- normalizedSubtrees, m := normalizedSubtrees[k], size(m) > 1);
 	println("filter..");
 	
-	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, subtrees, codeLineModel);
+	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(type3::Type3::defaultConfiguration.minimumNumberOfLines, normalizedSubtrees, codeLineModel);
 	println("subsume..");
 	cloneCandidates = subsumeCandidatesWhenPossibleType3(cloneCandidates, cutSubtrees);
 	println("createCloneModel..");

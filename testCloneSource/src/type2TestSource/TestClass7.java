@@ -1,17 +1,16 @@
 package type2TestSource;
 
 public class TestClass7 {
-		public int 					test1(){
-		
-			
-			
-			
-			
-		return 1;
-		
+	
+	public double test1()
+	{
+		double i = 1; 
+		return i;
 	}
 	
-public int test2(){
-return 																1;
-}
+	public double test2()
+	{
+		int i = 1; 
+		return i;
+	}
 }

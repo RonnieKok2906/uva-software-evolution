@@ -21,7 +21,7 @@ public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] 
 {
 	map[node, set[loc]] subtrees = findAllPossibleNormalizedSubtrees(declarations, config);
 
-	map[node, set[loc]] cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.numberOfLines, subtrees, codeLineModel);
+	map[node, set[loc]] cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, subtrees, codeLineModel);
 
 	cloneCandidates = subsumeCandidatesWhenPossible(cloneCandidates);
 

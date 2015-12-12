@@ -12,20 +12,75 @@ import model::CodeLineModel;
 import type2::Type2;
 import type2::Config;
 
-public list[bool] allTests() = [
-								testThatClassOfOneLineHasNoCloneClasses(),
-								testThatDifferentMethodNamesOrIgnored(),
-								testThatDifferentMethodReturnTypeIsIngored(),
-								testThatDifferentMethodReturnTypeIsRespectedWithConfig(),
-								testThatDifferentReturnExpressionIsRecognized(),
-								testThatDifferentVariableNamesAreIgnored(),
-								testThatDifferentNumericalLiteralsAreIgnored(),
+public list[bool] allTests() = type1Tests() + type2Tests();
+								
+private list[bool] type1Tests() = [
 								testThatWhiteSpaceIsIgnored(),
-								testThatLiteralTypeIsRespectedWithConfig(),
-								testThatLiteralTypeIsIgnored(),
 								testThatDocumentationIsIgnored()
-								]; 
+								];
+
+private list[bool] type2Tests() = [
+									testThatClassOfOneLineHasNoCloneClasses(),
+									testThatDifferentMethodNamesOrIgnored(),
+									testThatDifferentMethodReturnTypeIsIngored(),
+									testThatDifferentMethodReturnTypeIsRespectedWithConfig(),
+									testThatDifferentReturnExpressionIsRecognized(),
+									testThatDifferentVariableNamesAreIgnored(),
+									testThatDifferentNumericalLiteralsAreIgnored(),
+									testThatDifferentVariableTypesAreIgnored(),
+									testThatDifferentVariableTypesAreRecognizedWithConfig(),
+									testThatLiteralTypeIsRespectedWithConfig(),
+									testThatLiteralTypeIsIgnored()
+									];
+
+//Type 1
+//Test 1
+test bool testThatWhiteSpaceIsIgnored()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type1TestSource/TestClass1.java|;
 	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 3;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+
+//Test 2
+test bool testThatDocumentationIsIgnored()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type1TestSource/TestClass2.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 4;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+
+//Type2	
 //Test 1							
 test bool testThatClassOfOneLineHasNoCloneClasses()
 {
@@ -39,7 +94,7 @@ test bool testThatClassOfOneLineHasNoCloneClasses()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 1;
+	config.minimumNumberOfLines = 1;
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
@@ -47,6 +102,7 @@ test bool testThatClassOfOneLineHasNoCloneClasses()
 	//Assert
 	return size(cloneModel) == 0;
 }
+
 
 //Test 2
 test bool testThatDifferentMethodNamesOrIgnored()
@@ -61,7 +117,7 @@ test bool testThatDifferentMethodNamesOrIgnored()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 3;
+	config.minimumNumberOfLines = 3;
 	
 	
 	//Act
@@ -70,6 +126,8 @@ test bool testThatDifferentMethodNamesOrIgnored()
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
+
+
 
 //Test 3a
 test bool testThatDifferentMethodReturnTypeIsIngored()
@@ -84,7 +142,7 @@ test bool testThatDifferentMethodReturnTypeIsIngored()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 4;
+	config.minimumNumberOfLines = 4;
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
@@ -92,6 +150,8 @@ test bool testThatDifferentMethodReturnTypeIsIngored()
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
+
+
 
 //Test 3b
 test bool testThatDifferentMethodReturnTypeIsRespectedWithConfig()
@@ -106,7 +166,7 @@ test bool testThatDifferentMethodReturnTypeIsRespectedWithConfig()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 4;
+	config.minimumNumberOfLines = 4;
 	config.respectMethodReturnType = true;
 	
 	//Act
@@ -129,7 +189,7 @@ test bool testThatDifferentReturnExpressionIsRecognized()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 3;
+	config.minimumNumberOfLines = 3;
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
@@ -137,6 +197,7 @@ test bool testThatDifferentReturnExpressionIsRecognized()
 	//Assert
 	return size(cloneModel) == 0;
 }
+
 
 //Test 5
 test bool testThatDifferentVariableNamesAreIgnored()
@@ -151,7 +212,7 @@ test bool testThatDifferentVariableNamesAreIgnored()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 5;
+	config.minimumNumberOfLines = 5;
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
@@ -159,7 +220,6 @@ test bool testThatDifferentVariableNamesAreIgnored()
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
-
 
 //Test 6
 test bool testThatDifferentNumericalLiteralsAreIgnored()
@@ -174,7 +234,7 @@ test bool testThatDifferentNumericalLiteralsAreIgnored()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 5;
+	config.minimumNumberOfLines = 5;
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
@@ -183,8 +243,8 @@ test bool testThatDifferentNumericalLiteralsAreIgnored()
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
 
-//Test 7
-test bool testThatWhiteSpaceIsIgnored()
+//Test 7a
+test bool testThatDifferentVariableTypesAreIgnored()
 {
 	//Arrange
 	loc file = |project://testCloneSource/src/type2TestSource/TestClass7.java|;
@@ -196,7 +256,7 @@ test bool testThatWhiteSpaceIsIgnored()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 3;
+	config.minimumNumberOfLines = 5;
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
@@ -204,6 +264,30 @@ test bool testThatWhiteSpaceIsIgnored()
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
+
+//Test 7b
+test bool testThatDifferentVariableTypesAreRecognizedWithConfig()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass7.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 5;
+	config.respectVariableType = true;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 0;
+}
+
 
 //Test 8a
 test bool testThatLiteralTypeIsRespectedWithConfig()
@@ -218,7 +302,7 @@ test bool testThatLiteralTypeIsRespectedWithConfig()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 3;
+	config.minimumNumberOfLines = 3;
 	config.respectLiteralType = true;
 	
 	//Act
@@ -241,78 +325,11 @@ test bool testThatLiteralTypeIsIgnored()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 3;
+	config.minimumNumberOfLines = 3;
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
 
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
-}
-
-//Test 9
-test bool testThatDocumentationIsIgnored()
-{
-	//Arrange
-	loc file = |project://testCloneSource/src/type2TestSource/TestClass9.java|;
-	
-	M3 m3Model = createM3FromEclipseFile(file);
-
-	Declaration declaration = createAstsFromEclipseFile(file, true);
-	
-	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-
-	Config config = defaultConfiguration;
-	config.numberOfLines = 4;
-	
-	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
-	
-	//Assert
-	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
-}
-
-//Test 10a
-test bool testThatDifferentVariableTypesAreIgnored()
-{
-	//Arrange
-	loc file = |project://testCloneSource/src/type2TestSource/TestClass10.java|;
-	
-	M3 m3Model = createM3FromEclipseFile(file);
-
-	Declaration declaration = createAstsFromEclipseFile(file, true);
-	
-	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-
-	Config config = defaultConfiguration;
-	config.numberOfLines = 5;
-	
-	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
-	
-	//Assert
-	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
-}
-
-//Test 10b
-test bool testThatDifferentVariableTypesAreRecognizedWithConfig()
-{
-	//Arrange
-	loc file = |project://testCloneSource/src/type2TestSource/TestClass10.java|;
-	
-	M3 m3Model = createM3FromEclipseFile(file);
-
-	Declaration declaration = createAstsFromEclipseFile(file, true);
-	
-	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-
-	Config config = defaultConfiguration;
-	config.numberOfLines = 5;
-	config.respectVariableType = true;
-	
-	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
-	
-	//Assert
-	return size(cloneModel) == 0;
 }

@@ -12,10 +12,338 @@ import model::CodeLineModel;
 import type3::Type3;
 import type3::Config;
 
-public list[bool] allTests() = [
-								
-								]; 
+ public list[bool] allTests() = type1Tests() + type2Tests() + type3Tests();
+
+
+private list[bool] type1Tests() = [
+								testThatWhiteSpaceIsIgnored(),
+								testThatDocumentationIsIgnored()
+								];
+
+private list[bool] type2Tests() = [
+									testThatClassOfOneLineHasNoCloneClasses(),
+									testThatDifferentMethodNamesOrIgnored(),
+									testThatDifferentMethodReturnTypeIsIngored(),
+									testThatDifferentMethodReturnTypeIsRespectedWithConfig(),
+									testThatDifferentReturnExpressionIsRecognized(),
+									testThatDifferentVariableNamesAreIgnored(),
+									testThatDifferentNumericalLiteralsAreIgnored(),
+									testThatDifferentVariableTypesAreIgnored(),
+									testThatDifferentVariableTypesAreRecognizedWithConfig(),
+									testThatLiteralTypeIsRespectedWithConfig(),
+									testThatLiteralTypeIsIgnored()
+									];
+									
+private list[bool] type3Tests() = [
+								testThatClassOneLineRemovedIsIgnored(),
+								testThatClassOneLineRemovedIsIgnoredYieldingTwoCloneClasses()
+								];
+
+
+//Type 1
+//Test 1
+test bool testThatWhiteSpaceIsIgnored()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type1TestSource/TestClass1.java|;
 	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 3;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+
+//Test 2
+test bool testThatDocumentationIsIgnored()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type1TestSource/TestClass2.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 4;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+
+//Type2	
+//Test 1							
+test bool testThatClassOfOneLineHasNoCloneClasses()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass1.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 1;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 0;
+}
+
+
+//Test 2
+test bool testThatDifferentMethodNamesOrIgnored()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass2.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 3;
+	
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+
+
+//Test 3a
+test bool testThatDifferentMethodReturnTypeIsIngored()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass3.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 4;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+
+
+//Test 3b
+test bool testThatDifferentMethodReturnTypeIsRespectedWithConfig()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass3.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 4;
+	config.respectMethodReturnType = true;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+
+	//Assert
+	return size(cloneModel) == 0;
+}
+
+//Test 4
+test bool testThatDifferentReturnExpressionIsRecognized()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass4.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 3;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	println("cloneModel:<cloneModel>");
+	//Assert
+	return size(cloneModel) == 0;
+}
+
+
+//Test 5
+test bool testThatDifferentVariableNamesAreIgnored()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass5.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 5;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+//Test 6
+test bool testThatDifferentNumericalLiteralsAreIgnored()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass6.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 5;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+//Test 7a
+test bool testThatDifferentVariableTypesAreIgnored()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass7.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 5;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+//Test 7b
+test bool testThatDifferentVariableTypesAreRecognizedWithConfig()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass7.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 5;
+	config.respectVariableType = true;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 0;
+}
+
+
+//Test 8a
+test bool testThatLiteralTypeIsRespectedWithConfig()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass8.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 3;
+	config.respectLiteralType = true;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+
+	//Assert
+	return size(cloneModel) == 0;
+}
+
+//Test 8b
+test bool testThatLiteralTypeIsIgnored()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass8.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 3;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+
+
+//Type3
 //Test 1							
 test bool testThatClassOneLineRemovedIsIgnored()
 {
@@ -29,13 +357,40 @@ test bool testThatClassOneLineRemovedIsIgnored()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = defaultConfiguration;
-	config.numberOfLines = 3;
+	config.minimumNumberOfLines = 3;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
+	
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+//Test 1							
+test bool testThatClassOneLineRemovedIsIgnoredYieldingTwoCloneClasses()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type3TestSource/TestClass2.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = defaultConfiguration;
+	config.minimumNumberOfLines = 9;
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, config);
 	
 	println("print cloneModel:<size(cloneModel)>");
 	
+	for (i <- cloneModel)
+	{
+		println("i:<i>:<size(cloneModel[i])>");
+	}
+	
 	//Assert
-	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+	return size(cloneModel) == 2 && size(cloneModel[1]) == 2 && size(cloneModel[2]) == 2;
 }

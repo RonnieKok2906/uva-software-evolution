@@ -22,6 +22,8 @@ public map[node, set[loc]] subsumeCandidatesWhenPossible(map[node, set[loc]] can
 		{	
 			returnMap += (n:tempLocations);
 		}
+		
+		println("after subsumption:<size(candidates)>");
 	}
 	
 	return returnMap;

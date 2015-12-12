@@ -11,7 +11,7 @@ import model::CloneModel;
 import visualisation::HTML;
 import visualisation::Util;
 
-import type1::Type1Config;
+import type1::Config;
 import type2::Config;
 import type3::Config;
 
@@ -29,9 +29,9 @@ public void createJSON(str projectName, CloneType cloneType, PackageModel packag
 	
 	switch(cloneType)
 	{
-		case type1() : result += "<indents>\"minumumNumberOfLines\":<type1::Type1Config::LineThreshold>,\n";
-		case type2() : result += "<indents>\"minumumNumberOfLines\":<type2::Config::defaultConfiguration.numberOfLines>,\n";
-		case type3() : result += "<indents>\"minumumNumberOfLines\":<type3::Config::defaultConfiguration.numberOfLines>,\n";
+		case type1() : result += "<indents>\"minumumNumberOfLines\":<type1::Config::defaultConfiguration.minimumNumberOfLines>,\n";
+		case type2() : result += "<indents>\"minumumNumberOfLines\":<type2::Config::defaultConfiguration.minimumNumberOfLines>,\n";
+		case type3() : result += "<indents>\"minumumNumberOfLines\":<type3::Config::defaultConfiguration.minimumNumberOfLines>,\n";
 	}
 	
 	writeToJSONFile(projectName, result, cloneType);

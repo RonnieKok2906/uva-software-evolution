@@ -12,14 +12,98 @@ import model::CodeLineModel;
 import model::CloneModel;
 
 import type1::Type1;
+import type1::Type1Tests;
 import type2::Type2;
 import type2::Type2Tests;
-
 import type3::Type3;
+import type3::Type3Tests;
 
 import visualisation::HTMLTests;
 
 import visualisation::Visualisation;
+
+
+public list[loc] projects()
+{
+	return [|project://smallsql0.21_src|, |project://hsqldb-2.3.1|, |project://testCloneSource|];
+}
+
+public void detectClones(loc project)
+{
+	println("Building M3 model for project...");
+	M3 m3Model = createM3FromEclipseProject(project);
+
+	println("Building AST model for project...");
+	set[Declaration] declarations = createAstsFromEclipseProject(project, false);
+	
+	println("Building CodeLineModel...");
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+	
+	println("Building PackageModel...");
+	PackageModel packageModel = createPackageModel(m3Model, codeLineModel);
+
+	//Type 1
+	println("Building cloneModelType1...");
+	CloneModel cloneModelType1 = type1::Type1::clonesInProject(codeLineModel);
+
+	println("Building visualisation Type1..");
+	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1());
+	
+	//Type 2
+	println("Building cloneModelType2...");
+	CloneModel cloneModelType2 = type2::Type2::clonesInProject(codeLineModel, declarations);
+
+	println("Building visualisation Type2..");
+	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2());
+	
+	//Type 3
+	println("Building cloneModelType3..");
+	CloneModel cloneModelType3 = type3::Type3::clonesInProject(codeLineModel, declarations);
+	
+	println("Building visualisation Type3..");
+	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType3, type3());
+}
+
+//Test Functions
+public void runAllTests()
+{
+	list[tuple[str,list[bool]]] tests = [
+								<"CodeLineModel.rsc Tests", model::CodeLineModel::allTests()>,
+								<"PackageModelTests.rsc Tests", model::PackageModelTests::allTests()>,
+								<"HTMLTests.rsc Tests", visualisation::HTMLTests::allTests()>,
+								<"Type1Tests.rsc Tests", type1::Type1Tests::allTests()>,
+								<"Type2Tests.rsc Tests", type2::Type2Tests::allTests()>,
+								<"Type3Tests.rsc Tests", type3::Type3Tests::allTests()>
+								];
+
+	int numberOfFailedTests = 0;
+	int numberOfPassedTests = 0;
+	
+	println("-----------------------------------------------------------");
+	
+	for (<name, subTests> <- tests)
+	{
+		tuple[int passed, int failed] result = runTests(subTests);
+		numberOfPassedTests += result.passed;
+		numberOfFailedTests += result.failed;
+		println("<name> : <result.passed> passed, <result.failed> failed");
+	}
+	
+	println("-----------------------------------------------------------");
+	println("TEST REPORT:<numberOfPassedTests> passed, <numberOfFailedTests> failed");
+	println("-----------------------------------------------------------");
+}
+
+//Function to run a list of tests
+public tuple[int passed, int failed] runTests(list[bool] tests)
+{
+	int numberOfTests = size(tests);
+	int passedTests = size([t | t <- tests, t == true]);
+	return <passedTests, numberOfTests - passedTests>;
+}
+
+
+
 
 //Clone original = clone(1, 1, |file:///|, [
 //						codeLine(|file:///Users/tonheijligers/Documents/WorkspaceSE/uva-software-evolution/testCloneSource/src/clonePackage/Originaland1Aand3C.java|,
@@ -110,80 +194,3 @@ import visualisation::Visualisation;
 //	0:[original, clone1A, clone1B, clone1C, clone2C]
 //);
 
-
-public list[loc] projects()
-{
-	return [|project://smallsql0.21_src|, |project://hsqldb-2.3.1|, |project://testCloneSource|];
-}
-
-public void detectClones(loc project)
-{
-	println("Building M3 model for project...");
-	M3 m3Model = createM3FromEclipseProject(project);
-
-	println("Building AST model for project...");
-	set[Declaration] declarations = createAstsFromEclipseProject(project, false);
-	
-	println("Building CodeLineModel...");
-	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-	
-	println("Building PackageModel...");
-	PackageModel packageModel = createPackageModel(m3Model, codeLineModel);
-
-	//Type 1
-	println("Building cloneModelType1...");
-	CloneModel cloneModelType1 = type1::Type1::clonesInProject(codeLineModel);
-
-	println("Building visualisation Type1..");
-	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1());
-	
-	//Type 2
-	println("Building cloneModelType2...");
-	CloneModel cloneModelType2 = type2::Type2::clonesInProject(codeLineModel, declarations);
-
-	println("Building visualisation Type2..");
-	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2());
-	
-	//Type 3
-	//println("Building cloneModelType3..");
-	//CloneModel cloneModelType3 = type3::Type3::clonesInProject(codeLineModel, declarations);
-	//
-	//println("Building visualisation Type3..");
-	//createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType3, type3());
-}
-
-//Test Functions
-public void runAllTests()
-{
-	list[tuple[str,list[bool]]] tests = [
-								<"CodeLineModel.rsc Tests", model::CodeLineModel::allTests()>,
-								<"PackageModelTests.rsc Tests", model::PackageModelTests::allTests()>,
-								<"HTMLTests.rsc Tests", visualisation::HTMLTests::allTests()>,
-								<"Type2Tests.rsc Tests", type2::Type2Tests::allTests()>
-								];
-
-	int numberOfFailedTests = 0;
-	int numberOfPassedTests = 0;
-	
-	println("-----------------------------------------------------------");
-	
-	for (<name, subTests> <- tests)
-	{
-		tuple[int passed, int failed] result = runTests(subTests);
-		numberOfPassedTests += result.passed;
-		numberOfFailedTests += result.failed;
-		println("<name> : <result.passed> passed, <result.failed> failed");
-	}
-	
-	println("-----------------------------------------------------------");
-	println("TEST REPORT:<numberOfPassedTests> passed, <numberOfFailedTests> failed");
-	println("-----------------------------------------------------------");
-}
-
-//Function to run a list of tests
-public tuple[int passed, int failed] runTests(list[bool] tests)
-{
-	int numberOfTests = size(tests);
-	int passedTests = size([t | t <- tests, t == true]);
-	return <passedTests, numberOfTests - passedTests>;
-}

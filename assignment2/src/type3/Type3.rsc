@@ -23,11 +23,11 @@ public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] 
 {
 	map[node, set[loc]] subtrees = findAllPossibleNormalizedSubtrees(declarations, config);
 
-	map[node, set[loc]] cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.numberOfLines, subtrees, codeLineModel);
+	//map[node, set[loc]] cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, subtrees, codeLineModel);
 
-	cloneCandidates = subsumeCandidatesWhenPossible(cloneCandidates);
+	//cloneCandidates = subsumeCandidatesWhenPossible(cloneCandidates);
 
-	map[node, set[node]] cutSubtrees = (n:generateNodesWithNRemovedStatements(config.numberOfLinesThatCanBeSkipped, n) | n <- subtrees);
+	map[node, set[node]] cutSubtrees = (n:generateNodesWithNRemovedStatements(config.numberOfLinesThatCanBeSkipped, n, codeLineModel) | n <- subtrees);
 	println("after generation..");
 	for (k <- cutSubtrees)
 	{
@@ -36,7 +36,7 @@ public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] 
 			if (r in subtrees)
 			{
 				subtrees[r] += subtrees[k];
-				subtrees[k] += subtrees[r];
+				//subtrees[k] += subtrees[r];
 			}
 			else
 			{
@@ -48,7 +48,7 @@ public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] 
 	subtrees = (k : m | k <-subtrees, m := subtrees[k], size(m) > 1);
 	println("filter..");
 	
-	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.numberOfLines, subtrees, codeLineModel);
+	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, subtrees, codeLineModel);
 	println("subsume..");
 	cloneCandidates = subsumeCandidatesWhenPossibleType3(cloneCandidates, cutSubtrees);
 	println("createCloneModel..");
@@ -68,16 +68,7 @@ public map[node, set[loc]] subsumeCandidatesWhenPossibleType3(map[node, set[loc]
 		set[loc] tempLocations = candidates[n];
 		
 		candidates = candidates - (n:tempLocations);
-		
-		//tempCutSubtrees = cutSubtrees;
-		//tempCut = {};
-		//if (n in cutSubtress)
-		//{
-		//	tempCut = cutSubtrees[n];
-		//}
-		
-		
-		//cutSubtrees = cutSubtrees - (n : cutSubtrees[n]);
+
 		bool canBeSubsumed = any(r <- domain((candidates - returnMap)), nodesCanBeSubsumed(n, r, r in cutSubtrees ? cutSubtrees[r] : {}), locationsCanBeSubsumed(tempLocations, candidates[r]));
 		
 		if (!canBeSubsumed)
@@ -127,7 +118,7 @@ private bool locationAIsPartOfLocationB(loc a, loc b)
 	int endA = a.end[0];
 	int endB = b.end[0];
 	
-	return a.top == b.top && beginA >= beginB && beginA <= endB && endA <= endB;
+	return a.top == b.top;// && beginA >= beginB && beginA <= endB && endA <= endB;
 }
 
 private bool locationAIsOverlappingLocationB(loc a, loc b)
@@ -142,31 +133,42 @@ private bool locationAIsOverlappingLocationB(loc a, loc b)
 	bool AstartsBeforeB = beginA <= beginB && endA >= beginB && endA <= endB;
 	bool AstartsAfterB = beginA >= beginB && beginB <= endA && endA >= endB;
 	
-	return a.top == b.top && (AisSmallThanB || AisBiggerThanB || AstartsBeforeB || AstartsAfterB);
+	return a.top == b.top;// && (AisSmallThanB || AisBiggerThanB || AstartsBeforeB || AstartsAfterB);
 }
 
 
-private set[node] generateNodesWithNRemovedStatements(int numberOfRemovedStatements, node n)
+private set[node] generateNodesWithNRemovedStatements(int numberOfLinesToRemove, node n, CodeLineModel codeLineModel)
 {
 	list[node] returnList = [];
 
-	top-down-break visit(n)
+	top-down visit(n)
 	{	
 		case b:\block(statements) : 
 		{	
-			list[list[Statement]] subLists = allPossibleSublistsWithAMinimumNumberOfItems(statements, max(0, size(statements) - numberOfRemovedStatements));
+			list[list[Statement]] subLists = allPossibleSublistsWithAMinimumNumberOfItems(statements, max(0, size(statements) - numberOfLinesToRemove));
 			
 			if (size(subLists) > 1)
 			{
 				for (sl <- subLists)
 				{
-					node temp = generateNewBlock(n, b, sl);
-
-					returnList += temp;
+					list[Statement] removedStatements = statements - subLists;
+				
+					list[int] numberOfLinesList = [size(codeLinesForFragement(r@src, codeLineModel)) | r <- removedStatements];
+				
+					bool removesTooMuchLines = any(r <- numberOfLinesList, r > numberOfLinesToRemove);
+					
+					if (!removesTooMuchLines)
+					{
+						node temp = generateNewBlock(n, b, sl);
+						
+						//println("BLOCK:<b>\n\n");
+						
+						returnList += temp;
+					}
 				}
 			}
 					
-			println("after block generation:<size(statements)>:<b@src>");							
+			//println("after block generation:<size(statements)>:<b@src>");							
 		}
 	}
 

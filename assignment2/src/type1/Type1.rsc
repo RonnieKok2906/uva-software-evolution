@@ -16,7 +16,7 @@ alias DuplicationMap = map[list[str], set[CodeBlock]];
 public CloneModel clonesRec(CodeLineModel model) 
 {
 	int lineThreshold = defaultConfiguration.minimumNumberOfLines;
-	model = removeEmptyLinesAndAssignOrderNumber(model);
+	model = removeEmptyLines(model);
 	
 	// Initial run
 	DuplicationMap duplicationMap = clonesInProject(model, lineThreshold);
@@ -161,6 +161,16 @@ private map[list[str], set[CodeBlock]] indexAllPossibleCodeFragmentsOfNLines(Cod
 	lrel[list[str], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(sortedLinesForCompilationUnit(f, model), nrOfLines) | f <- model);
 
 	return ListRelation::index(blocks);
+}
+
+public CodeLineModel getDuplicateLines(CodeLineModel model, DuplicationMap duplicationMap) 
+{
+	return { duplicationMap[key] | key <- duplicationMap };
+	
+	//data CodeLine = codeLine(loc fileName, int lineNumber, int orderNumber, str codeFragment, bool hasCode);
+
+//alias CodeLineModel = map[loc compilationUnit, map[int lineNumber, CodeLine line] lines];
+	
 }
 
 private lrel[list[str], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(list[CodeLine] lines, int nrOfLinesInBlock)

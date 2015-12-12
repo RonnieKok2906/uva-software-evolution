@@ -1,9 +1,13 @@
-module util::Normalization
+module normalization::Normalization
 
 import Prelude;
+
 import lang::java::jdt::m3::AST;
-import type2::Config;
+
+import normalization::Config;
+
 import util::TypeUtil;
+
 
 public map[node, set[loc]] findAllPossibleNormalizedSubtrees(set[Declaration] declarations, Config config)
 {

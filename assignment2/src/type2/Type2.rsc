@@ -11,26 +11,31 @@ import type2::Config;
 
 import type2::Subsumption;
 
-import util::Normalization;
+import normalization::Normalization;
 import util::TypeUtil;
 import util::CloneModelFactory;
 
 
 public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations)
 {
-	return clonesInProject(codeLineModel, declarations, defaultConfiguration);
+	return clonesInProject(codeLineModel, declarations, normalization::Config::defaultConfiguration);
 }
 
-public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations, Config config)
+public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations, Config normalizationConfig, Config config)
 {
-	map[node, set[loc]] subtrees = findAllPossibleNormalizedSubtrees(declarations, config);
+	map[node, set[loc]] subtrees = findAllPossibleNormalizedSubtrees(declarations, normalizationConfig);
 
-	return clonesInProjectFromNormalizedSubtrees(subtrees, codeLineModel);
+	return clonesInProjectFromNormalizedSubtrees(subtrees, codeLineModel, config);
 }
 
 public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] subtrees, CodeLineModel codeLineModel)
 {
-	map[node, set[loc]] cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(type2::Type2::defaultConfiguration.minimumNumberOfLines, subtrees, codeLineModel);
+	return clonesInProjectFromNormalizedSubtrees(subtrees, codeLineModel, type2::Config::defaultConfiguration);
+}
+
+public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] subtrees, CodeLineModel codeLineModel, Config config)
+{
+	map[node, set[loc]] cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, subtrees, codeLineModel);
 
 	cloneCandidates = subsumeCandidatesWhenPossible(cloneCandidates);
 
@@ -38,4 +43,3 @@ public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] subt
 
 	return cloneModel;
 }
-

@@ -28,14 +28,15 @@ test bool testThatWhiteSpaceIsIgnored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type1::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 3;
 	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel);
+	//CloneModel cloneModel = clonesInProject(codeLineModel);
 	
 	//Assert
-	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+	//return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+	return false;
 }
 
 
@@ -49,12 +50,14 @@ test bool testThatDocumentationIsIgnored()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = defaultConfiguration;
+	Config config = type1::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 4;
 	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel);
+	//CloneModel cloneModel = clonesInProject(codeLineModel);
 	
 	//Assert
-	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+	//return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+	
+	return false;
 }

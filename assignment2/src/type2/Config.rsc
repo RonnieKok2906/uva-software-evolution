@@ -1,5 +1,5 @@
 module type2::Config
 
-data Config = config(int minimumNumberOfLines, bool respectLiteralType, bool respectVariableType, bool respectMethodReturnType);
+data Config = config(int minimumNumberOfLines);
 
-public Config defaultConfiguration = config(4, false, false, false);
+public Config defaultConfiguration = config(4);

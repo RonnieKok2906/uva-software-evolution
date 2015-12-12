@@ -87,7 +87,7 @@ test bool testThatDocumentationIsIgnored()
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, normalizationConfig, config);
@@ -115,7 +115,7 @@ test bool testThatClassOfOneLineHasNoCloneClasses()
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -142,7 +142,7 @@ test bool testThatDifferentMethodNamesOrIgnored()
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -170,7 +170,7 @@ test bool testThatDifferentMethodReturnTypeIsIngored()
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -199,7 +199,7 @@ test bool testThatDifferentMethodReturnTypeIsRespectedWithConfig()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	normalizationConfig.respectMethodReturnType = true;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -225,7 +225,7 @@ test bool testThatDifferentReturnExpressionIsRecognized()
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -252,7 +252,7 @@ test bool testThatDifferentVariableNamesAreIgnored()
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -278,7 +278,7 @@ test bool testThatDifferentNumericalLiteralsAreIgnored()
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -304,7 +304,7 @@ test bool testThatDifferentVariableTypesAreIgnored()
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -331,7 +331,7 @@ test bool testThatDifferentVariableTypesAreRecognizedWithConfig()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	normalizationConfig.respectVariableType = true;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -359,7 +359,7 @@ test bool testThatLiteralTypeIsRespectedWithConfig()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	normalizationConfig.respectLiteralType = true;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -385,7 +385,7 @@ test bool testThatLiteralTypeIsIgnored()
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -393,7 +393,6 @@ test bool testThatLiteralTypeIsIgnored()
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
-
 
 
 //Type3
@@ -414,7 +413,7 @@ test bool testThatClassOneLineRemovedIsIgnored()
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
@@ -436,21 +435,21 @@ test bool testThatClassOneLineRemovedIsIgnoredYieldingTwoCloneClasses()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = type3::Config::defaultConfiguration;
-	config.minimumNumberOfLines = 9;
+	config.minimumNumberOfLines = 1;
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees({declaration}, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 	
-	println("print cloneModel:<size(cloneModel)>");
-	
-	for (i <- cloneModel)
-	{
-		println("i:<i>:<size(cloneModel[i])>");
-	}
+	//println("print cloneModel:<size(cloneModel)>");
+	//
+	//for (i <- cloneModel)
+	//{
+	//	println("i:<i>:<size(cloneModel[i])>");
+	//}
 	
 	//Assert
 	return size(cloneModel) == 2 && size(cloneModel[1]) == 2 && size(cloneModel[2]) == 2;

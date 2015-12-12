@@ -141,6 +141,8 @@ public str jsonForCodeClones(CompilationUnit compilationUnit, list[Clone] cloneF
 	
 	for (c <- cloneFragments)
 	{
+		list[CodeLine] tempLines = c.lines;
+		c.lines = [l | l <- tempLines, l.hasCode];
 		counter += 1;
 		clonedLines += size(c.lines);
 		

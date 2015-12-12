@@ -17,6 +17,7 @@ public CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates,
 	CloneModel rawCloneModel = ();
 	
 	int counter = 0;
+	
 	for (c <- candidates)
 	{
 		counter += 1;
@@ -40,3 +41,34 @@ private CloneClass createCloneClass(int classIdentifier, set[loc] locations, Cod
 
 	return cc;
 }
+
+public CloneModel createCloneModelFromCandidates(map[int, list[list[CodeLine]]] candidates)
+{
+	CloneModel rawCloneModel = ();
+	
+	int counter = 0;
+	
+	for (c <- candidates)
+	{
+		counter += 1;
+
+		rawCloneModel[counter] = createCloneClass(counter, candidates[c]);
+	}
+	
+	return rawCloneModel;
+}
+
+private CloneClass createCloneClass(int classIdentifier, list[list[CodeLine]] codeFragments)
+{
+	CloneClass cc = [];
+
+	int counter = 1;
+	
+	for (cf <- codeFragments)
+	{	
+		cc += clone(classIdentifier, counter, cf[0].fileName, cf);
+	}
+
+	return cc;
+}
+

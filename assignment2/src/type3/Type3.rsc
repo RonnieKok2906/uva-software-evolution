@@ -24,7 +24,7 @@ public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] 
 
 public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations, Config normalizationConfig, Config config)
 {
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees(declarations, normalizationConfig);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees(declarations, normalizationConfig);
 
 	return clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
 }
@@ -36,40 +36,46 @@ public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] norm
 
 public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, CodeLineModel codeLineModel, Config config)
 {
-	map[node, set[node]] cutSubtrees = (n:generateNodesWithNRemovedStatements(config.numberOfLinesThatCanBeSkipped, n, codeLineModel) | n <- normalizedSubtrees);
-	println("after generation..");
-	for (k <- cutSubtrees)
-	{
-		for (r <- cutSubtrees[k])
-		{
-			if (r in normalizedSubtrees)
-			{
-				normalizedSubtrees[r] += normalizedSubtrees[k];
-				//subtrees[k] += subtrees[r];
-			}
-			else
-			{
-				normalizedSubtrees[r] = normalizedSubtrees[k];
-			}
-		}
-	}
+	println("Generating cut subtrees...<size(normalizedSubtrees)>");
+	map[node, set[node]] cutSubtrees = ();//(n:generateNodesWithNRemovedStatements(config.minimumNumberOfLines, config.numberOfLinesThatCanBeSkipped, n, codeLineModel) | n <- normalizedSubtrees);
 	
+	//println("after generation..<size(normalizedSubtrees)>:<size(cutSubtrees)>");
+	//for (k <- cutSubtrees)
+	//{
+	//	for (r <- cutSubtrees[k])
+	//	{
+	//		if (r in normalizedSubtrees)
+	//		{
+	//			normalizedSubtrees[r] += normalizedSubtrees[k];
+	//			//subtrees[k] += subtrees[r];
+	//		}
+	//		else
+	//		{
+	//			normalizedSubtrees[r] = normalizedSubtrees[k];
+	//		}
+	//	}
+	//}
+	println("pre filter..<size(normalizedSubtrees)>");
 	normalizedSubtrees = (k : m | k <- normalizedSubtrees, m := normalizedSubtrees[k], size(m) > 1);
-	println("filter..");
+	println("filter..<size(normalizedSubtrees)>");
 	
 	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, normalizedSubtrees, codeLineModel);
-	println("subsume..");
+	
+	println("subsume..<size(cloneCandidates)>");
 	cloneCandidates = subsumeCandidatesWhenPossibleType3(cloneCandidates, cutSubtrees);
-	println("createCloneModel..");
+	
+	println("createCloneModel..<size(cloneCandidates)>");
 	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates, codeLineModel);
-
+	
+	println("cloneModel:<size(cloneModel)>");
+	
 	return cloneModel;
 }
 
 
 
 
-private set[node] generateNodesWithNRemovedStatements(int numberOfLinesToRemove, node n, CodeLineModel codeLineModel)
+private set[node] generateNodesWithNRemovedStatements(int minimumNumberOfLines, int numberOfLinesToRemove, node n, CodeLineModel codeLineModel)
 {
 	list[node] returnList = [];
 
@@ -79,7 +85,9 @@ private set[node] generateNodesWithNRemovedStatements(int numberOfLinesToRemove,
 		{	
 			list[list[Statement]] subLists = allPossibleSublistsWithAMinimumNumberOfItems(statements, max(0, size(statements) - numberOfLinesToRemove));
 			
-			if (size(subLists) > 1)
+			println("Block number of lines:<size(codeLinesForFragement(b@src, codeLineModel))>");
+			
+			if (size(subLists) > 1 && size(codeLinesForFragement(b@src, codeLineModel)) > minimumNumberOfLines)
 			{
 				for (sl <- subLists)
 				{
@@ -93,7 +101,7 @@ private set[node] generateNodesWithNRemovedStatements(int numberOfLinesToRemove,
 					{
 						node temp = generateNewBlock(n, b, sl);
 						
-						//println("BLOCK:<b>\n\n");
+						//println("BLOCK:");
 						
 						returnList += temp;
 					}

@@ -9,7 +9,7 @@ import normalization::Config;
 import typeUtil::TypeUtil;
 
 
-public map[node, set[loc]] findAllPossibleNormalizedSubtrees(set[Declaration] declarations, Config config)
+public map[node, set[loc]] findAllRelevantNormalizedSubtrees(set[Declaration] declarations, Config config)
 {
 	map[node, set[loc]] subtrees = ();
 

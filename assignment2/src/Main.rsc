@@ -59,7 +59,7 @@ public void detectClones(loc project)
 	set[Declaration] declarations = createAstsFromEclipseProject(project, false);
 	
 	println("Extracting normalized subtrees..");
-	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees(declarations, normalization::Config::defaultConfiguration);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees(declarations, normalization::Config::defaultConfiguration);
 	
 	int numberOfMinumumLines = 14;
 	
@@ -73,13 +73,13 @@ public void detectClones(loc project)
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2());
 	
 	////Type 3
-	println("Building cloneModelType3..");
-	Config config3 = type3::Config::defaultConfiguration;
-	config3.minimumNumberOfLines = numberOfMinumumLines;
-	CloneModel cloneModelType3 = type3::Type3::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config3);
-	
-	println("Building visualisation Type3..");
-	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType3, type3());
+	//println("Building cloneModelType3..");
+	//Config config3 = type3::Config::defaultConfiguration;
+	//config3.minimumNumberOfLines = numberOfMinumumLines;
+	//CloneModel cloneModelType3 = type3::Type3::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config3);
+	//
+	//println("Building visualisation Type3..");
+	//createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType3, type3());
 }
 
 //Test Functions

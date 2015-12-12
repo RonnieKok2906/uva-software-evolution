@@ -8,6 +8,7 @@ public map[node, set[loc]] subsumeCandidatesWhenPossibleType3(map[node, set[loc]
 {
 	map[node, set[loc]] returnMap = ();
 	println("sorting..<size(candidates)>");
+	
 	list[node] sortedNodeList = sort(domain(candidates), bool(node a, node b){ return size(subtreesFromNode(a)) < size(subtreesFromNode(b)); });
 	println("sortedNodeList:<size(sortedNodeList)>");
 	for (n <- sortedNodeList)
@@ -23,7 +24,7 @@ public map[node, set[loc]] subsumeCandidatesWhenPossibleType3(map[node, set[loc]
 			returnMap += (n:tempLocations);
 		}
 		
-		println("after subsumption:<size(candidates)>");
+		//println("after subsumption:<size(candidates)>");
 	}
 	
 	return returnMap;

@@ -14,7 +14,7 @@ public map[node, set[loc]] filterAllPossibleSubtreeCandidatesOfNLinesOrMore(int 
 	
 	for (k <- clonedSubtrees)
 	{
-		if (allTheCodeFragmentsHasEnoughLines(numberOflines, clonedSubtrees[k], codeLineModel))
+		if (anyOfTheCodeFragmentsHasEnoughLines(numberOflines, clonedSubtrees[k], codeLineModel))
 		{
 			subtreesToReturn[k] = clonedSubtrees[k];
 		}
@@ -102,13 +102,11 @@ public loc getSourceFromNode(node n)
 			return e@src;
 		}
 	}
-	
-	println("thisNode:<n>:<isExpression(n)>");
 }
 
 public bool isCloneSubtreeCandidate(node n)
 {
-	if (isDeclaration(n) || isStatement(n) || isExpression(n))
+	if (isDeclaration(n) || isStatement(n))
 	{					
 		if (hasAnnotatedSource(n))
 		{			
@@ -135,13 +133,18 @@ public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel code
 	{
 		CodeLine l = linesOfFile[i];
 	
-		if (l.hasCode)
-		{
+		//if (l.hasCode)
+		//{
 			returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, l.codeFragment, l.hasCode);
-		}
+		//}
 	}
 	
 	return returnList;
+}
+
+public list[CodeLine] onlyLinesWithCode(list[CodeLine] lines)
+{
+	return [line | line <- lines, line.hasCode];
 }
 
 private bool consistsOfMoreThanNLines(int numberOfLines, loc codeFragment, CodeLineModel codeLineModel)
@@ -153,17 +156,9 @@ private bool consistsOfMoreThanNLines(int numberOfLines, loc codeFragment, CodeL
 	return nr >= numberOfLines;
 }
 
-public bool allTheCodeFragmentsHasEnoughLines(int numberOfLines, set[loc] codeFragments, CodeLineModel codeLineModel)
+public bool anyOfTheCodeFragmentsHasEnoughLines(int numberOfLines, set[loc] codeFragments, CodeLineModel codeLineModel)
 {
-	//if (size(codeFragments) > 60)
-	//{
-	//	println("++++++++++++");	
-	//}
-	//else
-	//{	println("---------------");
-	//}
-
-	return all(c <- codeFragments, consistsOfMoreThanNLines(numberOfLines, c, codeLineModel));
+	return any(c <- codeFragments, consistsOfMoreThanNLines(numberOfLines, c, codeLineModel));
 }
 
 public map[node, set[loc]] addNodeToSubtrees(node n, map[node, set[loc]] subtrees)

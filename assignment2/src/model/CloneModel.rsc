@@ -103,24 +103,15 @@ public CloneModel normalizeCloneModel(CloneModel model)
 public list[Clone] consolidateClones(list[Clone] clones)
 {
 	Clone first = head(clones);
-	list[Clone] tail = tail(clones);
 
 	// Select all clones that overlaps with the first
 	clonesWithOverlap = [ c | c <- clones, clonesAreAdjacentOrOverlaps(first, c) ];
-	remaining = [ c | c <- tail, !clonesAreAdjacentOrOverlaps(first, c) ];
+	remaining = [ c | c <- clones, !clonesAreAdjacentOrOverlaps(first, c) ];
 
 	// Merge the clones with overlap
 	Clone mergedClone = mergeClones(clonesWithOverlap); 
 
 	return mergedClone + consolidateClones(remaining);
-
-	
-
-	//while([*CloneFragment nums1, CloneFragment p, *CloneFragment nums2, CloneFragment q, *CloneFragment nums3] := clones && p.cloneIdentifier > q.cloneIdentifier)
-	//{
-	//	println("Clone <p.cloneIdentifier> and <q.cloneIdentifier>");
-	//}
-	//return [];
 }
 
 

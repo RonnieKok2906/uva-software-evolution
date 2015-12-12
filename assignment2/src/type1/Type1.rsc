@@ -2,7 +2,7 @@ module type1::Type1
 
 import model::CodeLineModel;
 import model::CloneModel;
-import type1::Type1Config;
+import type1::Config;
 import Prelude;
 import ListRelation;
 import util::Math;
@@ -15,14 +15,14 @@ alias DuplicationMap = map[list[str], set[CodeBlock]];
 
 public CloneModel clonesRec(CodeLineModel model) 
 {
-	int lineThreshold = LineThreshold;
+	int lineThreshold = defaultConfiguration.minimumNumberOfLines;
 	model = removeEmptyLinesAndAssignOrderNumber(model);
 	
 	// Initial run
-	DuplicationMap duplicationsMap = clonesInProject(model, lineThreshold);
+	DuplicationMap duplicationMap = clonesInProject(model, lineThreshold);
 
-	int nrOfClones = nrOfClonesInDuplicationMap(duplicationsMap);
-	int nrOfCloneClasses = size(duplicationsMap);
+	int nrOfClones = nrOfClonesInDuplicationMap(duplicationMap);
+	int nrOfCloneClasses = size(duplicationMap);
 
 	println("Found <nrOfClones> in <nrOfCloneClasses> clone classes.");
 
@@ -30,14 +30,14 @@ public CloneModel clonesRec(CodeLineModel model)
 	{
 		lineThreshold += 1;
 
-		largerDuplicationsMap = clonesInProject(model, lineThreshold);
+		largerDuplicationMap = clonesInProject(model, lineThreshold);
 
-		nrOfClones = nrOfClonesInDuplicationMap(largerDuplicationsMap);
-		nrOfCloneClasses = size(largerDuplicationsMap);
+		nrOfClones = nrOfClonesInDuplicationMap(largerDuplicationMap);
+		nrOfCloneClasses = size(largerDuplicationMap);
 
 		println("Found <nrOfClones> in <nrOfCloneClasses> clone classes.");
 		
-		duplicationsMap = mergeDuplicationMaps(duplicationsMap, largerDuplicationsMap);
+		duplicationsMap = mergeDuplicationMaps(duplicationMap, largerDuplicationMap);
 	}
 
 	nrOfClones = nrOfClonesInDuplicationMap(duplicationsMap);

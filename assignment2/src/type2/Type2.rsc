@@ -12,8 +12,9 @@ import type2::Config;
 import type2::Subsumption;
 
 import normalization::Normalization;
-import util::TypeUtil;
-import util::CloneModelFactory;
+
+import typeUtil::TypeUtil;
+import typeUtil::CloneModelFactory;
 
 
 public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations)

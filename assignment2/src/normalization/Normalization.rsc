@@ -6,7 +6,7 @@ import lang::java::jdt::m3::AST;
 
 import normalization::Config;
 
-import util::TypeUtil;
+import typeUtil::TypeUtil;
 
 
 public map[node, set[loc]] findAllPossibleNormalizedSubtrees(set[Declaration] declarations, Config config)

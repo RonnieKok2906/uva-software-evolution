@@ -1,4 +1,4 @@
-module util::CloneModelFactory
+module typeUtil::CloneModelFactory
 
 import Prelude;
 
@@ -8,9 +8,9 @@ import model::CodeLineModel;
 import model::CloneModel;
 
 import type2::Config;
-
 import type2::Subsumption;
-import util::TypeUtil;
+
+import typeUtil::TypeUtil;
 
 public CloneModel createCloneModelFromCandidates(map[node, set[loc]] candidates, CodeLineModel codeLineModel)
 {

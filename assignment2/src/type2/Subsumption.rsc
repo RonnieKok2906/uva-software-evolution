@@ -2,7 +2,7 @@ module type2::Subsumption
 
 import Prelude;
 
-import util::TypeUtil;
+import typeUtil::TypeUtil;
 
 public map[node, set[loc]] subsumeCandidatesWhenPossible(map[node, set[loc]] candidates)
 {

@@ -8,8 +8,8 @@ import lang::java::jdt::m3::AST;
 import model::CodeLineModel;
 import model::CloneModel;
 
-import util::TypeUtil;
-import util::CloneModelFactory;
+import typeUtil::TypeUtil;
+import typeUtil::CloneModelFactory;
 
 import normalization::Normalization;
 import normalization::Config;

@@ -51,7 +51,7 @@ test bool testThatCloneSourceHasCorrectRootPackages()
 	PackageModel model = createPackageModel(m3Model, codeLineModel);
 	
 	// Assert
-	return size(rootPackages) == 3 && size(model) == 3;
+	return size(rootPackages) == 5 && size(model) == 5;
 }
 
 test bool testThatCloneSourceHasCorrectPackages()
@@ -64,5 +64,5 @@ test bool testThatCloneSourceHasCorrectPackages()
 	set[loc] packages = getPackages(m3Model);
 	
 	// Assert
-	return size(packages) == 6;
+	return size(packages) == 8;
 }

@@ -8,10 +8,10 @@ import model::CodeLineModel;
 import model::CloneModel;
 
 import type2::Config;
-
 import type2::Subsumption;
 
 import normalization::Normalization;
+import normalization::Config;
 
 import typeUtil::TypeUtil;
 import typeUtil::CloneModelFactory;

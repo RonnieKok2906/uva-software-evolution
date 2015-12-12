@@ -77,7 +77,7 @@ test bool testThatDocumentationIsIgnored()
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, normalization::Config::defaultConfiguration, config);
-	
+	println("cloneModel:<size(cloneModel)>");
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
@@ -96,7 +96,7 @@ test bool testThatClassOfOneLineHasNoCloneClasses()
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
-	Config config = type2::Type2::defaultConfiguration;
+	Config config = type2::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 1;
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;

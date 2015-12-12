@@ -6,7 +6,7 @@ import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
 alias LOC = int;
 data Comment = comment(loc location);
-data CodeLine = codeLine(loc fileName, int lineNumber, int orderNumber, str codeFragment, bool hasCode);
+data CodeLine = codeLine(loc fileName, int lineNumber, str codeFragment, bool hasCode);
 
 alias CodeLineModel = map[loc compilationUnit, map[int lineNumber, CodeLine line] lines];
 
@@ -26,7 +26,7 @@ public list[CodeLine] sortedLinesForCompilationUnit(loc compilationUnit, CodeLin
 	return sort(toList(range(lines)), bool(CodeLine l1, CodeLine l2){ return l1.lineNumber < l2.lineNumber; });
 }
 
-public CodeLineModel removeEmptyLinesAndAssignOrderNumber(CodeLineModel codeLineModel)
+public CodeLineModel removeEmptyLines(CodeLineModel codeLineModel)
 {
 	for (f <- codeLineModel)
 	{
@@ -42,20 +42,6 @@ public CodeLineModel removeEmptyLinesAndAssignOrderNumber(CodeLineModel codeLine
 		}
 		
 		codeLineModel[f] = linesToReturn;
-	}
-	
-	for (f <- codeLineModel)
-	{
-		list[int] sortedLineNumbers = sort(domain(codeLineModel[f]));
-		map[int, CodeLine] lines = codeLineModel[f];
-		
-		for (orderNumber <- [0..size(sortedLineNumbers)])
-		{
-			int lineNumber = sortedLineNumbers[orderNumber];
-			CodeLine line = lines[lineNumber];
-			line.orderNumber = orderNumber;
-			codeLineModel[f][sortedLineNumbers[orderNumber]] = line;
-		}
 	}
 	
 	return codeLineModel;
@@ -82,7 +68,7 @@ private map[int, CodeLine] relevantCodeFromFile(loc fileName, list[Comment] comm
 {
 	list[CodeLine] linesWithoutComments = removeCommentsFromFile(fileName, comments);
 	
-	return (i+1:codeLine(fileName.top, i+1, 0, linesWithoutComments[i].codeFragment, !isEmptyLine(linesWithoutComments[i])) | i <- [0..size(linesWithoutComments)]);
+	return (i+1:codeLine(fileName.top, i+1, linesWithoutComments[i].codeFragment, !isEmptyLine(linesWithoutComments[i])) | i <- [0..size(linesWithoutComments)]);
 }
 
 private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] comments)
@@ -93,7 +79,7 @@ private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] commen
 	
 	for (i <- [0..size(lines)])
 	{
-		linesToReturn += codeLine(fileName.top, i+1, 0, lines[i], true);
+		linesToReturn += codeLine(fileName.top, i+1, lines[i], true);
 	}
 	
 	for (c <- comments)
@@ -107,7 +93,7 @@ private list[CodeLine] removeCommentsFromFile(loc fileName, list[Comment] commen
 
 			str resultLine = ("" | it + s | s <- split(commentLines[i], fragmentWithComment));
 	
-			linesToReturn[lineNumber - 1] = codeLine(fileName, lineNumber, 0, resultLine, true);
+			linesToReturn[lineNumber - 1] = codeLine(fileName, lineNumber, resultLine, true);
 		}
 	}
 

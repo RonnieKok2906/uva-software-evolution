@@ -2,7 +2,7 @@ module type1::Type1
 
 import model::CodeLineModel;
 import model::CloneModel;
-import type1::Type1Config;
+import type1::Config;
 import Prelude;
 import ListRelation;
 import util::Math;
@@ -15,14 +15,14 @@ alias DuplicationMap = map[list[str], set[CodeBlock]];
 
 public CloneModel clonesRec(CodeLineModel model) 
 {
-	int lineThreshold = LineThreshold;
-	model = removeEmptyLinesAndAssignOrderNumber(model);
+	int lineThreshold = defaultConfiguration.minimumNumberOfLines;
+	model = removeEmptyLines(model);
 	
 	// Initial run
-	DuplicationMap duplicationsMap = clonesInProject(model, lineThreshold);
+	DuplicationMap duplicationMap = clonesInProject(model, lineThreshold);
 
-	int nrOfClones = nrOfClonesInDuplicationMap(duplicationsMap);
-	int nrOfCloneClasses = size(duplicationsMap);
+	int nrOfClones = nrOfClonesInDuplicationMap(duplicationMap);
+	int nrOfCloneClasses = size(duplicationMap);
 
 	println("Found <nrOfClones> in <nrOfCloneClasses> clone classes.");
 
@@ -30,14 +30,14 @@ public CloneModel clonesRec(CodeLineModel model)
 	{
 		lineThreshold += 1;
 
-		largerDuplicationsMap = clonesInProject(model, lineThreshold);
+		largerDuplicationMap = clonesInProject(model, lineThreshold);
 
-		nrOfClones = nrOfClonesInDuplicationMap(largerDuplicationsMap);
-		nrOfCloneClasses = size(largerDuplicationsMap);
+		nrOfClones = nrOfClonesInDuplicationMap(largerDuplicationMap);
+		nrOfCloneClasses = size(largerDuplicationMap);
 
 		println("Found <nrOfClones> in <nrOfCloneClasses> clone classes.");
 		
-		duplicationsMap = mergeDuplicationMaps(duplicationsMap, largerDuplicationsMap);
+		duplicationsMap = mergeDuplicationMaps(duplicationMap, largerDuplicationMap);
 	}
 
 	nrOfClones = nrOfClonesInDuplicationMap(duplicationsMap);
@@ -161,6 +161,16 @@ private map[list[str], set[CodeBlock]] indexAllPossibleCodeFragmentsOfNLines(Cod
 	lrel[list[str], CodeBlock] blocks = ([] | it + allDuplicateCandidatesOfNLinesFromFile(sortedLinesForCompilationUnit(f, model), nrOfLines) | f <- model);
 
 	return ListRelation::index(blocks);
+}
+
+public CodeLineModel getDuplicateLines(CodeLineModel model, DuplicationMap duplicationMap) 
+{
+	return { duplicationMap[key] | key <- duplicationMap };
+	
+	//data CodeLine = codeLine(loc fileName, int lineNumber, int orderNumber, str codeFragment, bool hasCode);
+
+//alias CodeLineModel = map[loc compilationUnit, map[int lineNumber, CodeLine line] lines];
+	
 }
 
 private lrel[list[str], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(list[CodeLine] lines, int nrOfLinesInBlock)

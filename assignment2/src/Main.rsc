@@ -20,9 +20,12 @@ import type3::Type3Tests;
 
 import normalization::Normalization;
 import normalization::Config;
-import type2::Config;
-import visualisation::HTMLTests;
 
+import type1::Config;
+import type2::Config;
+import type3::Config;
+
+import visualisation::HTMLTests;
 import visualisation::Visualisation;
 
 
@@ -50,23 +53,30 @@ public void detectClones(loc project)
 //	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1());
 	
 	//Prepare Type1 and Type2
-	println("Preparing for Type2 and Type3..");
+	println("Preparing for Type2 and Type3...");
 	
 	println("Building AST model for project...");
 	set[Declaration] declarations = createAstsFromEclipseProject(project, false);
-
+	
+	println("Extracting normalized subtrees..");
 	map[node, set[loc]] normalizedSubtrees = findAllPossibleNormalizedSubtrees(declarations, normalization::Config::defaultConfiguration);
-
+	
+	int numberOfMinumumLines = 14;
+	
 	//Type 2
 	println("Building cloneModelType2...");
-	CloneModel cloneModelType2 = type2::Type2::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel);
+	Config config2 = type2::Config::defaultConfiguration;
+	config2.minimumNumberOfLines = numberOfMinumumLines;
+	CloneModel cloneModelType2 = type2::Type2::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config2);
 
 	println("Building visualisation Type2..");
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2());
 	
 	////Type 3
 	println("Building cloneModelType3..");
-	CloneModel cloneModelType3 = type3::Type3::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel);
+	Config config3 = type3::Config::defaultConfiguration;
+	config3.minimumNumberOfLines = numberOfMinumumLines;
+	CloneModel cloneModelType3 = type3::Type3::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config3);
 	
 	println("Building visualisation Type3..");
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType3, type3());

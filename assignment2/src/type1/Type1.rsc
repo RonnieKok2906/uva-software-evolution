@@ -13,7 +13,7 @@ alias CodeBlock = list[CodeLine];
 alias DuplicationMap = map[list[str], set[CodeBlock]];
 
 
-public CloneModel clonesRec(CodeLineModel model) 
+public CloneModel clonesInProject(CodeLineModel model) 
 {
 	int lineThreshold = defaultConfiguration.minimumNumberOfLines;
 
@@ -60,6 +60,17 @@ public CloneModel clonesRec(CodeLineModel model)
 	return createCloneModel(duplicationMap);
 }
 
+
+public DuplicationMap clonesInProject(CodeLineModel model, int lineThreshold)
+{	
+	println("Code fragment line threshold: <lineThreshold>");
+	map[list[str], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, lineThreshold);
+	//println("Number of all possible code fragments: <size(mapping)>");
+
+	return (cf : mapping[cf] | list[str] cf <- mapping,  size(mapping[cf]) > 1);
+}
+
+
 public int nrOfClonesInDuplicationMap(DuplicationMap duplicationMap) 
 {
 	return (0 | it + size(duplicationMap[k]) | k <- duplicationMap);
@@ -78,7 +89,6 @@ public DuplicationMap mergeDuplicationMaps(DuplicationMap map1, DuplicationMap m
 	return map3 + map2;
 } 
 
-
 public bool isSubSetOf(set[CodeBlock] blocks, DuplicationMap duplicationsMap) 
 {
 	return any(k <- duplicationsMap, isSubSetOf(blocks, duplicationsMap[k]));
@@ -86,18 +96,11 @@ public bool isSubSetOf(set[CodeBlock] blocks, DuplicationMap duplicationsMap)
 
 public bool isSubSetOf(set[CodeBlock] blocks1, set[CodeBlock] blocks2) 
 {
-	if(size(blocks1) == 0) return true;
+	if(size(blocks1) > size(blocks2)) return false;
 
-	tuple[CodeBlock, set[CodeBlock]] takeonFromResult = takeOneFrom(blocks1);
-	CodeBlock head = takeonFromResult[0];
-	set[CodeBlock] tail = takeonFromResult[1];
+	CodeBlock codeBlock = takeOneFrom(blocks1)[0];
 
-	return isElemOf(head, blocks2) && isSubSetOf(tail, blocks2);
-}
-
-public bool isElemOf(CodeBlock block, set[CodeBlock] blocks) 
-{
-	return any(block1 <- blocks, isSubBlockOf(block, block1));
+	return any(block1 <- blocks2, isSubBlockOf(codeBlock, block1));
 }
 
 public bool isSubBlockOf(CodeBlock block1, CodeBlock block2) 
@@ -131,17 +134,6 @@ public int maxLineNumber(CodeBlock block)
 		}
 	}
 	return maxLineNumber;
-}
-
-public DuplicationMap clonesInProject(CodeLineModel model, int lineThreshold)
-{	
-	println("Code fragment line threshold: <lineThreshold>");
-	map[list[str], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, lineThreshold);
-	println("Number of all possible code fragments: <size(mapping)>");
-
-	map[list[str], set[CodeBlock]] duplicationsMap = (cf : mapping[cf] | list[str] cf <- mapping,  size(mapping[cf]) > 1);
-
-	return duplicationsMap;
 }
 
 public CloneModel createCloneModel(DuplicationMap duplicationsMap)

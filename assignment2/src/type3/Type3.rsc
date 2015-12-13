@@ -36,44 +36,43 @@ public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] norm
 
 public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, CodeLineModel codeLineModel, Config config)
 {
-	println("Generating cut subtrees...<size(normalizedSubtrees)>");
-	map[node, set[node]] cutSubtrees = ();//(n:generateNodesWithNRemovedStatements(config.minimumNumberOfLines, config.numberOfLinesThatCanBeSkipped, n, codeLineModel) | n <- normalizedSubtrees);
+	map[node, set[node]] cutSubtrees = (n:generateNodesWithNRemovedStatements(config, n, codeLineModel) | n <- normalizedSubtrees);
 	
-	//println("after generation..<size(normalizedSubtrees)>:<size(cutSubtrees)>");
-	//for (k <- cutSubtrees)
-	//{
-	//	for (r <- cutSubtrees[k])
-	//	{
-	//		if (r in normalizedSubtrees)
-	//		{
-	//			normalizedSubtrees[r] += normalizedSubtrees[k];
-	//			//subtrees[k] += subtrees[r];
-	//		}
-	//		else
-	//		{
-	//			normalizedSubtrees[r] = normalizedSubtrees[k];
-	//		}
-	//	}
-	//}
-	println("pre filter..<size(normalizedSubtrees)>");
+	normalizedSubtrees = addCutSubtreesToOtherSubtrees(cutSubtrees, normalizedSubtrees);
+
 	normalizedSubtrees = (k : m | k <- normalizedSubtrees, m := normalizedSubtrees[k], size(m) > 1);
-	println("filter..<size(normalizedSubtrees)>");
 	
 	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, normalizedSubtrees, codeLineModel);
-	
-	println("subsume..<size(cloneCandidates)>");
+
 	cloneCandidates = subsumeCandidatesWhenPossibleType(cloneCandidates, cutSubtrees);
-	
-	println("createCloneModel..<size(cloneCandidates)>");
+
 	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates, codeLineModel);
-	
-	println("cloneModel:<size(cloneModel)>");
 	
 	return cloneModel;
 }
 
 
-private set[node] generateNodesWithNRemovedStatements(int minimumNumberOfLines, int numberOfLinesToRemove, node n, CodeLineModel codeLineModel)
+private map[node, set[loc]] addCutSubtreesToOtherSubtrees(map[node, set[node]] cutSubtrees, map[node, set[loc]] normalizedSubtrees)
+{
+	for (k <- cutSubtrees)
+	{
+		for (r <- cutSubtrees[k])
+		{
+			if (r in normalizedSubtrees)
+			{
+				normalizedSubtrees[r] += normalizedSubtrees[k];
+			}
+			else
+			{
+				normalizedSubtrees[r] = normalizedSubtrees[k];
+			}
+		}
+	}
+	
+	return normalizedSubtrees;
+}
+
+private set[node] generateNodesWithNRemovedStatements(Config config, node n, CodeLineModel codeLineModel)
 {
 	list[node] returnList = [];
 
@@ -81,36 +80,43 @@ private set[node] generateNodesWithNRemovedStatements(int minimumNumberOfLines, 
 	{	
 		case b:\block(statements) : 
 		{	
-			list[list[Statement]] subLists = allPossibleSublistsWithAMinimumNumberOfItems(statements, max(0, size(statements) - numberOfLinesToRemove));
-			
-			println("Block number of lines:<size(codeLinesForFragement(b@src, codeLineModel))>");
-			
-			if (size(subLists) > 1 && size(codeLinesForFragement(b@src, codeLineModel)) > minimumNumberOfLines)
-			{
-				for (sl <- subLists)
-				{
-					list[Statement] removedStatements = statements - subLists;
-				
-					list[int] numberOfLinesList = [size(codeLinesForFragement(r@src, codeLineModel)) | r <- removedStatements];
-				
-					bool removesTooMuchLines = any(r <- numberOfLinesList, r > numberOfLinesToRemove);
-					
-					if (!removesTooMuchLines)
-					{
-						node temp = generateNewBlock(n, b, sl);
-						
-						//println("BLOCK:");
-						
-						returnList += temp;
-					}
-				}
-			}
-					
-			//println("after block generation:<size(statements)>:<b@src>");							
+			returnList = generateNodesFromStatements(returnList, n, b, statements, config, codeLineModel);					
+		}
+		case b:\try(body, statements) :
+		{	
+			returnList = generateNodesFromStatements(returnList, n, b, statements, config, codeLineModel);
+		}
+		case b:\try(body, statements, finallyBody) :
+		{
+			returnList = generateNodesFromStatements(returnList, n, b, statements, config, codeLineModel);
 		}
 	}
 
 	return toSet(returnList);
+}
+
+private list[node] generateNodesFromStatements(list[node] intermediateResult, node rootNode, Statement statementDeclaration, list[Statement] statements, Config config, CodeLineModel codeLineModel)
+{
+	list[list[Statement]] subLists = allPossibleSublistsWithAMinimumNumberOfItems(statements, max(0, size(statements) - config.numberOfLinesThatCanBeSkipped));
+			
+	if (size(subLists) > 1 && size(codeLinesForFragement(statementDeclaration@src, codeLineModel)) > config.minimumNumberOfLines)
+	{
+		for (sl <- subLists)
+		{
+			list[Statement] removedStatements = statements - subLists;
+				
+			list[int] numberOfLinesList = [size(codeLinesForFragement(r@src, codeLineModel)) | r <- removedStatements];
+				
+			bool removesTooMuchLines = any(r <- numberOfLinesList, r > config.numberOfLinesThatCanBeSkipped);
+					
+			if (!removesTooMuchLines)
+			{			
+				intermediateResult += generateNewBlock(rootNode, statementDeclaration, sl);
+			}
+		}
+	}
+	
+	return intermediateResult;
 }
 
 private node generateNewBlock(node rootNode, Statement blockNode, list[Statement] statements)

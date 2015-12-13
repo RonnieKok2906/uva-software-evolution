@@ -171,12 +171,7 @@ public void jsonForCodeClones(str projectName, CloneType cloneType, CompilationU
 		clonedLines += size(c.lines);
 		
 		result = "<indents>{\n<indents>  \"name\": \"\",\n<indents>  \"size\":<size(c.lines)>,\n<indents>  \"cloneclass\": \"<c.cloneClassIdentifier>\",\n<indents>  \"codeFragment\": \"<htmlForCloneClass(c, cloneModel[c.cloneClassIdentifier])>\"\n<indents>},\n";
-		
-		if (size(c.lines) == 17 && c.lines[0].lineNumber == 203)
-		{
-			println("size:<size(cloneFragments)>result:<result>\n\n\n\n");
-		}
-		
+
 		appendToJSONFile(projectName, result, cloneType);
 	}
 	

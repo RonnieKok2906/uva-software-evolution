@@ -7,10 +7,9 @@ import typeUtil::TypeUtil;
 public map[node, set[loc]] subsumeCandidatesWhenPossibleType(map[node, set[loc]] candidates, map[node, set[node]] cutSubtrees)
 {
 	map[node, set[loc]] returnMap = ();
-	println("sorting..<size(candidates)>");
 	
 	list[node] sortedNodeList = sort(domain(candidates), bool(node a, node b){ return size(subtreesFromNode(a)) < size(subtreesFromNode(b)); });
-	println("sortedNodeList:<size(sortedNodeList)>");
+
 	for (n <- sortedNodeList)
 	{
 		set[loc] tempLocations = candidates[n];
@@ -23,6 +22,8 @@ public map[node, set[loc]] subsumeCandidatesWhenPossibleType(map[node, set[loc]]
 		{	
 			returnMap += (n:tempLocations);
 		}
+		
+		println("subsuming <size(sortedNodeList) - indexOf(sortedNodeList, n)> to go");
 	}
 	
 	return returnMap;
@@ -64,7 +65,7 @@ private bool locationAIsPartOfLocationB(loc a, loc b)
 	int endA = a.end[0];
 	int endB = b.end[0];
 	
-	return a.top == b.top;// && beginA >= beginB && beginA <= endB && endA <= endB;
+	return beginA >= beginB && beginA <= endB && endA <= endB;
 }
 
 private bool locationAIsOverlappingLocationB(loc a, loc b)
@@ -79,5 +80,5 @@ private bool locationAIsOverlappingLocationB(loc a, loc b)
 	bool AstartsBeforeB = beginA <= beginB && endA >= beginB && endA <= endB;
 	bool AstartsAfterB = beginA >= beginB && beginB <= endA && endA >= endB;
 	
-	return a.top == b.top;// && (AisSmallThanB || AisBiggerThanB || AstartsBeforeB || AstartsAfterB);
+	return (AisSmallThanB || AisBiggerThanB || AstartsBeforeB || AstartsAfterB);
 }

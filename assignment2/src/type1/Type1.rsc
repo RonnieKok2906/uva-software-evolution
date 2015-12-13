@@ -13,9 +13,10 @@ alias CodeBlock = list[CodeLine];
 alias DuplicationMap = map[list[str], set[CodeBlock]];
 
 
-public CloneModel clonesInProject(CodeLineModel model) 
+public CloneModel clonesInProject(CodeLineModel model, Config config) 
 {
-	int lineThreshold = defaultConfiguration.minimumNumberOfLines;
+	int lineThreshold = config.minimumNumberOfLines;
+	println("Configured clone size threshold: <lineThreshold>");
 
 	int modelSize = (0 | it + size(model[compilationUnit]) | loc compilationUnit <- model );
 	println("Code line model size: <modelSize> lines");
@@ -30,12 +31,7 @@ public CloneModel clonesInProject(CodeLineModel model)
 	int nrOfClones = nrOfClonesInDuplicationMap(duplicationMap);
 	int nrOfCloneClasses = size(duplicationMap);
 
-	println("Found <nrOfClones> in <nrOfCloneClasses> clone classes.");
-
-	// Remove lines from code line model that are never duplicated.
-	model = removeNonDuplicateLines(model, duplicationMap);
-	modelSize = (0 | it + size(model[compilationUnit]) | loc compilationUnit <- model );
-	println("Non duplicate lines removed from code line model. Shrunk to <modelSize> lines."); 
+	println("Found <nrOfCloneClasses> classes with <nrOfClones> <lineThreshold>-line clones.");
 
 	while (nrOfClones > 0)
 	{
@@ -46,8 +42,9 @@ public CloneModel clonesInProject(CodeLineModel model)
 		nrOfClones = nrOfClonesInDuplicationMap(largerDuplicationMap);
 		nrOfCloneClasses = size(largerDuplicationMap);
 
-		println("Found <nrOfClones> in <nrOfCloneClasses> clone classes.");
+		println("Found <nrOfCloneClasses> classes with <nrOfClones> <lineThreshold>-line clones.");
 		
+		println("Merging <size(duplicationMap)> classes of \<= <lineThreshold -1>-line clones into <nrOfCloneClasses> classes of <lineThreshold>-line clones.");
 		duplicationMap = mergeDuplicationMaps(duplicationMap, largerDuplicationMap);
 	}
 
@@ -55,7 +52,7 @@ public CloneModel clonesInProject(CodeLineModel model)
 	nrOfCloneClasses = size(duplicationMap);
 
 	println("Search complete");
-	println("Found <nrOfClones> in <nrOfCloneClasses> clone classes.");
+	println("Found <nrOfClones> clones in <nrOfCloneClasses> clone classes.");
 	
 	return createCloneModel(duplicationMap);
 }
@@ -63,9 +60,7 @@ public CloneModel clonesInProject(CodeLineModel model)
 
 public DuplicationMap clonesInProject(CodeLineModel model, int lineThreshold)
 {	
-	println("Code fragment line threshold: <lineThreshold>");
 	map[list[str], set[CodeBlock]] mapping = indexAllPossibleCodeFragmentsOfNLines(model, lineThreshold);
-	//println("Number of all possible code fragments: <size(mapping)>");
 
 	return (cf : mapping[cf] | list[str] cf <- mapping,  size(mapping[cf]) > 1);
 }
@@ -84,9 +79,13 @@ public DuplicationMap mergeDuplicationMaps(DuplicationMap map1, DuplicationMap m
 	int discardedClones = nrOfClonesInDuplicationMap(map1) - nrOfClonesInDuplicationMap(map3);
 	int discardedCloneClasses = size(map1) - size(map3);
 
-	println("Discarded <discardedClones> clones and <discardedCloneClasses> clone classes.");
+	println("Discarded <discardedCloneClasses> clone classes.");
 
-	return map3 + map2;
+	DuplicationMap mapNew = map3 + map2;
+
+	println("Clone classes remaining: <size(mapNew)>");
+
+	return mapNew;
 } 
 
 public bool isSubSetOf(set[CodeBlock] blocks, DuplicationMap duplicationsMap) 
@@ -165,89 +164,6 @@ private map[list[str], set[CodeBlock]] indexAllPossibleCodeFragmentsOfNLines(Cod
 
 	return ListRelation::index(blocks);
 }
-
-public CodeLineModel removeNonDuplicateLines(CodeLineModel codeLineModel, DuplicationMap duplicationMap) 
-{
-	int total = (0 | it + size(codeLineModel[compilationUnit]) | loc compilationUnit <- codeLineModel );
-
-	println("Start removing non-duplicate lines from code line model.");
-	int totalLines = 0;
-	int linesReturned = 0;
-	
-	lineMap = flatten(duplicationMap);
-
-	for (f <- codeLineModel)
-	{
-		map[int, CodeLine] lines = codeLineModel[f];
-		map[int, CodeLine] linesToReturn = ();
-		
-		for (lineNumber <- lines)
-		{
-			if (f in lineMap && lineNumber in lineMap[f])
-			{
-				linesToReturn[lineNumber] = lines[lineNumber];
-			}
-		}
-		
-		totalLines += size(lines);
-		linesReturned += size(linesToReturn);
-		
-		codeLineModel[f] = linesToReturn;
-	}
-	return codeLineModel;
-}
-
-
-public map[loc,list[int]] flatten(DuplicationMap duplicationMap) 
-{
-	return ( file : lineNumbersFromDuplicationMap(duplicationMap, file) | file <- filesFromDuplicationMap(duplicationMap));
-}
-
-
-private set[loc] filesFromDuplicationMap(DuplicationMap duplicationMap) 
-{
-	set[loc] files = {};
-
-	for(key <- duplicationMap) 
-	{
-		set[CodeBlock] codeBlocks = duplicationMap[key];
-		
-		for(codeBlock <- codeBlocks) 
-		{
-			for(codeLine <- codeBlock) 
-			{
-				if(codeLine.fileName notin files) 
-				{
-					files += codeLine.fileName;
-				} 
-			}
-		} 
-	}
-	return files;
-}
-
-private list[int] lineNumbersFromDuplicationMap(DuplicationMap duplicationMap, loc file) 
-{
-	list[int] lineNumbers = [];
-
-	for(key <- duplicationMap) 
-	{
-		set[CodeBlock] codeBlocks = duplicationMap[key];
-		
-		for(codeBlock <- codeBlocks) 
-		{
-			for(codeLine <- codeBlock) 
-			{
-				if(codeLine.fileName == file) 
-				{
-					lineNumbers += codeLine.lineNumber;
-				} 
-			}
-		} 
-	}
-	return lineNumbers;
-} 
-
 
 private lrel[list[str], CodeBlock] allDuplicateCandidatesOfNLinesFromFile(list[CodeLine] lines, int nrOfLinesInBlock)
 {	

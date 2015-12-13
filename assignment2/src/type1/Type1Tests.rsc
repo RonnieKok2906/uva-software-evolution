@@ -15,7 +15,8 @@ import type1::Config;
 
 public list[bool] allTests() = [
 								testThatWhiteSpaceIsIgnored(),
-								testThatDocumentationIsIgnored()
+								testThatDocumentationIsIgnored(),
+								testClonesInDifferenClasses()
 								]; 
 
 //Test 1
@@ -29,10 +30,10 @@ test bool testThatWhiteSpaceIsIgnored()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = type1::Config::defaultConfiguration;
-	config.minimumNumberOfLines = 3;
+	config.minimumNumberOfLines = 6;
 	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel);
+	CloneModel cloneModel = clonesInProject(codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -53,8 +54,29 @@ test bool testThatDocumentationIsIgnored()
 	config.minimumNumberOfLines = 4;
 	
 	//Act
-	CloneModel cloneModel = clonesInProject(codeLineModel);
+	CloneModel cloneModel = clonesInProject(codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+
+//Test 2
+test bool testClonesInDifferenClasses()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type1TestSource/TestClass3.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = type1::Config::defaultConfiguration;
+	config.minimumNumberOfLines = 6;
+	
+	//Act
+	CloneModel cloneModel = clonesInProject(codeLineModel, config);
+	
+	//Assert
+	return size(cloneModel) == 2 && size(cloneModel[1]) == 2 && size(cloneModel[2]) == 3;
 }

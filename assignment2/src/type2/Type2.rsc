@@ -25,20 +25,21 @@ public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] 
 public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations, Config normalizationConfig, Config config)
 {
 	map[node, set[loc]] subtrees = findAllRelevantNormalizedSubtrees(declarations, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks(declarations, normalizationConfig, codeLineModel);
 
-	return clonesInProjectFromNormalizedSubtrees(subtrees, codeLineModel, config);
+	return clonesInProjectFromNormalizedSubtrees(subtrees, subblocks, codeLineModel, config);
 }
 
-public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, CodeLineModel codeLineModel)
+public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, map[int, list[list[CodeLine]]] subblocks, CodeLineModel codeLineModel)
 {
-	return clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, type2::Config::defaultConfiguration);
+	return clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, type2::Config::defaultConfiguration);
 }
 
-public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, CodeLineModel codeLineModel, Config config)
+public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, map[int, list[list[CodeLine]]] subblocks, CodeLineModel codeLineModel, Config config)
 {
 	map[node, set[loc]] duplicatedSubtrees = (k : m | k <- normalizedSubtrees, m := normalizedSubtrees[k], size(m) > 1);
 
-	map[int, list[list[CodeLine]]] cloneCandidates = subsumeCandidates(duplicatedSubtrees, codeLineModel, config);
+	map[int, list[list[CodeLine]]] cloneCandidates = subsumeCandidates(duplicatedSubtrees, subblocks, codeLineModel, config);
 
 	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates);
 

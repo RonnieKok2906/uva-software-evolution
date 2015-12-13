@@ -7,7 +7,7 @@ import lang::java::jdt::m3::AST;
 import normalization::Config;
 
 import typeUtil::TypeUtil;
-
+import model::CodeLineModel;
 
 public map[node, set[loc]] findAllRelevantNormalizedSubtrees(set[Declaration] declarations, Config config)
 {
@@ -31,6 +31,97 @@ public map[node, set[loc]] findAllRelevantNormalizedSubtrees(set[Declaration] de
 	return subtrees;
 }
 
+public map[int, list[list[CodeLine]]] findSubblocks(set[Declaration] declarations, Config config, CodeLineModel codeLineModel)
+{
+	map[list[node], list[list[CodeLine]]] intermediateResult = ();
+
+	for (d <- declarations)
+	{				
+		visit(d)
+		{
+			case b:\block(statements) : 
+			{
+				if (size(statements) > 1)
+				{
+					list[list[node]] subblocks = findPossibleSubblocks(statements);
+					subblocks = [[normalizeNode(i, config) | i <- s] |s <- subblocks];
+					intermediateResult = addSubBlockToIntermediateResult(intermediateResult, subblocks, codeLineModel);
+				}
+			}
+		}
+		
+	}
+	
+	map[int, list[list[CodeLine]]] returnMap = ();
+	
+	counter = 0;
+	for (i <- intermediateResult)
+	{
+		if (size(intermediateResult[i]) > 1)
+		{
+			returnMap += (counter:intermediateResult[i]);
+		
+			counter += 1;
+		}
+	}
+	
+	return returnMap;
+}
+
+private map[list[node], list[list[CodeLine]]] addSubBlockToIntermediateResult(map[list[node], list[list[CodeLine]]] intermediateResult, list[list[node]] subblocks, CodeLineModel codeLineModel)
+{
+	map[list[node], list[list[CodeLine]]] returnMap = intermediateResult;
+
+	for (s <- subblocks)
+	{
+		if (s in intermediateResult)
+		{
+			returnMap[s] += [codeLinesForStatements(s, codeLineModel)];
+		}
+		else
+		{
+			returnMap[s] = [codeLinesForStatements(s, codeLineModel)];
+		}
+	}
+	
+	return returnMap;
+}
+
+private list[CodeLine] codeLinesForStatements(list[node] statements, CodeLineModel codeLineModel)
+{
+	if (Statement s1 := statements[0] && Statement s2 := last(statements))
+	{
+		int firstLineNumber = s1@src.begin[0];
+		int lastLineNumber = s2@src.end[0];
+		
+		assert(firstLineNumber <= lastLineNumber);
+		
+		return [codeLineModel[s1@src.top][i] | i <- [firstLineNumber.. lastLineNumber + 1]];
+	}	
+	else
+	{
+		assert(false);
+	}
+	
+	return [];
+}
+
+private list[list[&T]] findPossibleSubblocks(list[&T] statements)
+{
+	int numberOfStatements = size(statements);
+	
+	list[list[&T]] returnList = [];
+	
+	for (i <- [2..numberOfStatements])
+	{
+		for (j <- [0..numberOfStatements - i + 1])
+		{
+			returnList +=  [[statements[k] | k <- [j..j+i]]];
+		}
+	}
+	
+	return returnList;
+}
 
 private node normalizeNode(node subtree, Config config)
 {	

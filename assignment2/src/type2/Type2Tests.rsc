@@ -81,7 +81,7 @@ test bool testThatDocumentationIsIgnored()
 	
 	//Act
 	CloneModel cloneModel = clonesInProject(codeLineModel, {declaration}, normalization::Config::defaultConfiguration, config);
-	println("cloneModel:<size(cloneModel)>");
+
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
@@ -106,9 +106,10 @@ test bool testThatClassOfOneLineHasNoCloneClasses()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 0;
@@ -133,9 +134,10 @@ test bool testThatDifferentMethodNamesOrIgnored()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -161,9 +163,10 @@ test bool testThatDifferentMethodReturnTypeIsIngored()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -190,9 +193,10 @@ test bool testThatDifferentMethodReturnTypeIsRespectedWithConfig()
 	normalizationConfig.respectMethodReturnType = true;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 
 	//Assert
 	return size(cloneModel) == 0;
@@ -216,9 +220,10 @@ test bool testThatDifferentReturnExpressionIsRecognized()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 
 	//Assert
 	return size(cloneModel) == 0;
@@ -243,9 +248,10 @@ test bool testThatDifferentVariableNamesAreIgnored()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -269,9 +275,10 @@ test bool testThatDifferentNumericalLiteralsAreIgnored()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -295,9 +302,10 @@ test bool testThatDifferentVariableTypesAreIgnored()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -322,9 +330,10 @@ test bool testThatDifferentVariableTypesAreRecognizedWithConfig()
 	normalizationConfig.respectVariableType = true;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 0;
@@ -350,9 +359,10 @@ test bool testThatLiteralTypeIsRespectedWithConfig()
 	normalizationConfig.respectLiteralType = true;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 
 	//Assert
 	return size(cloneModel) == 0;
@@ -376,9 +386,10 @@ test bool testThatLiteralTypeIsIgnored()
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -397,14 +408,15 @@ test bool testThatPartOfACodeBlockIsRecognizedAsClone()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = type2::Config::defaultConfiguration;
-	config.minimumNumberOfLines = 4;
+	config.minimumNumberOfLines = 5;
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
 	
 	//Act
-	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 	
 	//Assert
 	return size(cloneModel) == 2 && size(cloneModel[1]) == 2 && size(cloneModel[2]) == 2;

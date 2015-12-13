@@ -61,13 +61,15 @@ public void detectClones(loc project)
 	println("Extracting normalized subtrees..");
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees(declarations, normalization::Config::defaultConfiguration);
 	
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks(declarations, normalization::Config::defaultConfiguration, codeLineModel);
+	
 	int numberOfMinumumLines = 4;
 	
 	//Type 2
 	println("Building cloneModelType2...");
 	Config config2 = type2::Config::defaultConfiguration;
 	config2.minimumNumberOfLines = numberOfMinumumLines;
-	CloneModel cloneModelType2 = type2::Type2::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config2);
+	CloneModel cloneModelType2 = type2::Type2::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config2);
 
 	println("Building visualisation Type2..");
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2());
@@ -90,8 +92,8 @@ public void runAllTests()
 								<"PackageModelTests.rsc Tests", model::PackageModelTests::allTests()>,
 								<"HTMLTests.rsc Tests", visualisation::HTMLTests::allTests()>,
 								<"Type1Tests.rsc Tests", type1::Type1Tests::allTests()>,
-								<"Type2Tests.rsc Tests", type2::Type2Tests::allTests()>,
-								<"Type3Tests.rsc Tests", type3::Type3Tests::allTests()>
+								<"Type2Tests.rsc Tests", type2::Type2Tests::allTests()>
+								//<"Type3Tests.rsc Tests", type3::Type3Tests::allTests()>
 								];
 
 	int numberOfFailedTests = 0;

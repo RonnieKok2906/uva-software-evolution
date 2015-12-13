@@ -46,6 +46,8 @@ private str htmlForCloneFragment(list[CodeLine] lines)
 	
 	result += "\<table\>";
 	
+	lines = [l | l <- lines, l.hasCode];
+	
 	for (l <- lines)
 	{
 		result += "\<tr\>\<td\><l.lineNumber>\</td\>\<td\><cleanString(l.codeFragment)>\</td\>\</tr\>";

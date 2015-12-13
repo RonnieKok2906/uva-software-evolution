@@ -36,7 +36,8 @@ private list[bool] type2Tests() = [
 									testThatDifferentVariableTypesAreIgnored(),
 									testThatDifferentVariableTypesAreRecognizedWithConfig(),
 									testThatLiteralTypeIsRespectedWithConfig(),
-									testThatLiteralTypeIsIgnored()
+									testThatLiteralTypeIsIgnored(),
+									testThatPartOfACodeBlockIsRecognizedAsClone()
 									];
 
 //Type 1
@@ -237,7 +238,7 @@ test bool testThatDifferentVariableNamesAreIgnored()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = type2::Config::defaultConfiguration;
-	config.minimumNumberOfLines = 5;
+	config.minimumNumberOfLines = 3;
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
@@ -383,10 +384,8 @@ test bool testThatLiteralTypeIsIgnored()
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
 
-
-
-//Test TEMP							
-test bool testTemp()
+//Test 9					
+test bool testThatPartOfACodeBlockIsRecognizedAsClone()
 {
 	//Arrange
 	loc file = |project://testCloneSource/src/type3TestSource/TestClass2.java|;
@@ -396,42 +395,16 @@ test bool testTemp()
 	Declaration declaration = createAstsFromEclipseFile(file, true);
 	
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
-	
-	println(codeLineModel);
 
 	Config config = type2::Config::defaultConfiguration;
-	config.minimumNumberOfLines = 8;
+	config.minimumNumberOfLines = 4;
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
 	
-	//for (n <- normalizedSubtrees)
-	//{
-	//	annotations = getAnnotations(n);
-	//
-	//	if ("src" in annotations)
-	//	{
-	//		if (size(codeLinesForFragement(annotations["src"], codeLineModel)) > 7)
-	//		{
-	//			println("normalizedSubtrees:<n>\n\n");
-	//		}
-	//	}
-	//}
-	//
-	//println("normalizedSubtrees:<domain(normalizedSubtrees)>");
-	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
-	
-	//println("print cloneModel:<size(cloneModel)>");
-	//
-	//for (i <- cloneModel)
-	//{
-	//	println("i:<i>:<size(cloneModel[i])>");
-	//}
-	
-	println("cloneModel:<size(cloneModel)>");
 	
 	//Assert
 	return size(cloneModel) == 2 && size(cloneModel[1]) == 2 && size(cloneModel[2]) == 2;

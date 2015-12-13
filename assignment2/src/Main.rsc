@@ -61,7 +61,7 @@ public void detectClones(loc project)
 	println("Extracting normalized subtrees..");
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees(declarations, normalization::Config::defaultConfiguration);
 	
-	int numberOfMinumumLines = 14;
+	int numberOfMinumumLines = 4;
 	
 	//Type 2
 	println("Building cloneModelType2...");

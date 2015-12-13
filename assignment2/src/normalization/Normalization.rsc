@@ -38,14 +38,14 @@ private node normalizeNode(node subtree, Config config)
 	{
 		case n:\method(_, name, parameters, exceptions, impl) => normalizeMethod(n, config)
     	case n:\method(_, name, parameters, exceptions) => normalizeMethod(n, config)
+    	case n:\variables(vType, fragments) => normalizeVariableDeclaration(n, config)
     	case n:\simpleName(_) => normalizeSimpleName(n)
     	case n:\characterLiteral(str charValue) => normalizeCharacterLiteral(n, config)
     	case n:\number(_) => normalizeNumberLiteral(n, config)
     	case n:\booleanLiteral(_) => normalizeBooleanLiteral(n, config)
     	case n:\stringLiteral(_) => normalizeStringLiteral(n, config)
     	case n:\variable(name, extraDimensions) => normalizeVariableName(n, config)
-    	case n:\variable(name, extraDimensions, initializerExpression) => normalizeVariableName(n, config)
-    	case n:\variables(vType, fragments) => normalizeVariableDeclaration(n, config)
+    	case n:\variable(name, extraDimensions, initializerExpression) => normalizeVariableNameWithInitializer(n, config)
 	}
 		
 	return subtree;
@@ -81,7 +81,9 @@ private Declaration normalizeMethod(Declaration methodDeclaration, Config config
 
 private Expression normalizeSimpleName(Expression simpleNameNode)
 {	
-	return setAnnotations(\simpleName("variable"), getAnnotations(simpleNameNode));
+	simpleNameNode = setAnnotations(\simpleName("variable"), getAnnotations(simpleNameNode));
+	
+	return simpleNameNode;
 }
 
 private Expression normalizeCharacterLiteral(Expression characterLiteral, Config config)
@@ -176,20 +178,36 @@ private Expression normalizeVariableName(Expression variableNode, Config config)
 	{
 		annotations["typ"] = string();
 	}
-	
+
 	if (v:\variable(name, extraDimensions) := variableNode)
 	{
 		variableNode = \variable("variable", extraDimensions);
-	}
-	else if (v:\variable(name, extraDimensions, expressionInitializer) := variableNode)
-	{
-		variableNode = \variable("variable", extraDimensions, expressionInitializer);
-	}
 	
-	variableNode = setAnnotations(variableNode, annotations);
+		variableNode = setAnnotations(variableNode, annotations);
+	}
 	
 	return variableNode;
 }
+
+private Expression normalizeVariableNameWithInitializer(Expression variableNode, Config config)
+{
+	map[str, value] annotations = getAnnotations(variableNode);
+	
+	if (!config.respectVariableType)
+	{
+		annotations["typ"] = string();
+	}
+	
+	if (v:\variable(name, extraDimensions, expressionInitializer) := variableNode)
+	{
+		variableNode = \variable("variable", extraDimensions, expressionInitializer);
+	
+		variableNode = setAnnotations(variableNode, annotations);
+	}
+	
+	return variableNode;
+}
+
 
 private Declaration normalizeVariableDeclaration(Declaration variableDeclaration, Config config)
 {
@@ -209,3 +227,24 @@ private Declaration normalizeVariableDeclaration(Declaration variableDeclaration
 
 	return variableDeclaration;
 }
+
+//private Statement normalizeReturnStatement(Statement rs, Config config)
+//{
+//	annotations = getAnnotations(rs);
+//	println("returnStatement:<rs>");
+//	if (!config.respectVariableType)
+//	{
+//		annotations["typ"] = null();
+//	}	
+//
+//	if (\return(ex) := rs)
+//	{	
+//		Expression ex =	normalizeExpression(ex, config);
+//		println("ex:<ex>");
+//		rs = \return(ex);
+//	}
+//	
+//	rs = setAnnotations(rs, annotations);
+//
+//	return rs;
+//}

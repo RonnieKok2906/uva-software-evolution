@@ -2,6 +2,7 @@ module type2::Subsumption
 
 import Prelude;
 import util::Math;
+
 import typeUtil::TypeUtil;
 import model::CodeLineModel;
 import type2::Config;
@@ -20,9 +21,8 @@ public map[int, list[list[CodeLine]]] subsumeCandidates(map[node, set[loc]] cand
 	
 	sortedCandidates = sortCandidates(intermediateResult);
 	intermediateResult = subsumeWithAdjacent(intermediateResult, sortedCandidates, codeLineModel);
-
-	//sortedCandidates = sortCandidates(intermediateResult);
-	//intermediateResult = subsumeCandidatesDirectly(intermediateResult, sortedCandidates);
+	
+	intermediateResult = (r:intermediateResult[r] | r <-intermediateResult, size(intermediateResult[r]) > 1);
 
 	//intermediateResult = (r:intermediateResult[r] | r <-intermediateResult, any(cf <- intermediateResult[r], size(cf) >= config.minimumNumberOfLines));
 
@@ -41,9 +41,9 @@ private map[int, list[list[CodeLine]]] transformCandidatesToCodeLines(map[node, 
 		
 		list[list[CodeLine]] cfs = [];
 		
-		for (l <- candidates[n])
+		for (location <- candidates[n])
 		{
-			cfs += [codeLinesForFragement(l, codeLineModel)];
+			cfs += [codeLinesForFragement(location, codeLineModel)];
 		}
 		
 		returnMap[counter] = cfs;
@@ -64,31 +64,40 @@ private int biggestCodeFragment(list[list[CodeLine]] cfs)
 
 private map[int, list[list[CodeLine]]] subsumeCandidatesDirectly(map[int, list[list[CodeLine]]] candidates, list[int] sortedCandidates)
 {
-	map[int, list[list[CodeLine]]] returnMap = ();
-	
-	map[int, list[list[CodeLine]]] cs = candidates;
-	
-	for (i <- sortedCandidates)
+	if (size(sortedCandidates) == 0)
 	{
-		list[list[CodeLine]] tempFragments = cs[i];
-		
-		cs = cs - (i:tempFragments);
-	
-		bool canBeDirectlySubsumed = any(r <- domain(cs), codeFragmentsACanBeSubsumedInCodeFragmentsB(tempFragments, cs[r]));
-		
-		if (!canBeDirectlySubsumed)
-		{	
-			returnMap += (i:tempFragments);
-		}
-		else
-		{
-			sortedCandidates = sortedCandidates - i;
-		}
-		
-		println("subsume direct rest:<size(candidates)>");
+		return candidates;
 	}
 
-	return returnMap;
+	int currentItem = sortedCandidates[0];
+	list[list[CodeLine]] refCfs = candidates[currentItem];
+	
+	loopItems = tail(sortedCandidates);
+
+	for (i <- loopItems)
+	{
+		list[list[CodeLine]] tempCfs = candidates[i];
+	
+		if (codeFragmentsACanBeSubsumedInCodeFragmentsB(refCfs, tempCfs))
+		{
+			candidates = candidates - (currentItem:refCfs);	
+			
+			sortedCandidates = tail(sortedCandidates);
+		}
+		else if (codeFragmentsACanPartiallyBeSubsumedInCodeFragmentsB(refCfs, tempCfs))
+		{
+			list[list[CodeLine]] partiallySubsumable = codeFragmentsThatCanPartiallyBeSubsumedInCodeFragmentsB(refCfs, tempCfs);
+			
+			candidates[currentItem] = refCfs - partiallySubsumable;
+		}
+	}
+	
+	return candidates;
+}
+
+private int newIdentifier(list[int] identifiers)
+{
+	return (0 | max(it, i) | i <- identifiers) + 1;
 }
 
 private map[int, list[list[CodeLine]]] subsumeWithAdjacent(map[int, list[list[CodeLine]]] candidates, list[int] sortedCandidates, CodeLineModel codeLineModel)
@@ -104,39 +113,46 @@ private map[int, list[list[CodeLine]]] subsumeWithAdjacent(map[int, list[list[Co
 	list[list[CodeLine]] refCfs = candidates[currentItem];
 	
 	loopItems = tail(sortedCandidates);
+	
 	bool didMerge = false;
 	
-	for (i <- sortedCandidates)
+	for (i <- loopItems)
 	{
 		list[list[CodeLine]] tempCfs = candidates[i];
 	
 		if (codeFragmentsAareAdjacentToCodeFragementsB(refCfs, tempCfs, codeLineModel))
 		{
 			candidates[i] = mergeCodeFragmentsLists(refCfs, tempCfs, codeLineModel);
-		}
-		else if (codeFragmentsAareAdjacentToCodeFragementsB(tempCfs, refCfs, codeLineModel))
-		{
-			candidates[currentItem] = mergeCodeFragmentsLists(tempCfs, refCfs, codeLineModel);
-			sortedCandidates = sortedCandidates - [i];
-			candidates = candidates - (i:tempCfs);
+
+			candidates = candidates - (currentItem:refCfs);
 
 			didMerge = true;
-		}	
+
+			break;
+		}
+		else if (codeFragmentsAarePartiallyAdjacentToCodeFragementsB(refCfs, tempCfs, codeLineModel))
+		{
+			list[list[CodeLine]] partiallySubsumable = codeFragmentsThatAarePartiallyAdjacentToCodeFragementsB(refCfs, tempCfs, codeLineModel);
+			
+			candidates[i] = mergeCodeFragmentsLists(partiallySubsumable, tempCfs, codeLineModel);
+
+			int ni = newIdentifier(sortedCandidates);
+			candidates[currentItem] = refCfs;
+			candidates[ni] = refCfs - partiallySubsumable;
+	
+		}
 	}
 	
 	if (didMerge)
 	{
-		return subsumeWithAdjacent(candidates, sortedCandidates, codeLineModel);
-	}
-	
-	if (size(sortedCandidates) > 1)
-	{
-		sortedCandidates = tail(sortedCandidates);
+		sortedCandidates = sortCandidates(candidates);
 	
 		return subsumeWithAdjacent(candidates, sortedCandidates, codeLineModel);
 	}
 	
-	return candidates;	
+	sortedCandidates = size(sortedCandidates) > 0 ?  tail(sortedCandidates) : [];
+	
+	return subsumeWithAdjacent(candidates, sortedCandidates, codeLineModel);	
 }
 
 private list[list[CodeLine]] mergeCodeFragmentsLists(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB, CodeLineModel codeLineModel)
@@ -165,12 +181,37 @@ private list[CodeLine] mergeCodeFragments(list[CodeLine] cfA, list[CodeLine] cfB
 
 private bool codeFragmentsAareAdjacentToCodeFragementsB(list[list[CodeLine]] cfA, list[list[CodeLine]] cfB, CodeLineModel codeLineModel)
 {
-	return all(cf <- cfA, codeFragmentIsAdjacentToOneOfCodeFragments(cf, cfB, codeLineModel));
+	return size(cfA) == size(cfB) && all(cf <- cfA, codeFragmentIsAdjacentToOneOfCodeFragments(cf, cfB, codeLineModel));
+}
+
+private bool codeFragmentsAarePartiallyAdjacentToCodeFragementsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB, CodeLineModel codeLineModel)
+{
+	return size(cfsA) > size(cfsB) && size(codeFragmentsThatAarePartiallyAdjacentToCodeFragementsB(cfsA, cfsB, codeLineModel)) == size(cfsB);
+}
+
+private list[list[CodeLine]] codeFragmentsThatAarePartiallyAdjacentToCodeFragementsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB, CodeLineModel codeLineModel)
+{
+	return [cf | cf <- cfsA, codeFragmentIsAdjacentToOneOfCodeFragments(cf, cfsB, codeLineModel)];
 }
 
 private bool codeFragmentIsAdjacentToOneOfCodeFragments(list[CodeLine] cfA, list[list[CodeLine]] cfs, CodeLineModel codeLineModel)
 {
-	return any(cfB <- cfs, codeFragmentIsAdjacentToCodeFragment(cfA, cfB, codeLineModel));
+	//return any(cfB <- cfs, codeFragmentIsAdjacentToCodeFragment(cfA, cfB, codeLineModel));
+	
+	bool returnValue = any(cfB <- cfs, codeFragmentIsAdjacentToCodeFragment(cfA, cfB, codeLineModel));
+
+	//for (l <- cfA)
+	//{
+	//	//if (l.lineNumber == 43 || l.lineNumber == 38)
+	//	//{
+	//		//println("biggest:<biggestLineNumber>:smallest:<smallestLineNumber>:<size(restLines)>");
+	//		println("38 or 43:<l.lineNumber>:<returnValue>");
+	//		list[int] lineNumbers = [i.lineNumber | i <- cfB];
+	//		println("A:< [i.lineNumber | i <- cfA]>:this:<lineNumbers>");
+	//	//}
+	//}
+
+	return returnValue;
 }
 
 private bool codeFragmentIsAdjacentToCodeFragment(list[CodeLine] cfA, list[CodeLine] cfB, CodeLineModel codeLineModel)
@@ -192,13 +233,34 @@ private bool codeFragmentIsAdjacentToCodeFragment(list[CodeLine] cfA, list[CodeL
 	list[CodeLine] restLines = cmLines - sortedLines;
 	
 	bool returnValue = restLines == [] || all(l <- restLines, !l.hasCode);
-		
+	
+	//for (l <- cfA)
+	//{
+	//	//if (l.lineNumber == 43 || l.lineNumber == 38)
+	//	//{
+	//		println("biggest:<biggestLineNumber>:smallest:<smallestLineNumber>:<size(restLines)>");
+	//		println("38 or 43:<l.lineNumber>:<returnValue>");
+	//		list[int] lineNumbers = [i.lineNumber | i <- cfB];
+	//		println("A:< [i.lineNumber | i <- cfA]>:this:<lineNumbers>");
+	//	//}
+	//}
+	
 	return returnValue;
 }
 
 private bool codeFragmentsACanBeSubsumedInCodeFragmentsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB)
 {
-	return all(cf <- cfsA, codeFragmentCanBeSubsumedInCodeFragments(cf, cfsB));
+	return size(cfsA) == size(cfsB) && all(cf <- cfsA, codeFragmentCanBeSubsumedInCodeFragments(cf, cfsB));
+}
+
+private bool codeFragmentsACanPartiallyBeSubsumedInCodeFragmentsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB)
+{
+	return size(cfsA) > size(cfsB) && size(codeFragmentsThatCanPartiallyBeSubsumedInCodeFragmentsB(cfsA, cfsB)) == size(cfsB);
+}
+
+private list[list[CodeLine]] codeFragmentsThatCanPartiallyBeSubsumedInCodeFragmentsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB)
+{
+	return [cf | cf <- cfsA, codeFragmentCanBeSubsumedInCodeFragments(cf, cfsB)];
 }
 
 private bool codeFragmentCanBeSubsumedInCodeFragments(list[CodeLine] cfA, list[list[CodeLine]] cfs)

@@ -69,6 +69,26 @@ public map[int, list[list[CodeLine]]] findSubblocks(set[Declaration] declaration
 	return returnMap;
 }
 
+private map[int, list[list[CodeLine]]] addLeadingStatements(map[int, list[list[CodeLine]]] returnMap, Statement parentNode, list[Statement] statements, CodeLineModel codeLineModel, Config config)
+{
+	list[list[node]] leadingStatements = findPossibleLeadingSubblocks(statements);
+	
+	int ni = newIdentifier(toList(domain(returnMap)));
+	
+	int rootNodeBegin = parentNode.begin[0];
+	
+	loc fileName = statements[0]@src;
+	
+	for (ls <- leadingStatements)
+	{
+		int lastLine = last(ls)@src.end[0];
+		
+		returnMap[ni] = [l | i <- [rootNodeBegin..lastLine+1], l := codeLineModel[fileName][i]];
+	}
+
+	return returnMap;
+}
+
 map[list[node], list[list[CodeLine]]] generateSubblocks(list[node] statements, map[list[node], list[list[CodeLine]]] intermediateResult, CodeLineModel codeLineModel, Config config)
 {
 	if (size(statements) > 1)
@@ -117,6 +137,34 @@ private list[CodeLine] codeLinesForStatements(list[node] statements, CodeLineMod
 	}
 	
 	return [];
+}
+
+private list[list[&T]] findPossibleLeadingSubblocks(list[&T] statements)
+{
+	int numberOfStatements = size(statements);
+	
+	list[list[&T]] returnList = [];
+	
+	for (i <- [1..numberOfStatements])
+	{
+		returnList +=  [[statements[k] | k <- [0..i]]];
+	}
+	
+	return returnList;
+}
+
+private list[list[&T]] findPossibleTrainlingSubblocks(list[&T] statements)
+{
+	int numberOfStatements = size(statements);
+	
+	list[list[&T]] returnList = [];
+	
+	for (i <- [1..numberOfStatements])
+	{
+		returnList +=  [[statements[k] | k <- [i..numberOfStatements + 1]]];
+	}
+	
+	return returnList;
 }
 
 private list[list[&T]] findPossibleSubblocks(list[&T] statements)

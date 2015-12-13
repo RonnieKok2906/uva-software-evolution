@@ -36,14 +36,18 @@ public map[int, list[list[CodeLine]]] subsumeCandidates(map[node, set[loc]] cand
 
 			list[int] sortedCandidatesOnLineSize = sortCandidatesOnLOC(candidatesWithEqualCloneClassSize);
 		
-			map[int, list[list[CodeLine]]] subsumedCandidates = subsumeCandidatesDirectly(candidatesWithEqualCloneClassSize, sortedCandidatesOnLineSize);
+			map[int, list[list[CodeLine]]] subsumedCandidates = subsumeCandidates(candidatesWithEqualCloneClassSize, sortedCandidatesOnLineSize);
 
 			sortedCandidatesOnClassSize = sortedCandidatesOnClassSize - toList(domain(candidatesWithEqualCloneClassSize));
 		
 			transformedCandidates = transformedCandidates - candidatesWithEqualCloneClassSize;
 			transformedCandidates = transformedCandidates + subsumedCandidates;
+			
+			println("subsumption to go:<numberOfBiggestCloneClass - i>");
 		}
 	}
+
+	transformedCandidates = removeTooSmallItems(transformedCandidates, config);
 
 	return transformedCandidates;
 }
@@ -124,7 +128,7 @@ private int biggestCodeFragment(list[list[CodeLine]] cfs)
 	return (0 | max(it, size(onlyLinesWithCode(cf))) | cf <- cfs);
 }
 
-private map[int, list[list[CodeLine]]] subsumeCandidatesDirectly(map[int, list[list[CodeLine]]] candidates, list[int] sortedCandidates)
+private map[int, list[list[CodeLine]]] subsumeCandidates(map[int, list[list[CodeLine]]] candidates, list[int] sortedCandidates)
 {
 	if (size(sortedCandidates) < 2)
 	{
@@ -155,10 +159,21 @@ private map[int, list[list[CodeLine]]] subsumeCandidatesDirectly(map[int, list[l
 	
 				if (codeFragmentsACanBeSubsumedInCodeFragmentsB(refCfs, tempCfs))
 				{
-					candidates = candidates - (i:refCfs);	
-					
-					innterLoopItems = innerLoopItems - [i];
+					candidates = candidates - (i:refCfs);
 				}
+				//else if (numberOfLinesRefCfs > 2)
+				//{
+				//	if (codeFragmentsAareAdjacentToCodeFragmentsB(refCfs, tempCfs))
+				//	{
+				//		candidates = candidates - (i:refCfs);
+				//	
+				//		candidates[j] = mergeCodeFragmentsAWithCodeFragmentsB(refCfs, tempCfs);	
+				//	
+				//		println("Is Adjacent");		
+				//	}
+				//}
+				//
+				//println("permutations:<size(refCfs)>");
 			}
 		}
 	}
@@ -166,7 +181,50 @@ private map[int, list[list[CodeLine]]] subsumeCandidatesDirectly(map[int, list[l
 	return candidates;
 }
 
-private int newIdentifier(list[int] identifiers)
+private list[list[CodeLine]] mergeCodeFragmentsAWithCodeFragmentsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB)
+{
+	for (p <-permutations(cfsA))
+	{
+		if (codeFragmentsAareAdjacentToCodeFragmentsBDirectly(p, cfsB))
+		{
+			return [mergeCodeFragments(cfsA[i], cfsB[i]) | i <- [0..size(cfsA) + 1]];
+		}
+	} 
+	
+	assert(false);
+	return [];
+}
+
+private list[CodeLine] mergeCodeFragments(list[CodeLine] cfA, list[CodeLine] cfB)
+{
+	return sort(toSet(cfA + cfB), bool(CodeLine a, CodeLine b){ return a.lineNumber < a.lineNumber; });
+}
+
+private bool codeFragmentsAareAdjacentToCodeFragmentsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB)
+{
+	return size(cfsA) == size(cfsB) && any(p <-permutations(cfsA), codeFragmentsAareAdjacentToCodeFragmentsBDirectly(cfsA, cfsB));
+}
+
+private bool codeFragmentsAareAdjacentToCodeFragmentsBDirectly(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB)
+{
+	return all(i <- [0..size(cfsA) + 1], codeFragmentIsAdjacentToCodeFragment(cfsA[i], cfsB[i]));
+}
+
+private bool codeFragmentIsAdjacentToCodeFragment(list[CodeLine] cfA, list[CodeLine] cfB)
+{
+	if (cfA[0].fileName != cfB[0].fileName)
+	{
+		return false;
+	}
+
+	list[CodeLine] mergedLines = mergeCodeFragments(cfA, cfB);
+	
+	list[int] lineNumbers = [l.lineNumber | l <- mergedLines];
+	
+	return last(lineNumbers) - lineNumbers[0] == size(lineNumbers) - 1;
+}
+
+public int newIdentifier(list[int] identifiers)
 {
 	return (0 | max(it, i) | i <- identifiers) + 1;
 }

@@ -215,3 +215,8 @@ public list[list[&T]] subsequences(list[&T] items)
 		return toList(returnList);
 	}
 }
+
+public int newIdentifier(list[int] identifiers)
+{
+	return (0 | max(it, i) | i <- identifiers) + 1;
+}

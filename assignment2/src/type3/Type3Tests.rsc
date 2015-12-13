@@ -38,10 +38,7 @@ private list[bool] type2Tests() = [
 									testThatLiteralTypeIsIgnored()
 									];
 									
-private list[bool] type3Tests() = [
-								testThatClassOneLineRemovedIsIgnored(),
-								testThatClassOneLineRemovedIsIgnoredYieldingTwoCloneClasses()
-								];
+
 
 
 //Type 1
@@ -355,6 +352,7 @@ test bool testThatLiteralTypeIsRespectedWithConfig()
 
 	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 3;
+	config.numberOfLinesThatCanBeSkipped = 0;
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	normalizationConfig.respectLiteralType = true;
@@ -382,6 +380,7 @@ test bool testThatLiteralTypeIsIgnored()
 
 	Config config = type3::Config::defaultConfiguration;
 	config.minimumNumberOfLines = 3;
+	config.numberOfLinesThatCanBeSkipped = 0;
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
@@ -396,6 +395,17 @@ test bool testThatLiteralTypeIsIgnored()
 
 
 //Type3
+
+private list[bool] type3Tests() = [
+								testThatClassOneLineRemovedIsIgnored(),
+								testThatClassOneLineRemovedIsIgnoredYieldingTwoCloneClasses(),
+								testThatIfBlockAroundStatementIsRecognized(),
+								testThatRemovedLineIsRecognized(),
+								testThatInterfaceUsedMethodIsChanged(),
+								testThatRemovedLineIsRecognized(),
+								testThatInterfaceUsedMethodIsChanged2()
+								];
+
 //Test 1							
 test bool testThatClassOneLineRemovedIsIgnored()
 {
@@ -435,7 +445,7 @@ test bool testThatClassOneLineRemovedIsIgnoredYieldingTwoCloneClasses()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = type3::Config::defaultConfiguration;
-	config.minimumNumberOfLines = 1;
+	config.minimumNumberOfLines = 9;
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
@@ -443,14 +453,117 @@ test bool testThatClassOneLineRemovedIsIgnoredYieldingTwoCloneClasses()
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
-	
-	//println("print cloneModel:<size(cloneModel)>");
-	//
-	//for (i <- cloneModel)
-	//{
-	//	println("i:<i>:<size(cloneModel[i])>");
-	//}
-	
+		
 	//Assert
-	return size(cloneModel) == 2 && size(cloneModel[1]) == 2 && size(cloneModel[2]) == 2;
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+//Test 3							
+test bool testThatIfBlockAroundStatementIsRecognized()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type3TestSource/TestClass3.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = type3::Config::defaultConfiguration;
+	config.minimumNumberOfLines = 8;
+	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	
+	//Act
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+//Test 4							
+test bool testThatInterfaceUsedMethodIsChanged()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type3TestSource/TestClass4.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = type3::Config::defaultConfiguration;
+	config.minimumNumberOfLines = 8;
+	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	
+	//Act
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+
+	println("cM:<size(cloneModel)>:");
+		
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+//Test 5							
+test bool testThatRemovedLineIsRecognized()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type3TestSource/TestClass5.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = type3::Config::defaultConfiguration;
+	config.minimumNumberOfLines = 8;
+	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	
+	//Act
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+
+	println("cM:<size(cloneModel)>:");
+		
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+//Test 6							
+test bool testThatInterfaceUsedMethodIsChanged2()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type3TestSource/TestClass6.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = type3::Config::defaultConfiguration;
+	config.minimumNumberOfLines = 8;
+	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	
+	//Act
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+
+	println("cM:<size(cloneModel)>:");
+		
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }

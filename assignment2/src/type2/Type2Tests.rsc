@@ -37,7 +37,8 @@ private list[bool] type2Tests() = [
 									testThatDifferentVariableTypesAreRecognizedWithConfig(),
 									testThatLiteralTypeIsRespectedWithConfig(),
 									testThatLiteralTypeIsIgnored(),
-									testThatPartOfACodeBlockIsRecognizedAsClone()
+									testThatPartOfACodeBlockIsRecognizedAsClone(),
+									testThatAPartOfNestedCodeIsRecognizedAsClone()
 									];
 
 //Type 1
@@ -435,7 +436,7 @@ test bool testThatAPartOfNestedCodeIsRecognizedAsClone()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = type2::Config::defaultConfiguration;
-	config.minimumNumberOfLines = 8;
+	config.minimumNumberOfLines = 12;
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	

@@ -16,11 +16,11 @@ public class TestClass9 {
 			}
 			
 			System.out.println("After If statement");
-			
-			double a = 2;
-			double b = 4;
-			double c = 6;
 		}
+		
+		double a = 2;
+		double b = 4;
+		double c = 6;
 	}
 	
 	public void test2()
@@ -37,10 +37,10 @@ public class TestClass9 {
 			}
 			
 			System.out.println("After If statement");
-			
-			System.out.println("After If statement");
-			System.out.println("After If statement");
-			System.out.println("After If statement");
 		}
+		
+		System.out.println("After If statement");
+		System.out.println("After If statement");
+		System.out.println("After If statement");
 	}
 }

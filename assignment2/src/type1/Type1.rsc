@@ -28,6 +28,8 @@ public CloneModel clonesInProject(CodeLineModel model, Config config)
 	// Initial run
 	DuplicationMap duplicationMap = clonesInProject(model, lineThreshold);
 
+	DuplicationMap unmergable = ();
+
 	int nrOfClones = nrOfClonesInDuplicationMap(duplicationMap);
 	int nrOfCloneClasses = size(duplicationMap);
 
@@ -45,8 +47,12 @@ public CloneModel clonesInProject(CodeLineModel model, Config config)
 		println("Found <nrOfCloneClasses> classes with <nrOfClones> <lineThreshold>-line clones.");
 		
 		println("Merging <size(duplicationMap)> classes of \<= <lineThreshold -1>-line clones into <nrOfCloneClasses> classes of <lineThreshold>-line clones.");
-		duplicationMap = mergeDuplicationMaps(duplicationMap, largerDuplicationMap);
+		unmergable += mergeDuplicationMaps(duplicationMap, largerDuplicationMap);
+		
+		duplicationMap = largerDuplicationMap;
 	}
+
+	duplicationMap = duplicationMap + unmergable;
 
 	nrOfClones = nrOfClonesInDuplicationMap(duplicationMap);
 	nrOfCloneClasses = size(duplicationMap);
@@ -74,18 +80,7 @@ public int nrOfClonesInDuplicationMap(DuplicationMap duplicationMap)
 public DuplicationMap mergeDuplicationMaps(DuplicationMap map1, DuplicationMap map2) 
 {
 	// Remove clone classes that are a sub set of clones classes from map2.
-	DuplicationMap map3 = (key : map1[key] | key <- map1, !isSubSetOf(map1[key], map2));
-
-	int discardedClones = nrOfClonesInDuplicationMap(map1) - nrOfClonesInDuplicationMap(map3);
-	int discardedCloneClasses = size(map1) - size(map3);
-
-	println("Discarded <discardedCloneClasses> clone classes.");
-
-	DuplicationMap mapNew = map3 + map2;
-
-	println("Clone classes remaining: <size(mapNew)>");
-
-	return mapNew;
+	return (key : map1[key] | key <- map1, !isSubSetOf(map1[key], map2));
 } 
 
 public bool isSubSetOf(set[CodeBlock] blocks, DuplicationMap duplicationsMap) 

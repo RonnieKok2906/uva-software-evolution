@@ -46,11 +46,11 @@ public void detectClones(loc project)
 	PackageModel packageModel = createPackageModel(m3Model, codeLineModel);
 
 	//Type 1
-//	println("Building cloneModelType1...");
-//	CloneModel cloneModelType1 = type1::Type1::clonesInProject(codeLineModel);
-//
-//	println("Building visualisation Type1..");
-//	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1());
+	println("Building cloneModelType1...");
+	CloneModel cloneModelType1 = type1::Type1::clonesInProject(codeLineModel, type1::Config::defaultConfiguration);
+
+	println("Building visualisation Type1..");
+	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1());
 	
 	//Prepare Type1 and Type2
 	println("Preparing for Type2 and Type3...");

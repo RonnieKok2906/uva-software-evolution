@@ -16,6 +16,11 @@ public void writeToJSONFile(str projectName, str string, CloneType cloneType)
 {
 	loc projectFolder = projectFolder(projectName);
 	
+	if (!exists(projectRoot()))
+	{
+		mkDirectory(projectRoot);	
+	}
+	
 	if (!exists(projectFolder))
 	{
 		mkDirectory(projectFolder);
@@ -33,7 +38,9 @@ public void writeToJSONFile(str projectName, str string, CloneType cloneType)
 
 public str readJsonFile(str projectName, CloneType cloneType) = readFile(tempFileForProject(projectName), cloneType);
 
-private loc projectFolder(str projectName) = |project://cloneVisualisation/projects| + projectName;
+private loc projectRoot() = |project://cloneVisualisation/projects|;
+
+private loc projectFolder(str projectName) = projectRoot() + projectName;
 
 private loc jsonFileForProject(str projectName, CloneType cloneType)
 {

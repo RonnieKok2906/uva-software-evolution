@@ -17,15 +17,14 @@ public map[node, set[loc]] findAllRelevantNormalizedSubtrees(set[Declaration] de
 	{				
 		visit(d)
 		{
-			case node n : {
-			
-							if (isCloneSubtreeCandidate(n))
-							{
-								subtrees = addNodeToSubtrees(normalizeNode(n, config), subtrees);
-							}
-						}
+			case node n : 
+			{
+				if (isCloneSubtreeCandidate(n))
+				{
+					subtrees = addNodeToSubtrees(normalizeNode(n, config), subtrees);
+				}
+			}
 		}
-		
 	}
 	
 	return subtrees;
@@ -41,15 +40,17 @@ public map[int, list[list[CodeLine]]] findSubblocks(set[Declaration] declaration
 		{
 			case b:\block(statements) : 
 			{
-				if (size(statements) > 1)
-				{
-					list[list[node]] subblocks = findPossibleSubblocks(statements);
-					subblocks = [[normalizeNode(i, config) | i <- s] |s <- subblocks];
-					intermediateResult = addSubBlockToIntermediateResult(intermediateResult, subblocks, codeLineModel);
-				}
+				intermediateResult = generateSubblocks(statements, intermediateResult, codeLineModel, config);
+			}
+			case t:\try(body, statements) :
+			{	
+				intermediateResult = generateSubblocks(statements, intermediateResult, codeLineModel, config);
+			}
+			case t:\try(body, statements, finallyBody) :
+			{
+				intermediateResult = generateSubblocks(statements, intermediateResult, codeLineModel, config);
 			}
 		}
-		
 	}
 	
 	map[int, list[list[CodeLine]]] returnMap = ();
@@ -66,6 +67,18 @@ public map[int, list[list[CodeLine]]] findSubblocks(set[Declaration] declaration
 	}
 	
 	return returnMap;
+}
+
+map[list[node], list[list[CodeLine]]] generateSubblocks(list[node] statements, map[list[node], list[list[CodeLine]]] intermediateResult, CodeLineModel codeLineModel, Config config)
+{
+	if (size(statements) > 1)
+	{
+		list[list[node]] subblocks = findPossibleSubblocks(statements);
+		subblocks = [[normalizeNode(i, config) | i <- s] |s <- subblocks];
+		intermediateResult = addSubBlockToIntermediateResult(intermediateResult, subblocks, codeLineModel);
+	}
+	
+	return intermediateResult;
 }
 
 private map[list[node], list[list[CodeLine]]] addSubBlockToIntermediateResult(map[list[node], list[list[CodeLine]]] intermediateResult, list[list[node]] subblocks, CodeLineModel codeLineModel)

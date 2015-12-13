@@ -40,7 +40,8 @@ public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] norm
 	map[node, set[loc]] duplicatedSubtrees = (k : m | k <- normalizedSubtrees, m := normalizedSubtrees[k], size(m) > 1);
 
 	map[int, list[list[CodeLine]]] cloneCandidates = subsumeCandidates(duplicatedSubtrees, subblocks, codeLineModel, config);
-
+	
+	println("creating cloneModel..");
 	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates);
 
 	return cloneModel;

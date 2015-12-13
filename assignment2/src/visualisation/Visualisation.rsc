@@ -11,7 +11,11 @@ import model::CloneModel;
 import visualisation::JSON;
 import visualisation::Util;
 
-public void createVisualisation(str projectName, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel, CloneType cloneType) 
+import type1::Config;
+import type2::Config;
+import type3::Config;
+
+public void createVisualisation(str projectName, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel, CloneType cloneType, Config config) 
 {	
-	createJSON(projectName, cloneType, packageModel, codeLineModel, cloneModel);
+	createJSON(projectName, cloneType, packageModel, codeLineModel, cloneModel, config);
 }

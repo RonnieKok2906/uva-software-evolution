@@ -15,8 +15,19 @@ import type1::Config;
 import type2::Config;
 import type3::Config;
 
+
 public void createJSON(str projectName, CloneType cloneType, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel)
 {	
+	switch(cloneType)
+	{
+		case type1() : createJSON(projectName, cloneType, packageModel, codeLineModel, cloneModel, type1::Config::defaultConfiguration.minimumNumberOfLines);
+		case type2() : createJSON(projectName, cloneType, packageModel, codeLineModel, cloneModel, type2::Config::defaultConfiguration.minimumNumberOfLines);
+		case type3() : createJSON(projectName, cloneType, packageModel, codeLineModel, cloneModel, type3::Config::defaultConfiguration.minimumNumberOfLines);
+	}
+}
+
+public void createJSON(str projectName, CloneType cloneType, PackageModel packageModel, CodeLineModel codeLineModel, CloneModel cloneModel, Config config)
+{
 	str result = "\n{\n";
 	str indents = "  ";
 	
@@ -29,11 +40,11 @@ public void createJSON(str projectName, CloneType cloneType, PackageModel packag
 	
 	switch(cloneType)
 	{
-		case type1() : result += "<indents>\"minumumNumberOfLines\":<type1::Config::defaultConfiguration.minimumNumberOfLines>,\n";
-		case type2() : result += "<indents>\"minumumNumberOfLines\":<type2::Config::defaultConfiguration.minimumNumberOfLines>,\n";
-		case type3() : result += "<indents>\"minumumNumberOfLines\":<type3::Config::defaultConfiguration.minimumNumberOfLines>,\n";
+		case type1() : result += "<indents>\"minumumNumberOfLines\":<config.minimumNumberOfLines>,\n";
+		case type2() : result += "<indents>\"minumumNumberOfLines\":<config.minimumNumberOfLines>,\n";
+		case type3() : result += "<indents>\"minumumNumberOfLines\":<config.minimumNumberOfLines>,\n";
 	}
-	
+	println("First write to JSON");
 	writeToJSONFile(projectName, result, cloneType);
 
 	if (size(packageModel) > 0)
@@ -44,6 +55,8 @@ public void createJSON(str projectName, CloneType cloneType, PackageModel packag
 	result = "}";	
 	appendToJSONFile(projectName, result, cloneType);
 }
+
+
 
 private void jsonForSubPackages(str projectName, CloneType cloneType, set[Package] packages, set[CompilationUnit] compilationUnits, map[loc, list[Clone]] clonesForCompilationUnit, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {			
@@ -115,7 +128,12 @@ private void jsonForCompilationUnits(str projectName, CloneType cloneType, set[C
 		
 		i += 1;
 		
-		result += "<indents>{\n<indents>  \"name\": \"<c.name>\",\n<indents>  \"children\": [\n<jsonForCodeClones(c, clonesForCompilationUnit[c.file], cloneModel, codeLineModel, indentationLevel + 2)><indents>  ]\n<indents>}";
+		result = "<indents>{\n<indents>  \"name\": \"<c.name>\",\n<indents>  \"children\": [\n";
+		appendToJSONFile(projectName, result, cloneType);
+		
+		jsonForCodeClones(projectName, cloneType, c, clonesForCompilationUnit[c.file], cloneModel, codeLineModel, indentationLevel + 2);
+		
+		result = "<indents>  ]\n<indents>}";
 		
 		if (i == size(compilationUnits))
 		{
@@ -130,8 +148,14 @@ private void jsonForCompilationUnits(str projectName, CloneType cloneType, set[C
 	}
 }
 
-public str jsonForCodeClones(CompilationUnit compilationUnit, list[Clone] cloneFragments, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
+public void jsonForCodeClones(str projectName, CloneType cloneType, CompilationUnit compilationUnit, list[Clone] cloneFragments, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {
+	if (size(cloneFragments) == 2067)
+	{
+		println("2067:<cloneFragments>");
+		println("2067");
+	}
+
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 
 	str result = "";
@@ -146,12 +170,19 @@ public str jsonForCodeClones(CompilationUnit compilationUnit, list[Clone] cloneF
 		counter += 1;
 		clonedLines += size(c.lines);
 		
-		result += "<indents>{\n<indents>  \"name\": \"\",\n<indents>  \"size\":<size(c.lines)>,\n<indents>  \"cloneclass\": \"<c.cloneClassIdentifier>\",\n<indents>  \"codeFragment\": \"<htmlForCloneClass(c, cloneModel[c.cloneClassIdentifier])>\"\n<indents>},\n";
+		result = "<indents>{\n<indents>  \"name\": \"\",\n<indents>  \"size\":<size(c.lines)>,\n<indents>  \"cloneclass\": \"<c.cloneClassIdentifier>\",\n<indents>  \"codeFragment\": \"<htmlForCloneClass(c, cloneModel[c.cloneClassIdentifier])>\"\n<indents>},\n";
+		
+		if (size(c.lines) == 17 && c.lines[0].lineNumber == 203)
+		{
+			println("size:<size(cloneFragments)>result:<result>\n\n\n\n");
+		}
+		
+		appendToJSONFile(projectName, result, cloneType);
 	}
 	
 	int restLines = max(size(codeLineModel[compilationUnit.file]) - clonedLines, 0);
 	
-	result += "<indents>{\n<indents>  \"name\": \"no clone\",\n<indents>  \"size\":<restLines>,\n<indents>  \"cloneclass\": \"-1\"\n<indents>}\n";
-	
-	return result;
+	result = "<indents>{\n<indents>  \"name\": \"no clone\",\n<indents>  \"size\":<restLines>,\n<indents>  \"cloneclass\": \"-1\"\n<indents>}\n";
+	appendToJSONFile(projectName, result, cloneType);
+
 }

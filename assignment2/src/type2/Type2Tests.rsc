@@ -408,7 +408,7 @@ test bool testThatPartOfACodeBlockIsRecognizedAsClone()
 	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
 
 	Config config = type2::Config::defaultConfiguration;
-	config.minimumNumberOfLines = 5;
+	config.minimumNumberOfLines = 8;
 	
 	Config normalizationConfig = normalization::Config::defaultConfiguration;
 	
@@ -417,7 +417,8 @@ test bool testThatPartOfACodeBlockIsRecognizedAsClone()
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
+	println("CM:<size(cloneModel)><cloneModel>");
 	
 	//Assert
-	return size(cloneModel) == 2 && size(cloneModel[1]) == 2 && size(cloneModel[2]) == 2;
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }

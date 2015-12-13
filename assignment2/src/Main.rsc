@@ -45,14 +45,19 @@ public void detectClones(loc project)
 	println("Building PackageModel...");
 	PackageModel packageModel = createPackageModel(m3Model, codeLineModel);
 
+	int numberOfMinumumLines = 4;
+
 	//Type 1
+	Config config1 = type1::Config::defaultConfiguration;
+	config1.minimumNumberOfLines = numberOfMinumumLines;
+	
 	println("Building cloneModelType1...");
-	CloneModel cloneModelType1 = type1::Type1::clonesInProject(codeLineModel, type1::Config::defaultConfiguration);
+	CloneModel cloneModelType1 = type1::Type1::clonesInProject(codeLineModel, config1);
 
 	println("Building visualisation Type1..");
-	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1());
+	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1(), config1);
 	
-	//Prepare Type1 and Type2
+	//Prepare Type2 and Type3
 	println("Preparing for Type2 and Type3...");
 	
 	println("Building AST model for project...");
@@ -61,9 +66,10 @@ public void detectClones(loc project)
 	println("Extracting normalized subtrees..");
 	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees(declarations, normalization::Config::defaultConfiguration);
 	
+	println("Extracting normalized subblocks..");
 	map[int, list[list[CodeLine]]] subblocks = findSubblocks(declarations, normalization::Config::defaultConfiguration, codeLineModel);
 	
-	int numberOfMinumumLines = 4;
+	
 	
 	//Type 2
 	println("Building cloneModelType2...");
@@ -72,7 +78,7 @@ public void detectClones(loc project)
 	CloneModel cloneModelType2 = type2::Type2::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config2);
 
 	println("Building visualisation Type2..");
-	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2());
+	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2(), config2);
 	
 	////Type 3
 	//println("Building cloneModelType3..");

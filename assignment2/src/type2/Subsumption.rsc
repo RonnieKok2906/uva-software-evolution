@@ -9,12 +9,10 @@ import type2::Config;
 
 public map[int, list[list[CodeLine]]] subsumeCandidates(map[node, set[loc]] candidates, map[int, list[list[CodeLine]]] subblocks, CodeLineModel codeLineModel, Config config)
 {
-	map[int, list[list[CodeLine]]] transformedCandidates = transformCandidatesToCodeLines(candidates, codeLineModel);
-		
-	set[list[list[CodeLine]]] uniqueCodeFragments = range(transformedCandidates);
-	
-	transformedCandidates = (i:l[i] | i <- [0..size(uniqueCodeFragments)], l := toList(uniqueCodeFragments));
+	println("Transforming the candidates..");
 
+	map[int, list[list[CodeLine]]] transformedCandidates = transformCandidatesToCodeLines(candidates, codeLineModel);
+	
 	int counter = newIdentifier(toList(domain(transformedCandidates)));
 
 	for (s <- subblocks)
@@ -23,33 +21,53 @@ public map[int, list[list[CodeLine]]] subsumeCandidates(map[node, set[loc]] cand
 		counter += 1; 
 	}
 
+	//set[list[list[CodeLine]]] uniqueCodeFragments = range(transformedCandidates);
+	//transformedCandidates = (i:l[i] | i <- [0..size(uniqueCodeFragments)], l := toList(uniqueCodeFragments));
+	transformedCandidates = removeTooSmallItems(transformedCandidates, config);
+	
+	println("sorting the list..");
 	list[int] sortedCandidatesOnClassSize = sortCandidatesOnCloneClassSize(transformedCandidates);	
 	int numberOfBiggestCloneClass = size(sortedCandidatesOnClassSize) > 0 ? size(transformedCandidates[last(sortedCandidatesOnClassSize)]) : 0;
-
 	
+	transformedCandidates = (r:transformedCandidates[r] | r <-transformedCandidates, size(transformedCandidates[r]) > 1);
+	
+	println("starting to subsumed..");
 	if (numberOfBiggestCloneClass >= 2)
 	{
 		for (i <- [2..numberOfBiggestCloneClass + 1])
-		{
-			map[int, list[list[CodeLine]]] candidateWithEqualCloneClassSize = candidatesOfCloneClassSizeN(transformedCandidates, sortedCandidatesOnClassSize, i);
-		
-			list[int] sortedCandidatesOnLineSize = sortCandidatesOnLOC(candidateWithEqualCloneClassSize);
-		
-			map[int, list[list[CodeLine]]] subsumedCandidates = subsumeCandidatesDirectly(candidateWithEqualCloneClassSize, sortedCandidatesOnLineSize);
+		{	
+			map[int, list[list[CodeLine]]] candidatesWithEqualCloneClassSize = candidatesOfCloneClassSizeN(transformedCandidates, sortedCandidatesOnClassSize, i);
 
-			sortedCandidatesOnClassSize = sortedCandidatesOnClassSize - toList(domain(candidateWithEqualCloneClassSize));
+			println("sorting again..");
+			list[int] sortedCandidatesOnLineSize = sortCandidatesOnLOC(candidatesWithEqualCloneClassSize);
 		
-			transformedCandidates = transformedCandidates - candidateWithEqualCloneClassSize;
+			map[int, list[list[CodeLine]]] subsumedCandidates = subsumeCandidatesDirectly(candidatesWithEqualCloneClassSize, sortedCandidatesOnLineSize);
+
+			sortedCandidatesOnClassSize = sortedCandidatesOnClassSize - toList(domain(candidatesWithEqualCloneClassSize));
+		
+			transformedCandidates = transformedCandidates - candidatesWithEqualCloneClassSize;
 			transformedCandidates = transformedCandidates + subsumedCandidates;
-		
 		}
 	}
-	
-	transformedCandidates = (r:transformedCandidates[r] | r <-transformedCandidates, size(transformedCandidates[r]) > 1);
-
-	transformedCandidates = (r:transformedCandidates[r] | r <-transformedCandidates, any(cf <- transformedCandidates[r], size(cf) >= config.minimumNumberOfLines));
 
 	return transformedCandidates;
+}
+
+private map[int, list[list[CodeLine]]] removeTooSmallItems(map[int, list[list[CodeLine]]] candidates, Config config)
+{
+	map[int, list[list[CodeLine]]] returnMap = ();
+	
+	for (c <- candidates)
+	{	
+		bool hasEnoughLines = any( cf <- candidates[c], size([l| l <-cf, l.hasCode]) >= config.minimumNumberOfLines);
+		
+		if (hasEnoughLines)
+		{
+			returnMap[c] = toList(toSet(candidates[c]));
+		}	
+	}
+	
+	return returnMap;
 }
 
 private map[int, list[list[CodeLine]]] transformCandidatesToCodeLines(map[node, set[loc]] candidates, CodeLineModel codeLineModel)
@@ -87,8 +105,15 @@ private map[int, list[list[CodeLine]]] candidatesOfCloneClassSizeN(map[int, list
 		{
 			returnMap += (i:temp);
 		}
+		else if (size(temp) > classSize)
+		{
+			break;
+		}
 	}
-	
+	if (classSize == 7)
+	{
+		println("7:size:<size(returnMap)>");
+	}
 	return returnMap;
 }
 
@@ -109,29 +134,28 @@ private int biggestCodeFragment(list[list[CodeLine]] cfs)
 
 private map[int, list[list[CodeLine]]] subsumeCandidatesDirectly(map[int, list[list[CodeLine]]] candidates, list[int] sortedCandidates)
 {
-	if (size(sortedCandidates) <= 2)
+	if (size(sortedCandidates) < 2)
 	{
 		return candidates;
 	}
-
-	int currentItem = sortedCandidates[0];
-	list[list[CodeLine]] refCfs = candidates[currentItem];
 	
-	loopItems = tail(sortedCandidates);
-	list[int] innerLoopItems = loopItems - loopItems[0];
+	loopItems = sortedCandidates;
+	list[int] innerLoopItems = tail(loopItems);
+	
+	map[int, list[list[CodeLine]]] candidatesToAdd = ();
 	
 	for (i <- loopItems)
 	{	
 		refCfs = candidates[i];
 		
-		innterLoopItems = innerLoopItems - [i];
-	
-		if (size(innterLoopItems) < 1)
+		innerLoopItems = innerLoopItems - [i];
+		
+		if (size(innerLoopItems) < 1)
 		{
 			break;
 		}
 
-		for (j <- innterLoopItems)
+		for (j <- innerLoopItems)
 		{	
 			if (j in candidates)
 			{	
@@ -140,7 +164,7 @@ private map[int, list[list[CodeLine]]] subsumeCandidatesDirectly(map[int, list[l
 				if (codeFragmentsACanBeSubsumedInCodeFragmentsB(refCfs, tempCfs))
 				{
 					candidates = candidates - (i:refCfs);	
-					assert(size(refCfs) == size(tempCfs));
+					
 					innterLoopItems = innerLoopItems - [i];
 				}
 			}
@@ -162,7 +186,7 @@ private bool codeFragmentsACanBeSubsumedInCodeFragmentsB(list[list[CodeLine]] cf
 
 private bool codeFragmentsACanPartiallyBeSubsumedInCodeFragmentsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB)
 {
-	return size(cfsA) > size(cfsB) && size(codeFragmentsThatCanPartiallyBeSubsumedInCodeFragmentsB(cfsA, cfsB)) == size(cfsB);
+	return size(cfsA) < size(cfsB) && size(codeFragmentsThatCanPartiallyBeSubsumedInCodeFragmentsB(cfsA, cfsB)) == size(cfsA);
 }
 
 private list[list[CodeLine]] codeFragmentsThatCanPartiallyBeSubsumedInCodeFragmentsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB)
@@ -177,5 +201,8 @@ private bool codeFragmentCanBeSubsumedInCodeFragments(list[CodeLine] cfA, list[l
 
 private bool codeFragmentCanBeSubsumed(list[CodeLine] cfA, list[CodeLine] cfB)
 {
-	return cfA[0].fileName == cfA[0].fileName && cfA&cfB == cfA;
+	int sA = size(cfA);
+	int sB = size(cfB);
+	
+	return cfA[0].fileName == cfA[0].fileName && sA <= sB && cfA[0].lineNumber >= cfB[0].lineNumber && cfA[sA - 1].lineNumber <= cfB[sB -1].lineNumber;
 }

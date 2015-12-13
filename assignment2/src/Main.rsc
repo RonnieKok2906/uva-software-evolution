@@ -47,17 +47,17 @@ public void detectClones(loc project)
 	println("Building PackageModel...");
 	PackageModel packageModel = createPackageModel(m3Model, codeLineModel);
 
-	int numberOfMinumumLines = 10;
+	int numberOfMinumumLines = 30;
 
 	//Type 1
-//	Config config1 = type1::Config::defaultConfiguration;
-//	config1.minimumNumberOfLines = numberOfMinumumLines;
-//	
-//	println("Building cloneModelType1...");
-//	CloneModel cloneModelType1 = type1::Type1::clonesInProject(codeLineModel, config1);
-//
-//	println("Building visualisation Type1..");
-//	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1(), config1);
+	Config config1 = type1::Config::defaultConfiguration;
+	config1.minimumNumberOfLines = numberOfMinumumLines;
+	
+	println("Building cloneModelType1...");
+	CloneModel cloneModelType1 = type1::Type1::clonesInProject(codeLineModel, config1);
+
+	println("Building visualisation Type1..");
+	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType1, type1(), config1);
 	
 	//Prepare Type2 and Type3
 	println("Preparing for Type2 and Type3...");
@@ -70,7 +70,6 @@ public void detectClones(loc project)
 	
 	println("Extracting normalized subblocks..");
 	map[int, list[list[CodeLine]]] subblocks = findSubblocks(declarations, normalization::Config::defaultConfiguration, codeLineModel);
-	
 	
 	
 	//Type 2

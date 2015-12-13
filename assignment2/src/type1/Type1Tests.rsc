@@ -32,11 +32,10 @@ test bool testThatWhiteSpaceIsIgnored()
 	config.minimumNumberOfLines = 3;
 	
 	//Act
-	//CloneModel cloneModel = clonesInProject(codeLineModel);
+	CloneModel cloneModel = clonesInProject(codeLineModel);
 	
 	//Assert
-	//return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
-	return false;
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
 
 
@@ -54,10 +53,8 @@ test bool testThatDocumentationIsIgnored()
 	config.minimumNumberOfLines = 4;
 	
 	//Act
-	//CloneModel cloneModel = clonesInProject(codeLineModel);
+	CloneModel cloneModel = clonesInProject(codeLineModel);
 	
 	//Assert
-	//return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
-	
-	return false;
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }

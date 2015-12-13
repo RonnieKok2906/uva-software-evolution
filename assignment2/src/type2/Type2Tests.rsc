@@ -417,6 +417,33 @@ test bool testThatPartOfACodeBlockIsRecognizedAsClone()
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
+	
+	//Assert
+	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
+}
+
+//Test 10					
+test bool testThatAPartOfNestedCodeIsRecognizedAsClone()
+{
+	//Arrange
+	loc file = |project://testCloneSource/src/type2TestSource/TestClass9.java|;
+	
+	M3 m3Model = createM3FromEclipseFile(file);
+
+	Declaration declaration = createAstsFromEclipseFile(file, true);
+	
+	CodeLineModel codeLineModel = createCodeLineModel(m3Model);
+
+	Config config = type2::Config::defaultConfiguration;
+	config.minimumNumberOfLines = 8;
+	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees({declaration}, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks({declaration}, normalizationConfig, codeLineModel);
+	
+	//Act
+	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 	println("CM:<size(cloneModel)><cloneModel>");
 	
 	//Assert

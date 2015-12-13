@@ -133,10 +133,7 @@ public list[CodeLine] codeLinesForFragement(loc codeFragment, CodeLineModel code
 	{
 		CodeLine l = linesOfFile[i];
 	
-		//if (l.hasCode)
-		//{
-			returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, l.codeFragment, l.hasCode);
-		//}
+		returnList += model::CodeLineModel::codeLine(l.fileName, l.lineNumber, l.codeFragment, l.hasCode);
 	}
 	
 	return returnList;
@@ -150,9 +147,7 @@ public list[CodeLine] onlyLinesWithCode(list[CodeLine] lines)
 private bool consistsOfMoreThanNLines(int numberOfLines, loc codeFragment, CodeLineModel codeLineModel)
 {
 	int nr = size(codeLinesForFragement(codeFragment, codeLineModel)) ;
-	
-	//println("consists:<nr>,<nr >= numberOfLines>");
-	
+		
 	return nr >= numberOfLines;
 }
 

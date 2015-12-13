@@ -169,3 +169,49 @@ public map[node, set[loc]] addNodeToSubtrees(node n, map[node, set[loc]] subtree
 	
 	return subtrees;
 }
+
+public list[list[&T]] allPossibleSublistsWithAMinimumNumberOfItems(list[&T] items, int minimumNumberOfItems)
+{
+	if (size(items) == minimumNumberOfItems)
+	{
+		return [items];
+	}
+	else
+	{
+		set[list[&T]] returnList = {};
+		
+		for (i <- [0..size(items)])
+		{
+			list[&T] tempList = delete(items, i);
+			
+			returnList += {tempList};
+			
+			returnList += toSet(allPossibleSublistsWithAMinimumNumberOfItems(tempList, minimumNumberOfItems));
+		}
+		
+		return toList(returnList);
+	}
+}
+
+public list[list[&T]] subsequences(list[&T] items)
+{
+	if (size(items) == 1)
+	{
+		return [items];
+	}
+	else
+	{
+		set[list[&T]] returnList = {[]};
+		
+		for (i <- [0..size(items)])
+		{
+			list[&T] tempList = delete(items, i);
+			
+			returnList += {tempList};
+			
+			returnList += toSet(subsequences(tempList));
+		}
+		
+		return toList(returnList);
+	}
+}

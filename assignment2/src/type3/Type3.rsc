@@ -73,8 +73,6 @@ public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] norm
 }
 
 
-
-
 private set[node] generateNodesWithNRemovedStatements(int minimumNumberOfLines, int numberOfLinesToRemove, node n, CodeLineModel codeLineModel)
 {
 	list[node] returnList = [];
@@ -150,98 +148,4 @@ private Statement removeStatement(Statement statement, Statement parentStatement
 	}
 
 	return statement;
-}
-
-public list[list[&T]] allPossibleSublistsWithAMinimumNumberOfItems(list[&T] items, int minimumNumberOfItems)
-{
-	if (size(items) == minimumNumberOfItems)
-	{
-		return [items];
-	}
-	else
-	{
-		set[list[&T]] returnList = {};
-		
-		for (i <- [0..size(items)])
-		{
-			list[&T] tempList = delete(items, i);
-			
-			returnList += {tempList};
-			
-			returnList += toSet(allPossibleSublistsWithAMinimumNumberOfItems(tempList, minimumNumberOfItems));
-		}
-		
-		return toList(returnList);
-	}
-}
-
-public list[list[&T]] subsequences(list[&T] items)
-{
-	if (size(items) == 1)
-	{
-		return [items];
-	}
-	else
-	{
-		set[list[&T]] returnList = {[]};
-		
-		for (i <- [0..size(items)])
-		{
-			list[&T] tempList = delete(items, i);
-			
-			returnList += {tempList};
-			
-			returnList += toSet(subsequences(tempList));
-		}
-		
-		return toList(returnList);
-	}
-}
-
-test bool possibleSublistsOfWithMinimumLengthTest()
-{
-	bool returnValue = true;
-
-	for (i <- [3..8])
-	{
-		for (j <- [1..i])
-		{	
-			list[int] testList = [1..i+1];
-			list[list[int]] sq = subsequences(testList);
-			
-			list[list[int]] sqTemp = [];
-			
-			for (list[int] g <- sq)
-			{
-				if (size(g) >= j)
-				{
-					sqTemp += [g];
-				}
-			}
-			
-			int numberOfItems = size(sqTemp);
-			list[list[int]] sq2 = allPossibleSublistsWithAMinimumNumberOfItems(testList, j);
-			int numberOfItems2 = size(sq2);
-
-			returnValue = returnValue && numberOfItems == numberOfItems2;
-		}	
-	}
-	
-	return returnValue;
-}
-
-test bool subsequencesTest()
-{
-	bool returnValue = true;
-
-	for (i <- [2..6])
-	{
-		list[list[int]] sq = subsequences([1..i+1]);
-		int numberOfItems = size(sq);
-		
-		bool temp = size(sq) == pow(2,i) - 1;
-		returnValue = returnValue && temp;
-	}
-	
-	return returnValue;
 }

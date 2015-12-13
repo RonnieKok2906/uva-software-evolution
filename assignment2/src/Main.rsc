@@ -11,6 +11,8 @@ import model::PackageModelTests;
 import model::CodeLineModel;
 import model::CloneModel;
 
+import typeUtil::TypeUtilTests;
+
 import type1::Type1;
 import type1::Type1Tests;
 import type2::Type2;
@@ -97,6 +99,7 @@ public void runAllTests()
 								<"CodeLineModel.rsc Tests", model::CodeLineModel::allTests()>,
 								<"PackageModelTests.rsc Tests", model::PackageModelTests::allTests()>,
 								<"HTMLTests.rsc Tests", visualisation::HTMLTests::allTests()>,
+								<"TypeUtilTests.rcs Tests", typeUtil::TypeUtilTests::allTests()>,
 								<"Type1Tests.rsc Tests", type1::Type1Tests::allTests()>,
 								<"Type2Tests.rsc Tests", type2::Type2Tests::allTests()>,
 								<"Type3Tests.rsc Tests", type3::Type3Tests::allTests()>

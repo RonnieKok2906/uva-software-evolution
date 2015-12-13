@@ -44,7 +44,7 @@ public void createJSON(str projectName, CloneType cloneType, PackageModel packag
 		case type2() : result += "<indents>\"minumumNumberOfLines\":<config.minimumNumberOfLines>,\n";
 		case type3() : result += "<indents>\"minumumNumberOfLines\":<config.minimumNumberOfLines>,\n";
 	}
-	println("First write to JSON");
+	
 	writeToJSONFile(projectName, result, cloneType);
 
 	if (size(packageModel) > 0)

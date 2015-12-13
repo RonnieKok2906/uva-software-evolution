@@ -81,13 +81,13 @@ public void detectClones(loc project)
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType2, type2(), config2);
 	
 	////Type 3
-	//println("Building cloneModelType3..");
-	//Config config3 = type3::Config::defaultConfiguration;
-	//config3.minimumNumberOfLines = numberOfMinumumLines;
-	//CloneModel cloneModelType3 = type3::Type3::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config3);
-	//
-	//println("Building visualisation Type3..");
-	//createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType3, type3());
+	println("Building cloneModelType3..");
+	Config config3 = type3::Config::defaultConfiguration;
+	config3.minimumNumberOfLines = numberOfMinumumLines;
+	CloneModel cloneModelType3 = type3::Type3::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config3);
+	
+	println("Building visualisation Type3..");
+	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType3, type3(), config3);
 }
 
 //Test Functions
@@ -98,8 +98,8 @@ public void runAllTests()
 								<"PackageModelTests.rsc Tests", model::PackageModelTests::allTests()>,
 								<"HTMLTests.rsc Tests", visualisation::HTMLTests::allTests()>,
 								<"Type1Tests.rsc Tests", type1::Type1Tests::allTests()>,
-								<"Type2Tests.rsc Tests", type2::Type2Tests::allTests()>
-								//<"Type3Tests.rsc Tests", type3::Type3Tests::allTests()>
+								<"Type2Tests.rsc Tests", type2::Type2Tests::allTests()>,
+								<"Type3Tests.rsc Tests", type3::Type3Tests::allTests()>
 								];
 
 	int numberOfFailedTests = 0;

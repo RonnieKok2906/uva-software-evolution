@@ -21,24 +21,21 @@ public map[int, list[list[CodeLine]]] subsumeCandidates(map[node, set[loc]] cand
 		counter += 1; 
 	}
 
-	//set[list[list[CodeLine]]] uniqueCodeFragments = range(transformedCandidates);
-	//transformedCandidates = (i:l[i] | i <- [0..size(uniqueCodeFragments)], l := toList(uniqueCodeFragments));
 	transformedCandidates = removeTooSmallItems(transformedCandidates, config);
 	
 	println("sorting the list..");
 	list[int] sortedCandidatesOnClassSize = sortCandidatesOnCloneClassSize(transformedCandidates);	
 	int numberOfBiggestCloneClass = size(sortedCandidatesOnClassSize) > 0 ? size(transformedCandidates[last(sortedCandidatesOnClassSize)]) : 0;
-	
+
 	transformedCandidates = (r:transformedCandidates[r] | r <-transformedCandidates, size(transformedCandidates[r]) > 1);
 	
 	println("starting to subsumed..");
 	if (numberOfBiggestCloneClass >= 2)
-	{
+	{	
 		for (i <- [2..numberOfBiggestCloneClass + 1])
-		{	
+		{		
 			map[int, list[list[CodeLine]]] candidatesWithEqualCloneClassSize = candidatesOfCloneClassSizeN(transformedCandidates, sortedCandidatesOnClassSize, i);
 
-			println("sorting again..");
 			list[int] sortedCandidatesOnLineSize = sortCandidatesOnLOC(candidatesWithEqualCloneClassSize);
 		
 			map[int, list[list[CodeLine]]] subsumedCandidates = subsumeCandidatesDirectly(candidatesWithEqualCloneClassSize, sortedCandidatesOnLineSize);
@@ -110,10 +107,7 @@ private map[int, list[list[CodeLine]]] candidatesOfCloneClassSizeN(map[int, list
 			break;
 		}
 	}
-	if (classSize == 7)
-	{
-		println("7:size:<size(returnMap)>");
-	}
+
 	return returnMap;
 }
 
@@ -139,7 +133,7 @@ private map[int, list[list[CodeLine]]] subsumeCandidatesDirectly(map[int, list[l
 		return candidates;
 	}
 	
-	loopItems = sortedCandidates;
+	list[int] loopItems = sortedCandidates;
 	list[int] innerLoopItems = tail(loopItems);
 	
 	map[int, list[list[CodeLine]]] candidatesToAdd = ();
@@ -187,11 +181,6 @@ private bool codeFragmentsACanBeSubsumedInCodeFragmentsB(list[list[CodeLine]] cf
 private bool codeFragmentsACanPartiallyBeSubsumedInCodeFragmentsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB)
 {
 	return size(cfsA) < size(cfsB) && size(codeFragmentsThatCanPartiallyBeSubsumedInCodeFragmentsB(cfsA, cfsB)) == size(cfsA);
-}
-
-private list[list[CodeLine]] codeFragmentsThatCanPartiallyBeSubsumedInCodeFragmentsB(list[list[CodeLine]] cfsA, list[list[CodeLine]] cfsB)
-{
-	return [cf | cf <- cfsA, codeFragmentCanBeSubsumedInCodeFragments(cf, cfsB)];
 }
 
 private bool codeFragmentCanBeSubsumedInCodeFragments(list[CodeLine] cfA, list[list[CodeLine]] cfs)

@@ -4,7 +4,7 @@ import Prelude;
 
 import typeUtil::TypeUtil;
 
-public map[node, set[loc]] subsumeCandidatesWhenPossibleType3(map[node, set[loc]] candidates, map[node, set[node]] cutSubtrees)
+public map[node, set[loc]] subsumeCandidatesWhenPossibleType(map[node, set[loc]] candidates, map[node, set[node]] cutSubtrees)
 {
 	map[node, set[loc]] returnMap = ();
 	println("sorting..<size(candidates)>");
@@ -23,8 +23,6 @@ public map[node, set[loc]] subsumeCandidatesWhenPossibleType3(map[node, set[loc]
 		{	
 			returnMap += (n:tempLocations);
 		}
-		
-		//println("after subsumption:<size(candidates)>");
 	}
 	
 	return returnMap;

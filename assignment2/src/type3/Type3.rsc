@@ -62,7 +62,7 @@ public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] norm
 	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, normalizedSubtrees, codeLineModel);
 	
 	println("subsume..<size(cloneCandidates)>");
-	cloneCandidates = subsumeCandidatesWhenPossibleType3(cloneCandidates, cutSubtrees);
+	cloneCandidates = subsumeCandidatesWhenPossibleType(cloneCandidates, cutSubtrees);
 	
 	println("createCloneModel..<size(cloneCandidates)>");
 	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates, codeLineModel);

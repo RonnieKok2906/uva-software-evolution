@@ -26,7 +26,7 @@ public map[int, list[list[CodeLine]]] subsumeCandidates(map[node, set[loc]] cand
 	list[int] sortedCandidatesOnClassSize = sortCandidatesOnCloneClassSize(transformedCandidates);	
 	int numberOfBiggestCloneClass = size(sortedCandidatesOnClassSize) > 0 ? size(transformedCandidates[last(sortedCandidatesOnClassSize)]) : 0;
 
-	transformedCandidates = (r:transformedCandidates[r] | r <-transformedCandidates, size(transformedCandidates[r]) > 1);
+	transformedCandidates = (r:transformedCandidates[r] | r <- transformedCandidates, size(transformedCandidates[r]) > 1);
 	
 	if (numberOfBiggestCloneClass >= 2)
 	{	

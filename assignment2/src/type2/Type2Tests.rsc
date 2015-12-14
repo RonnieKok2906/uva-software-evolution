@@ -445,7 +445,6 @@ test bool testThatAPartOfNestedCodeIsRecognizedAsClone()
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
-	println("CM:<size(cloneModel)><cloneModel>");
 	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;

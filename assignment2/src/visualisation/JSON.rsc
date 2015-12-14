@@ -150,12 +150,6 @@ private void jsonForCompilationUnits(str projectName, CloneType cloneType, set[C
 
 public void jsonForCodeClones(str projectName, CloneType cloneType, CompilationUnit compilationUnit, list[Clone] cloneFragments, CloneModel cloneModel, CodeLineModel codeLineModel, int indentationLevel)
 {
-	if (size(cloneFragments) == 2067)
-	{
-		println("2067:<cloneFragments>");
-		println("2067");
-	}
-
 	str indents = ("" | it + "  " | i <- [0..indentationLevel]);
 
 	str result = "";

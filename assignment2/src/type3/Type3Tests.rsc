@@ -494,8 +494,6 @@ test bool testThatIfBlockAroundStatementIsRecognized()
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
 	
-	println("cM:<size(cloneModel)>:");
-	
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
 }
@@ -522,8 +520,6 @@ test bool testThatInterfaceUsedMethodIsChanged()
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
-
-	println("cM:<size(cloneModel)>:");
 		
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -551,8 +547,6 @@ test bool testThatRemovedLineIsRecognized()
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
-
-	println("cM:<size(cloneModel)>:");
 		
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;
@@ -580,8 +574,6 @@ test bool testThatInterfaceUsedMethodIsChanged2()
 	
 	//Act
 	CloneModel cloneModel = clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config);
-
-	println("cM:<size(cloneModel)>:");
 		
 	//Assert
 	return size(cloneModel) == 1 && size(cloneModel[1]) == 2;

@@ -92,7 +92,7 @@ public void detectClones(loc project)
 	println("Building cloneModelType3..");
 	Config config3 = type3::Config::defaultConfiguration;
 	config3.minimumNumberOfLines = numberOfMinumumLines;
-	CloneModel cloneModelType3 = type3::Type3::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config3);
+	CloneModel cloneModelType3 = type3::Type3::clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, subblocks, codeLineModel, config3);
 	
 	println("Building visualisation Type3..");
 	createVisualisation(project.authority, packageModel, codeLineModel, cloneModelType3, type3(), config3);

@@ -41,7 +41,7 @@ public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] norm
 
 	map[int, list[list[CodeLine]]] cloneCandidates = subsumeCandidates(duplicatedSubtrees, subblocks, codeLineModel, config);
 	
-	println("creating cloneModel..");
+	println("creating cloneModel type-2..");
 	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates);
 
 	return cloneModel;

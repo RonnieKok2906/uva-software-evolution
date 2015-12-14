@@ -43,11 +43,9 @@ public map[int, list[list[CodeLine]]] subsumeCandidates(map[node, set[loc]] cand
 			transformedCandidates = transformedCandidates - candidatesWithEqualCloneClassSize;
 			transformedCandidates = transformedCandidates + subsumedCandidates;
 			
-			println("subsumption to go:<numberOfBiggestCloneClass - i>");
+			println("subsumptions to go:<numberOfBiggestCloneClass - i>");
 		}
 	}
-
-	transformedCandidates = removeTooSmallItems(transformedCandidates, config);
 
 	return transformedCandidates;
 }

@@ -65,12 +65,19 @@ public void detectClones(loc project)
 	println("Building AST model for project...");
 	set[Declaration] declarations = createAstsFromEclipseProject(project, false);
 	
+	Config normalizationConfig = normalization::Config::defaultConfiguration;
+	normalizationConfig.filterSmallerThanBlocks = false;
+	
 	println("Extracting normalized subtrees..");
-	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees(declarations, normalization::Config::defaultConfiguration);
+	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees(declarations, normalizationConfig);
 	
 	println("Extracting normalized subblocks..");
-	map[int, list[list[CodeLine]]] subblocks = findSubblocks(declarations, normalization::Config::defaultConfiguration, codeLineModel);
+	map[int, list[list[CodeLine]]] subblocks = ();
 	
+	if (normalizationConfig.filterSmallerThanBlocks)
+	{
+		 subblocks = findSubblocks(declarations, normalizationConfig, codeLineModel);
+	}
 	
 	//Type 2
 	println("Building cloneModelType2...");

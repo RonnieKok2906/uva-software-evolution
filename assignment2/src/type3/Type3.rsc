@@ -14,8 +14,10 @@ import typeUtil::CloneModelFactory;
 import normalization::Normalization;
 import normalization::Config;
 
+
 import type3::Config;
-import type3::Subsumption;
+import type2::Subsumption;
+//import type3::Subsumption;
 
 public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations)
 {
@@ -24,17 +26,18 @@ public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] 
 
 public CloneModel clonesInProject(CodeLineModel codeLineModel, set[Declaration] declarations, Config normalizationConfig, Config config)
 {
-	map[node, set[loc]] normalizedSubtrees = findAllRelevantNormalizedSubtrees(declarations, normalizationConfig);
+	map[node, set[loc]] subtrees = findAllRelevantNormalizedSubtrees(declarations, normalizationConfig);
+	map[int, list[list[CodeLine]]] subblocks = findSubblocks(declarations, normalizationConfig, codeLineModel);
 
-	return clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, config);
+	return clonesInProjectFromNormalizedSubtrees(subtrees, subblocks, codeLineModel, config);
 }
 
-public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, CodeLineModel codeLineModel)
+public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, map[int, list[list[CodeLine]]] subblocks, CodeLineModel codeLineModel)
 {
-	return clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, type3::Config::defaultConfiguration);
+	return clonesInProjectFromNormalizedSubtrees(normalizedSubtrees, codeLineModel, subblocks, type3::Config::defaultConfiguration);
 }
 
-public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, CodeLineModel codeLineModel, Config config)
+public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] normalizedSubtrees, map[int, list[list[CodeLine]]] subblocks, CodeLineModel codeLineModel, Config config)
 {
 	map[node, set[node]] cutSubtrees = (n:generateNodesWithNRemovedStatements(config, n, codeLineModel) | n <- normalizedSubtrees);
 	
@@ -42,11 +45,19 @@ public CloneModel clonesInProjectFromNormalizedSubtrees(map[node, set[loc]] norm
 
 	normalizedSubtrees = (k : m | k <- normalizedSubtrees, m := normalizedSubtrees[k], size(m) > 1);
 	
-	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, normalizedSubtrees, codeLineModel);
-
-	cloneCandidates = subsumeCandidatesWhenPossibleType(cloneCandidates, cutSubtrees);
-
-	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates, codeLineModel);
+	
+	map[int, list[list[CodeLine]]] cloneCandidates = subsumeCandidates(normalizedSubtrees, subblocks, codeLineModel, config);
+	
+	println("creating cloneModel type-3..");
+	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates);
+	
+	
+	
+//	cloneCandidates = filterAllPossibleSubtreeCandidatesOfNLinesOrMore(config.minimumNumberOfLines, normalizedSubtrees, codeLineModel);
+//
+//	cloneCandidates = subsumeCandidatesWhenPossibleType(cloneCandidates, cutSubtrees);
+//
+//	CloneModel cloneModel = createCloneModelFromCandidates(cloneCandidates, codeLineModel);
 	
 	return cloneModel;
 }

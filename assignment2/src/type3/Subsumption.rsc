@@ -7,7 +7,7 @@ import typeUtil::TypeUtil;
 public map[node, set[loc]] subsumeCandidatesWhenPossibleType(map[node, set[loc]] candidates, map[node, set[node]] cutSubtrees)
 {
 	map[node, set[loc]] returnMap = ();
-	
+	println("Sorting..");
 	list[node] sortedNodeList = sort(domain(candidates), bool(node a, node b){ return size(subtreesFromNode(a)) < size(subtreesFromNode(b)); });
 
 	for (n <- sortedNodeList)
